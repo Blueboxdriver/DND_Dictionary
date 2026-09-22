@@ -29,6 +29,22 @@ BOOKS = {
     "RHW": "Ravenloft: The Horrors Within",
     "AU": "Arcana Unleashed",
 }
+# Source codes are the upstream identities verified against data/books.json.
+# This table assigns rule generation explicitly; publication dates and titles
+# do not determine edition.
+SOURCE_EDITIONS = {
+    "PHB": "2014",
+    "DMG": "2014",
+    "MM": "2014",
+    "XPHB": "2024",
+    "XDMG": "2024",
+    "XMM": "2024",
+    "FRHoF": "2024",
+    "FRAiF": "2024",
+    "EFA": "2024",
+    "RHW": "2024",
+    "AU": "2024",
+}
 ABILITIES = dict(
     zip(
         ("str", "dex", "con", "int", "wis", "cha"),
@@ -79,6 +95,25 @@ OUT_OF_SCOPE_ITEM_TYPES = {"AIR", "SHP", "VEH", "MNT"}
 # These two XPHB foci still use a pre-migration sourceless property UID.
 # Explicit, reviewed repairs; never globally reinterpret legacy property sources.
 PROPERTY_OVERRIDES = {("staff|xphb", "V"): "V|XPHB", ("wooden staff|xphb", "V"): "V|XPHB"}
+
+
+def source_editions(codes):
+    """Return explicit edition assignments and deterministic unmapped warnings."""
+
+    editions = {}
+    warnings = []
+    for code in sorted(codes):
+        edition = SOURCE_EDITIONS.get(code)
+        if edition is None:
+            warnings.append(
+                {
+                    "source_code": code,
+                    "message": "No edition mapping; source edition left unset.",
+                }
+            )
+        else:
+            editions[code] = edition
+    return editions, warnings
 
 
 def canonical(value):
@@ -169,6 +204,7 @@ class Snapshot:
             book = self.books[code]
             if book["name"] != title or book.get("author") != "Wizards RPG Team":
                 raise ValueError(f"Source definition changed: review {code}")
+        self.source_editions, self.edition_warnings = source_editions(BOOKS)
         paths = [
             "data/items.json",
             "data/items-base.json",
@@ -1246,7 +1282,7 @@ def build(root, revision):
             {
                 "key": code,
                 "title": BOOKS[code],
-                "edition": "2024 rules",
+                "edition": snapshot.source_editions.get(code),
                 "citation": f"{BOOKS[code]}, Wizards of the Coast, "
                 f"{snapshot.books[code]['published']}",
             }
@@ -1349,6 +1385,7 @@ def artifacts(pack, snapshot, revision):
         "upstream_files": snapshot.hashes,
         "counts": counts,
         "excluded_counts": dict(Counter(r["reason"] for r in snapshot.excluded)),
+        "edition_warnings": snapshot.edition_warnings,
         "output_sha256": {k: hashlib.sha256(v).hexdigest() for k, v in sorted(files.items())},
     }
     files["inventory/reconciliation.json"] = json_bytes(report)

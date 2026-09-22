@@ -7,20 +7,30 @@ from dataclasses import replace
 from pathlib import Path
 
 import pytest
+from textual.widgets import Label, ListView, Static
 
-from dndref.config import Config, UIConfig
+from dndref.config import Config, ContentConfig, FilterPreset, UIConfig
 from dndref.importer import import_dataset, load_dataset
 from dndref.search import (
+    EditionOption,
     EntrySummary,
+    GroupedEntrySummary,
     SearchCategory,
     SearchPage,
     SearchQuery,
+    SourceIdentity,
     get_entry_detail,
 )
 from dndref.storage.database import Database
 from dndref.ui.app import BrowserApp, render_detail
 from dndref.ui.class_detail import progression_table
-from dndref.ui.screens import AboutScreen, HelpScreen
+from dndref.ui.screens import (
+    AboutScreen,
+    ChoiceScreen,
+    FilterScreen,
+    HelpScreen,
+    SourceBrowserScreen,
+)
 
 FIXTURE = Path("tests/fixtures/dataset")
 
@@ -40,8 +50,42 @@ def dual_fixture_database(tmp_path: Path) -> Database:
     second_manifest = json.loads((second / "manifest.json").read_text(encoding="utf-8"))
     first_manifest.update(dataset_id="srd-5-2-1", title="SRD Test Pack")
     second_manifest.update(dataset_id="official-5etools-2024", title="Official Test Pack")
+    first_manifest["sources"][0].update(
+        title="System Reference Document 5.2.1", edition="2024"
+    )
+    second_manifest["sources"][0].update(title="Player's Handbook (2024)", edition="2024")
     (first / "manifest.json").write_text(json.dumps(first_manifest), encoding="utf-8")
     (second / "manifest.json").write_text(json.dumps(second_manifest), encoding="utf-8")
+    database = Database(tmp_path / "data" / "dndref.sqlite3")
+    import_dataset(database, load_dataset(first))
+    import_dataset(database, load_dataset(second))
+    return database
+
+
+def differing_variant_database(tmp_path: Path) -> Database:
+    database = dual_fixture_database(tmp_path)
+    with database.connection() as connection:
+        connection.execute(
+            "UPDATE entries SET description = 'Different SRD mechanics' "
+            "WHERE dataset_id = 'srd-5-2-1' AND local_key = 'spell/spark'"
+        )
+        connection.commit()
+    return database
+
+
+def edition_fixture_database(tmp_path: Path) -> Database:
+    first = tmp_path / "edition-2014"
+    second = tmp_path / "edition-2024"
+    shutil.copytree(FIXTURE, first)
+    shutil.copytree(FIXTURE, second)
+    for path, dataset_id, edition in (
+        (first, "pack-2014", "2014"),
+        (second, "pack-2024", "2024"),
+    ):
+        manifest = json.loads((path / "manifest.json").read_text(encoding="utf-8"))
+        manifest.update(dataset_id=dataset_id)
+        manifest["sources"][0].update(title=f"Test Book {edition}", edition=edition)
+        (path / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
     database = Database(tmp_path / "data" / "dndref.sqlite3")
     import_dataset(database, load_dataset(first))
     import_dataset(database, load_dataset(second))
@@ -215,6 +259,439 @@ async def test_search_modes_and_shortcuts_are_isolated_from_input(tmp_path: Path
 
 
 @pytest.mark.asyncio
+async def test_filter_shortcuts_are_isolated_from_search_input(tmp_path: Path) -> None:
+    async with BrowserApp(populated_database(tmp_path)).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.3)
+        await pilot.press("ctrl+f")
+        await pilot.press("e", "s")
+        assert pilot.app.state.query.endswith("es")
+        assert not isinstance(pilot.app.screen, FilterScreen)
+        await pilot.press("escape")
+        await pilot.press("e")
+        assert isinstance(pilot.app.screen, FilterScreen)
+        await pilot.press("escape")
+        await pilot.press("s")
+        assert isinstance(pilot.app.screen, FilterScreen)
+        await pilot.press("escape")
+
+
+@pytest.mark.asyncio
+async def test_edition_filter_is_discovered_applied_and_cancellable(tmp_path: Path) -> None:
+    async with BrowserApp(edition_fixture_database(tmp_path)).run_test(
+        size=(80, 24)
+    ) as pilot:
+        await pilot.pause(0.35)
+        await pilot.press("e")
+        screen = pilot.app.screen
+        assert isinstance(screen, FilterScreen)
+        assert [option.value for option in screen.options] == ["2014", "2024"]
+        await pilot.press("down", "space", "escape")
+        await pilot.pause(0.15)
+        assert pilot.app.state.editions == ("2024",)
+
+        await pilot.press("e", "enter")
+        await pilot.pause(0.3)
+        assert pilot.app.state.editions == ("2024",)
+        assert pilot.app.state.query == ""
+        assert pilot.app.query_one("#edition-status").renderable == "Edition: 2024 / 5.5e"
+        assert pilot.app.state.total_count == 2
+        assert {row.source_edition for row in pilot.app.state.results} == {"2024"}
+
+        await pilot.press("e", "home", "space", "enter")
+        await pilot.pause(0.2)
+        assert pilot.app.state.editions == ()
+        assert pilot.app.state.total_count == 2
+
+
+@pytest.mark.asyncio
+async def test_filter_selectors_support_multiple_and_all_clears(tmp_path: Path) -> None:
+    async with BrowserApp(edition_fixture_database(tmp_path)).run_test(
+        size=(80, 24)
+    ) as pilot:
+        await pilot.pause(0.3)
+        await pilot.press("e", "home", "down", "space", "enter")
+        await pilot.pause(0.2)
+        assert set(pilot.app.state.editions) == {"2014", "2024"}
+        assert pilot.app.state.total_count == 2
+        await pilot.press("e", "home", "space", "enter")
+        await pilot.pause(0.2)
+        assert pilot.app.state.editions == ()
+
+        await pilot.press("s", "down", "space", "down", "space", "enter")
+        await pilot.pause(0.2)
+        assert set(pilot.app.state.sources) == {
+            SourceIdentity("pack-2014", "example-core"),
+            SourceIdentity("pack-2024", "example-core"),
+        }
+        await pilot.press("s", "up", "up", "space", "enter")
+        await pilot.pause(0.2)
+        assert pilot.app.state.sources == ()
+
+
+@pytest.mark.asyncio
+async def test_source_filter_uses_stable_ids_and_edition_reconciles_sources(
+    tmp_path: Path,
+) -> None:
+    async with BrowserApp(edition_fixture_database(tmp_path)).run_test(
+        size=(80, 24)
+    ) as pilot:
+        await pilot.pause(0.35)
+        await pilot.press("e", "home", "space", "enter")
+        await pilot.pause(0.15)
+        await pilot.press("s")
+        screen = pilot.app.screen
+        assert isinstance(screen, FilterScreen)
+        assert {option.identity for option in screen.options} == {
+            SourceIdentity("pack-2014", "example-core"),
+            SourceIdentity("pack-2024", "example-core"),
+        }
+        # Select the 2014 source by its discovered identity.
+        index = next(
+            index for index, option in enumerate(screen.options, start=1)
+            if option.identity == SourceIdentity("pack-2014", "example-core")
+        )
+        await pilot.press(*(["down"] * index), "space", "enter")
+        await pilot.pause(0.2)
+        assert pilot.app.state.sources == (SourceIdentity("pack-2014", "example-core"),)
+        assert pilot.app.state.total_count == 2
+
+        await pilot.press("s", "down", "space", "escape")
+        assert pilot.app.state.sources == (SourceIdentity("pack-2014", "example-core"),)
+
+        # Changing edition drops the now unavailable source.
+        await pilot.press("e", "down", "down", "space", "enter")
+        await pilot.pause(0.2)
+        assert pilot.app.state.editions == ("2024",)
+        assert pilot.app.state.sources == ()
+        assert pilot.app.state.total_count == 2
+        await pilot.press("s")
+        assert {option.identity for option in pilot.app.screen.options} == {
+            SourceIdentity("pack-2024", "example-core")
+        }
+        await pilot.press("escape")
+
+
+@pytest.mark.asyncio
+async def test_filter_state_is_per_category_and_visible_in_narrow_layout(tmp_path: Path) -> None:
+    async with BrowserApp(edition_fixture_database(tmp_path)).run_test(
+        size=(60, 20)
+    ) as pilot:
+        await pilot.pause(0.3)
+        await pilot.press("e", "enter")
+        await pilot.pause(0.2)
+        assert pilot.app.query_one("#edition-status").renderable == "Ed: 2024 / 5.5e"
+        await pilot.press("s", "down", "space", "enter")
+        await pilot.pause(0.15)
+        assert pilot.app.state.sources == (SourceIdentity("pack-2024", "example-core"),)
+        await pilot.press("1")
+        await pilot.pause(0.15)
+        assert pilot.app.state.editions == ("2024",)
+        await pilot.press("e", "home", "space", "enter")
+        await pilot.pause(0.1)
+        await pilot.press("s", "down", "space", "enter")
+        await pilot.pause(0.15)
+        assert pilot.app.state.sources == (SourceIdentity("pack-2014", "example-core"),)
+        await pilot.press("2")
+        await pilot.pause(0.15)
+        assert pilot.app.state.editions == ("2024",)
+        assert pilot.app.state.sources == (SourceIdentity("pack-2024", "example-core"),)
+        await pilot.press("s")
+        assert isinstance(pilot.app.screen, FilterScreen)
+        assert pilot.app.screen.query_one("#filter-card").size.width <= 60
+        assert pilot.app.screen.query_one("#filter-options") is not None
+        await pilot.press("f2")
+        assert pilot.app.mode.value == "names"
+        await pilot.press("escape")
+
+
+@pytest.mark.asyncio
+async def test_configured_editions_reconcile_per_category_and_session_changes_stick(
+    tmp_path: Path,
+) -> None:
+    app = BrowserApp(
+        edition_fixture_database(tmp_path),
+        config=Config(content=ContentConfig(default_editions=("2014", "2024"))),
+    )
+    editions_by_category = {
+        SearchCategory.SPELLS: (EditionOption("2024", "2024 / 5.5e"),),
+        SearchCategory.ITEMS: (EditionOption("2014", "2014 / 5e"),),
+        SearchCategory.FEATS: (),
+        SearchCategory.CLASSES: (
+            EditionOption("2014", "2014 / 5e"),
+            EditionOption("2024", "2024 / 5.5e"),
+        ),
+    }
+    app.search_service.list_available_editions = lambda category=None: editions_by_category[
+        category
+    ]  # type: ignore[method-assign]
+
+    async with app.run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.25)
+        assert pilot.app.state.editions == ("2024",)
+        await pilot.press("1")
+        await pilot.pause(0.1)
+        assert pilot.app.state.editions == ("2014",)
+        await pilot.press("3")
+        await pilot.pause(0.1)
+        assert pilot.app.state.editions == ()
+        await pilot.press("4")
+        await pilot.pause(0.1)
+        assert pilot.app.state.editions == ("2014", "2024")
+
+
+@pytest.mark.asyncio
+async def test_unavailable_configured_editions_fall_back_to_all(tmp_path: Path) -> None:
+    app = BrowserApp(
+        edition_fixture_database(tmp_path),
+        config=Config(content=ContentConfig(default_editions=("banana",))),
+    )
+    async with app.run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.25)
+        assert pilot.app.state.editions == ()
+        assert pilot.app.state.sources == ()
+        assert pilot.app.query_one("#edition-status").renderable == "Edition: All Editions"
+
+
+@pytest.mark.asyncio
+async def test_configured_default_is_initial_only_and_source_is_not_persisted(
+    tmp_path: Path,
+) -> None:
+    app = BrowserApp(
+        edition_fixture_database(tmp_path),
+        config=Config(content=ContentConfig(default_editions=("2024",))),
+    )
+    async with app.run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.25)
+        assert pilot.app.state.editions == ("2024",)
+        assert pilot.app.state.sources == ()
+        await pilot.press("e", "home", "space", "enter")
+        await pilot.pause(0.1)
+        assert pilot.app.state.editions == ()
+        await pilot.press("1", "2")
+        await pilot.pause(0.1)
+        assert pilot.app.state.editions == ()
+        assert pilot.app.state.sources == ()
+        await pilot.pause(0.25)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("size", [(140, 40), (100, 30), (80, 24), (60, 20)])
+async def test_duplicate_result_rows_show_compact_source_provenance(
+    tmp_path: Path, size: tuple[int, int]
+) -> None:
+    async with BrowserApp(dual_fixture_database(tmp_path)).run_test(size=size) as pilot:
+        await pilot.pause(0.35)
+        rows = pilot.app.query_one("#result-list", ListView).children
+        matching = [row for row in rows if getattr(row, "summary", None)]
+        labels = {
+            str(row.query_one(".result-source", Label).renderable) for row in matching
+        }
+        assert any("Player's Handbook 2024" in label for label in labels)
+        assert all("+1 source" in label for label in labels)
+        assert all("Test Pack" not in label and "official-5etools" not in label for label in labels)
+
+
+def test_duplicate_sources_remain_filterable_without_collapsing(tmp_path: Path) -> None:
+    app = BrowserApp(dual_fixture_database(tmp_path))
+    both = app.search_service.search(
+        SearchQuery(SearchCategory.SPELLS, "Spark", editions=("2024",))
+    )
+    assert len(both.results) == 2
+    assert {row.source_identity for row in both.results} == {
+        SourceIdentity("srd-5-2-1", "example-core"),
+        SourceIdentity("official-5etools-2024", "example-core"),
+    }
+
+    for source in both.results:
+        one = app.search_service.search(
+            SearchQuery(
+                SearchCategory.SPELLS,
+                "Spark",
+                editions=("2024",),
+                sources=(source.source_identity,),
+            )
+        )
+        assert len(one.results) == 1
+        assert one.results[0].source_identity == source.source_identity
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("key", ["e", "s"])
+async def test_filter_marker_tracks_highlight_separately_from_check(
+    tmp_path: Path, key: str
+) -> None:
+    async with BrowserApp(edition_fixture_database(tmp_path)).run_test(size=(60, 20)) as pilot:
+        await pilot.pause(0.3)
+        await pilot.press(key)
+        screen = pilot.app.screen
+        assert isinstance(screen, FilterScreen)
+        await pilot.press("home")
+        rows = screen.query_one("#filter-options", ListView).children
+        assert str(rows[0].query_one(Label).renderable).startswith("> [")
+        await pilot.press("down")
+        assert str(rows[1].query_one(Label).renderable).startswith("> [ ]")
+        assert not str(rows[0].query_one(Label).renderable).startswith(">")
+        await pilot.press("space")
+        assert str(rows[1].query_one(Label).renderable).startswith("> [x]")
+        await pilot.press("k")
+        assert str(rows[0].query_one(Label).renderable).startswith("> [ ]")
+        await pilot.press("escape")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("size", [(80, 24), (60, 20)])
+async def test_group_variant_switch_and_raw_toggle_keep_filters(
+    tmp_path: Path, size: tuple[int, int]
+) -> None:
+    config = Config(
+        content=ContentConfig(
+            preferred_sources=(SourceIdentity("official-5etools-2024", "example-core"),)
+        )
+    )
+    async with BrowserApp(differing_variant_database(tmp_path), config=config).run_test(
+        size=size
+    ) as pilot:
+        await pilot.pause(0.35)
+        await pilot.press("ctrl+f", "s", "p", "a", "r", "k", "escape")
+        await pilot.pause(0.25)
+        group = pilot.app.state.results[0]
+        assert isinstance(group, GroupedEntrySummary)
+        assert group.primary.source_identity.dataset_id == "official-5etools-2024"
+        assert len(group.alternates) == 1
+        assert pilot.app._current_detail.description != "Different SRD mechanics"
+        saved = (pilot.app.state.query, pilot.app.state.editions, pilot.app.state.sources)
+        await pilot.press("v")
+        screen = pilot.app.screen
+        assert isinstance(screen, ChoiceScreen)
+        rows = screen.query_one("#choice-list", ListView).children
+        assert str(rows[0].query_one(Label).renderable).startswith(">")
+        await pilot.press("down", "escape")
+        assert pilot.app._current_detail.description != "Different SRD mechanics"
+        await pilot.press("v")
+        await pilot.press("down")
+        choice_rows = pilot.app.screen.query_one("#choice-list", ListView).children
+        assert str(choice_rows[1].query_one(Label).renderable).startswith(">")
+        await pilot.press("enter")
+        await pilot.pause(0.2)
+        assert pilot.app._current_detail.description == "Different SRD mechanics"
+        assert (pilot.app.state.query, pilot.app.state.editions, pilot.app.state.sources) == saved
+        await pilot.press("g")
+        await pilot.pause(0.25)
+        assert pilot.app.state.total_count == 2
+        assert all(isinstance(row, EntrySummary) for row in pilot.app.state.results)
+        assert pilot.app.state.selected_id == "srd-5-2-1:spell/spark"
+        await pilot.press("g")
+        await pilot.pause(0.25)
+        assert pilot.app.state.total_count == 1
+
+
+@pytest.mark.asyncio
+async def test_presets_reconcile_sources_and_remain_editable(tmp_path: Path) -> None:
+    phb = SourceIdentity("pack-2024", "example-core")
+    missing = SourceIdentity("missing", "source")
+    config = Config(
+        content=ContentConfig(
+            default_editions=(),
+            filter_presets=(FilterPreset("2024 Core", ("2024",), (phb, missing)),),
+        )
+    )
+    async with BrowserApp(edition_fixture_database(tmp_path), config=config).run_test(
+        size=(60, 20)
+    ) as pilot:
+        await pilot.pause(0.3)
+        await pilot.press("p")
+        screen = pilot.app.screen
+        assert isinstance(screen, ChoiceScreen)
+        assert "2024 Core" in screen.labels
+        await pilot.press("end")
+        screen.query_one("#choice-list", ListView).index = len(screen.labels) - 1
+        await pilot.press("enter")
+        await pilot.pause(0.2)
+        assert pilot.app.state.editions == ("2024",)
+        assert pilot.app.state.sources == (phb,)
+        assert pilot.app.state.total_count == 2
+        await pilot.press("s", "home", "space", "enter")
+        await pilot.pause(0.2)
+        assert pilot.app.state.sources == ()
+        await pilot.press("p", "enter")
+        await pilot.pause(0.2)
+        assert pilot.app.state.editions == ("2024",)
+        assert pilot.app.state.sources == ()
+
+
+@pytest.mark.asyncio
+async def test_source_browser_counts_and_opens_normal_filtered_browser(tmp_path: Path) -> None:
+    async with BrowserApp(edition_fixture_database(tmp_path)).run_test(size=(60, 20)) as pilot:
+        await pilot.pause(0.3)
+        await pilot.press("b")
+        screen = pilot.app.screen
+        assert isinstance(screen, SourceBrowserScreen)
+        assert len(screen.sources) == 2
+        assert [source.source.edition for source in screen.sources] == ["2014", "2024"]
+        assert screen.sources[0].counts[SearchCategory.SPELLS] == 2
+        assert "2014 / 5e" in str(screen.query_one("#source-detail", Static).renderable)
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        assert screen.stage == "categories"
+        categories = tuple(screen.sources[0].counts)
+        screen.query_one("#source-browser-list", ListView).index = categories.index(
+            SearchCategory.SPELLS
+        )
+        await pilot.press("enter")
+        await pilot.pause(0.25)
+        assert pilot.app.category is SearchCategory.SPELLS
+        assert pilot.app.state.sources == (SourceIdentity("pack-2014", "example-core"),)
+        assert pilot.app.state.total_count == 2
+
+
+@pytest.mark.asyncio
+async def test_new_printable_shortcuts_are_inert_in_search(tmp_path: Path) -> None:
+    async with BrowserApp(populated_database(tmp_path)).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.25)
+        await pilot.press("ctrl+f", "p", "g", "v", "b")
+        assert pilot.app.state.query == "pgvb"
+        assert pilot.app.group_alternate_sources is True
+        assert not isinstance(pilot.app.screen, (ChoiceScreen, SourceBrowserScreen))
+
+
+@pytest.mark.asyncio
+async def test_filter_change_uses_existing_stale_request_protection(tmp_path: Path) -> None:
+    database = edition_fixture_database(tmp_path)
+    app = BrowserApp(
+        database,
+        config=Config(content=ContentConfig(default_editions=(), group_alternate_sources=False)),
+    )
+
+    def delayed_search(query: SearchQuery) -> SearchPage:
+        if not query.editions:
+            time.sleep(0.6)
+        result = EntrySummary(
+            stable_id="test:filtered" if query.editions else "test:unfiltered",
+            category=query.category,
+            name="Filtered" if query.editions else "Unfiltered",
+            subtitle="test",
+            source_label="test",
+            dataset_id="test",
+            local_key="filtered" if query.editions else "unfiltered",
+            dataset_title="test",
+            source_identity=SourceIdentity("test", "test"),
+            source_edition=query.editions[0] if query.editions else None,
+        )
+        return SearchPage((result,), 1, 0, 50, query.request_id)
+
+    app.search_service.search = delayed_search  # type: ignore[method-assign]
+    async with app.run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.13)
+        await pilot.press("e")
+        assert isinstance(app.screen, FilterScreen)
+        await pilot.pause(0.2)
+        await pilot.press("down", "down", "space", "enter")
+        await pilot.pause(0.5)
+        assert app.state.editions == ("2024",)
+        assert [result.name for result in app.state.results] == ["Filtered"]
+
+
+@pytest.mark.asyncio
 async def test_result_navigation_detail_and_help(tmp_path: Path) -> None:
     database = populated_database(tmp_path)
 
@@ -230,6 +707,8 @@ async def test_result_navigation_detail_and_help(tmp_path: Path) -> None:
         await pilot.press("?")
         await pilot.pause()
         assert isinstance(pilot.app.screen, HelpScreen)
+        assert "`e` Edition filter" in HelpScreen.KEYBOARD_HELP
+        assert "`s` Source filter" in HelpScreen.KEYBOARD_HELP
         await pilot.press("escape")
         assert not isinstance(pilot.app.screen, HelpScreen)
 
@@ -306,9 +785,29 @@ async def test_empty_database_and_tiny_terminal_are_readable(tmp_path: Path) -> 
 
 
 @pytest.mark.asyncio
+async def test_empty_discovery_filters_remain_usable(tmp_path: Path) -> None:
+    database = Database(tmp_path / "data" / "dndref.sqlite3")
+    database.initialize()
+    async with BrowserApp(database).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.2)
+        await pilot.press("e")
+        screen = pilot.app.screen
+        assert isinstance(screen, FilterScreen)
+        assert screen.options == ()
+        assert any(
+            "No editions available" in str(widget.renderable)
+            for widget in screen.query(Static)
+        )
+        await pilot.press("escape", "s")
+        assert isinstance(pilot.app.screen, FilterScreen)
+        assert pilot.app.screen.options == ()
+        await pilot.press("escape")
+
+
+@pytest.mark.asyncio
 async def test_stale_search_completion_cannot_replace_newer_results(tmp_path: Path) -> None:
     database = populated_database(tmp_path)
-    app = BrowserApp(database)
+    app = BrowserApp(database, config=Config(content=ContentConfig(group_alternate_sources=False)))
 
     def delayed_search(query: SearchQuery) -> SearchPage:
         if query.text == "old":
@@ -322,6 +821,8 @@ async def test_stale_search_completion_cannot_replace_newer_results(tmp_path: Pa
             dataset_id="test",
             local_key=query.text or "empty",
             dataset_title="test",
+            source_identity=SourceIdentity("test", "test"),
+            source_edition=None,
         )
         return SearchPage((result,), 1, 0, 50, query.request_id)
 

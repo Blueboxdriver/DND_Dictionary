@@ -11,6 +11,7 @@ import pytest
 from dndref.app import FoundationApp
 from dndref.cli import initialize_application
 from dndref.config import ApplicationPaths, ConfigurationError, load_config
+from dndref.search import SourceIdentity
 from dndref.storage.database import Database, MigrationError
 
 
@@ -41,16 +42,98 @@ def test_missing_config_uses_defaults(tmp_path: Path) -> None:
     config = load_config(ApplicationPaths.for_root(tmp_path))
 
     assert config.ui.images == "auto"
+    assert config.content.default_editions == ("2024",)
+    assert config.content.group_alternate_sources is True
+
+
+def test_grouping_preference_and_custom_preset_config(tmp_path: Path) -> None:
+    paths = ApplicationPaths.for_root(tmp_path)
+    paths.config_dir.mkdir(parents=True)
+    paths.config_file.write_text(
+        '[content]\n'
+        'group_alternate_sources = false\n'
+        'preferred_sources = ["phb:book", "missing:source"]\n'
+        '[[content.filter_presets]]\n'
+        'name = "2024 Core"\n'
+        'editions = ["2024"]\n'
+        'sources = ["phb:book"]\n'
+        '[[content.filter_presets]]\n'
+        'name = "Everything 2024"\n'
+        'editions = ["2024"]\n'
+        'sources = []\n',
+        encoding="utf-8",
+    )
+    config = load_config(paths).content
+    assert config.group_alternate_sources is False
+    assert config.preferred_sources == (
+        SourceIdentity("phb", "book"), SourceIdentity("missing", "source")
+    )
+    assert config.filter_presets[0].sources == (SourceIdentity("phb", "book"),)
+    assert config.filter_presets[1].sources == ()
+
+
+@pytest.mark.parametrize(
+    "setting",
+    [
+        'preferred_sources = ["title only"]',
+        'group_alternate_sources = "yes"',
+        '[[content.filter_presets]]\nname = "Broken"\nsources = ["bad"]',
+    ],
+)
+def test_invalid_grouping_config_follows_config_errors(tmp_path: Path, setting: str) -> None:
+    paths = ApplicationPaths.for_root(tmp_path)
+    paths.config_dir.mkdir(parents=True)
+    paths.config_file.write_text(f"[content]\n{setting}\n", encoding="utf-8")
+    with pytest.raises(ConfigurationError):
+        load_config(paths)
 
 
 def test_valid_config_overrides_defaults(tmp_path: Path) -> None:
     paths = ApplicationPaths.for_root(tmp_path)
     paths.config_dir.mkdir(parents=True)
-    paths.config_file.write_text('[ui]\nimages = "off"\n', encoding="utf-8")
+    paths.config_file.write_text(
+        '[ui]\nimages = "off"\n[content]\ndefault_editions = ["2014", "2024"]\n',
+        encoding="utf-8",
+    )
 
     config = load_config(paths)
 
     assert config.ui.images == "off"
+    assert config.content.default_editions == ("2014", "2024")
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [
+        ('["2014"]', ("2014",)),
+        ('[]', ()),
+        ('["2030-homebrew"]', ("2030-homebrew",)),
+    ],
+)
+def test_configured_default_editions_are_open_ended_and_may_be_empty(
+    tmp_path: Path, value: str, expected: tuple[str, ...]
+) -> None:
+    paths = ApplicationPaths.for_root(tmp_path)
+    paths.config_dir.mkdir(parents=True)
+    paths.config_file.write_text(
+        f"[content]\ndefault_editions = {value}\n", encoding="utf-8"
+    )
+
+    assert load_config(paths).content.default_editions == expected
+
+
+@pytest.mark.parametrize("value", ['"2024"', '["", "2014"]', '["2014", 2024]'])
+def test_invalid_default_editions_fail_config_validation(
+    tmp_path: Path, value: str
+) -> None:
+    paths = ApplicationPaths.for_root(tmp_path)
+    paths.config_dir.mkdir(parents=True)
+    paths.config_file.write_text(
+        f"[content]\ndefault_editions = {value}\n", encoding="utf-8"
+    )
+
+    with pytest.raises(ConfigurationError, match="content.default_editions"):
+        load_config(paths)
 
 
 def test_malformed_config_fails_clearly(tmp_path: Path) -> None:
@@ -76,9 +159,13 @@ def test_fresh_database_initializes_and_enables_foreign_keys(tmp_path: Path) -> 
 
     applied = database.initialize()
 
-    assert applied == (1, 2, 3)
+    assert applied == (1, 2, 3, 4)
     with database.connection() as connection:
         assert connection.execute("PRAGMA foreign_keys").fetchone()[0] == 1
+        source_columns = {
+            row[1] for row in connection.execute("PRAGMA table_info(sources)").fetchall()
+        }
+        assert "edition" in source_columns
         migrations = connection.execute(
             "SELECT version, name FROM schema_migrations ORDER BY version"
         ).fetchall()
@@ -86,6 +173,7 @@ def test_fresh_database_initializes_and_enables_foreign_keys(tmp_path: Path) -> 
             (1, "initial"),
             (2, "content"),
             (3, "search_fts"),
+            (4, "canonical_source_editions"),
         ]
 
 
@@ -95,7 +183,7 @@ def test_migrations_are_not_applied_twice(tmp_path: Path) -> None:
 
     assert database.initialize() == ()
     with database.connection() as connection:
-        assert connection.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0] == 3
+        assert connection.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0] == 4
 
 
 def test_failed_migration_is_not_recorded(tmp_path: Path) -> None:
@@ -175,7 +263,7 @@ def test_cli_startup_and_shutdown_with_xdg_overrides(tmp_path: Path) -> None:
     database_path = tmp_path / "xdg-data" / "dndref" / "dndref.sqlite3"
     assert database_path.is_file()
     with sqlite3.connect(database_path) as connection:
-        assert connection.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0] == 3
+        assert connection.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0] == 4
 
 
 @pytest.mark.asyncio

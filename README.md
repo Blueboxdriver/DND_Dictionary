@@ -40,6 +40,13 @@ the bundled datasets. To force text-only mode, use:
 .venv/bin/dndref --images off
 ```
 
+The browser defaults to the 2024 / 5.5e edition. Set `[content].default_editions`
+in `config.toml` to change the initial edition selection; source selections are
+session-only and start at All Sources. Same-name entries from different sources
+are grouped by default; each record remains available through `v` Variants or
+by turning grouping off with `g`. See [Milestone 6](docs/milestone-6.md) for
+configuration and filter presets.
+
 The application also provides dataset commands:
 
 ```sh
@@ -53,6 +60,11 @@ The application also provides dataset commands:
 - `/` or `Ctrl+F`: focus search
 - `F2`: switch between name search and full-text search
 - `1`–`4`: switch between items, spells, feats, and classes
+- `e` / `s`: choose editions / sources
+- `p`: apply a filter preset
+- `b`: browse by sourcebook
+- `g`: toggle alternate-source grouping
+- `v`: switch the selected group's source variant
 - Arrow keys or `j`/`k`: move through results
 - `Enter`: open details
 - `Escape`: return to the list

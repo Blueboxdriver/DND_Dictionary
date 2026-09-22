@@ -42,9 +42,14 @@ def terminal(*, tgp: bool = False, sixel: bool = False) -> SimpleNamespace:
 def test_cli_config_precedence_and_invalid_options(tmp_path: Path) -> None:
     paths = ApplicationPaths.for_root(tmp_path)
     paths.config_dir.mkdir(parents=True)
-    paths.config_file.write_text('[ui]\nimages = "kitty"\n', encoding="utf-8")
+    paths.config_file.write_text(
+        '[ui]\nimages = "kitty"\n[content]\ndefault_editions = ["2014"]\n',
+        encoding="utf-8",
+    )
     assert load_config(paths).ui.images == "kitty"
-    assert initialize_application(paths, image_mode="off").ui.images == "off"
+    initialized = initialize_application(paths, image_mode="off")
+    assert initialized.ui.images == "off"
+    assert initialized.content.default_editions == ("2014",)
     assert build_parser().parse_args(["--images", "off"]).images == "off"
     with pytest.raises(SystemExit):
         build_parser().parse_args(["--images", "invalid"])

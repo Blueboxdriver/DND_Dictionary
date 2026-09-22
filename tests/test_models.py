@@ -14,7 +14,9 @@ from dndref.models import (
     Feat,
     Item,
     ItemCatalog,
+    SourceMetadata,
     Spell,
+    display_edition,
     validate_dataset,
 )
 from dndref.models.schema import generate_schemas
@@ -42,6 +44,33 @@ def test_manifest_fixture_and_defaults_validate() -> None:
     assert manifest.schema_version == "1.0"
     assert manifest.language == "en"
     assert manifest.dependencies == []
+
+
+@pytest.mark.parametrize("edition", ["2014", "2024", "2024-revised", "custom"])
+def test_source_edition_is_optional_forward_compatible_and_round_trips(edition: str) -> None:
+    source = SourceMetadata.model_validate(
+        {"key": "book", "title": "A Sourcebook", "edition": edition}
+    )
+
+    assert source.edition == edition
+    assert SourceMetadata.model_validate(source.model_dump(mode="json")) == source
+
+
+def test_source_edition_may_be_missing_but_not_empty() -> None:
+    source = SourceMetadata.model_validate({"key": "book", "title": "A Sourcebook"})
+
+    assert source.edition is None
+    with pytest.raises(ValidationError, match="edition"):
+        SourceMetadata.model_validate(
+            {"key": "book", "title": "A Sourcebook", "edition": "  "}
+        )
+
+
+def test_edition_display_labels_are_centralized() -> None:
+    assert display_edition("2014") == "2014 / 5e"
+    assert display_edition("2024") == "2024 / 5.5e"
+    assert display_edition("custom") == "custom"
+    assert display_edition(None) is None
 
 
 def test_manifest_rejects_unsupported_version_duplicate_source_and_dependency() -> None:
@@ -227,3 +256,6 @@ def test_json_schema_generation_is_deterministic(tmp_path: Path) -> None:
         assert first_path.read_bytes() == second_path.read_bytes()
         schema = json.loads(first_path.read_text(encoding="utf-8"))
         assert "properties" in schema or "$defs" in schema
+    manifest_schema = json.loads((first / "manifest.schema.json").read_text(encoding="utf-8"))
+    source_schema = manifest_schema["$defs"]["SourceMetadata"]["properties"]
+    assert "edition" in source_schema

@@ -19,6 +19,7 @@ from .common import (
     SourceKey,
     SourceMetadata,
     StableReference,
+    display_edition,
     split_reference,
 )
 from .dataset import (
@@ -78,7 +79,7 @@ __all__ = [
     "Subclass",
     "SubclassFeature",
     "WeaponDetails",
+    "display_edition",
     "split_reference",
     "validate_dataset",
 ]
-

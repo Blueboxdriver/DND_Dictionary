@@ -8,10 +8,15 @@ import pytest
 
 from dndref.importer import import_dataset, load_dataset
 from dndref.search import (
+    GroupedEntrySummary,
     SearchCategory,
     SearchMode,
     SearchQuery,
+    SearchService,
+    SourceIdentity,
     get_entry_detail,
+    list_available_editions,
+    list_available_sources,
     normalize_name,
     search,
 )
@@ -43,6 +48,135 @@ def imported_database(tmp_path: Path, *datasets: Path) -> Database:
 
 def names(page) -> list[str]:
     return [result.name for result in page.results]
+
+
+def configure_source(
+    dataset: Path, *, dataset_id: str, key: str, title: str, edition: str | None
+) -> None:
+    manifest = read_json(dataset, "manifest.json")
+    assert isinstance(manifest, dict)
+    old_key = str(manifest["sources"][0]["key"])
+    manifest["dataset_id"] = dataset_id
+    manifest["sources"] = [{"key": key, "title": title, "edition": edition}]
+    write_json(dataset, "manifest.json", manifest)
+
+    def replace_source(value: object) -> object:
+        if isinstance(value, dict):
+            return {
+                name: key if name == "source" and item == old_key else replace_source(item)
+                for name, item in value.items()
+            }
+        if isinstance(value, list):
+            return [replace_source(item) for item in value]
+        return value
+
+    for filename in ("items.json", "spells.json", "feats.json", "classes.json"):
+        write_json(dataset, filename, replace_source(read_json(dataset, filename)))
+
+
+def grouped_fixture_database(tmp_path: Path, *, extra_names: int = 0) -> Database:
+    first = copy_fixture(tmp_path, "phb")
+    second = copy_fixture(tmp_path, "srd")
+    configure_source(first, dataset_id="phb", key="book", title="Player's Handbook", edition="2024")
+    configure_source(second, dataset_id="srd", key="book", title="SRD", edition="2014")
+    for dataset, wording in ((first, "phb wording"), (second, "srd wording")):
+        spells = read_json(dataset, "spells.json")
+        assert isinstance(spells, list)
+        spells[0]["description"] = wording
+        for index in range(extra_names):
+            extra = dict(spells[0])
+            extra.update(local_key=f"spell/extra-{index:02d}", name=f"Extra {index:02d}")
+            spells.append(extra)
+        write_json(dataset, "spells.json", spells)
+    return imported_database(tmp_path, first, second)
+
+
+def test_grouped_search_keeps_matching_variants_and_source_preference(tmp_path: Path) -> None:
+    service = SearchService(grouped_fixture_database(tmp_path))
+    phb = SourceIdentity("phb", "book")
+    srd = SourceIdentity("srd", "book")
+    query = SearchQuery("spells", "Spark", editions=("2024", "2014"))
+    raw = service.search(query)
+    page = service.search_grouped(query, (phb, srd))
+    assert raw.total_count == 2
+    assert page.total_count == 1
+    group = page.results[0]
+    assert isinstance(group, GroupedEntrySummary)
+    assert group.primary.source_identity == phb
+    assert group.alternates[0].source_identity == srd
+    assert group.identity == "group:spells:spark"
+    assert service.get_entry_detail(group.primary.identity).description == "phb wording"
+    assert service.get_entry_detail(group.alternates[0].identity).description == "srd wording"
+    reversed_page = service.search_grouped(query, (srd, phb))
+    assert reversed_page.results[0].primary.source_identity == srd
+    unknown_first = service.search_grouped(query, (SourceIdentity("missing", "source"), phb))
+    assert unknown_first.results[0].primary.source_identity == phb
+    browse = SearchQuery("spells")
+    assert [result.name for result in service.search_grouped(browse).results] == list(
+        dict.fromkeys(result.name for result in service.search(browse).results)
+    )
+    only_srd = service.search_grouped(
+        SearchQuery("spells", "srd wording", SearchMode.ALL_TEXT), (phb, srd)
+    )
+    assert only_srd.total_count == 1
+    assert only_srd.results[0].source_identity == srd
+    phb_only = service.search_grouped(SearchQuery("spells", "Spark", sources=(phb,)))
+    assert phb_only.results[0].source_identity == phb
+    assert (
+        service.search_grouped(SearchQuery("spells", "Spark", editions=("2024",))).total_count
+        == 1
+    )
+
+
+def test_grouped_pagination_pages_groups_not_rows(tmp_path: Path) -> None:
+    service = SearchService(grouped_fixture_database(tmp_path, extra_names=7))
+    raw = service.search(SearchQuery("spells", limit=2))
+    assert raw.total_count == 18
+    pages = [
+        service.search_grouped(SearchQuery("spells", offset=offset, limit=2))
+        for offset in (0, 2, 4, 6, 8)
+    ]
+    assert all(page.total_count == 9 for page in pages)
+    names = [result.name for page in pages for result in page.results]
+    assert names == sorted(names)
+    assert len(names) == len(set(names)) == 9
+    assert [len(page.results) for page in pages] == [2, 2, 2, 2, 1]
+    assert all(
+        isinstance(result, GroupedEntrySummary) and len(result.alternates) == 1
+        for page in pages
+        for result in page.results
+    )
+
+
+def test_same_source_name_collision_stays_separate(tmp_path: Path) -> None:
+    dataset = copy_fixture(tmp_path, "same-source")
+    spells = read_json(dataset, "spells.json")
+    assert isinstance(spells, list)
+    second_spark = dict(spells[0])
+    second_spark.update(local_key="spell/spark-other", description="Different spell")
+    spells.append(second_spark)
+    write_json(dataset, "spells.json", spells)
+    service = SearchService(imported_database(tmp_path, dataset))
+    page = service.search_grouped(SearchQuery("spells", "Spark"))
+    assert page.total_count == 2
+    assert all(not isinstance(result, GroupedEntrySummary) for result in page.results)
+    assert {result.identity for result in page.results} == {
+        "example-5e:spell/spark", "example-5e:spell/spark-other"
+    }
+
+
+def test_same_name_in_different_categories_never_groups(tmp_path: Path) -> None:
+    dataset = copy_fixture(tmp_path)
+    items = read_json(dataset, "items.json")
+    assert isinstance(items, dict)
+    items["items"][0]["name"] = "Spark"
+    write_json(dataset, "items.json", items)
+    service = SearchService(imported_database(tmp_path, dataset))
+    item = service.search_grouped(SearchQuery("items", "Spark"))
+    spell = service.search_grouped(SearchQuery("spells", "Spark"))
+    assert item.total_count == spell.total_count == 1
+    assert item.results[0].category is SearchCategory.ITEMS
+    assert spell.results[0].category is SearchCategory.SPELLS
 
 
 def test_name_normalization_is_deterministic() -> None:
@@ -165,6 +299,129 @@ def test_pagination_is_sql_paged_and_stable(tmp_path: Path) -> None:
         SearchQuery("items", limit=201)
 
 
+def test_query_filters_normalize_values_and_preserve_request_id() -> None:
+    source = SourceIdentity("pack", "book")
+    query = SearchQuery(
+        "spells",
+        editions=("2024", "2024", "2014"),
+        sources=(source, source),
+        request_id="filter-change-1",
+    )
+    assert query.editions == ("2024", "2014")
+    assert query.sources == (source,)
+    assert query.request_id == "filter-change-1"
+    assert SearchQuery("spells").editions == ()
+    assert SearchQuery("spells").sources == ()
+    with pytest.raises(ValueError):
+        SourceIdentity("pack", " ")
+
+
+def test_edition_source_filters_browse_search_modes_and_paginate_in_sql(tmp_path: Path) -> None:
+    first = copy_fixture(tmp_path, "first")
+    second = copy_fixture(tmp_path, "second")
+    configure_source(first, dataset_id="pack-a", key="core", title="Shared Book", edition="2024")
+    configure_source(second, dataset_id="pack-b", key="core", title="Shared Book", edition="2014")
+    database = imported_database(tmp_path, first, second)
+    pack_a = SourceIdentity("pack-a", "core")
+    pack_b = SourceIdentity("pack-b", "core")
+    same_title_sources = list_available_sources(database, "spells")
+    assert [option.identity for option in same_title_sources] == [pack_b, pack_a]
+    assert {option.title for option in same_title_sources} == {"Shared Book"}
+
+    assert search(database, SearchQuery("spells")).total_count == 4
+    assert search(database, SearchQuery("spells", editions=("2024",))).total_count == 2
+    assert search(database, SearchQuery("spells", editions=("2014", "2024"))).total_count == 4
+    assert search(database, SearchQuery("spells", sources=(pack_a,))).total_count == 2
+    assert search(database, SearchQuery("spells", sources=(pack_a, pack_b))).total_count == 4
+    assert search(
+        database, SearchQuery("spells", editions=("2024",), sources=(pack_b,))
+    ).total_count == 0
+    assert search(
+        database, SearchQuery("spells", editions=("2024",), sources=(pack_a,))
+    ).total_count == 2
+    assert [
+        search(database, SearchQuery(category, editions=("2024",), sources=(pack_a,))).total_count
+        for category in ("items", "spells", "feats", "classes")
+    ] == [4, 2, 1, 1]
+
+    page = search(database, SearchQuery("spells", editions=("2024",), limit=1, request_id=17))
+    next_page = search(
+        database, SearchQuery("spells", editions=("2024",), offset=1, limit=1)
+    )
+    assert page.total_count == next_page.total_count == 2
+    assert page.request_id == 17
+    assert len(page.results) == len(next_page.results) == 1
+    assert page.results[0].source_identity == pack_a
+    assert page.results[0].source_edition == "2024"
+
+    # The source restriction composes with both name matching and body-only FTS.
+    assert search(database, SearchQuery("spells", "Spark")).total_count == 2
+    assert search(
+        database, SearchQuery("spells", "Spark", editions=("2024",))
+    ).total_count == 1
+    assert search(
+        database, SearchQuery("spells", "Comet", editions=("2014",))
+    ).total_count == 1
+    assert search(
+        database, SearchQuery("spells", "ark", sources=(pack_a,))
+    ).total_count == 1
+    body_results = search(
+        database,
+        SearchQuery("spells", "bright mote", SearchMode.ALL_TEXT, sources=(pack_b,)),
+    )
+    assert body_results.total_count == 1
+    assert body_results.results[0].source_identity == pack_b
+    multi_source_fts = search(
+        database,
+        SearchQuery("spells", "bright mote", SearchMode.ALL_TEXT, sources=(pack_a, pack_b)),
+    )
+    assert multi_source_fts.total_count == 2
+    body_items = search(
+        database,
+        SearchQuery("items", "starlit guidance", SearchMode.ALL_TEXT, sources=(pack_a,)),
+    )
+    assert names(body_items) == ["Star Map"]
+
+
+def test_unknown_editions_are_unfiltered_but_not_specific_edition_matches(tmp_path: Path) -> None:
+    dataset = copy_fixture(tmp_path)
+    configure_source(dataset, dataset_id="custom", key="core", title="Custom Rules", edition=None)
+    database = imported_database(tmp_path, dataset)
+
+    assert search(database, SearchQuery("spells")).total_count == 2
+    assert search(database, SearchQuery("spells", editions=("2024",))).total_count == 0
+    assert search(database, SearchQuery("spells", editions=("2014",))).total_count == 0
+    assert list_available_editions(database) == ()
+    assert list_available_sources(database)[0].edition is None
+
+
+def test_filter_discovery_uses_searchable_entries_and_scopes_category(tmp_path: Path) -> None:
+    first = copy_fixture(tmp_path, "first")
+    second = copy_fixture(tmp_path, "second")
+    configure_source(first, dataset_id="pack-2024", key="core", title="Core", edition="2024")
+    configure_source(second, dataset_id="pack-2014", key="old", title="Old Core", edition="2014")
+    spells = read_json(second, "spells.json")
+    assert isinstance(spells, list)
+    write_json(second, "spells.json", [])
+    database = imported_database(tmp_path, first, second)
+
+    editions = list_available_editions(database)
+    assert [(option.value, option.label) for option in editions] == [
+        ("2014", "2014 / 5e"),
+        ("2024", "2024 / 5.5e"),
+    ]
+    assert [option.value for option in list_available_editions(database, "spells")] == ["2024"]
+    assert [option.title for option in list_available_sources(database, "spells")] == ["Core"]
+    assert [
+        option.identity
+        for option in list_available_sources(database, "items", editions=("2014", "2024"))
+    ] == [SourceIdentity("pack-2014", "old"), SourceIdentity("pack-2024", "core")]
+    assert [
+        option.identity
+        for option in list_available_sources(database, "items", editions=("2024",))
+    ] == [SourceIdentity("pack-2024", "core")]
+
+
 def test_fts_and_content_are_replaced_together_on_update_and_removal(tmp_path: Path) -> None:
     dataset = copy_fixture(tmp_path)
     database = imported_database(tmp_path, dataset)
@@ -211,11 +468,17 @@ def test_upgrade_from_milestone_4_backfills_fts(tmp_path: Path) -> None:
     old_database = Database(database_path, old_migrations)
     old_database.initialize()
     import_dataset(old_database, load_dataset(copy_fixture(tmp_path)))
+    with old_database.connection() as connection:
+        connection.execute("UPDATE sources SET edition = '2024 rules'")
+        connection.commit()
 
     upgraded = Database(database_path)
-    assert upgraded.initialize() == (3,)
+    assert upgraded.initialize() == (3, 4)
     assert search(upgraded, SearchQuery("items", "finesse", SearchMode.ALL_TEXT)).total_count == 1
     with upgraded.connection() as connection:
         assert connection.execute(
             "SELECT name FROM sqlite_master WHERE name = 'entry_search'"
         ).fetchone() is not None
+        assert connection.execute("SELECT edition FROM sources").fetchone()[0] == "2024"
+        assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 8
+        assert connection.execute("PRAGMA foreign_key_check").fetchall() == []

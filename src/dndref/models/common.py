@@ -56,6 +56,15 @@ LocalKey = Annotated[
 SourceKey = LocalKey
 
 
+def display_edition(edition: str | None) -> str | None:
+    """Return a familiar display label for canonical editions when known."""
+
+    return {
+        "2014": "2014 / 5e",
+        "2024": "2024 / 5.5e",
+    }.get(edition, edition)
+
+
 def _validate_image_reference(value: str) -> str:
     if value.startswith(("/", "\\")) or "\\" in value or ":" in value:
         raise ValueError("image reference must be a relative local path")
@@ -103,7 +112,7 @@ class SourceMetadata(ContractModel):
 
     key: SourceKey
     title: str = Field(min_length=1)
-    edition: str | None = None
+    edition: str | None = Field(default=None, min_length=1, max_length=80)
     citation: str | None = None
 
 

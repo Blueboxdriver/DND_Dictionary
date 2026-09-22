@@ -2,18 +2,415 @@
 
 from __future__ import annotations
 
+from textual import events
 from textual.app import ComposeResult
-from textual.containers import Container
+from textual.containers import Container, Vertical
+from textual.css.query import NoMatches
 from textual.screen import ModalScreen
-from textual.widgets import Markdown
+from textual.widgets import Label, ListItem, ListView, Markdown, Static
 
 from .. import __version__
 from ..images import ImageCapabilities
-from ..search import DatasetMetadata
+from ..models import display_edition
+from ..search import (
+    DatasetMetadata,
+    EditionOption,
+    SearchCategory,
+    SourceBrowseInfo,
+    SourceIdentity,
+    SourceOption,
+)
+
+
+class FilterScreen(ModalScreen[tuple[object, ...] | None]):
+    """Keyboard-only multi-select screen for edition or source filters."""
+
+    DEFAULT_CSS = """
+    FilterScreen {
+        align: center middle;
+        background: $background 80%;
+    }
+
+    #filter-card {
+        width: 72;
+        max-width: 94%;
+        height: auto;
+        max-height: 88%;
+        padding: 1 2;
+        border: round $accent;
+        background: $surface;
+    }
+
+    #filter-title {
+        height: 1;
+        text-style: bold;
+        color: $accent;
+    }
+
+    #filter-options {
+        height: auto;
+        max-height: 1fr;
+        border: none;
+        background: transparent;
+    }
+
+    #filter-options > ListItem {
+        height: 2;
+        padding: 0 1;
+        background: transparent;
+    }
+
+    #filter-options > ListItem.--highlight {
+        background: #4a3a20;
+        color: #eee7d5;
+    }
+
+    #filter-help {
+        height: 1;
+        color: #aaa18e;
+    }
+    """
+
+    BINDINGS = [("escape", "cancel", "Cancel")]
+
+    def __init__(
+        self,
+        kind: str,
+        options: tuple[EditionOption, ...] | tuple[SourceOption, ...],
+        selected: tuple[object, ...],
+    ) -> None:
+        self.kind = kind
+        self.options = options
+        self.working = list(selected)
+        super().__init__()
+
+    @property
+    def _all_label(self) -> str:
+        return "All Editions" if self.kind == "edition" else "All Sources"
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="filter-card"):
+            yield Label(f"{self.kind.title()} filter", id="filter-title")
+            with ListView(id="filter-options"):
+                yield ListItem(Label(self._all_label), id="filter-option-0")
+                for index, option in enumerate(self.options, start=1):
+                    yield ListItem(
+                        Label(self._option_label(option)), id=f"filter-option-{index}"
+                    )
+            if not self.options:
+                empty_label = (
+                    "No editions available for this category."
+                    if self.kind == "edition"
+                    else "No sources available for this edition selection."
+                )
+                yield Static(empty_label, classes="muted")
+            yield Static("Space Toggle   Enter Apply   Esc Cancel", id="filter-help")
+
+    def on_mount(self) -> None:
+        options = self.query_one("#filter-options", ListView)
+        selected_index = 0
+        if self.working:
+            selected_index = next(
+                (
+                    index + 1
+                    for index, option in enumerate(self.options)
+                    if self._option_value(option) in self.working
+                ),
+                0,
+            )
+        options.index = selected_index if options.children else None
+        options.focus()
+        self._render_options()
+
+    def on_key(self, event: events.Key) -> None:
+        options = self.query_one("#filter-options", ListView)
+        if event.character in {"j", "k"}:
+            event.stop()
+            if event.character == "j":
+                options.action_cursor_down()
+            else:
+                options.action_cursor_up()
+            self.call_after_refresh(self._render_options)
+        elif event.key == "space":
+            event.stop()
+            index = options.index
+            if index == 0:
+                self.working.clear()
+            elif index is not None and index - 1 < len(self.options):
+                value = self._option_value(self.options[index - 1])
+                if value in self.working:
+                    self.working.remove(value)
+                else:
+                    self.working.append(value)
+            self._render_options()
+        elif event.key in {"home", "end"}:
+            event.stop()
+            options.index = 0 if event.key == "home" else len(options.children) - 1
+            self._render_options()
+        elif event.key == "enter":
+            event.stop()
+            self.dismiss(tuple(self.working))
+        elif event.key == "escape":
+            event.stop()
+            self.dismiss(None)
+
+    def action_cancel(self) -> None:
+        self.dismiss(None)
+
+    def on_list_view_highlighted(self, event: ListView.Highlighted) -> None:
+        if event.list_view.id == "filter-options":
+            self._render_options()
+
+    def _option_value(self, option: EditionOption | SourceOption) -> object:
+        return option.value if isinstance(option, EditionOption) else option.identity
+
+    def _option_label(self, option: EditionOption | SourceOption) -> str:
+        if isinstance(option, EditionOption):
+            return option.label
+        edition = display_edition(option.edition)
+        return f"{option.title} · {edition}" if edition else option.title
+
+    def _render_options(self) -> None:
+        options = self.query_one("#filter-options", ListView)
+        for index, item in enumerate(options.children):
+            if not isinstance(item, ListItem):
+                continue
+            if index == 0:
+                checked = not self.working
+                label = self._all_label
+            else:
+                option = self.options[index - 1]
+                checked = self._option_value(option) in self.working
+                label = self._option_label(option)
+            marker = ">" if options.index == index else " "
+            item.query_one(Label).update(f"{marker} {'[x]' if checked else '[ ]'} {label}")
+
+
+class ChoiceScreen(ModalScreen[int | None]):
+    """Single-choice keyboard selector with a visible text cursor."""
+
+    DEFAULT_CSS = """
+    ChoiceScreen { align: center middle; background: $background 80%; }
+    #choice-card { width: 66; max-width: 94%; height: auto; max-height: 88%;
+        padding: 1 2; border: round $accent; background: $surface; }
+    #choice-list { height: auto; max-height: 1fr; border: none; }
+    #choice-list > ListItem { height: 2; }
+    #choice-help { height: 1; }
+    """
+    BINDINGS = [("escape", "cancel", "Cancel")]
+
+    def __init__(self, title: str, labels: tuple[str, ...], selected: int = 0) -> None:
+        self.choice_title = title
+        self.labels = labels
+        self.selected = selected
+        super().__init__()
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="choice-card"):
+            yield Label(self.choice_title)
+            with ListView(id="choice-list"):
+                for label in self.labels:
+                    yield ListItem(Label(label))
+            yield Static("Enter Select   Esc Cancel", id="choice-help")
+
+    def on_mount(self) -> None:
+        options = self.query_one("#choice-list", ListView)
+        options.index = min(self.selected, len(self.labels) - 1) if self.labels else None
+        options.focus()
+        self._render_rows()
+
+    def on_list_view_highlighted(self, event: ListView.Highlighted) -> None:
+        if event.list_view.id == "choice-list":
+            self._render_rows()
+
+    def on_key(self, event: events.Key) -> None:
+        options = self.query_one("#choice-list", ListView)
+        if event.character in {"j", "k"}:
+            event.stop()
+            (options.action_cursor_down if event.character == "j" else options.action_cursor_up)()
+            self.call_after_refresh(self._render_rows)
+        elif event.key == "enter":
+            event.stop()
+            self.dismiss(options.index)
+        elif event.key == "escape":
+            event.stop()
+            self.dismiss(None)
+
+    def action_cancel(self) -> None:
+        self.dismiss(None)
+
+    def _render_rows(self) -> None:
+        options = self.query_one("#choice-list", ListView)
+        for index, item in enumerate(options.children):
+            item.query_one(Label).update(
+                f"{'> ' if index == options.index else '  '}{self.labels[index]}"
+            )
+
+
+class SourceBrowserScreen(ModalScreen[tuple[SourceIdentity, SearchCategory] | None]):
+    """Source list followed by categories; selected category reuses normal search."""
+
+    DEFAULT_CSS = """
+    SourceBrowserScreen { align: center middle; background: $background 80%; }
+    #source-card { width: 72; max-width: 94%; height: auto; max-height: 90%;
+        padding: 1 2; border: round $accent; background: $surface; }
+    #source-browser-list { height: auto; max-height: 1fr; border: none; }
+    #source-browser-list > ListItem { height: 2; }
+    #source-detail { height: 5; }
+    """
+    BINDINGS = [("escape", "back", "Back")]
+
+    def __init__(self, sources: tuple[SourceBrowseInfo, ...]) -> None:
+        self.sources = sources
+        self.stage = "sources"
+        super().__init__()
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="source-card"):
+            yield Label("Browse sources", id="source-browser-title")
+            with ListView(id="source-browser-list"):
+                for source in self.sources:
+                    yield ListItem(Label(source.source.title))
+            yield Static("", id="source-detail")
+            yield Static("Enter Open   Esc Back", id="source-browser-help")
+
+    def on_mount(self) -> None:
+        options = self.query_one("#source-browser-list", ListView)
+        options.index = 0 if self.sources else None
+        options.focus()
+        self._render_rows()
+
+    def on_list_view_highlighted(self, event: ListView.Highlighted) -> None:
+        if event.list_view.id == "source-browser-list":
+            self._render_rows()
+
+    def on_key(self, event: events.Key) -> None:
+        options = self.query_one("#source-browser-list", ListView)
+        if event.character in {"j", "k"}:
+            event.stop()
+            (options.action_cursor_down if event.character == "j" else options.action_cursor_up)()
+            self.call_after_refresh(self._render_rows)
+        elif event.key == "enter":
+            event.stop()
+            index = options.index
+            if index is None:
+                return
+            if self.stage == "sources":
+                self._open_categories(index)
+            else:
+                source = self.sources[self._source_index]
+                categories = tuple(source.counts)
+                if index < len(categories):
+                    self.dismiss((source.source.identity, categories[index]))
+        elif event.key == "escape":
+            event.stop()
+            self.action_back()
+
+    def action_back(self) -> None:
+        if self.stage == "categories":
+            self.stage = "sources"
+            self.query_one("#source-browser-title", Label).update("Browse sources")
+            self._replace_rows(
+                tuple(source.source.title for source in self.sources), self._source_index
+            )
+        else:
+            self.dismiss(None)
+
+    def _open_categories(self, index: int) -> None:
+        self._source_index = index
+        source = self.sources[index]
+        self.stage = "categories"
+        self.query_one("#source-browser-title", Label).update(source.source.title)
+        self._replace_rows(
+            tuple(
+                f"{category.value.title()}  {count}"
+                for category, count in source.counts.items()
+            ),
+            0,
+        )
+
+    def _replace_rows(self, labels: tuple[str, ...], index: int) -> None:
+        async def replace() -> None:
+            options = self.query_one("#source-browser-list", ListView)
+            await options.clear()
+            for label in labels:
+                await options.mount(ListItem(Label(label)))
+            options.index = index if labels else None
+            options.focus()
+            self._render_rows()
+
+        self.run_worker(replace(), exclusive=True)
+
+    def _render_rows(self) -> None:
+        options = self.query_one("#source-browser-list", ListView)
+        index = options.index
+        if self.stage == "sources":
+            labels = tuple(source.source.title for source in self.sources)
+            if index is not None and index < len(self.sources):
+                source = self.sources[index]
+                edition = display_edition(source.source.edition) or "Unknown edition"
+                counts = " · ".join(
+                    f"{category.value.title()} {count}" for category, count in source.counts.items()
+                )
+                detail = f"{edition}\n{counts}"
+            else:
+                detail = "No sources installed."
+        else:
+            source = self.sources[self._source_index]
+            labels = tuple(
+                f"{category.value.title()}  {count}" for category, count in source.counts.items()
+            )
+            detail = display_edition(source.source.edition) or "Unknown edition"
+        self.query_one("#source-detail", Static).update(detail)
+        for row_index, item in enumerate(options.children):
+            if row_index < len(labels):
+                try:
+                    item.query_one(Label).update(
+                        f"{'> ' if row_index == index else '  '}{labels[row_index]}"
+                    )
+                except NoMatches:
+                    pass
 
 
 class HelpScreen(ModalScreen[None]):
     """Compact keyboard reference."""
+
+    KEYBOARD_HELP = """# D&D Reference — Help
+
+**Search**
+
+`/` or `Ctrl+F`  Focus search  
+`F2`  Toggle Names / All text  
+`1`–`4`  Select Items / Spells / Feats / Classes  
+`e` Edition filter · `s` Source filter
+`p` Filter presets · `b` Browse sources
+`g` Group alternates on/off · `v` Select source variant
+
+Filter dialogs show `>` for the active row and `[x]` for a selected row.
+Space toggles a filter choice; Enter applies; Escape cancels.
+
+**Navigation**
+
+`Tab` / `Shift+Tab`  Change focus  
+`Up`/`Down` or `j`/`k`  Navigate or scroll  
+`PageUp`/`PageDown`  Page through the focused pane  
+`Left`/`Right` or `h`/`l`  Scroll a focused class progression table horizontally  
+`Home`/`End`  Start or end  
+`Enter`  Open or select  
+`Escape`  Back, close, or leave search  
+
+`?` / `F1`  Help  
+`F3`  About / installed dataset data  
+`q`  Quit when not editing  
+`Ctrl+Q`  Quit globally
+
+**Images**
+
+Set `[ui].images` in `config.toml` to `auto`, `off`, `kitty`, or `sixel`.
+`dndref --images MODE` overrides that setting for the current session. Images
+are local imported assets; missing dependencies, unsupported terminals, and
+image failures collapse the artwork panel while text browsing continues.
+"""
 
     DEFAULT_CSS = """
     HelpScreen {
@@ -45,39 +442,7 @@ class HelpScreen(ModalScreen[None]):
 
     def compose(self) -> ComposeResult:
         with Container(id="help-card"):
-            yield Markdown(
-                """# D&D Reference — Help
-
-**Search**
-
-`/` or `Ctrl+F`  Focus search  
-`F2`  Toggle Names / All text  
-`1`–`4`  Select Items / Spells / Feats / Classes  
-
-**Navigation**
-
-`Tab` / `Shift+Tab`  Change focus  
-`Up`/`Down` or `j`/`k`  Navigate or scroll  
-`PageUp`/`PageDown`  Page through the focused pane  
-`Left`/`Right` or `h`/`l`  Scroll a focused class progression table horizontally  
-`Home`/`End`  Start or end  
-`Enter`  Open or select  
-`Escape`  Back, close, or leave search  
-
-`?` / `F1`  Help  
-`F3`  About / installed dataset data  
-`q`  Quit when not editing  
-`Ctrl+Q`  Quit globally
-
-**Images**
-
-Set `[ui].images` in `config.toml` to `auto`, `off`, `kitty`, or `sixel`.
-`dndref --images MODE` overrides that setting for the current session. Images
-are local imported assets; missing dependencies, unsupported terminals, and
-image failures collapse the artwork panel while text browsing continues.
-""",
-                id="help-copy",
-            )
+            yield Markdown(self.KEYBOARD_HELP, id="help-copy")
 
 
 class AboutScreen(ModalScreen[None]):

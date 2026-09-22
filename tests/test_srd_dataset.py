@@ -6,11 +6,19 @@ from pathlib import Path
 import pytest
 
 from dndref.importer import import_dataset, load_dataset
-from dndref.search import SearchMode, SearchQuery, search
+from dndref.search import (
+    SearchMode,
+    SearchQuery,
+    SourceIdentity,
+    list_available_editions,
+    list_available_sources,
+    search,
+)
 from dndref.storage.database import Database
 from dndref.ui.app import BrowserApp, render_detail
 
 SRD_DATASET = Path("src/dndref/datasets/srd-5.2.1")
+OFFICIAL_2024_DATASET = Path("src/dndref/datasets/official-5etools-2024")
 # Counts are the reviewed inventories extracted from the official SRD 5.2.1 PDF.
 EXPECTED_SPELL_COUNT = 339
 EXPECTED_FEAT_COUNT = 17
@@ -26,6 +34,7 @@ def by_name(records, name: str):
 
 def test_srd_inventories_reconcile_exactly() -> None:
     loaded = loaded_srd()
+    assert loaded.pack.manifest.sources[0].edition == "2024"
     spell_inventory = json.loads(
         (SRD_DATASET / "inventory" / "spells.json").read_text(encoding="utf-8")
     )
@@ -147,6 +156,37 @@ def test_srd_search_indexes_spell_and_feat_content(tmp_path: Path) -> None:
         database,
         SearchQuery("feats", "Spellcasting Feature", SearchMode.ALL_TEXT),
     ).results[0].name == "Boon of Spell Recall"
+
+
+def test_installed_production_sources_filter_and_preserve_duplicate_spells(
+    tmp_path: Path,
+) -> None:
+    database = Database(tmp_path / "data" / "dndref.sqlite3")
+    import_dataset(database, loaded_srd())
+    import_dataset(database, load_dataset(OFFICIAL_2024_DATASET))
+
+    assert [(option.value, option.label) for option in list_available_editions(database)] == [
+        ("2024", "2024 / 5.5e")
+    ]
+    spell_sources = list_available_sources(database, "spells", editions=("2024",))
+    assert SourceIdentity("srd-5-2-1", "srd-5-2-1") in {
+        option.identity for option in spell_sources
+    }
+    phb = SourceIdentity("official-5etools-2024", "XPHB")
+    assert any(
+        option.identity == phb and option.title == "Player's Handbook (2024)"
+        for option in spell_sources
+    )
+
+    all_copies = search(database, SearchQuery("spells", "Acid Splash", editions=("2024",)))
+    assert all_copies.total_count == 2
+    assert {result.source_identity for result in all_copies.results} == {
+        SourceIdentity("srd-5-2-1", "srd-5-2-1"),
+        phb,
+    }
+    phb_copy = search(database, SearchQuery("spells", "Acid Splash", sources=(phb,)))
+    assert phb_copy.total_count == 1
+    assert phb_copy.results[0].source_identity == phb
 
 
 @pytest.mark.asyncio

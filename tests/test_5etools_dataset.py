@@ -254,6 +254,7 @@ def test_full_converter_fixture_is_deterministic_and_reconciles(upstream):
     assert converter.artifacts(a, source, REVISION) == converter.artifacts(b, again, REVISION)
     assert validate_dataset(a) is a
     assert len(a.items.items) == 4
+    assert {source.key: source.edition for source in a.manifest.sources}["XPHB"] == "2024"
     assert {r["reason"] for r in source.excluded} >= {
         "homebrew-or-playtest",
         "source-not-allowlisted",
@@ -355,16 +356,17 @@ def test_copy_semantics_and_wrong_feature_owner(upstream):
         )
 
 
-def test_srd_files_remain_byte_identical():
+def test_srd_content_files_remain_byte_identical():
     original = {
         "classes.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
         "feats.json": "f39d5d3252208dcb12cec4f85f8e3ebf92ad521b6447318ab3be3674f62688d9",
         "items.json": "2f13870d926ef7195639b88ffcace4a398a072205eda50e716609cc73d6f5595",
-        "manifest.json": "25bcf8a40b31cc2c5c9ee69e2655b7921f414b80c1ffbc20abf241509bcbe6ea",
         "spells.json": "bbfbeadf66d3b75699e9d1000e2794d297fe220d0cdd1b2865c70eefe67b7146",
     }
     for name, expected in original.items():
         assert hashlib.sha256((SRD / name).read_bytes()).hexdigest() == expected
+    manifest = json.loads((SRD / "manifest.json").read_text())
+    assert manifest["sources"][0]["edition"] == "2024"
 
 
 def test_production_inventory_reference_integrity_and_hashes(loaded):
@@ -415,6 +417,25 @@ def test_production_inventory_reference_integrity_and_hashes(loaded):
         for name in ("items", "spells", "feats", "classes")
         for marker in ("{@", "{#", "{{", "{=")
     )
+
+
+def test_source_edition_mapping_is_explicit_and_unknowns_are_reported():
+    editions, warnings = converter.source_editions(["UNKNOWN", "XPHB", "PHB", "XDMG"])
+    assert editions == {"PHB": "2014", "XDMG": "2024", "XPHB": "2024"}
+    assert warnings == [
+        {
+            "source_code": "UNKNOWN",
+            "message": "No edition mapping; source edition left unset.",
+        }
+    ]
+
+
+def test_production_source_editions_match_explicit_mapping(loaded):
+    sources = {source.key: source.edition for source in loaded.pack.manifest.sources}
+    assert sources == {
+        code: converter.SOURCE_EDITIONS[code] for code in sorted(converter.BOOKS)
+    }
+    assert sources["XPHB"] == sources["XDMG"] == "2024"
 
 
 def test_production_representative_rules(loaded):

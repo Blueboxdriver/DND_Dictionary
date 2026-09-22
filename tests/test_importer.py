@@ -18,6 +18,7 @@ from dndref.importer import (
     load_dataset,
 )
 from dndref.storage.database import Database
+from dndref.storage.repository import list_dataset_metadata
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures" / "dataset"
 
@@ -90,6 +91,31 @@ def test_first_import_noop_and_replacement_counts(tmp_path: Path) -> None:
             "SELECT name FROM entries WHERE dataset_id = ? AND local_key = ?",
             ("example-5e", "item/adventuring-pack"),
         ).fetchone()[0] == "Traveling Pack"
+
+
+def test_source_edition_import_compatibility_hashing_and_replacement(tmp_path: Path) -> None:
+    dataset = copy_fixture(tmp_path)
+    manifest = read_json(dataset, "manifest.json")
+    assert isinstance(manifest, dict)
+    manifest["sources"][0].pop("edition")
+    write_json(dataset, "manifest.json", manifest)
+    database = Database(tmp_path / "data" / "dndref.sqlite3")
+
+    initial = import_dataset(database, load_dataset(dataset))
+    repeat = import_dataset(database, load_dataset(dataset))
+    assert initial.added == 8
+    assert repeat.is_noop
+    with database.connection() as connection:
+        assert list_dataset_metadata(connection)[0].sources[0].edition is None
+
+    manifest["sources"][0]["edition"] = "2024"
+    write_json(dataset, "manifest.json", manifest)
+    updated = import_dataset(database, load_dataset(dataset))
+    assert updated.content_hash != initial.content_hash
+    assert not updated.is_noop
+    with database.connection() as connection:
+        assert list_dataset_metadata(connection)[0].sources[0].edition == "2024"
+        assert connection.execute("PRAGMA foreign_key_check").fetchall() == []
 
 
 def test_unrelated_dataset_is_preserved(tmp_path: Path) -> None:

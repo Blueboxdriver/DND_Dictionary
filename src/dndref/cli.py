@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import sys
 from collections.abc import Sequence
+from dataclasses import replace
 from pathlib import Path
 
 from . import __version__
@@ -70,7 +71,7 @@ def initialize_application(
     if image_mode is not None:
         if image_mode not in {"auto", "off", "kitty", "sixel"}:
             raise ConfigurationError("image mode must be one of: auto, off, kitty, sixel")
-        config = Config(ui=UIConfig(images=image_mode))
+        config = replace(config, ui=UIConfig(images=image_mode))
     return config
 
 

@@ -371,7 +371,7 @@ def _manifest() -> dict[str, object]:
             {
                 "key": SOURCE_KEY,
                 "title": "System Reference Document 5.2.1",
-                "edition": "2024 rules",
+                "edition": "2024",
                 "citation": "System Reference Document 5.2.1, 2025",
             }
         ],

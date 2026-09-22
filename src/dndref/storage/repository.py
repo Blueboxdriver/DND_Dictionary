@@ -11,7 +11,18 @@ from ..search import normalize_name
 
 if TYPE_CHECKING:
     from ..importer import LoadedDataset
-    from ..search import DatasetMetadata, EntryDetail, SearchPage, SearchQuery
+    from ..search import (
+        DatasetMetadata,
+        EditionOption,
+        EntryDetail,
+        EntrySummary,
+        SearchCategory,
+        SearchPage,
+        SearchQuery,
+        SourceBrowseInfo,
+        SourceIdentity,
+        SourceOption,
+    )
 
 
 class RepositoryError(RuntimeError):
@@ -706,10 +717,14 @@ SELECT
     e.local_key,
     e.kind,
     e.name,
+    e.normalized_name,
     img.stored_path AS image_stored_path,
     img.media_type AS image_media_type,
     img.content_hash AS image_content_hash,
     src.title AS source_label,
+    src.dataset_id AS source_dataset_id,
+    src.source_key AS source_key,
+    src.edition AS source_edition,
     d.title AS dataset_title,
     CASE e.kind
         WHEN 'item' THEN COALESCE(NULLIF(i.subtype, ''), i.item_type, 'Item')
@@ -722,16 +737,22 @@ SELECT
 """
 
 
-def search_entries(connection: sqlite3.Connection, query: "SearchQuery") -> "SearchPage":
-    """Run a paged, category-scoped search using the caller's connection."""
-
-    from ..search import EntrySummary, SearchMode, SearchPage
+def _search_clauses(query: "SearchQuery") -> tuple[str, list[object], str, list[object]]:
+    from ..search import SearchMode
 
     category_kind = query.category.storage_kind
     tokens = query.tokens
     fts_tokens = query.fts_tokens
     where = ["e.kind = ?"]
     where_params: list[object] = [category_kind]
+    if query.editions:
+        where.append(f"src.edition IN ({', '.join('?' for _ in query.editions)})")
+        where_params.extend(query.editions)
+    if query.sources:
+        source_terms = ["(src.dataset_id = ? AND src.source_key = ?)" for _ in query.sources]
+        where.append("(" + " OR ".join(source_terms) + ")")
+        for source in query.sources:
+            where_params.extend((source.dataset_id, source.source_key))
     name_match = _name_match_sql(tokens)
     if tokens:
         where.append(f"({name_match})")
@@ -743,25 +764,54 @@ def search_entries(connection: sqlite3.Connection, query: "SearchQuery") -> "Sea
             )
             where_params.append(_fts_query(fts_tokens))
 
-    where_sql = " AND ".join(where)
+    order_sql = "e.normalized_name, e.dataset_id, e.local_key"
+    order_params: list[object] = []
+    if tokens:
+        normalized_query = query.normalized_text
+        order_sql = (
+            "CASE WHEN e.normalized_name = ? THEN 0 "
+            "WHEN e.normalized_name LIKE ? || '%' ESCAPE '\\' THEN 1 "
+            f"WHEN {name_match} THEN 2 ELSE 3 END, "
+            "e.normalized_name, e.dataset_id, e.local_key"
+        )
+        order_params.extend((normalized_query, _escaped_like(normalized_query)))
+        order_params.extend(tokens)
+    return " AND ".join(where), where_params, order_sql, order_params
+
+
+def _summary_from_row(row: sqlite3.Row) -> "EntrySummary":
+    from ..search import EntrySummary, SourceIdentity
+
+    return EntrySummary(
+        stable_id=str(row["stable_id"]),
+        category=_category_for_kind(str(row["kind"])),
+        name=str(row["name"]),
+        subtitle=str(row["subtitle"]),
+        source_label=str(row["source_label"]),
+        dataset_id=str(row["dataset_id"]),
+        local_key=str(row["local_key"]),
+        dataset_title=str(row["dataset_title"]),
+        source_identity=SourceIdentity(
+            dataset_id=str(row["source_dataset_id"]), source_key=str(row["source_key"])
+        ),
+        source_edition=(
+            str(row["source_edition"]) if row["source_edition"] is not None else None
+        ),
+    )
+
+
+def search_entries(connection: sqlite3.Connection, query: "SearchQuery") -> "SearchPage":
+    """Run a paged, category-scoped search using the caller's connection."""
+
+    from ..search import SearchPage
+
+    where_sql, where_params, order_sql, order_params = _search_clauses(query)
     try:
         total_count = int(
             connection.execute(
                 f"SELECT COUNT(*) {_SUMMARY_FROM} WHERE {where_sql}", where_params
             ).fetchone()[0]
         )
-        order_sql = "e.normalized_name, e.dataset_id, e.local_key"
-        order_params: list[object] = []
-        if tokens:
-            normalized_query = query.normalized_text
-            order_sql = (
-                "CASE WHEN e.normalized_name = ? THEN 0 "
-                "WHEN e.normalized_name LIKE ? || '%' ESCAPE '\\' THEN 1 "
-                f"WHEN {name_match} THEN 2 ELSE 3 END, "
-                "e.normalized_name, e.dataset_id, e.local_key"
-            )
-            order_params.extend((normalized_query, _escaped_like(normalized_query)))
-            order_params.extend(tokens)
         rows = connection.execute(
             f"{_SUMMARY_SELECT} {_SUMMARY_FROM} WHERE {where_sql} "
             f"ORDER BY {order_sql} LIMIT ? OFFSET ?",
@@ -774,20 +824,189 @@ def search_entries(connection: sqlite3.Connection, query: "SearchQuery") -> "Sea
             ) from exc
         raise RepositoryError(f"cannot execute search: {exc}") from exc
 
-    results = tuple(
-        EntrySummary(
-            stable_id=str(row["stable_id"]),
-            category=_category_for_kind(str(row["kind"])),
-            name=str(row["name"]),
-            subtitle=str(row["subtitle"]),
-            source_label=str(row["source_label"]),
-            dataset_id=str(row["dataset_id"]),
-            local_key=str(row["local_key"]),
-            dataset_title=str(row["dataset_title"]),
+    results = tuple(_summary_from_row(row) for row in rows)
+    return SearchPage(results, total_count, query.offset, query.limit, query.request_id)
+
+
+def search_grouped_entries(
+    connection: sqlite3.Connection,
+    query: "SearchQuery",
+    preferred_sources: tuple["SourceIdentity", ...] = (),
+) -> "SearchPage":
+    """Page matching name groups before fetching their matching member records."""
+
+    from ..search import GroupedEntrySummary, SearchPage
+
+    where_sql, where_params, order_sql, order_params = _search_clauses(query)
+    rank_sql = order_sql.split(", e.normalized_name", 1)[0] if order_params else "0"
+    cte = (
+        "WITH matched AS ("
+        "SELECT e.id, e.normalized_name, e.dataset_id, e.local_key, "
+        f"src.id AS source_id, {rank_sql} AS rank "
+        f"{_SUMMARY_FROM} WHERE {where_sql}"
+        "), colliding AS ("
+        "SELECT normalized_name FROM matched "
+        "GROUP BY normalized_name, source_id HAVING COUNT(*) > 1"
+        "), candidates AS ("
+        "SELECT id, normalized_name, rank, "
+        "CASE WHEN normalized_name IN (SELECT normalized_name FROM colliding) "
+        "THEN 'entry:' || dataset_id || ':' || local_key "
+        "ELSE 'name:' || normalized_name END AS group_key FROM matched"
+        ") "
+    )
+    cte_params = [*order_params, *where_params]
+    try:
+        total_count = int(
+            connection.execute(
+                cte + "SELECT COUNT(DISTINCT group_key) FROM candidates", cte_params
+            ).fetchone()[0]
+        )
+        keys = [
+            str(row[0])
+            for row in connection.execute(
+                cte + "SELECT group_key FROM candidates GROUP BY group_key "
+                "ORDER BY MIN(rank), MIN(normalized_name), group_key LIMIT ? OFFSET ?",
+                [*cte_params, query.limit, query.offset],
+            ).fetchall()
+        ]
+        if not keys:
+            return SearchPage((), total_count, query.offset, query.limit, query.request_id)
+        key_sql = ", ".join("?" for _ in keys)
+        rows = connection.execute(
+            cte + _SUMMARY_SELECT.rstrip() + ", candidates.group_key AS group_key "
+            + _SUMMARY_FROM
+            + " JOIN candidates ON candidates.id = e.id "
+            + f"WHERE candidates.group_key IN ({key_sql}) "
+            + "ORDER BY candidates.rank, e.normalized_name, e.dataset_id, e.local_key",
+            [*cte_params, *keys],
+        ).fetchall()
+    except sqlite3.Error as exc:
+        if "entry_search" in str(exc):
+            raise RuntimeError(
+                "search index is unavailable; initialize the database with SQLite FTS5 support"
+            ) from exc
+        raise RepositoryError(f"cannot execute grouped search: {exc}") from exc
+
+    by_key: dict[str, list["EntrySummary"]] = {key: [] for key in keys}
+    for row in rows:
+        by_key[str(row["group_key"])].append(_summary_from_row(row))
+    preference = {identity: index for index, identity in enumerate(preferred_sources)}
+    groups = []
+    for key in keys:
+        members = by_key[key]
+        members.sort(
+            key=lambda member: (
+                preference.get(member.source_identity, len(preference)),
+                member.source_edition or "",
+                member.source_label.casefold(),
+                member.dataset_id,
+                member.source_identity.source_key,
+                member.local_key,
+            )
+        )
+        groups.append(
+            GroupedEntrySummary(
+                query.category, normalize_name(members[0].name), members[0], tuple(members[1:])
+            )
+            if len(members) > 1
+            else members[0]
+        )
+    return SearchPage(tuple(groups), total_count, query.offset, query.limit, query.request_id)
+
+
+def _edition_sort_key(value: str) -> tuple[object, ...]:
+    if value.isdecimal():
+        return (0, int(value), value)
+    return (1, value.casefold(), value)
+
+
+def _entry_scope(category: "SearchCategory | None") -> tuple[str, list[object]]:
+    if category is None:
+        return "", []
+    return " AND e.kind = ?", [category.storage_kind]
+
+
+def list_available_editions(
+    connection: sqlite3.Connection, category: "SearchCategory | None" = None
+) -> tuple["EditionOption", ...]:
+    """Return non-null editions used by entries in the requested scope."""
+
+    from ..models import display_edition
+    from ..search import EditionOption
+
+    category_sql, parameters = _entry_scope(category)
+    rows = connection.execute(
+        "SELECT DISTINCT src.edition FROM entries AS e "
+        "JOIN sources AS src ON src.id = e.source_id "
+        "WHERE src.edition IS NOT NULL" + category_sql,
+        parameters,
+    ).fetchall()
+    values = sorted((str(row[0]) for row in rows), key=_edition_sort_key)
+    return tuple(EditionOption(value, display_edition(value) or value) for value in values)
+
+
+def list_available_sources(
+    connection: sqlite3.Connection,
+    category: "SearchCategory | None" = None,
+    editions: tuple[str, ...] = (),
+) -> tuple["SourceOption", ...]:
+    """Return source identities that actually contribute entries to this scope."""
+
+    from ..search import SourceIdentity, SourceOption
+
+    category_sql, parameters = _entry_scope(category)
+    where = ["1 = 1" + category_sql]
+    values = list(parameters)
+    if editions:
+        where.append(f"src.edition IN ({', '.join('?' for _ in editions)})")
+        values.extend(editions)
+    rows = connection.execute(
+        "SELECT DISTINCT src.dataset_id, src.source_key, src.title, src.edition "
+        "FROM entries AS e JOIN sources AS src ON src.id = e.source_id "
+        "WHERE " + " AND ".join(where),
+        values,
+    ).fetchall()
+    options = [
+        SourceOption(
+            SourceIdentity(str(row["dataset_id"]), str(row["source_key"])),
+            str(row["title"]),
+            str(row["edition"]) if row["edition"] is not None else None,
         )
         for row in rows
+    ]
+    options.sort(
+        key=lambda option: (
+            _edition_sort_key(option.edition) if option.edition is not None else (2, "", ""),
+            option.title.casefold(),
+            option.title,
+            option.dataset_id,
+            option.identity.source_key,
+        )
     )
-    return SearchPage(results, total_count, query.offset, query.limit, query.request_id)
+    return tuple(options)
+
+
+def list_source_contents(connection: sqlite3.Connection) -> tuple["SourceBrowseInfo", ...]:
+    """List installed searchable sources and their real per-category counts."""
+
+    from ..search import SourceBrowseInfo
+
+    options = list_available_sources(connection)
+    rows = connection.execute(
+        "SELECT src.dataset_id, src.source_key, e.kind, COUNT(*) AS entry_count "
+        "FROM entries AS e JOIN sources AS src ON src.id = e.source_id "
+        "GROUP BY src.dataset_id, src.source_key, e.kind"
+    ).fetchall()
+    counts: dict[tuple[str, str], dict] = {}
+    for row in rows:
+        key = (str(row["dataset_id"]), str(row["source_key"]))
+        counts.setdefault(key, {})[_category_for_kind(str(row["kind"]))] = int(
+            row["entry_count"]
+        )
+    return tuple(
+        SourceBrowseInfo(option, counts.get((option.dataset_id, option.identity.source_key), {}))
+        for option in options
+    )
 
 
 def get_entry_detail(

@@ -50,8 +50,13 @@ UA source codes, legacy edition flags, and unapproved source codes are rejected.
 This is complete coverage of the supported records in the eight selected books,
 not a claim to contain every compatible official publication.
 
-Items and classes can carry `edition: "one"` (2024) or `"classic"` (2014).
-Many spells/feats lack this field, so their approved book source is decisive.
+Upstream items and classes can carry `edition: "one"` (2024) or `"classic"`
+(2014) for inclusion decisions. The generated manifest stores sourcebook edition
+separately using canonical values `2014` and `2024`. `SOURCE_EDITIONS` maps
+verified upstream source codes to those values; unmapped source editions stay
+unset and are listed in `inventory/reconciliation.json` warnings. Many
+spells/feats lack the upstream record field, so their approved book source is
+decisive.
 `isReprinted` excludes a record; `reprintedAs` suppresses an older record only
 when its explicitly named replacement exists and is eligible. Matching names
 alone never imply replacement. Distinct eligible records remain distinct.

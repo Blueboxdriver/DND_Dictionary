@@ -103,6 +103,65 @@ def _coerce_mode(value: SearchMode | str) -> SearchMode:
         raise ValueError(f"unsupported search mode: {value!r}") from exc
 
 
+def _edition_values(values: tuple[str, ...] | list[str]) -> tuple[str, ...]:
+    result: list[str] = []
+    for value in values:
+        if not isinstance(value, str):
+            raise TypeError("edition filters must be strings")
+        if not value.strip():
+            raise ValueError("edition filters must not be empty")
+        if value not in result:
+            result.append(value)
+    return tuple(result)
+
+
+@dataclass(frozen=True, order=True)
+class SourceIdentity:
+    """Stable sourcebook identity; source keys are scoped to a dataset."""
+
+    dataset_id: str
+    source_key: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.dataset_id, str) or not self.dataset_id.strip():
+            raise ValueError("source identity dataset_id must not be empty")
+        if not isinstance(self.source_key, str) or not self.source_key.strip():
+            raise ValueError("source identity source_key must not be empty")
+
+    @classmethod
+    def parse(cls, value: str) -> SourceIdentity:
+        dataset_id, separator, source_key = value.partition(":")
+        if not separator:
+            raise ValueError("source identity must be dataset_id:source_key")
+        return cls(dataset_id, source_key)
+
+    def __str__(self) -> str:
+        return f"{self.dataset_id}:{self.source_key}"
+
+
+@dataclass(frozen=True)
+class EditionOption:
+    value: str
+    label: str
+
+
+@dataclass(frozen=True)
+class SourceOption:
+    identity: SourceIdentity
+    title: str
+    edition: str | None
+
+    @property
+    def dataset_id(self) -> str:
+        return self.identity.dataset_id
+
+
+@dataclass(frozen=True)
+class SourceBrowseInfo:
+    source: SourceOption
+    counts: Mapping[SearchCategory, int]
+
+
 @dataclass(frozen=True)
 class SearchQuery:
     """A validated, caller-owned search request."""
@@ -113,10 +172,20 @@ class SearchQuery:
     offset: int = 0
     limit: int = 50
     request_id: str | int | None = None
+    editions: tuple[str, ...] = ()
+    sources: tuple[SourceIdentity, ...] = ()
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "category", _coerce_category(self.category))
         object.__setattr__(self, "mode", _coerce_mode(self.mode))
+        object.__setattr__(self, "editions", _edition_values(self.editions))
+        source_values: list[SourceIdentity] = []
+        for source in self.sources:
+            if not isinstance(source, SourceIdentity):
+                raise TypeError("source filters must be SourceIdentity values")
+            if source not in source_values:
+                source_values.append(source)
+        object.__setattr__(self, "sources", tuple(source_values))
         if not isinstance(self.text, str):
             raise TypeError("search text must be a string")
         if self.offset < 0:
@@ -149,6 +218,8 @@ class EntrySummary:
     dataset_id: str
     local_key: str
     dataset_title: str
+    source_identity: SourceIdentity
+    source_edition: str | None
 
     @property
     def identity(self) -> str:
@@ -156,10 +227,30 @@ class EntrySummary:
 
 
 @dataclass(frozen=True)
+class GroupedEntrySummary:
+    category: SearchCategory
+    normalized_name: str
+    primary: EntrySummary
+    alternates: tuple[EntrySummary, ...]
+
+    @property
+    def identity(self) -> str:
+        return f"group:{self.category.value}:{self.normalized_name}"
+
+    @property
+    def variants(self) -> tuple[EntrySummary, ...]:
+        return (self.primary, *self.alternates)
+
+    @property
+    def name(self) -> str:
+        return self.primary.name
+
+
+@dataclass(frozen=True)
 class SearchPage:
     """One deterministic page of search summaries."""
 
-    results: tuple[EntrySummary, ...]
+    results: tuple[EntrySummary | GroupedEntrySummary, ...]
     total_count: int
     offset: int
     limit: int
@@ -246,6 +337,19 @@ class SearchService:
         except Exception as exc:
             raise SearchError(f"search failed: {exc}") from exc
 
+    def search_grouped(
+        self, query: SearchQuery, preferred_sources: tuple[SourceIdentity, ...] = ()
+    ) -> SearchPage:
+        from .storage.repository import search_grouped_entries
+
+        try:
+            with self.database.connection() as connection:
+                return search_grouped_entries(connection, query, preferred_sources)
+        except SearchError:
+            raise
+        except Exception as exc:
+            raise SearchError(f"grouped search failed: {exc}") from exc
+
     def get_entry_detail(self, identity: str) -> EntryDetail | None:
         from .storage.repository import get_entry_detail
 
@@ -268,6 +372,46 @@ class SearchService:
         except Exception as exc:
             raise SearchError(f"dataset metadata lookup failed: {exc}") from exc
 
+    def list_available_editions(
+        self, category: SearchCategory | str | None = None
+    ) -> tuple[EditionOption, ...]:
+        from .storage.repository import list_available_editions
+
+        selected = _coerce_category(category) if category is not None else None
+        try:
+            with self.database.connection() as connection:
+                return list_available_editions(connection, selected)
+        except SearchError:
+            raise
+        except Exception as exc:
+            raise SearchError(f"edition discovery failed: {exc}") from exc
+
+    def list_available_sources(
+        self,
+        category: SearchCategory | str | None = None,
+        editions: tuple[str, ...] = (),
+    ) -> tuple[SourceOption, ...]:
+        from .storage.repository import list_available_sources
+
+        selected = _coerce_category(category) if category is not None else None
+        values = _edition_values(editions)
+        try:
+            with self.database.connection() as connection:
+                return list_available_sources(connection, selected, values)
+        except SearchError:
+            raise
+        except Exception as exc:
+            raise SearchError(f"source discovery failed: {exc}") from exc
+
+    def list_source_contents(self) -> tuple[SourceBrowseInfo, ...]:
+        from .storage.repository import list_source_contents
+
+        try:
+            with self.database.connection() as connection:
+                return list_source_contents(connection)
+        except Exception as exc:
+            raise SearchError(f"source browser lookup failed: {exc}") from exc
+
 
 SearchRepository = SearchService
 
@@ -276,6 +420,24 @@ def search(database: Database, query: SearchQuery) -> SearchPage:
     """Convenience wrapper for the production search API."""
 
     return SearchService(database).search(query)
+
+
+def list_available_editions(
+    database: Database, category: SearchCategory | str | None = None
+) -> tuple[EditionOption, ...]:
+    """List editions represented by searchable entries in installed datasets."""
+
+    return SearchService(database).list_available_editions(category)
+
+
+def list_available_sources(
+    database: Database,
+    category: SearchCategory | str | None = None,
+    editions: tuple[str, ...] = (),
+) -> tuple[SourceOption, ...]:
+    """List sourcebooks represented by searchable entries."""
+
+    return SearchService(database).list_available_sources(category, editions)
 
 
 def get_entry_detail(database: Database, identity: str) -> EntryDetail | None:

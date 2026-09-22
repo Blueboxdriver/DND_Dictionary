@@ -16,6 +16,7 @@
     "subclassFeature": 508,
     "weapons": 1252
   },
+  "edition_warnings": [],
   "excluded_counts": {
     "homebrew-or-playtest": 66,
     "navigation-group-not-an-additional-item": 22,
@@ -39,7 +40,7 @@
     "inventory/subclass-features.json": "0fff2d8d95c58b7974e3b3eacdeeafc110c8e5a6a881875d64c40e0211effc99",
     "inventory/subclasses.json": "69a576ecc26e43fec3818e6820b789ccec9d5589e3b4e929c5973e81fa009dad",
     "items.json": "93473de63fc1745acb6703b696e46d173c185a1945fd4eaf8e146329e7bfe37c",
-    "manifest.json": "cb74367345e09e6c67dd5a6e75891cb58cc192e1de50de3c3d062e446351553e",
+    "manifest.json": "d555f993f9a19238d406be86dea2d1c2e0714ecb758d361f777c2450513eae30",
     "spells.json": "a9e730651f6df66a22563929721284a0622812f21a1f6a9646c10b01c99b7e88"
   },
   "revision": "3a09c05a3a3be94423cd2b3c33936034eeae02f2",

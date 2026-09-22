@@ -26,9 +26,21 @@ path traversal, backslashes, whitespace, or a colon.
 
 `manifest.json` declares `schema_version` (`"1.0"`), dataset identity and
 version, ruleset, language, license and attribution, sources, and optional
-dependencies. Entries store source keys, not copied source metadata. Markdown
+dependencies. These fields describe three separate concepts: `dataset_id`
+identifies the dataset/provider package (for example, `official-2024`),
+`ruleset` is its broad declaration, and each source identifies the sourcebook
+and its optional `edition`. Source editions use stable values such as `2014`
+and `2024`; display labels are `2014 / 5e` and `2024 / 5.5e`. The source edition
+describes the rules generation of that book and is distinct from the dataset's
+ruleset. Missing edition means unknown or unspecified and remains valid for
+legacy and custom datasets. Entries store source keys, not copied source
+metadata. Markdown
 descriptions are plain local content; HTML and remote content are not part of
 the contract. Image references are relative paths under the pack.
+
+Example: `official-5etools-2024` is the dataset/provider; its manifest ruleset
+is `D&D 5.5e / 2024 rules`; a source can carry edition `2024` and title
+`Player's Handbook (2024)`.
 
 The four category models cover structured spell components, item weapon/armor
 details, feat benefits, and class features, subclasses, and presentation-only

@@ -1,0 +1,4271 @@
+[
+  {
+    "local_key": "spell/acid-arrow",
+    "name": "Acid Arrow",
+    "level": 2,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 107",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/acid-splash",
+    "name": "Acid Splash",
+    "level": 0,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 107",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/aid",
+    "name": "Aid",
+    "level": 2,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 107",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/alarm",
+    "name": "Alarm",
+    "level": 1,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 107",
+    "source_classes": [
+      "Ranger",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/alter-self",
+    "name": "Alter Self",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 107",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/animal-friendship",
+    "name": "Animal Friendship",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 107",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/animal-messenger",
+    "name": "Animal Messenger",
+    "level": 2,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 108",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/animal-shapes",
+    "name": "Animal Shapes",
+    "level": 8,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 108",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/animate-dead",
+    "name": "Animate Dead",
+    "level": 3,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 108",
+    "source_classes": [
+      "Cleric",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/animate-objects",
+    "name": "Animate Objects",
+    "level": 5,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 108",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/antilife-shell",
+    "name": "Antilife Shell",
+    "level": 5,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 109",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/antimagic-field",
+    "name": "Antimagic Field",
+    "level": 8,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 109",
+    "source_classes": [
+      "Cleric",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/antipathy-sympathy",
+    "name": "Antipathy/Sympathy",
+    "level": 8,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 109",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/arcane-eye",
+    "name": "Arcane Eye",
+    "level": 4,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 110",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/arcane-hand",
+    "name": "Arcane Hand",
+    "level": 5,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 110",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/arcane-lock",
+    "name": "Arcane Lock",
+    "level": 2,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 110",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/arcane-sword",
+    "name": "Arcane Sword",
+    "level": 7,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 110",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/arcanists-magic-aura",
+    "name": "Arcanist’s Magic Aura",
+    "level": 2,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 110",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/astral-projection",
+    "name": "Astral Projection",
+    "level": 9,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 111",
+    "source_classes": [
+      "Cleric",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/augury",
+    "name": "Augury",
+    "level": 2,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 111",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/aura-of-life",
+    "name": "Aura of Life",
+    "level": 4,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 111",
+    "source_classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/awaken",
+    "name": "Awaken",
+    "level": 5,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 111",
+    "source_classes": [
+      "Bard",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/bane",
+    "name": "Bane",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 112",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Warlock"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/banishment",
+    "name": "Banishment",
+    "level": 4,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 112",
+    "source_classes": [
+      "Cleric",
+      "Paladin",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/barkskin",
+    "name": "Barkskin",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 112",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/beacon-of-hope",
+    "name": "Beacon of Hope",
+    "level": 3,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 112",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/befuddlement",
+    "name": "Befuddlement",
+    "level": 8,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 112",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/bestow-curse",
+    "name": "Bestow Curse",
+    "level": 3,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 112",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/black-tentacles",
+    "name": "Black Tentacles",
+    "level": 4,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 113",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/blade-barrier",
+    "name": "Blade Barrier",
+    "level": 6,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 113",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/bless",
+    "name": "Bless",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 113",
+    "source_classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/blight",
+    "name": "Blight",
+    "level": 4,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 113",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/blindness-deafness",
+    "name": "Blindness/Deafness",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 113",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/blink",
+    "name": "Blink",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 113",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/blur",
+    "name": "Blur",
+    "level": 2,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 114",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/burning-hands",
+    "name": "Burning Hands",
+    "level": 1,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 114",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/call-lightning",
+    "name": "Call Lightning",
+    "level": 3,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 114",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/calm-emotions",
+    "name": "Calm Emotions",
+    "level": 2,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 114",
+    "source_classes": [
+      "Bard",
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/chain-lightning",
+    "name": "Chain Lightning",
+    "level": 6,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 114",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/charm-monster",
+    "name": "Charm Monster",
+    "level": 4,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 114",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/charm-person",
+    "name": "Charm Person",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 115",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/chill-touch",
+    "name": "Chill Touch",
+    "level": 0,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 115",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/chromatic-orb",
+    "name": "Chromatic Orb",
+    "level": 1,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 115",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/circle-of-death",
+    "name": "Circle of Death",
+    "level": 6,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 115",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/clairvoyance",
+    "name": "Clairvoyance",
+    "level": 3,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 115",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/clone",
+    "name": "Clone",
+    "level": 8,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 115",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/cloudkill",
+    "name": "Cloudkill",
+    "level": 5,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 116",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/color-spray",
+    "name": "Color Spray",
+    "level": 1,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 116",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/command",
+    "name": "Command",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 116",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/commune",
+    "name": "Commune",
+    "level": 5,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 116",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/commune-with-nature",
+    "name": "Commune with Nature",
+    "level": 5,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 116",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/comprehend-languages",
+    "name": "Comprehend Languages",
+    "level": 1,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 117",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/compulsion",
+    "name": "Compulsion",
+    "level": 4,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 117",
+    "source_classes": [
+      "Bard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/cone-of-cold",
+    "name": "Cone of Cold",
+    "level": 5,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 117",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/confusion",
+    "name": "Confusion",
+    "level": 4,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 117",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/conjure-animals",
+    "name": "Conjure Animals",
+    "level": 3,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 117",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/conjure-celestial",
+    "name": "Conjure Celestial",
+    "level": 7,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 118",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/conjure-elemental",
+    "name": "Conjure Elemental",
+    "level": 5,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 118",
+    "source_classes": [
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/conjure-fey",
+    "name": "Conjure Fey",
+    "level": 6,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 118",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/conjure-minor-elementals",
+    "name": "Conjure Minor Elementals",
+    "level": 4,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 118",
+    "source_classes": [
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/conjure-woodland-beings",
+    "name": "Conjure Woodland Beings",
+    "level": 4,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 118",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/contact-other-plane",
+    "name": "Contact Other Plane",
+    "level": 5,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 119",
+    "source_classes": [
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/contagion",
+    "name": "Contagion",
+    "level": 5,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 119",
+    "source_classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/contingency",
+    "name": "Contingency",
+    "level": 6,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 119",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/continual-flame",
+    "name": "Continual Flame",
+    "level": 2,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 119",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/control-water",
+    "name": "Control Water",
+    "level": 4,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 119",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/control-weather",
+    "name": "Control Weather",
+    "level": 8,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 120",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/counterspell",
+    "name": "Counterspell",
+    "level": 3,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 120",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/create-food-and-water",
+    "name": "Create Food and Water",
+    "level": 3,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 120",
+    "source_classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/create-or-destroy-water",
+    "name": "Create or Destroy Water",
+    "level": 1,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 121",
+    "source_classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/create-undead",
+    "name": "Create Undead",
+    "level": 6,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 121",
+    "source_classes": [
+      "Cleric",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/creation",
+    "name": "Creation",
+    "level": 5,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 121",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/cure-wounds",
+    "name": "Cure Wounds",
+    "level": 1,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 121",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dancing-lights",
+    "name": "Dancing Lights",
+    "level": 0,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 121",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/darkness",
+    "name": "Darkness",
+    "level": 2,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 122",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/darkvision",
+    "name": "Darkvision",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 122",
+    "source_classes": [
+      "Druid",
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/daylight",
+    "name": "Daylight",
+    "level": 3,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 122",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger",
+      "Sorcerer"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/death-ward",
+    "name": "Death Ward",
+    "level": 4,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 122",
+    "source_classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/delayed-blast-fireball",
+    "name": "Delayed Blast Fireball",
+    "level": 7,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 122",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/demiplane",
+    "name": "Demiplane",
+    "level": 8,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 122",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/detect-evil-and-good",
+    "name": "Detect Evil and Good",
+    "level": 1,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 123",
+    "source_classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/detect-magic",
+    "name": "Detect Magic",
+    "level": 1,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 123",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/detect-poison-and-disease",
+    "name": "Detect Poison and Disease",
+    "level": 1,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 123",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/detect-thoughts",
+    "name": "Detect Thoughts",
+    "level": 2,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 123",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dimension-door",
+    "name": "Dimension Door",
+    "level": 4,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 123",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/disguise-self",
+    "name": "Disguise Self",
+    "level": 1,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 124",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/disintegrate",
+    "name": "Disintegrate",
+    "level": 6,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 124",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dispel-evil-and-good",
+    "name": "Dispel Evil and Good",
+    "level": 5,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 124",
+    "source_classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dispel-magic",
+    "name": "Dispel Magic",
+    "level": 3,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 124",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dissonant-whispers",
+    "name": "Dissonant Whispers",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 124",
+    "source_classes": [
+      "Bard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/divination",
+    "name": "Divination",
+    "level": 4,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 125",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/divine-favor",
+    "name": "Divine Favor",
+    "level": 1,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 125",
+    "source_classes": [
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/divine-smite",
+    "name": "Divine Smite",
+    "level": 1,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 125",
+    "source_classes": [
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/divine-word",
+    "name": "Divine Word",
+    "level": 7,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 125",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dominate-beast",
+    "name": "Dominate Beast",
+    "level": 4,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 125",
+    "source_classes": [
+      "Druid",
+      "Ranger",
+      "Sorcerer"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dominate-monster",
+    "name": "Dominate Monster",
+    "level": 8,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 125",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dominate-person",
+    "name": "Dominate Person",
+    "level": 5,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 126",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dragons-breath",
+    "name": "Dragon’s Breath",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 126",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/dream",
+    "name": "Dream",
+    "level": 5,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 126",
+    "source_classes": [
+      "Bard",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/druidcraft",
+    "name": "Druidcraft",
+    "level": 0,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 126",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/earthquake",
+    "name": "Earthquake",
+    "level": 8,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 127",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Sorcerer"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/eldritch-blast",
+    "name": "Eldritch Blast",
+    "level": 0,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 127",
+    "source_classes": [
+      "Warlock"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/elementalism",
+    "name": "Elementalism",
+    "level": 0,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 127",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/enhance-ability",
+    "name": "Enhance Ability",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 127",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/enlarge-reduce",
+    "name": "Enlarge/Reduce",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 127",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/ensnaring-strike",
+    "name": "Ensnaring Strike",
+    "level": 1,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 128",
+    "source_classes": [
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/entangle",
+    "name": "Entangle",
+    "level": 1,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 128",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/enthrall",
+    "name": "Enthrall",
+    "level": 2,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 128",
+    "source_classes": [
+      "Bard",
+      "Warlock"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/etherealness",
+    "name": "Etherealness",
+    "level": 7,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 128",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/expeditious-retreat",
+    "name": "Expeditious Retreat",
+    "level": 1,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 129",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/eyebite",
+    "name": "Eyebite",
+    "level": 6,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 129",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/fabricate",
+    "name": "Fabricate",
+    "level": 4,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 129",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/faerie-fire",
+    "name": "Faerie Fire",
+    "level": 1,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 129",
+    "source_classes": [
+      "Bard",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/faithful-hound",
+    "name": "Faithful Hound",
+    "level": 4,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 129",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/false-life",
+    "name": "False Life",
+    "level": 1,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 129",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/fear",
+    "name": "Fear",
+    "level": 3,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 130",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/feather-fall",
+    "name": "Feather Fall",
+    "level": 1,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 130",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/find-familiar",
+    "name": "Find Familiar",
+    "level": 1,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 130",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/find-steed",
+    "name": "Find Steed",
+    "level": 2,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 130",
+    "source_classes": [
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/find-the-path",
+    "name": "Find the Path",
+    "level": 6,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 131",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/find-traps",
+    "name": "Find Traps",
+    "level": 2,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 131",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/finger-of-death",
+    "name": "Finger of Death",
+    "level": 7,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 131",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/fire-bolt",
+    "name": "Fire Bolt",
+    "level": 0,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 132",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/fire-shield",
+    "name": "Fire Shield",
+    "level": 4,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 132",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/fire-storm",
+    "name": "Fire Storm",
+    "level": 7,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 132",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Sorcerer"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/fireball",
+    "name": "Fireball",
+    "level": 3,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 131",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/flame-blade",
+    "name": "Flame Blade",
+    "level": 2,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 132",
+    "source_classes": [
+      "Druid",
+      "Sorcerer"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/flame-strike",
+    "name": "Flame Strike",
+    "level": 5,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 132",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/flaming-sphere",
+    "name": "Flaming Sphere",
+    "level": 2,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 132",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/flesh-to-stone",
+    "name": "Flesh to Stone",
+    "level": 6,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 133",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/floating-disk",
+    "name": "Floating Disk",
+    "level": 1,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 133",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/fly",
+    "name": "Fly",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 133",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/fog-cloud",
+    "name": "Fog Cloud",
+    "level": 1,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 133",
+    "source_classes": [
+      "Druid",
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/forbiddance",
+    "name": "Forbiddance",
+    "level": 6,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 133",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/forcecage",
+    "name": "Forcecage",
+    "level": 7,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 134",
+    "source_classes": [
+      "Bard",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/foresight",
+    "name": "Foresight",
+    "level": 9,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 134",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/freedom-of-movement",
+    "name": "Freedom of Movement",
+    "level": 4,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 134",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/freezing-sphere",
+    "name": "Freezing Sphere",
+    "level": 6,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 134",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/gaseous-form",
+    "name": "Gaseous Form",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 134",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/gate",
+    "name": "Gate",
+    "level": 9,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 135",
+    "source_classes": [
+      "Cleric",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/geas",
+    "name": "Geas",
+    "level": 5,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 135",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/gentle-repose",
+    "name": "Gentle Repose",
+    "level": 2,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 135",
+    "source_classes": [
+      "Cleric",
+      "Paladin",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/giant-insect",
+    "name": "Giant Insect",
+    "level": 4,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 135",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/glibness",
+    "name": "Glibness",
+    "level": 8,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 136",
+    "source_classes": [
+      "Bard",
+      "Warlock"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/globe-of-invulnerability",
+    "name": "Globe of Invulnerability",
+    "level": 6,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 136",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/glyph-of-warding",
+    "name": "Glyph of Warding",
+    "level": 3,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 136",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/goodberry",
+    "name": "Goodberry",
+    "level": 1,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 137",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/grease",
+    "name": "Grease",
+    "level": 1,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 137",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/greater-invisibility",
+    "name": "Greater Invisibility",
+    "level": 4,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 137",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/greater-restoration",
+    "name": "Greater Restoration",
+    "level": 5,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 137",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/guardian-of-faith",
+    "name": "Guardian of Faith",
+    "level": 4,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 137",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/guards-and-wards",
+    "name": "Guards and Wards",
+    "level": 6,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 137",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/guidance",
+    "name": "Guidance",
+    "level": 0,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 138",
+    "source_classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/guiding-bolt",
+    "name": "Guiding Bolt",
+    "level": 1,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 138",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/gust-of-wind",
+    "name": "Gust of Wind",
+    "level": 2,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 138",
+    "source_classes": [
+      "Druid",
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/hallow",
+    "name": "Hallow",
+    "level": 5,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 138",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/hallucinatory-terrain",
+    "name": "Hallucinatory Terrain",
+    "level": 4,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 139",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/harm",
+    "name": "Harm",
+    "level": 6,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 139",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/haste",
+    "name": "Haste",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 139",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/heal",
+    "name": "Heal",
+    "level": 6,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 139",
+    "source_classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/healing-word",
+    "name": "Healing Word",
+    "level": 1,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 139",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/heat-metal",
+    "name": "Heat Metal",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 139",
+    "source_classes": [
+      "Bard",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/hellish-rebuke",
+    "name": "Hellish Rebuke",
+    "level": 1,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 140",
+    "source_classes": [
+      "Warlock"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/heroes-feast",
+    "name": "Heroes’ Feast",
+    "level": 6,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 140",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/heroism",
+    "name": "Heroism",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 140",
+    "source_classes": [
+      "Bard",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/hex",
+    "name": "Hex",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 140",
+    "source_classes": [
+      "Warlock"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/hideous-laughter",
+    "name": "Hideous Laughter",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 140",
+    "source_classes": [
+      "Bard",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/hold-monster",
+    "name": "Hold Monster",
+    "level": 5,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 140",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/hold-person",
+    "name": "Hold Person",
+    "level": 2,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 141",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/holy-aura",
+    "name": "Holy Aura",
+    "level": 8,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 141",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/hunters-mark",
+    "name": "Hunter’s Mark",
+    "level": 1,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 141",
+    "source_classes": [
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/hypnotic-pattern",
+    "name": "Hypnotic Pattern",
+    "level": 3,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 141",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/ice-knife",
+    "name": "Ice Knife",
+    "level": 1,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 141",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/ice-storm",
+    "name": "Ice Storm",
+    "level": 4,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 141",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/identify",
+    "name": "Identify",
+    "level": 1,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 142",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/illusory-script",
+    "name": "Illusory Script",
+    "level": 1,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 142",
+    "source_classes": [
+      "Bard",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/imprisonment",
+    "name": "Imprisonment",
+    "level": 9,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 142",
+    "source_classes": [
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/incendiary-cloud",
+    "name": "Incendiary Cloud",
+    "level": 8,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 142",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/inflict-wounds",
+    "name": "Inflict Wounds",
+    "level": 1,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 143",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/insect-plague",
+    "name": "Insect Plague",
+    "level": 5,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 143",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Sorcerer"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/instant-summons",
+    "name": "Instant Summons",
+    "level": 6,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 143",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/invisibility",
+    "name": "Invisibility",
+    "level": 2,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 143",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/irresistible-dance",
+    "name": "Irresistible Dance",
+    "level": 6,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 143",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/jump",
+    "name": "Jump",
+    "level": 1,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 143",
+    "source_classes": [
+      "Druid",
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/knock",
+    "name": "Knock",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 143",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/legend-lore",
+    "name": "Legend Lore",
+    "level": 5,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 144",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/lesser-restoration",
+    "name": "Lesser Restoration",
+    "level": 2,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 144",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/levitate",
+    "name": "Levitate",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 144",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/light",
+    "name": "Light",
+    "level": 0,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 144",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/lightning-bolt",
+    "name": "Lightning Bolt",
+    "level": 3,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 144",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/locate-animals-or-plants",
+    "name": "Locate Animals or Plants",
+    "level": 2,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 144",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/locate-creature",
+    "name": "Locate Creature",
+    "level": 4,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 145",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/locate-object",
+    "name": "Locate Object",
+    "level": 2,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 145",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/longstrider",
+    "name": "Longstrider",
+    "level": 1,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 145",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Ranger",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mage-armor",
+    "name": "Mage Armor",
+    "level": 1,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 145",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mage-hand",
+    "name": "Mage Hand",
+    "level": 0,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 145",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/magic-circle",
+    "name": "Magic Circle",
+    "level": 3,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 145",
+    "source_classes": [
+      "Cleric",
+      "Paladin",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/magic-jar",
+    "name": "Magic Jar",
+    "level": 6,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 146",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/magic-missile",
+    "name": "Magic Missile",
+    "level": 1,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 146",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/magic-mouth",
+    "name": "Magic Mouth",
+    "level": 2,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 146",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/magic-weapon",
+    "name": "Magic Weapon",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 146",
+    "source_classes": [
+      "Paladin",
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/magnificent-mansion",
+    "name": "Magnificent Mansion",
+    "level": 7,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 147",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/major-image",
+    "name": "Major Image",
+    "level": 3,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 147",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mass-cure-wounds",
+    "name": "Mass Cure Wounds",
+    "level": 5,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 147",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mass-heal",
+    "name": "Mass Heal",
+    "level": 9,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 147",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mass-healing-word",
+    "name": "Mass Healing Word",
+    "level": 3,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 148",
+    "source_classes": [
+      "Bard",
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mass-suggestion",
+    "name": "Mass Suggestion",
+    "level": 6,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 148",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/maze",
+    "name": "Maze",
+    "level": 8,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 148",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/meld-into-stone",
+    "name": "Meld into Stone",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 148",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mending",
+    "name": "Mending",
+    "level": 0,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 148",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/message",
+    "name": "Message",
+    "level": 0,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 148",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/meteor-swarm",
+    "name": "Meteor Swarm",
+    "level": 9,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 149",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mind-blank",
+    "name": "Mind Blank",
+    "level": 8,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 149",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mind-spike",
+    "name": "Mind Spike",
+    "level": 2,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 149",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/minor-illusion",
+    "name": "Minor Illusion",
+    "level": 0,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 149",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mirage-arcane",
+    "name": "Mirage Arcane",
+    "level": 7,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 149",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mirror-image",
+    "name": "Mirror Image",
+    "level": 2,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 150",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/mislead",
+    "name": "Mislead",
+    "level": 5,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 150",
+    "source_classes": [
+      "Bard",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/misty-step",
+    "name": "Misty Step",
+    "level": 2,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 150",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/modify-memory",
+    "name": "Modify Memory",
+    "level": 5,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 150",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/moonbeam",
+    "name": "Moonbeam",
+    "level": 2,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 150",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/move-earth",
+    "name": "Move Earth",
+    "level": 6,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 151",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/nondetection",
+    "name": "Nondetection",
+    "level": 3,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 151",
+    "source_classes": [
+      "Bard",
+      "Ranger",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/pass-without-trace",
+    "name": "Pass without Trace",
+    "level": 2,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 151",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/passwall",
+    "name": "Passwall",
+    "level": 5,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 151",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/phantasmal-force",
+    "name": "Phantasmal Force",
+    "level": 2,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 151",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/phantasmal-killer",
+    "name": "Phantasmal Killer",
+    "level": 4,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 152",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/phantom-steed",
+    "name": "Phantom Steed",
+    "level": 3,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 152",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/planar-ally",
+    "name": "Planar Ally",
+    "level": 6,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 152",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/planar-binding",
+    "name": "Planar Binding",
+    "level": 5,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 152",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/plane-shift",
+    "name": "Plane Shift",
+    "level": 7,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 153",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/plant-growth",
+    "name": "Plant Growth",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 153",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/poison-spray",
+    "name": "Poison Spray",
+    "level": 0,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 153",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/polymorph",
+    "name": "Polymorph",
+    "level": 4,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 153",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/power-word-heal",
+    "name": "Power Word Heal",
+    "level": 9,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 154",
+    "source_classes": [
+      "Bard",
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/power-word-kill",
+    "name": "Power Word Kill",
+    "level": 9,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 154",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/power-word-stun",
+    "name": "Power Word Stun",
+    "level": 8,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 154",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/prayer-of-healing",
+    "name": "Prayer of Healing",
+    "level": 2,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 154",
+    "source_classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/prestidigitation",
+    "name": "Prestidigitation",
+    "level": 0,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 154",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/prismatic-spray",
+    "name": "Prismatic Spray",
+    "level": 7,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 154",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/prismatic-wall",
+    "name": "Prismatic Wall",
+    "level": 9,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 155",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/private-sanctum",
+    "name": "Private Sanctum",
+    "level": 4,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 156",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/produce-flame",
+    "name": "Produce Flame",
+    "level": 0,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 156",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/programmed-illusion",
+    "name": "Programmed Illusion",
+    "level": 6,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 156",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/project-image",
+    "name": "Project Image",
+    "level": 7,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 156",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/protection-from-energy",
+    "name": "Protection from Energy",
+    "level": 3,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 157",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/protection-from-evil-and-good",
+    "name": "Protection from Evil and Good",
+    "level": 1,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 157",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/protection-from-poison",
+    "name": "Protection from Poison",
+    "level": 2,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 157",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/purify-food-and-drink",
+    "name": "Purify Food and Drink",
+    "level": 1,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 157",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/raise-dead",
+    "name": "Raise Dead",
+    "level": 5,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 157",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/ray-of-enfeeblement",
+    "name": "Ray of Enfeeblement",
+    "level": 2,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 157",
+    "source_classes": [
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/ray-of-frost",
+    "name": "Ray of Frost",
+    "level": 0,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 157",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/ray-of-sickness",
+    "name": "Ray of Sickness",
+    "level": 1,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 158",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/regenerate",
+    "name": "Regenerate",
+    "level": 7,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 158",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/reincarnate",
+    "name": "Reincarnate",
+    "level": 5,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 158",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/remove-curse",
+    "name": "Remove Curse",
+    "level": 3,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 158",
+    "source_classes": [
+      "Cleric",
+      "Paladin",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/resilient-sphere",
+    "name": "Resilient Sphere",
+    "level": 4,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 158",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/resistance",
+    "name": "Resistance",
+    "level": 0,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 158",
+    "source_classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/resurrection",
+    "name": "Resurrection",
+    "level": 7,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 158",
+    "source_classes": [
+      "Bard",
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/reverse-gravity",
+    "name": "Reverse Gravity",
+    "level": 7,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 159",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/revivify",
+    "name": "Revivify",
+    "level": 3,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 159",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/rope-trick",
+    "name": "Rope Trick",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 159",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/sacred-flame",
+    "name": "Sacred Flame",
+    "level": 0,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 159",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/sanctuary",
+    "name": "Sanctuary",
+    "level": 1,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 159",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/scorching-ray",
+    "name": "Scorching Ray",
+    "level": 2,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 159",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/scrying",
+    "name": "Scrying",
+    "level": 5,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 160",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/searing-smite",
+    "name": "Searing Smite",
+    "level": 1,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 160",
+    "source_classes": [
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/secret-chest",
+    "name": "Secret Chest",
+    "level": 4,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 160",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/see-invisibility",
+    "name": "See Invisibility",
+    "level": 2,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 160",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/seeming",
+    "name": "Seeming",
+    "level": 5,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 160",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/sending",
+    "name": "Sending",
+    "level": 3,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 161",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/sequester",
+    "name": "Sequester",
+    "level": 7,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 161",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/shapechange",
+    "name": "Shapechange",
+    "level": 9,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 161",
+    "source_classes": [
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/shatter",
+    "name": "Shatter",
+    "level": 2,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 161",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/shield",
+    "name": "Shield",
+    "level": 1,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 161",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/shield-of-faith",
+    "name": "Shield of Faith",
+    "level": 1,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 162",
+    "source_classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/shillelagh",
+    "name": "Shillelagh",
+    "level": 0,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 162",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/shining-smite",
+    "name": "Shining Smite",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 162",
+    "source_classes": [
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/shocking-grasp",
+    "name": "Shocking Grasp",
+    "level": 0,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 162",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/silence",
+    "name": "Silence",
+    "level": 2,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 162",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/silent-image",
+    "name": "Silent Image",
+    "level": 1,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 162",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/simulacrum",
+    "name": "Simulacrum",
+    "level": 7,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 162",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/sleep",
+    "name": "Sleep",
+    "level": 1,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 163",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/sleet-storm",
+    "name": "Sleet Storm",
+    "level": 3,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 163",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/slow",
+    "name": "Slow",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 163",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/sorcerous-burst",
+    "name": "Sorcerous Burst",
+    "level": 0,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 163",
+    "source_classes": [
+      "Sorcerer"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/spare-the-dying",
+    "name": "Spare the Dying",
+    "level": 0,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 163",
+    "source_classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/speak-with-animals",
+    "name": "Speak with Animals",
+    "level": 1,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 164",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Ranger",
+      "Warlock"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/speak-with-dead",
+    "name": "Speak with Dead",
+    "level": 3,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 164",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/speak-with-plants",
+    "name": "Speak with Plants",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 164",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/spider-climb",
+    "name": "Spider Climb",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 164",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/spike-growth",
+    "name": "Spike Growth",
+    "level": 2,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 164",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/spirit-guardians",
+    "name": "Spirit Guardians",
+    "level": 3,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 164",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/spiritual-weapon",
+    "name": "Spiritual Weapon",
+    "level": 2,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 165",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/starry-wisp",
+    "name": "Starry Wisp",
+    "level": 0,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 165",
+    "source_classes": [
+      "Bard",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/stinking-cloud",
+    "name": "Stinking Cloud",
+    "level": 3,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 165",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/stone-shape",
+    "name": "Stone Shape",
+    "level": 4,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 165",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/stoneskin",
+    "name": "Stoneskin",
+    "level": 4,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 165",
+    "source_classes": [
+      "Druid",
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/storm-of-vengeance",
+    "name": "Storm of Vengeance",
+    "level": 9,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 165",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/suggestion",
+    "name": "Suggestion",
+    "level": 2,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 166",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/summon-dragon",
+    "name": "Summon Dragon",
+    "level": 5,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 166",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/sunbeam",
+    "name": "Sunbeam",
+    "level": 6,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 166",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/sunburst",
+    "name": "Sunburst",
+    "level": 8,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 167",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/symbol",
+    "name": "Symbol",
+    "level": 7,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 167",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/telekinesis",
+    "name": "Telekinesis",
+    "level": 5,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 167",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/telepathic-bond",
+    "name": "Telepathic Bond",
+    "level": 5,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 168",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/teleport",
+    "name": "Teleport",
+    "level": 7,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 168",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/teleportation-circle",
+    "name": "Teleportation Circle",
+    "level": 5,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 168",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/thaumaturgy",
+    "name": "Thaumaturgy",
+    "level": 0,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 169",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/thunderwave",
+    "name": "Thunderwave",
+    "level": 1,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 169",
+    "source_classes": [
+      "Bard",
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/time-stop",
+    "name": "Time Stop",
+    "level": 9,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 169",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/tiny-hut",
+    "name": "Tiny Hut",
+    "level": 3,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 169",
+    "source_classes": [
+      "Bard",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/tongues",
+    "name": "Tongues",
+    "level": 3,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 169",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/transport-via-plants",
+    "name": "Transport via Plants",
+    "level": 6,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 170",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/tree-stride",
+    "name": "Tree Stride",
+    "level": 5,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 170",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/true-polymorph",
+    "name": "True Polymorph",
+    "level": 9,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 170",
+    "source_classes": [
+      "Bard",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/true-resurrection",
+    "name": "True Resurrection",
+    "level": 9,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 170",
+    "source_classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/true-seeing",
+    "name": "True Seeing",
+    "level": 6,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 171",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/true-strike",
+    "name": "True Strike",
+    "level": 0,
+    "school": "divination",
+    "source_locator": "SRD 5.2.1 p. 171",
+    "source_classes": [
+      "Bard",
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/tsunami",
+    "name": "Tsunami",
+    "level": 8,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 171",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/unseen-servant",
+    "name": "Unseen Servant",
+    "level": 1,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 171",
+    "source_classes": [
+      "Bard",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/vampiric-touch",
+    "name": "Vampiric Touch",
+    "level": 3,
+    "school": "necromancy",
+    "source_locator": "SRD 5.2.1 p. 171",
+    "source_classes": [
+      "Sorcerer",
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/vicious-mockery",
+    "name": "Vicious Mockery",
+    "level": 0,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 171",
+    "source_classes": [
+      "Bard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/vitriolic-sphere",
+    "name": "Vitriolic Sphere",
+    "level": 4,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 172",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/wall-of-fire",
+    "name": "Wall of Fire",
+    "level": 4,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 172",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/wall-of-force",
+    "name": "Wall of Force",
+    "level": 5,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 172",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/wall-of-ice",
+    "name": "Wall of Ice",
+    "level": 6,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 172",
+    "source_classes": [
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/wall-of-stone",
+    "name": "Wall of Stone",
+    "level": 5,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 173",
+    "source_classes": [
+      "Druid",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/wall-of-thorns",
+    "name": "Wall of Thorns",
+    "level": 6,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 173",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/warding-bond",
+    "name": "Warding Bond",
+    "level": 2,
+    "school": "abjuration",
+    "source_locator": "SRD 5.2.1 p. 173",
+    "source_classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/water-breathing",
+    "name": "Water Breathing",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 173",
+    "source_classes": [
+      "Druid",
+      "Ranger",
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/water-walk",
+    "name": "Water Walk",
+    "level": 3,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 173",
+    "source_classes": [
+      "Cleric",
+      "Druid",
+      "Ranger",
+      "Sorcerer"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/web",
+    "name": "Web",
+    "level": 2,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 174",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/weird",
+    "name": "Weird",
+    "level": 9,
+    "school": "illusion",
+    "source_locator": "SRD 5.2.1 p. 174",
+    "source_classes": [
+      "Warlock",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/wind-walk",
+    "name": "Wind Walk",
+    "level": 6,
+    "school": "transmutation",
+    "source_locator": "SRD 5.2.1 p. 174",
+    "source_classes": [
+      "Druid"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/wind-wall",
+    "name": "Wind Wall",
+    "level": 3,
+    "school": "evocation",
+    "source_locator": "SRD 5.2.1 p. 174",
+    "source_classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/wish",
+    "name": "Wish",
+    "level": 9,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 175",
+    "source_classes": [
+      "Sorcerer",
+      "Wizard"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/word-of-recall",
+    "name": "Word of Recall",
+    "level": 6,
+    "school": "conjuration",
+    "source_locator": "SRD 5.2.1 p. 175",
+    "source_classes": [
+      "Cleric"
+    ],
+    "conversion_status": "reviewed"
+  },
+  {
+    "local_key": "spell/zone-of-truth",
+    "name": "Zone of Truth",
+    "level": 2,
+    "school": "enchantment",
+    "source_locator": "SRD 5.2.1 p. 175",
+    "source_classes": [
+      "Bard",
+      "Cleric",
+      "Paladin"
+    ],
+    "conversion_status": "reviewed"
+  }
+]

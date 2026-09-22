@@ -1,0 +1,84 @@
+"""Authoritative Pydantic models for Milestone 3 dataset contracts."""
+
+from .character_class import (
+    CharacterClass,
+    ClassFeature,
+    ClassProgression,
+    HitDie,
+    ProgressionColumn,
+    ProgressionLevel,
+    Subclass,
+    SubclassFeature,
+)
+from .common import (
+    AdditionalSection,
+    DatasetId,
+    EntryBase,
+    ImageReference,
+    LocalKey,
+    SourceKey,
+    SourceMetadata,
+    StableReference,
+    split_reference,
+)
+from .dataset import (
+    DATASET_SCHEMA_VERSION,
+    DatasetDependency,
+    DatasetManifest,
+    DatasetPack,
+    DatasetValidationError,
+    validate_dataset,
+)
+from .feat import Feat
+from .item import (
+    ArmorDetails,
+    Item,
+    ItemCatalog,
+    ItemCost,
+    ItemKind,
+    ItemProperty,
+    ItemPropertyReference,
+    ItemRarity,
+    WeaponDetails,
+)
+from .spell import MagicSchool, Spell, SpellComponents
+
+__all__ = [
+    "AdditionalSection",
+    "ArmorDetails",
+    "CharacterClass",
+    "ClassFeature",
+    "ClassProgression",
+    "DATASET_SCHEMA_VERSION",
+    "DatasetDependency",
+    "DatasetId",
+    "DatasetManifest",
+    "DatasetPack",
+    "DatasetValidationError",
+    "EntryBase",
+    "Feat",
+    "HitDie",
+    "ImageReference",
+    "Item",
+    "ItemCatalog",
+    "ItemCost",
+    "ItemKind",
+    "ItemProperty",
+    "ItemPropertyReference",
+    "ItemRarity",
+    "LocalKey",
+    "MagicSchool",
+    "ProgressionColumn",
+    "ProgressionLevel",
+    "SourceKey",
+    "SourceMetadata",
+    "Spell",
+    "SpellComponents",
+    "StableReference",
+    "Subclass",
+    "SubclassFeature",
+    "WeaponDetails",
+    "split_reference",
+    "validate_dataset",
+]
+

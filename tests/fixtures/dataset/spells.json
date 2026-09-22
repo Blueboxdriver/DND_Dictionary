@@ -1,0 +1,36 @@
+[
+  {
+    "local_key": "spell/spark",
+    "name": "Spark",
+    "description": "A bright mote streaks toward a creature within range.",
+    "source": "example-core",
+    "level": 0,
+    "school": "evocation",
+    "casting_time": "1 action",
+    "range": "60 feet",
+    "components": {"verbal": true, "somatic": true},
+    "duration": "Instantaneous",
+    "class_references": ["class/wizard"]
+  },
+  {
+    "local_key": "spell/comet-burst",
+    "name": "Comet Burst",
+    "description": "A compact comet explodes at a point you choose.",
+    "source": "example-core",
+    "level": 3,
+    "school": "evocation",
+    "casting_time": "1 action",
+    "range": "150 feet",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "material_description": "a pinch of powdered glass"
+    },
+    "duration": "Instantaneous",
+    "concentration": false,
+    "ritual": false,
+    "class_references": ["class/wizard"],
+    "higher_level_effects": "The damage increases by 1d6 for each slot level above 3rd."
+  }
+]

@@ -1,0 +1,61 @@
+[
+  {
+    "local_key": "class/wizard",
+    "name": "Wizard",
+    "description": "A scholar of arcane formulae who shapes magic through study.",
+    "source": "example-core",
+    "hit_die": 6,
+    "primary_ability": "Intelligence",
+    "saving_throw_proficiencies": "Intelligence and Wisdom",
+    "skill_choices": "Choose two from Arcana, History, Insight, Investigation, Medicine, and Religion.",
+    "weapon_proficiencies": "Simple weapons",
+    "armor_proficiencies": "None",
+    "tool_proficiencies": "None",
+    "starting_equipment": "A spellbook, a quarterstaff, and a scholar's pack.",
+    "multiclassing": "You need Intelligence 13 to multiclass into or out of this class.",
+    "spellcasting_ability": "Intelligence",
+    "features": [
+      {
+        "feature_key": "class/wizard/spellcasting",
+        "level": 1,
+        "title": "Spellcasting",
+        "description": "You maintain a spellbook and prepare spells from it.",
+        "display_order": 1
+      },
+      {
+        "feature_key": "class/wizard/arcane-recovery",
+        "level": 1,
+        "title": "Arcane Recovery",
+        "description": "Once per day, you recover a portion of your magical energy after a short rest.",
+        "display_order": 2
+      }
+    ],
+    "progression": {
+      "columns": [
+        {"key": "spell_slots", "label": "Spell Slots", "display_order": 1},
+        {"key": "arcane_recovery", "label": "Arcane Recovery", "display_order": 2}
+      ],
+      "levels": [
+        {"level": 1, "values": {"spell_slots": "2 first-level", "arcane_recovery": "1/day"}},
+        {"level": 2, "values": {"spell_slots": "3 first-level", "arcane_recovery": "1/day"}}
+      ]
+    },
+    "subclasses": [
+      {
+        "subclass_key": "subclass/wizard/star-sage",
+        "name": "Star Sage",
+        "introduction": "Star Sages read omens in the movement of distant lights.",
+        "source": "example-core",
+        "features": [
+          {
+            "feature_key": "subclass/wizard/star-sage/astral-reading",
+            "level": 2,
+            "title": "Astral Reading",
+            "description": "You can consult a star chart to sharpen one divination each day.",
+            "display_order": 1
+          }
+        ]
+      }
+    ]
+  }
+]

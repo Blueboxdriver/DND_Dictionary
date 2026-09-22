@@ -1,0 +1,721 @@
+  # D&D Reference — implementation plan
+
+  Milestones 9/10 scope update: the original SRD-only Items/Classes interpretation
+  is superseded by the community structured-data content pipeline documented in
+  docs/milestone-9-10.md. The SRD pack remains a separate baseline. The new official
+  2024 pack covers Items, Spells, Feats, Classes/Subclasses and spell/class links.
+  Milestones 11 (production images/polish) and 12 (release) remain outside this work.
+  The original plan below is retained as milestone history.
+
+  ## 1. Recommended stack
+
+  Build a Python application using Textual, SQLite, and optional terminal images through textual-image.
+
+  Your confirmed priorities are local Linux use, simple development, complete coverage of the four SRD categories, a restrained
+  fantasy appearance, name-first search, and full class reference content.
+
+  ### Technology comparison
+
+  The assessments below are architectural judgments for this project.
+
+   Criterion                 Python + Textual                  Rust + Ratatui                    Go + Bubble Tea
+  ━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Development complexity    Lowest: widgets, focus            Higher: more explicit             Moderate: clear update/message
+                             management, styling, and          application state, event          model, but more manual
+                             scrolling fit this application    handling, and rendering           composition
+                             directly
+  ────────────────────────  ────────────────────────────────  ────────────────────────────────  ────────────────────────────────
+   Responsive layout         CSS-like styling and layout       Strong constraint-based           Resize messages with layout
+                             containers                        layout; explicit drawing          composed through Lip Gloss and
+                                                                                                 components
+  ────────────────────────  ────────────────────────────────  ────────────────────────────────  ────────────────────────────────
+   Keyboard input            Built-in bindings, actions,       Usually Crossterm plus            Keyboard messages handled in
+                             and focus handling                application-managed bindings      the update function
+  ────────────────────────  ────────────────────────────────  ────────────────────────────────  ────────────────────────────────
+   Search/filtering          Straightforward SQLite queries    Straightforward SQL; more         Straightforward SQL and
+                             and background workers            plumbing                          asynchronous commands
+  ────────────────────────  ────────────────────────────────  ────────────────────────────────  ────────────────────────────────
+   Images                    Existing Textual widget           ratatui-image offers several      Would require more integration
+                             integration; Sixel has            integrated protocols              investigation and renderer
+                             limitations                                                         coordination
+  ────────────────────────  ────────────────────────────────  ────────────────────────────────  ────────────────────────────────
+   SQLite                    Standard-library sqlite3          rusqlite, optionally bundling     database/sql plus a separately
+                                                               SQLite                            selected driver
+  ────────────────────────  ────────────────────────────────  ────────────────────────────────  ────────────────────────────────
+   Maintainability           Best fit for the chosen           Strong compile-time checks;       Relatively simple language;
+                             simplicity priority               more implementation code          more UI behavior owned by the
+                                                                                                 application
+  ────────────────────────  ────────────────────────────────  ────────────────────────────────  ────────────────────────────────
+   Linux distribution        Wheel installed in an isolated    Compiled executables per          Compiled executables; SQLite
+                             Python environment                target                            driver choice affects build
+                                                                                                 dependencies
+
+  The relevant framework capabilities are documented by Textual, Ratatui, and Bubble Tea. Rust’s image option is ratatui-image.
+
+  Recommendation: Python wins because the main work is presenting structured reference material attractively. Native performance
+  is unlikely to be the constraint.
+
+  Rich alone is insufficient as the application framework: it supplies terminal rendering primitives, but we would still need to
+  build much of the input, focus, and widget lifecycle. Use Rich through Textual. Rich documentation
+
+  ### Selected components
+
+   Purpose                    Choice
+  ━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Language                   Python 3.12+
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   TUI                        Textual
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   Storage                    SQLite through standard-library sqlite3
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   Full-text index            SQLite FTS5
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   Data validation            Pydantic, with generated JSON Schema
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   Optional images            textual-image and Pillow, installed through an images extra
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   Configuration              TOML, read through tomllib
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   Application directories    platformdirs
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   CLI                        Standard-library argparse
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   Development                uv, Ruff, pytest, pytest-asyncio
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   UI verification            Textual Pilot and pytest-textual-snapshot
+  ─────────────────────────  ─────────────────────────────────────────────────────────────
+   Packaging                  Standard wheel and source distribution
+
+  Use a lockfile for development and bounded dependency ranges for distribution. No ORM, server, plugin framework, or
+  dependency-injection container.
+
+  ### Why SQLite?
+
+  JSON alone would work for a small catalog, but reliable updates, relationships, filtering, and full-text search would
+  gradually recreate database functionality. SQLite gives those capabilities without a service.
+
+  Use JSON for authoring and exchange; SQLite for runtime queries. Python already provides its database interface. Python SQLite
+  documentation
+
+  ## 2. Architecture and interfaces
+
+  Keep one process and a small number of modules:
+
+   Module      Responsibility
+  ━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   cli         Launch the TUI; validate and import datasets
+  ──────────  ────────────────────────────────────────────────────────────────────
+   models      Typed records, pack validation, query/result types
+  ──────────  ────────────────────────────────────────────────────────────────────
+   storage     Connections, migrations, transactions, record retrieval
+  ──────────  ────────────────────────────────────────────────────────────────────
+   search      Query normalization, matching, ranking, pagination
+  ──────────  ────────────────────────────────────────────────────────────────────
+   importer    Validate packs, resolve references, apply updates
+  ──────────  ────────────────────────────────────────────────────────────────────
+   ui          Screens, widgets, bindings, presentation, session state
+  ──────────  ────────────────────────────────────────────────────────────────────
+   images      Capability detection, optional widget integration, image lifecycle
+  ──────────  ────────────────────────────────────────────────────────────────────
+   config      Paths, configuration, defaults
+
+  Data flow:
+
+  JSON dataset → validation → transactional import → SQLite
+                                                       ↑
+  Keyboard → Textual state → background query → typed results
+                  ↓
+          Detail widgets → optional image adapter → terminal
+
+  The UI never issues SQL. The storage layer never imports Textual.
+
+  ### Internal contracts
+
+  - SearchQuery: category, text, mode, offset, limit.
+  - SearchPage: entry summaries, total count.
+  - EntrySummary: stable ID, category, name, subtitle, source label.
+  - EntryDetail: a typed item, spell, feat, or class with associated content.
+  - ImportReport: additions, changes, removals, warnings, validation errors.
+  - ImageCapabilities: selected backend, availability, diagnostic reason.
+
+  These are Python types and functions, not a network API.
+
+  Textual manages focus, selected entry, search state, and scroll positions. Searches run through a single background executor
+  with its own SQLite connection. Request sequence numbers prevent delayed results from replacing newer searches.
+
+  Image loading happens separately; stale image results are discarded after selection changes. Worker threads return data to the
+  UI rather than manipulating widgets directly. Textual worker guidance
+
+  ### Storage locations
+
+  Use XDG locations through platformdirs:
+
+  - Data: database and installed dataset packs.
+  - Configuration: config.toml.
+  - Cache: disposable image thumbnails.
+  - State: diagnostic logs.
+
+  Dataset JSON remains the recoverable source of truth. Imported content is not edited directly in SQLite. The importer runs
+  outside the TUI; users restart the application after an import in 0.1.
+
+  Stable entry identities allow bookmarks, notes, and reference lists to be added later without changing content identifiers.
+
+  ## 3. Database schema
+
+  Use a small shared identity table plus separate category tables. The shared table contains genuinely common fields; spell
+  mechanics and class progression do not become nullable columns in one giant table.
+
+  PK denotes a primary key; FK denotes a foreign key.
+
+  ### Common tables
+
+   Table                Important fields and relationships
+  ━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   datasets             id PK, title, version, ruleset, language, license identifier, attribution, origin URL, content hash
+  ───────────────────  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+   sources              id PK, dataset_id FK, title, edition/version, citation
+  ───────────────────  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+   entries              Integer id PK, dataset_id FK, stable local key, kind, name, normalized name, description Markdown,
+                        source_id FK, source locator, optional image_id FK
+  ───────────────────  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+   images               id PK, dataset_id FK, relative path, content hash, alt text, creator, license, attribution
+  ───────────────────  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+   entry_sections       entry_id FK, stable section key, heading, Markdown body, display order
+  ───────────────────  ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+   schema_migrations    Applied migration version and timestamp
+
+  Unique identity: (dataset_id, local_key). External references use dataset_id:local_key; database row IDs remain internal.
+
+  A renamed entry retains its local key. Identically named entries from different datasets remain distinct and display their
+  source.
+
+  Image licensing is recorded separately from text licensing.
+
+  ### Spells
+
+  spells, keyed by entry_id:
+
+  - Level, constrained to 0–9.
+  - School.
+  - Casting-time text.
+  - Range text.
+  - Verbal, somatic, and material component flags.
+  - Material-component text.
+  - Duration text.
+  - Concentration and ritual flags.
+  - Higher-level effects Markdown.
+
+  spell_classes(spell_id, class_id) holds the many-to-many relationship to classes.
+
+  Casting time, range, and duration remain faithful text fields. A rules engine for conditional actions, areas, and durations is
+  unnecessary for a reference application.
+
+  ### Items
+
+  items, keyed by entry_id:
+
+  - Type and subtype.
+  - Rarity, nullable for ordinary equipment.
+  - Attunement requirement and prerequisite text.
+  - Weight and cost display text.
+  - Optional numeric weight in pounds and cost in copper pieces when the source gives an exact value.
+
+  Supporting tables:
+
+   Table                  Purpose
+  ━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   item_properties        Named property definitions and their source
+  ─────────────────────  ───────────────────────────────────────────────────────────────────────────
+   item_property_links    Item/property association and optional item-specific value
+  ─────────────────────  ───────────────────────────────────────────────────────────────────────────
+   weapon_details         Damage expression/type, range values, versatile damage, mastery label
+  ─────────────────────  ───────────────────────────────────────────────────────────────────────────
+   armor_details          Armor category, AC expression, strength requirement, stealth disadvantage
+
+  Properties have one definition per dataset rather than copied descriptions on every weapon. Item details display relevant
+  property definitions inline.
+
+  Preserve unusual or conditional rules in prose; do not force them into misleading numbers.
+
+  ### Feats
+
+  feats, keyed by entry_id:
+
+  - Category.
+  - Prerequisite text.
+  - Minimum level when explicit.
+  - Repeatable flag.
+  - Ability-increase text.
+
+  Ordered benefits use entry_sections. Prerequisites are displayed, not evaluated against a character.
+
+  ### Classes
+
+  classes, keyed by entry_id:
+
+  - Hit die.
+  - Primary-ability text.
+  - Saving-throw proficiency text.
+  - Skill-choice text.
+  - Weapon, armor, and tool proficiency text.
+  - Starting-equipment Markdown.
+  - Multiclassing Markdown.
+  - Spellcasting-ability text, when applicable.
+
+  Supporting tables:
+
+   Table                        Purpose
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   class_features               Class FK, stable feature key, level, title, description, source locator, display order
+  ───────────────────────────  ────────────────────────────────────────────────────────────────────────────────────────
+   subclasses                   Class FK, stable key, name, introduction, source locator
+  ───────────────────────────  ────────────────────────────────────────────────────────────────────────────────────────
+   subclass_features            Subclass FK, stable feature key, level, title, description, display order
+  ───────────────────────────  ────────────────────────────────────────────────────────────────────────────────────────
+   class_levels                 Class FK, level, proficiency bonus
+  ───────────────────────────  ────────────────────────────────────────────────────────────────────────────────────────
+   class_progression_columns    Class FK, stable column key, label, display order
+  ───────────────────────────  ────────────────────────────────────────────────────────────────────────────────────────
+   class_progression_values     Class, level, column key, source-faithful display value
+
+  The progression column/value structure accommodates different class resource tables without adding a schema column for every
+  class mechanic. It is restricted to presentation tables, not used as a generic replacement for typed records.
+
+  Features need structured storage in 0.1 because you selected full class coverage. They remain embedded in the class detail
+  view; separate feature browsing and clickable links are deferred.
+
+  ### Constraints and search index
+
+  - Enable foreign keys on every connection.
+  - Require exactly one matching category row per entry during import.
+  - Validate duplicate keys, level ranges, references, and source ownership.
+  - Index category/name, dataset identity, and relationship foreign keys.
+  - Use an FTS5 table containing entry name and flattened searchable text.
+  - Include descriptions, sections, property text, class features, and subclass content in the full-text document.
+  - Update content and the FTS index in the same transaction.
+
+  FTS5 supports token search and prefix queries; substring matching is a separate behavior. SQLite FTS5 documentation
+
+  ## 4. TUI design
+
+  ### Visual direction
+
+  Use the selected restrained fantasy style:
+
+  - Charcoal background, warm ivory text, muted gold accent.
+  - Thin borders and consistent spacing.
+  - A filled selection row plus a visible selection marker.
+  - Strong headings, subdued metadata, readable body text.
+  - No ornamental Unicode icons, required Nerd Font, animation, or splash screen.
+  - Focus and selection remain distinguishable without color.
+
+  Use theme tokens in Textual CSS so later visual changes do not require rewriting widgets.
+
+  ### Main view
+
+   D&D Reference        Items   [Spells]   Feats   Classes
+  ────────────────────────────────────────────────────────────────────
+   Search: fire                         Search in: Names    12 results
+  ─────────────────────┬──────────────────────────────────────────────
+   › Fireball       3  │ Fireball
+     Fire Bolt      0  │ Level 3 · Evocation
+     …                 │
+                       │ Casting time   …
+                       │ Range          …
+                       │ Components     …
+                       │ Duration       …
+                       │
+                       │ Description and higher-level effects…
+                       │
+                       │ Source: SRD 5.2.1 · …
+  ─────────────────────┴──────────────────────────────────────────────
+   / Search   Tab Focus   Enter Details   F2 Search mode   ? Help
+
+  List rows show a category-specific secondary value: spell level, item rarity/type, feat category, or class hit die.
+
+  Artwork appears in a separate stationary column inside the detail area only when sufficient space exists. It must not push the
+  rules below a large decorative image.
+
+  ### Responsive behavior
+
+  Proposed implementation breakpoints:
+
+  - 80 columns and wider: list/detail split; list approximately 30%, bounded to 24–36 columns.
+  - 120 columns and wider, at least 30 rows: optional artwork beside the detail text, maximum 28 columns × 12 rows.
+  - 50–79 columns: list and detail become separate views; Enter opens detail, Escape returns.
+  - Below 50 columns or 16 rows: compact resize message with working help and quit controls.
+
+  The application must work at 80×24. Resize preserves selection and search, reflows prose, and removes artwork when space
+  becomes insufficient.
+
+  Class progression tables permit horizontal scrolling when necessary. Features render below them with level headings.
+
+  ### Screens
+
+  1. Main browser.
+  2. Narrow-terminal detail view.
+  3. Help overlay containing bindings and navigation instructions.
+  4. About/data overlay showing dataset versions, attribution, and image status.
+
+  No settings screen or in-app editor in 0.1.
+
+  ### Keybindings
+
+   Key                  Action
+  ━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   / or Ctrl+F          Focus search
+  ───────────────────  ────────────────────────────────────────────────────
+   F2                   Toggle Names / All text
+  ───────────────────  ────────────────────────────────────────────────────
+   1–4                  Select category when not editing text
+  ───────────────────  ────────────────────────────────────────────────────
+   Tab / Shift+Tab      Move focus
+  ───────────────────  ────────────────────────────────────────────────────
+   ↑ / ↓, j / k         Navigate list or scroll focused detail
+  ───────────────────  ────────────────────────────────────────────────────
+   PageUp / PageDown    Page through focused pane
+  ───────────────────  ────────────────────────────────────────────────────
+   Home / End           Beginning/end of focused pane
+  ───────────────────  ────────────────────────────────────────────────────
+   Enter                Move from search to results, or results to detail
+  ───────────────────  ────────────────────────────────────────────────────
+   Escape               Close overlay, return from detail, or leave search
+  ───────────────────  ────────────────────────────────────────────────────
+   Ctrl+L               Clear search
+  ───────────────────  ────────────────────────────────────────────────────
+   i                    Toggle artwork when not editing text
+  ───────────────────  ────────────────────────────────────────────────────
+   ? or F1              Help
+  ───────────────────  ────────────────────────────────────────────────────
+   F3                   About/data information
+  ───────────────────  ────────────────────────────────────────────────────
+   q                    Quit when not editing text
+  ───────────────────  ────────────────────────────────────────────────────
+   Ctrl+Q               Quit globally
+
+  Printable shortcuts never intercept text entry. Left/right scroll tables only when a table has focus.
+
+  ### Search and filtering
+
+  - Category tabs provide the required category filter.
+  - Names mode is the default.
+  - Normalize case, accents, whitespace, and typographic apostrophes for matching; preserve original display text.
+  - Names mode requires every query term to occur somewhere in the normalized name.
+  - Rank exact name matches first, then full-query prefixes, then remaining matches alphabetically.
+  - All-text mode combines name results with FTS results; name matches rank first.
+  - FTS queries are constructed from literal tokens, with a prefix on the final token. User punctuation is never passed through
+    as executable FTS syntax.
+
+  - Use a 100 ms debounce and paged results.
+  - Show result count and a clear empty state.
+  - Preserve query, selection, and scroll position separately for each category during the session.
+
+  Typo tolerance, source-selection controls, and advanced filters are deferred.
+
+  ## 5. Data preparation and import
+
+  ### Format
+
+  Use versioned UTF-8 JSON packs:
+
+  dataset/
+    manifest.json
+    items.json
+    spells.json
+    feats.json
+    classes.json
+    images/
+
+  The manifest declares schema version, dataset identity/version, ruleset, language, sources, license, attribution, and optional
+  dataset dependencies.
+
+  Records contain category-specific fields. Related sections, class features, and progression tables are nested in JSON and
+  normalized during import.
+
+  JSON avoids YAML-specific parsing behavior and supports widely available schema tooling. Descriptions contain a limited
+  Markdown subset: paragraphs, headings, emphasis, lists, and tables. No embedded HTML or remotely loaded images.
+
+  ### Commands
+
+  dndref
+  dndref validate PATH
+  dndref import PATH
+  dndref import PATH --dry-run
+  dndref --images auto|off|kitty|sixel
+
+  Import is the minimum administrative operation needed for adding and updating entries. General export remains deferred.
+
+  ### Validation and updates
+
+  1. Parse with size limits; reject duplicate JSON keys.
+  2. Validate category models and schema version.
+  3. Validate stable IDs, references, and manifest dependencies.
+  4. Resolve asset paths within the pack directory; reject path traversal.
+  5. Validate present image files and their metadata.
+  6. Produce an additions/changes/removals report.
+  7. Apply the entire dataset update transactionally.
+
+  Each pack is a complete snapshot of its own dataset. Reimporting the same hash is a no-op. An updated pack replaces that
+  dataset’s content while preserving stable entry identities.
+
+  Entries omitted from the replacement pack are removed. Removal that would break another installed dataset’s references is
+  rejected with a precise report. Different datasets never overwrite one another by name.
+
+  Stage assets under immutable content hashes before committing database references. A failed import leaves the previous dataset
+  usable; unused staged assets can be cleaned later.
+
+  ### SRD content pipeline
+
+  Use the official English SRD 5.2.1 as the source for all four categories, including its class features and included
+  subclasses. Its Creative Commons release does not establish permission to redistribute unrelated commercial text or artwork.
+  Official SRD and licensing information
+
+  - Keep application code licensing separate from dataset licensing.
+  - Preserve the required attribution and mark editorial transformations.
+  - Ship no commercial artwork.
+  - Retain source locators for verification.
+  - Create a coverage inventory before conversion, including equipment tables, magic items, spells, feats, classes, and
+    subclasses.
+
+  - Preserve shared rules needed to interpret entries, such as weapon properties, within relevant details.
+  - Review every converted entry against the source, especially tables and conditional text.
+
+  PDF extraction may assist conversion, but it is not a runtime importer or a substitute for review. The authoritative source is
+  the SRD 5.2.1 PDF.
+
+  Ship the reviewed pack as package data and import it locally on first launch. No network access is needed to browse or
+  initialize the catalog.
+
+  ## 6. Terminal image strategy
+
+  ### Initial backends
+
+   Backend                        0.1 decision
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Kitty graphics protocol        Support
+  ─────────────────────────────  ────────────────────────────────────────
+   Sixel                          Support in stationary panels
+  ─────────────────────────────  ────────────────────────────────────────
+   iTerm2 inline protocol         Defer
+  ─────────────────────────────  ────────────────────────────────────────
+   ueberzugpp                     Defer
+  ─────────────────────────────  ────────────────────────────────────────
+   Unicode image approximation    Omit; collapse the image panel instead
+  ─────────────────────────────  ────────────────────────────────────────
+   No images                      Fully supported default fallback
+
+  textual-image supplies Kitty and Sixel widgets. It documents Sixel flicker during scrolling and requires terminal probing
+  before Textual starts its input threads. Those constraints motivate the stationary panel and startup detection. Library
+  documentation
+
+  The iTerm2 protocol is a separate integration; it adds little to this Linux-first release. iTerm2 image protocol
+
+  ueberzugpp adds a helper process and additional rendering/environment coordination. That is unnecessary deployment complexity
+  here. ueberzugpp
+
+  ### Detection and fallback
+
+  Implement a thin ImageAdapter, with operations to detect capabilities, create/update the image widget, clear it, and report
+  status.
+
+  - off skips graphics probing and optional-library imports.
+  - auto probes before starting Textual, with a bounded total wait of one second.
+  - Prefer Kitty only when the backend’s required capabilities are available; otherwise try Sixel.
+  - Environment variables are hints, not proof.
+  - Unknown capability, timeout, unavailable dependency, or unusable dimensions selects no images.
+  - Under SSH or a multiplexer, 0.1 defaults to no images in auto mode; explicit overrides permit experimentation.
+  - Backend errors collapse the panel and record a diagnostic without ending the application.
+
+  A generic Kitty response is insufficient if the selected renderer needs unsupported protocol features. The backend spike must
+  test those requirements against the Kitty protocol.
+
+  ### Rendering lifecycle
+
+  - Load only local PNG, JPEG, or WebP assets.
+  - Reject oversized files and decompression-bomb dimensions.
+  - Decode and resize off the UI thread.
+  - Debounce selection changes before loading artwork.
+  - Preserve aspect ratio.
+  - Keep a bounded thumbnail cache.
+  - Clear artwork on selection changes, overlays, layout changes, and exit.
+  - Never write graphics escape sequences independently of the integrated widget renderer.
+
+  A missing or corrupt image affects only that image. Entries without artwork reserve no blank space.
+
+  ## 7. Project structure
+
+  DND_Item_Directory/
+  ├── pyproject.toml
+  ├── uv.lock
+  ├── README.md
+  ├── LICENSE
+  ├── docs/
+  │   ├── architecture.md
+  │   ├── dataset-format.md
+  │   └── terminal-support.md
+  ├── src/dndref/
+  │   ├── __main__.py
+  │   ├── cli.py
+  │   ├── config.py
+  │   ├── models.py
+  │   ├── importer.py
+  │   ├── search.py
+  │   ├── storage/
+  │   │   ├── database.py
+  │   │   ├── repository.py
+  │   │   └── migrations/
+  │   ├── ui/
+  │   │   ├── app.py
+  │   │   ├── screens.py
+  │   │   ├── widgets.py
+  │   │   └── theme.tcss
+  │   ├── images/
+  │   │   └── adapter.py
+  │   └── datasets/
+  │       └── srd-5.2.1/
+  └── tests/
+      ├── unit/
+      ├── integration/
+      ├── ui/
+      └── fixtures/
+
+  Do not create empty modules for future features. Split modules further only when their actual size warrants it.
+
+  ## 8. Implementation milestones
+
+   Milestone                   Deliverable                                       Independent acceptance criterion
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. Framework/image spike    Disposable Textual layout with original test      Keyboard navigation, 80×24 resizing, Kitty,
+                               content and a test image                          Sixel, and text fallback verified
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   2. Project foundation       Package, CLI, XDG paths, configuration,           Fresh installation starts and exits cleanly
+                               migrations
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   3. Data contracts           Category models, JSON Schema, representative      Invalid records produce field-specific errors
+                               fixtures
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   4. Import/storage           Transactional importer, repository, asset         Repeat import is idempotent; failed update
+                               staging                                           preserves existing content
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   5. Search                   Names mode, FTS mode, category filtering,         Search behavior and latency targets pass
+                               paging
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   6. Text browser             Tabs, search, result list, detail view,           All four fixture categories usable without a
+                               bindings                                          mouse
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   7. Class presentation       Progression tables, features, subclasses,         Full class detail remains readable at 80×24
+                               narrow layout
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   8. SRD spells/feats         Reviewed complete spell and feat datasets         Inventory reconciled; every record validated
+                                                                                 and reviewed
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   9. SRD items                Reviewed equipment, magic items, property         Inventory reconciled; shared properties render
+                               definitions                                       correctly
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   10. SRD classes             Reviewed classes, subclasses, features,           Source tables and feature coverage reconciled
+                               progression
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   11. Images and polish       Production adapter, help/about, theme, empty/     Image failure never impairs text browsing
+                               error states
+  ──────────────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
+   12. Release                 Wheel, bundled SRD pack, installation and         Clean offline runtime tested from an installed
+                               import documentation                              wheel
+
+  Milestone 1 resolves the highest integration risk before building the application around it. Visual review occurs there and
+  again before release.
+
+  ## 9. Testing strategy
+
+  ### Automated tests
+
+  - Validation: wrong category fields, invalid levels, duplicate identities, missing dependencies, broken references, unsafe
+    asset paths.
+
+  - Imports: first import, unchanged import, rename with stable ID, replacement removals, rollback, interrupted asset staging,
+    preservation of unrelated packs.
+
+  - Database: migration application, foreign-key integrity, subtype consistency, FTS consistency.
+  - Search: exact/prefix/substring ranking, accents, apostrophes, punctuation, empty queries, no matches, category boundaries,
+    stale-result rejection.
+
+  - Content: coverage inventory, duplicate detection, source presence, relationship checks, class progression levels, required
+    attribution.
+
+  - Images: absent dependency, timeout, failed decoding, stale load, disabled mode, cache bounds.
+  - TUI: navigation, focus, text-entry shortcut isolation, help, empty state, and preserved selection after resize.
+
+  Use Textual’s headless testing tools for interactions and snapshots. They cannot prove actual terminal graphics rendering.
+  Textual testing documentation
+
+  ### Visual and manual checks
+
+  - Snapshot at 80×24, 100×30, 140×40, and 60×20.
+  - Manually check Kitty and one Sixel terminal such as foot.
+  - Check an unsupported terminal and explicit --images off.
+  - Check tmux/SSH text fallback.
+  - Inspect image cleanup during overlays, rapid navigation, resizing, and exit.
+  - Confirm terminal state is restored after ordinary errors and interruption.
+  - Install both base and image-enabled wheels in clean environments.
+
+  ### Performance targets
+
+  On a documented Linux test machine:
+
+  - Warm startup within one second, excluding first import.
+  - Search work below 50 ms at the 95th percentile on 10,000 representative entries.
+  - Visible results within 200 ms after the final keystroke.
+  - No perceptible typing stalls during image loading.
+
+  Measure before optimizing. These are acceptance targets, not claims about untested code.
+
+  ## 10. Risks, resolved choices, and defaults
+
+   Risk or decision                               Treatment
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Content work exceeds UI work                   Treat complete SRD conversion and review as explicit release milestones
+  ─────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────────────────
+   PDF extraction damages tables or text          Maintain a source inventory and review every entry
+  ─────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────────────────
+   Terminal detection produces false positives    Conservative auto mode, explicit override, no-image fallback
+  ─────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────────────────
+   Sixel redraw artifacts                         Stationary bounded artwork and real-terminal testing
+  ─────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────────────────
+   Class tables become unreadable                 Dedicated table widgets and horizontal scrolling
+  ─────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────────────────
+   Dataset updates destroy stable references      Namespaced keys, transactional replacement, dependency checks
+  ─────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────────────────
+   Package upgrades damage local content          Back up before migrations; refuse newer unsupported schemas; never reset
+                                                  silently
+  ─────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────────────────
+   FTS5 unavailable in Python’s SQLite build      Check during initialization and provide an actionable dependency error
+  ─────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────────────────
+   Optional library changes                       Lock tested development versions and rerun compatibility checks before
+                                                  upgrades
+
+  Confirmed choices: Linux-first, Python-oriented simplicity, complete SRD category coverage, full class details, restrained
+  fantasy styling, and name search with a full-text toggle.
+
+  Proposed defaults: English-only content, provisional executable name dndref, category-only filtering, no live imports while
+  browsing, optional image installation, and no artwork bundled with the SRD.
+
+  The exact terminal emulator was not specified. The compatibility baseline is therefore a fully usable text interface, with
+  graphics verified separately on Kitty and a Sixel terminal.
+
+  ## Proposed Version 0.1 scope
+
+  A usable 0.1 includes:
+
+  - Complete SRD 5.2.1 Items, Spells, Feats, and Classes, including its class features and subclasses.
+  - Attractive keyboard-driven browsing with list/detail panes and narrow-terminal navigation.
+  - Name search, optional full-text search, and category filtering.
+  - Readable structured fields, basic Markdown formatting, and class progression tables.
+  - Offline SQLite storage and a validated JSON dataset importer.
+  - Safe dataset replacement with stable identities.
+  - Optional Kitty/Sixel artwork with automatic fallback.
+  - Help, source attribution, resizing, and installable Linux packaging.
+
+  Exclude favorites, recent history, user notes, character lists, advanced filters, clickable cross-links, interactive class
+  spell lists, in-app editing, general export, network fetching, commercial-book scraping, and additional graphics backends.
+
+  The application code should stay small. Complete and accurate SRD preparation is the largest part of the selected release
+  scope.

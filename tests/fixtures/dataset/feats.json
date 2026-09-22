@@ -1,0 +1,27 @@
+[
+  {
+    "local_key": "feat/quick-study",
+    "name": "Quick Study",
+    "description": "You learn to extract useful patterns from unfamiliar texts.",
+    "source": "example-core",
+    "category": "General",
+    "prerequisite": "Intelligence 13 or higher",
+    "minimum_level": 4,
+    "repeatable": false,
+    "ability_increase": "Increase Intelligence by 1, to a maximum of 20.",
+    "benefits": [
+      {
+        "key": "feat/quick-study/annotation",
+        "heading": "Annotation",
+        "body": "You can identify the subject of a scholarly text after a brief review.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/quick-study/recall",
+        "heading": "Recall",
+        "body": "You have advantage on one check to remember a detail from your notes each day.",
+        "display_order": 2
+      }
+    ]
+  }
+]

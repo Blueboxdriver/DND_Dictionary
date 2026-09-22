@@ -1,0 +1,22 @@
+[
+  {
+    "conversion_status": "embedded",
+    "name": "Blessed Warrior",
+    "normalized_sha256": "91d75c46bfd98d5a17ad8a73229cba73ac948c330728e0dbe5eeb72447cd34e1",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/blessed-warrior-3832a76ff0",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "blessed warrior|xphb",
+    "upstream_page": 110
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Druidic Warrior",
+    "normalized_sha256": "f56baf94e5b84c9b0be638f1043d5ec58115f466f1cbe0b2cdf72680b5cf6c33",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/druidic-warrior-31948059a9",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "druidic warrior|xphb",
+    "upstream_page": 120
+  }
+]

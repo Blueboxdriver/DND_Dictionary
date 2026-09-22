@@ -1,0 +1,1792 @@
+[
+  {
+    "conversion_status": "converted",
+    "name": "Abjuration Adept",
+    "normalized_sha256": "c7e93066146340a23ed29199b152653bd9ce6cbe0c277ba53cb5e6e178801d21",
+    "source": "AU",
+    "stable_key": "feat/au/abjuration-adept-10719de556",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "abjuration adept|au",
+    "upstream_page": 28
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Artist",
+    "normalized_sha256": "0a50d0832763c05c1c5a44923f753f8c59e4a9b4eb708f536c2ba6c8853ceb80",
+    "source": "AU",
+    "stable_key": "feat/au/arcane-artist-2fd4e549d0",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "arcane artist|au",
+    "upstream_page": 26
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Eloquence",
+    "normalized_sha256": "0aed5254f18f6f7e66c4db4ec5d13111028ebfef2d175a5992ca01ddbc978dbb",
+    "source": "AU",
+    "stable_key": "feat/au/arcane-eloquence-27a961f082",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "arcane eloquence|au",
+    "upstream_page": 26
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Infiltrator",
+    "normalized_sha256": "8a1769e984b7faa34a3be53d7f06fc146710ddf5c7f82f655fa8597b6603a241",
+    "source": "AU",
+    "stable_key": "feat/au/arcane-infiltrator-7accdba8e2",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "arcane infiltrator|au",
+    "upstream_page": 26
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Omens",
+    "normalized_sha256": "de269d6e762bba365646ecee2eb3ff07e6676d538eb817364d4d7b0e0bbccd41",
+    "source": "AU",
+    "stable_key": "feat/au/arcane-omens-67465f36be",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "arcane omens|au",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Overload",
+    "normalized_sha256": "7f1d54142d13d0e0ab1a597d19067c7cf7b192669d0f927f8404d2dd2417e645",
+    "source": "AU",
+    "stable_key": "feat/au/arcane-overload-210997d986",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "arcane overload|au",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Safeguard",
+    "normalized_sha256": "0c7e8e8fadb31e2e2adde15d6bb72729daf0d6e2a3318ea16d30e83488fdc975",
+    "source": "AU",
+    "stable_key": "feat/au/arcane-safeguard-3dc50c250f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "arcane safeguard|au",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Undertaker",
+    "normalized_sha256": "bc47f7ea7bec914dda13311ba99cbf5fbc919373733b3248abe51e92f658f02f",
+    "source": "AU",
+    "stable_key": "feat/au/arcane-undertaker-b44a9afcb9",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "arcane undertaker|au",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Warrior",
+    "normalized_sha256": "92292b8d652be288c65d91737acb978255ee3e2b016d4d8f7741c32721a7b54e",
+    "source": "AU",
+    "stable_key": "feat/au/arcane-warrior-a26edfe1d4",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "arcane warrior|au",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Erupting Spellpower",
+    "normalized_sha256": "b3fc9bdca1b950b708c1dd5cc3dc40ec0b9f3a56e1511f3309345d6ab6c58a5b",
+    "source": "AU",
+    "stable_key": "feat/au/boon-of-erupting-spellpower-b288936f7b",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of erupting spellpower|au",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Magic School Mastery",
+    "normalized_sha256": "278ab9b046cad97f9524281284f170deedbfdb5c28913cc449d7afd0b715a5ea",
+    "source": "AU",
+    "stable_key": "feat/au/boon-of-magic-school-mastery-deb07df515",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of magic school mastery|au",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of the Iron Mind",
+    "normalized_sha256": "6c1986874236f6744028049bb167605fb30f9d2aa69d5d83142f28cacd69697b",
+    "source": "AU",
+    "stable_key": "feat/au/boon-of-the-iron-mind-d77e6ea53a",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of the iron mind|au",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjuration Adept",
+    "normalized_sha256": "8bffba70b74fae59db8ba941b7d5c5a8c15c20c0f3d59f7a6803838a7111d3b9",
+    "source": "AU",
+    "stable_key": "feat/au/conjuration-adept-ecd6096fc0",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "conjuration adept|au",
+    "upstream_page": 28
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Divination Adept",
+    "normalized_sha256": "9733f9c7ffe85272f115d976e7944fddbd26a4c355670acc2bfb1d120eec8370",
+    "source": "AU",
+    "stable_key": "feat/au/divination-adept-216352fd2f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "divination adept|au",
+    "upstream_page": 29
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Elemental Familiar",
+    "normalized_sha256": "ee106eab4a6f45986fd53fc7e7facef80798d957c395bd8d3ec11376852073d1",
+    "source": "AU",
+    "stable_key": "feat/au/elemental-familiar-5438ed2164",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "elemental familiar|au",
+    "upstream_page": 29
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Enchantment Adept",
+    "normalized_sha256": "06d6bddf61446c62e056c1415cdd8a771b58845e53d76368f44fe09c1e47cdc9",
+    "source": "AU",
+    "stable_key": "feat/au/enchantment-adept-cecad54b53",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "enchantment adept|au",
+    "upstream_page": 30
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Evocation Adept",
+    "normalized_sha256": "96fd2d1bb2e4c0142dd68c133005417131d4e250c6a91622eaf9b9988200dd99",
+    "source": "AU",
+    "stable_key": "feat/au/evocation-adept-c2604e9091",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "evocation adept|au",
+    "upstream_page": 30
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Familiar Friend",
+    "normalized_sha256": "656d55fa23f2edd54242445632e2759bba59008b374a0aeb650e38e594115b07",
+    "source": "AU",
+    "stable_key": "feat/au/familiar-friend-009cf5f19e",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "familiar friend|au",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Illusion Adept",
+    "normalized_sha256": "12014cee0bcf0647a52e7a6627dbe7646a1c53380848e054670883a218405936",
+    "source": "AU",
+    "stable_key": "feat/au/illusion-adept-8477837a93",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "illusion adept|au",
+    "upstream_page": 30
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Magic Connoisseur",
+    "normalized_sha256": "dd2e05ed16812ed6e1c7b45f43e6dd003c1573fc436a02a40a3ad57d64ae4deb",
+    "source": "AU",
+    "stable_key": "feat/au/magic-connoisseur-e4cffab860",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "magic connoisseur|au",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Necromancy Adept",
+    "normalized_sha256": "721ef3b5852cf0ee3779168989413aadcf4967a494b09546a22d0c8cba35fb04",
+    "source": "AU",
+    "stable_key": "feat/au/necromancy-adept-774281633f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "necromancy adept|au",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Otherworldly Familiar",
+    "normalized_sha256": "e4a02d7fa02cdf1db8c9c4b00ff5f39e3f4f7690157f6ead61f63e9a65da1a5e",
+    "source": "AU",
+    "stable_key": "feat/au/otherworldly-familiar-e299a59fbe",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "otherworldly familiar|au",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Portal Jumper",
+    "normalized_sha256": "0fe8140b40cfa962b742682a891240149835ed24da6a9222d6c406d686bb13fa",
+    "source": "AU",
+    "stable_key": "feat/au/portal-jumper-ef8395cce0",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "portal jumper|au",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Soothing Familiar",
+    "normalized_sha256": "f743e9a6f0af4aa5082a68370cb084882de3f4023d96d3b14c825bb7ab173c6f",
+    "source": "AU",
+    "stable_key": "feat/au/soothing-familiar-0b75790530",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "soothing familiar|au",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spell Resistant",
+    "normalized_sha256": "d01c7a35921c121b1ee053bff8073e34ab046a0fa964d30f6a8251b746f47e18",
+    "source": "AU",
+    "stable_key": "feat/au/spell-resistant-e537c8d7a6",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "spell resistant|au",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spell Subterfuge",
+    "normalized_sha256": "11fdf29e100c7a8a0b50ad688645a50bede8601f571abb7cf06d3351efa80f44",
+    "source": "AU",
+    "stable_key": "feat/au/spell-subterfuge-7ee233b7d9",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "spell subterfuge|au",
+    "upstream_page": 32
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Transmutation Adept",
+    "normalized_sha256": "bd8003828f5e51b74a3a8ddb398786f5b7fa8dfa45846917597575df0614e9ec",
+    "source": "AU",
+    "stable_key": "feat/au/transmutation-adept-77a05cf49b",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "transmutation adept|au",
+    "upstream_page": 32
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Transmuted Anatomy",
+    "normalized_sha256": "4167846502755eac1b6ed6945c5929fab1bbed712bbee8cbb48385030ce56b11",
+    "source": "AU",
+    "stable_key": "feat/au/transmuted-anatomy-fc0abe8aa1",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "transmuted anatomy|au",
+    "upstream_page": 28
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Warlike Familiar",
+    "normalized_sha256": "e49e8bd8a2dc55cb72e70a6945f3f91055455a1479f347223ad5e022354d2407",
+    "source": "AU",
+    "stable_key": "feat/au/warlike-familiar-c5b0cb6b2c",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "warlike familiar|au",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Aberrant Dragonmark",
+    "normalized_sha256": "4ef6f516a597622fcde136cab9fe5abbd639d4dffd3b88b0e8df82f674f6e129",
+    "source": "EFA",
+    "stable_key": "feat/efa/aberrant-dragonmark-da9eaf5fb7",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "aberrant dragonmark|efa",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Siberys",
+    "normalized_sha256": "13ea549d4b155205832fc46a011ac2f647a0ccbd00389d85a3569cc1be1aff2e",
+    "source": "EFA",
+    "stable_key": "feat/efa/boon-of-siberys-e7696704d4",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of siberys|efa",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Aberrant Mark",
+    "normalized_sha256": "bc94df81c4e9e8153f763f2c00957b72b2589a0f8590204a4361348eb5498653",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-aberrant-mark-7e23134c90",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater aberrant mark|efa",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Detection",
+    "normalized_sha256": "22446e7277d8afc6c4e0aa541333232844a3cb50320ae8b48899e6b8b77a6441",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-detection-2df64eed93",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of detection|efa",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Finding",
+    "normalized_sha256": "1a933ee11fe14202587035877e00e691f3477e6fb590c939bfad5a05ab7141ef",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-finding-3d817cd802",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of finding|efa",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Handling",
+    "normalized_sha256": "1048fac3277d4ef107237c97cd8b6239aac5fc2e46838dc74f3aae332057706f",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-handling-421997445b",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of handling|efa",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Healing",
+    "normalized_sha256": "4baf42d2ed7d6b45cec4424198dbdafc23ef2097374ecccc0f03efea6a44a50b",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-healing-071122dd9d",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of healing|efa",
+    "upstream_page": 44
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Hospitality",
+    "normalized_sha256": "a210c22d90eca747de916806c2d756b6ec1ec1043c24a91f313f1647c90bf7ae",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-hospitality-9c5f6be02a",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of hospitality|efa",
+    "upstream_page": 44
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Making",
+    "normalized_sha256": "8975d146d9b6f15dc110ebb5ada1897dd0d70f6bf80287bcc6c41e61e84c4d90",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-making-c00de23748",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of making|efa",
+    "upstream_page": 44
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Passage",
+    "normalized_sha256": "3693213d28112cc5c7051b2a12e1ab77f68adfac21527a69b204c0623d8e41a1",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-passage-2bf5d3423c",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of passage|efa",
+    "upstream_page": 44
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Scribing",
+    "normalized_sha256": "c6760138f59633fb9a85c0007312f23aae82e3bdcd5a30b4c36886d9c429cc6b",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-scribing-e94e455338",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of scribing|efa",
+    "upstream_page": 44
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Sentinel",
+    "normalized_sha256": "d26672d66d89ea9a12f97165b287cce25bf70db0f7b4d03edd39cd242f5bdc0f",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-sentinel-11c209ac01",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of sentinel|efa",
+    "upstream_page": 44
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Shadow",
+    "normalized_sha256": "bc1620df26bae6b69dc784f26ce97629897d9214febe1ab25db863bd8fa3ef2b",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-shadow-6ae235e536",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of shadow|efa",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Storm",
+    "normalized_sha256": "18801fbc3a0f2710c63184ba092eeada1bc34f6adbdd51a39939122196875bcb",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-storm-164d2ca2ca",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of storm|efa",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Mark of Warding",
+    "normalized_sha256": "2ce2ec696b35b072f3102a86b4786e93387ed3dede479d6142890c3f69cc78e0",
+    "source": "EFA",
+    "stable_key": "feat/efa/greater-mark-of-warding-1f190ee6b9",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "greater mark of warding|efa",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Detection",
+    "normalized_sha256": "7f679933032057e9bbfafc2ba889be64de732fd0e684c4d8884eec9c2b943eb3",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-detection-cf39c4a590",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of detection|efa",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Finding",
+    "normalized_sha256": "f799261446e6fb791a4538c96b33644efe028e53643a6731d58e7cf1951bfa1a",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-finding-8e203ce49b",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of finding|efa",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Handling",
+    "normalized_sha256": "0a78c2549919921410e0076ff17d01d453034eb7bcecedb5478c188115d6e0d3",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-handling-294e0bcf6f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of handling|efa",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Healing",
+    "normalized_sha256": "b66b5d24d7ec47cf3ab79a175a9e6b7c33ca14adf6627f85b964b6dd8190de2d",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-healing-44cabf6752",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of healing|efa",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Hospitality",
+    "normalized_sha256": "180ca5899c0793117ae001790d31cc086a4ed2e4355cc41ad4d5b88f62385820",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-hospitality-9f52907e91",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of hospitality|efa",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Making",
+    "normalized_sha256": "1fdf2cf0ff85f21b451e1b3c76a3a30441d7f88549cc7a30c9ac2a5b4cad1ca7",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-making-adb3a16d57",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of making|efa",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Passage",
+    "normalized_sha256": "ea824a77106657412b84bea360b5d8543783f54dd32d4f69ad54898c6c509c5d",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-passage-08f3f730c4",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of passage|efa",
+    "upstream_page": 41
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Scribing",
+    "normalized_sha256": "4e4af8dee5c9691d5ffc13d461795719bd026ded040d17c886b2602a53ac9e3a",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-scribing-f8fd34c1e2",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of scribing|efa",
+    "upstream_page": 41
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Sentinel",
+    "normalized_sha256": "13ad8ab3cc2493c5910d04b1ba7ef538841bd5a2682247ab805ee0af21d4b599",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-sentinel-6a9664ab86",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of sentinel|efa",
+    "upstream_page": 41
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Shadow",
+    "normalized_sha256": "f710b86b42ec084ab1284edbcbe07784e06a400e53736d5a5037fd5983966f16",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-shadow-0b5d56307d",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of shadow|efa",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Storm",
+    "normalized_sha256": "86c25f66a6a940e50422c43ca4cac06180aee6e186eb5acfd3d622494ccb825b",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-storm-7eae939701",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of storm|efa",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mark of Warding",
+    "normalized_sha256": "8a5a467aafcce34b266ab2e9a35ae86e55cce562f0e3e00c4e63cf437e7ea420",
+    "source": "EFA",
+    "stable_key": "feat/efa/mark-of-warding-552a7c74bb",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mark of warding|efa",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Potent Dragonmark",
+    "normalized_sha256": "d8aa76e039a7debedb01991dcd37bc5dbfa60369a7f58ae5d36b76df54c6145c",
+    "source": "EFA",
+    "stable_key": "feat/efa/potent-dragonmark-75442b3018",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "potent dragonmark|efa",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Bloodshed",
+    "normalized_sha256": "6cdbac608fccedde7cd274165fdc061fffef406110827ebfa4a5a7c13cd39397",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-bloodshed-7bce96efd7",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of bloodshed|frhof",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Bountiful Health",
+    "normalized_sha256": "13a4179ebe5bbc13e8f8bd0eeaa61961959ff50aeea6121bc3c766337a9c1e0c",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-bountiful-health-7e49961134",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of bountiful health|frhof",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Communication",
+    "normalized_sha256": "9309a978d9fbd3fc3e47371e2ff52d260f73d37c7f359e6cd284d5ef01421b4f",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-communication-1ed6148887",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of communication|frhof",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Desperate Resilience",
+    "normalized_sha256": "0f4542635bdb0a20148b01f54f25a2f4582553bb66d50fad9c89bc43089fdea2",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-desperate-resilience-83cfc4c87c",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of desperate resilience|frhof",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Exquisite Radiance",
+    "normalized_sha256": "06f96c7c950ff9519e034d99c3da89a3bea040800db61d5e2e8f2b6ae8374a74",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-exquisite-radiance-b252024c18",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of exquisite radiance|frhof",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Fluid Forms",
+    "normalized_sha256": "e0de86cfbd15bfcdc0a4ecba6b55faf5b0e8f82f760fe21dc4fa4a6458c07195",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-fluid-forms-f366d1eb26",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of fluid forms|frhof",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Fortune's Favor",
+    "normalized_sha256": "d7eaab979bbe8a0a938e032641f98304a41b77c18f6a51cdee5537f0ba16c3a1",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-fortunes-favor-48b6a5942b",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of fortune's favor|frhof",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Poison Mastery",
+    "normalized_sha256": "860b0fd6272efc96ff1b19f344d81d41203906db41bc6b085ee1023c7c749054",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-poison-mastery-638141cd60",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of poison mastery|frhof",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Revelry",
+    "normalized_sha256": "8ae4a752f95feaa3b3147ac4fd57ba6f747ae8add8e926c919e75eab603b6db7",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-revelry-fa25f59525",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of revelry|frhof",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Terror",
+    "normalized_sha256": "3da7871b29395fbd508f6efc61063b16decd62b30cbee64846d3456dd060f96a",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-terror-a69a30bf50",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of terror|frhof",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of the Bright Sun",
+    "normalized_sha256": "1dd3b73e04a6952f373b4adede23618ea6b14fed5181f233276e585903f5f0f0",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-the-bright-sun-25eb231059",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of the bright sun|frhof",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of the Furious Storm",
+    "normalized_sha256": "febb51153947e13e9cd9f7b8e3d7d7c6860563def3ff4e3af45f5377ca3da1f5",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-the-furious-storm-f4f66a2a46",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of the furious storm|frhof",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of the Soul Drinker",
+    "normalized_sha256": "0a64dde4d2cfc0629ee393da820b989e94a8e78ce6e47d38a7c6a80303294d44",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/boon-of-the-soul-drinker-b2638e8c34",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of the soul drinker|frhof",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cold Caster",
+    "normalized_sha256": "801415d4ea0c27926c80540069a6ba30a0fcc1041995a2299cb6e8eb5d81c8a8",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/cold-caster-eb714301f6",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "cold caster|frhof",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cult of the Dragon Initiate",
+    "normalized_sha256": "6cc809998fb9262d61e3f02787d28b233c4317c84d95538d28153f0275dfcec0",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/cult-of-the-dragon-initiate-d71f93bb98",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "cult of the dragon initiate|frhof",
+    "upstream_page": 37
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dragonscarred",
+    "normalized_sha256": "381b980d0bcc7922086e24450c8b11fabe606346f92b82ed35bd5cbee28e0a40",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/dragonscarred-1793bfb2ae",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "dragonscarred|frhof",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Emerald Enclave Fledgling",
+    "normalized_sha256": "186ecb20aeeff72ccb77707e4518dd0ffaf815be94a4792663415d370646bf55",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/emerald-enclave-fledgling-53f93289c0",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "emerald enclave fledgling|frhof",
+    "upstream_page": 37
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Enclave Magic",
+    "normalized_sha256": "b0d661b5cdeeb3ad926793724d200f37bd0b678ce3ee44cdeb317d4a336042f5",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/enclave-magic-103146dd56",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "enclave magic|frhof",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fairy Trickster",
+    "normalized_sha256": "fbb3a96f55c20c98b90fab18f07bf31ee5024e4d3637233cf5e9d33559e9ffdd",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/fairy-trickster-78f488e375",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "fairy trickster|frhof",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Genie Magic",
+    "normalized_sha256": "5ad74f5caff072881d0e4369022e3a339f74090a4e58c46cfadb8ce3d3e66ac1",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/genie-magic-c0a5e650f0",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "genie magic|frhof",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Harper Agent",
+    "normalized_sha256": "ccc65b73e85bdf22a5ddffc7798af00ba59dcdcdc5737f3fc63942d01553a17c",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/harper-agent-f9e8522e7b",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "harper agent|frhof",
+    "upstream_page": 37
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Harper Teamwork",
+    "normalized_sha256": "0d684fef0c4b563dabc02b2f6bdb72f0c4ce105f3bef3e11b55b8c63d2742c1a",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/harper-teamwork-67e0c5388a",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "harper teamwork|frhof",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lordly Resolve",
+    "normalized_sha256": "e95800362be4ef12a3bac5ed3a826e99e58f86d0bf55ce7b1735a0a550528b22",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/lordly-resolve-fc6a967bf3",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "lordly resolve|frhof",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lords' Alliance Agent",
+    "normalized_sha256": "ed1f445b79e3bacee7e561fe115492cdb020bd1c2dcdeb393bcb5ba4af1ca856",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/lords-alliance-agent-0c493a3b58",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "lords' alliance agent|frhof",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mythal Touched",
+    "normalized_sha256": "da1b4fd31e1cb7b0e16b7ae6265e37ff5de30875c924b4693a068118d428fbb6",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/mythal-touched-2cf1ebc1f7",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mythal touched|frhof",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Order's Resilience",
+    "normalized_sha256": "5d026ff54a9b4506faeed08fbc46d9a1c957684a9d8e9c061e5ad7d44b60e6a6",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/orders-resilience-0a3474d920",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "order's resilience|frhof",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Purple Dragon Commandant",
+    "normalized_sha256": "470b7086ef592c90c9516c46965f24ecac18ba68d7cbc139319549bd6a492434",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/purple-dragon-commandant-c81722ba92",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "purple dragon commandant|frhof",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Purple Dragon Rook",
+    "normalized_sha256": "e009d7732146e4ade16a4d4abf555ad1c3e36ea25fc9fecd4375994aff494010",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/purple-dragon-rook-b4ad51132b",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "purple dragon rook|frhof",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spellfire Adept",
+    "normalized_sha256": "be6674dc822e89daaa9195e250c796c8e656306004168c26eecb8b54be7e1b87",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/spellfire-adept-a5f9aaaca7",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "spellfire adept|frhof",
+    "upstream_page": 41
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spellfire Spark",
+    "normalized_sha256": "8306aceec744237cb788b89248171b504deb3547b7cea70de404da9bfc1b05ec",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/spellfire-spark-13ee498245",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "spellfire spark|frhof",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Street Justice",
+    "normalized_sha256": "02ed6e19b87aec4e9ff081166ee057e249aef174309fb4257ee011ee7ed3ded5",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/street-justice-b78517af08",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "street justice|frhof",
+    "upstream_page": 41
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tyro of the Gauntlet",
+    "normalized_sha256": "4df552ed264282a363fb2ac4e6a8a006b9a4e7f54c9d3c2a03ac8d4cd84b9221",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/tyro-of-the-gauntlet-5d690e9a52",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "tyro of the gauntlet|frhof",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Zhentarim Ruffian",
+    "normalized_sha256": "c100a6b6089ba1af39ce5d371c9beec74e4b57806ef03072529f89346b59e1f4",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/zhentarim-ruffian-5d257908c8",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "zhentarim ruffian|frhof",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Zhentarim Tactics",
+    "normalized_sha256": "52cecf5ef93710bc756d51689fab4997700358768162447312fdfe4b5803f906",
+    "source": "FRHoF",
+    "stable_key": "feat/frhof/zhentarim-tactics-0b3203904c",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "zhentarim tactics|frhof",
+    "upstream_page": 41
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Aberrant Anatomy",
+    "normalized_sha256": "495eeed6f0f4222dae7cad4bf1b5e0c0154adaa73f50d29c33a7f82c29b4645e",
+    "source": "RHW",
+    "stable_key": "feat/rhw/aberrant-anatomy-1e70fcb6e8",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "aberrant anatomy|rhw",
+    "upstream_page": 32
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Echoing Soul",
+    "normalized_sha256": "8fe2d8b7b3bb8450011684d87f2ec53696c0c97da4c91d3c0853f1885dc3d098",
+    "source": "RHW",
+    "stable_key": "feat/rhw/echoing-soul-00549172f7",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "echoing soul|rhw",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Gathered Whispers",
+    "normalized_sha256": "1e91c5ec98283880da433cd78b03ec51f5a02c77c1d5c4d455ada345d7a788d2",
+    "source": "RHW",
+    "stable_key": "feat/rhw/gathered-whispers-cbab60c614",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "gathered whispers|rhw",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Living Shadow",
+    "normalized_sha256": "4fe86cc47568228611b75ab65234fc400ea4b98a08479c7cb20fee2c9d5c8cce",
+    "source": "RHW",
+    "stable_key": "feat/rhw/living-shadow-aeb5103d3c",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "living shadow|rhw",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mist Walker",
+    "normalized_sha256": "17a8c743eb45bdcb9b7472c8d3c4b29059a5896eafd247ef67a5d1096d14251b",
+    "source": "RHW",
+    "stable_key": "feat/rhw/mist-walker-4c19a913b6",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mist walker|rhw",
+    "upstream_page": 34
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Second Skin",
+    "normalized_sha256": "909ec07e420f5d05d0e2dacca72c979e58da29efa6e73eb9c4f84c8390712557",
+    "source": "RHW",
+    "stable_key": "feat/rhw/second-skin-7e1ea31a3f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "second skin|rhw",
+    "upstream_page": 34
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sharp Eye",
+    "normalized_sha256": "0ea5a170957d333674c90572cc5d05a695354fc3b4a1a285203715e31d75fb67",
+    "source": "RHW",
+    "stable_key": "feat/rhw/sharp-eye-aa014340e7",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "sharp eye|rhw",
+    "upstream_page": 32
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Survivor",
+    "normalized_sha256": "dce803f6b66c3883f2ef79d6b67aceef8c5bbc2247f3d608c55f7307fb3dfb25",
+    "source": "RHW",
+    "stable_key": "feat/rhw/survivor-6b0f78aaad",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "survivor|rhw",
+    "upstream_page": 32
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Symbiotic Being",
+    "normalized_sha256": "9e26e4e1d012f0c0c22ccf82702817880f5092a7a6fb73d4e092cb6dfd225e60",
+    "source": "RHW",
+    "stable_key": "feat/rhw/symbiotic-being-c5d6cfb654",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "symbiotic being|rhw",
+    "upstream_page": 34
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Touch of Death",
+    "normalized_sha256": "38b1dd2aa12a80f39348e231c4417cce640a0569d89be40b090a5857e017d4e6",
+    "source": "RHW",
+    "stable_key": "feat/rhw/touch-of-death-806a37302a",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "touch of death|rhw",
+    "upstream_page": 35
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Watchers",
+    "normalized_sha256": "65f83518cd65df4a8402e02c2ef65ad375c502416ee8001be90c38ff8dabe6c7",
+    "source": "RHW",
+    "stable_key": "feat/rhw/watchers-6b5e55f3b2",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "watchers|rhw",
+    "upstream_page": 35
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ability Score Improvement",
+    "normalized_sha256": "caabaa08d5af56d709f6ca605105aff99101456cbd940ffa5719fb571001be14",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/ability-score-improvement-69c1390083",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "ability score improvement|xphb",
+    "upstream_page": 202
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Actor",
+    "normalized_sha256": "c39d8cd13f67da925267ef80e37c1d81a3f31e4eea7c7fc1ef38ca6d8c885eda",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/actor-d9829d728c",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "actor|xphb",
+    "upstream_page": 202
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Alert",
+    "normalized_sha256": "525317cb30b76739d2c155dcb09990367ce27fbd53f729598ec3e685c813160e",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/alert-53717caa0a",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "alert|xphb",
+    "upstream_page": 200
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Archery",
+    "normalized_sha256": "3a68db78af0fb8d80a6e034f7a53d753aade0fcd51c0ba7d3c6cfcc34c946e12",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/archery-685b7aedb6",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "archery|xphb",
+    "upstream_page": 209
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Athlete",
+    "normalized_sha256": "52eff2fd0d26d2335bd5328ca26672dbaef6725b5ecefe59fcac728b82d485c4",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/athlete-c04581616a",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "athlete|xphb",
+    "upstream_page": 202
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blessed Warrior",
+    "normalized_sha256": "91d75c46bfd98d5a17ad8a73229cba73ac948c330728e0dbe5eeb72447cd34e1",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/blessed-warrior-3832a76ff0",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "blessed warrior|xphb",
+    "upstream_page": 110
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blind Fighting",
+    "normalized_sha256": "35e2643ffa5e87fd27b89dd751dedf7a21a903bcae29b95e472276f3b23ddd6a",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/blind-fighting-083a020e78",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "blind fighting|xphb",
+    "upstream_page": 209
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Combat Prowess",
+    "normalized_sha256": "d47b27ea1ff8f0ebb2e0874a4f5ae91d25ce7824fbf4f8d948ca8e140f10e745",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-combat-prowess-da499afb75",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of combat prowess|xphb",
+    "upstream_page": 210
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Dimensional Travel",
+    "normalized_sha256": "284fa38cb6f134cff41743b1623c806f1102e7f8d88597dd21defbf4f109a393",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-dimensional-travel-17c98d3060",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of dimensional travel|xphb",
+    "upstream_page": 210
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Energy Resistance",
+    "normalized_sha256": "e36723ac3aa1a2df7d298f4bce86b71e86455fe7f2e85f7f1f5df8372ec14855",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-energy-resistance-09a3e0558f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of energy resistance|xphb",
+    "upstream_page": 210
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Fate",
+    "normalized_sha256": "8b2040856a3d8e36a918d0cdaa0132c7d9b81fa2e47ea50995eb304b599e6101",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-fate-795c62a047",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of fate|xphb",
+    "upstream_page": 210
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Fortitude",
+    "normalized_sha256": "99339ef004749a316262c0f8ec6d4f3edccba8246dc832fbfcbb657a3230c1c6",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-fortitude-a78b5e16d5",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of fortitude|xphb",
+    "upstream_page": 210
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Irresistible Offense",
+    "normalized_sha256": "0008eafccd78c65c984ddd3864a0b220acf17dbd2a2424287afc0a55acde9d6f",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-irresistible-offense-48bef4cf55",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of irresistible offense|xphb",
+    "upstream_page": 211
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Recovery",
+    "normalized_sha256": "96951fc3d80f84f47d2724530fe97bad1e0a707b6efadd52a09d4833d0412a6e",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-recovery-b2b2c9a705",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of recovery|xphb",
+    "upstream_page": 211
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Skill",
+    "normalized_sha256": "cac0677516af56a56b9fb61f1e41b49ec4dcabf3a2a1b70f032d2f91907f68de",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-skill-ec7a9896c0",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of skill|xphb",
+    "upstream_page": 211
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Speed",
+    "normalized_sha256": "0fd60c1891b9a2ffb1a3c28c1dc4e98850e06b9971050b5fe454658a90eb2114",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-speed-4a704035ef",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of speed|xphb",
+    "upstream_page": 211
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Spell Recall",
+    "normalized_sha256": "07a312373120d80c223dbbdab9c051fbad079ed547d301894a85e29b74c53a47",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-spell-recall-bc472263b5",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of spell recall|xphb",
+    "upstream_page": 211
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of the Night Spirit",
+    "normalized_sha256": "1ca73d7398fecc0aeee9eb611a99157cb5e5e7fa7b364f1e6d69d95559c9fb41",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-the-night-spirit-a4dc12bbab",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of the night spirit|xphb",
+    "upstream_page": 211
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Boon of Truesight",
+    "normalized_sha256": "4946328b511e5fbae6f444d320b9d0b8c7a98aa0b2115fcb6a227168a5f9a709",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/boon-of-truesight-c2f09e3fcb",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "boon of truesight|xphb",
+    "upstream_page": 211
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Charger",
+    "normalized_sha256": "8ab6ed3f65f0fc42d8cd2e00a4d87654808c8761536b4b77406049037fd47207",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/charger-0b78f6d152",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "charger|xphb",
+    "upstream_page": 202
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Chef",
+    "normalized_sha256": "1703ec51dadfeafcf1070c0040ddc4aea0889fa8428c71990bb950bd2ee86f93",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/chef-a6d994e2d7",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "chef|xphb",
+    "upstream_page": 202
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Crafter",
+    "normalized_sha256": "8bb95ab2c1f0ac6b1717a06e4a01875daa91eff8629137572f8bc21e81620b0f",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/crafter-a2225be1f2",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "crafter|xphb",
+    "upstream_page": 200
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Crossbow Expert",
+    "normalized_sha256": "cfe6d9791cb56b227c1f7a973821cea234dde80e28ccec23a00a6d0125929fd0",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/crossbow-expert-fa15f12f1a",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "crossbow expert|xphb",
+    "upstream_page": 203
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Crusher",
+    "normalized_sha256": "d72281a49b17f216942608ff4b50cb3e9022b3f2939037ca7f6dceebd757867e",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/crusher-c9370da590",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "crusher|xphb",
+    "upstream_page": 203
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Defense",
+    "normalized_sha256": "bb84769a6f755149228558c20163cdf2ed3cf0bcf588ba90e4fa20f8a48d18bc",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/defense-a8ed3a14ef",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "defense|xphb",
+    "upstream_page": 209
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Defensive Duelist",
+    "normalized_sha256": "3be08b1b23b40d30c8780d77b0b19a30b4b85c19fc7179e0fe5bfcdf07746d96",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/defensive-duelist-bf7151c659",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "defensive duelist|xphb",
+    "upstream_page": 203
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Druidic Warrior",
+    "normalized_sha256": "f56baf94e5b84c9b0be638f1043d5ec58115f466f1cbe0b2cdf72680b5cf6c33",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/druidic-warrior-31948059a9",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "druidic warrior|xphb",
+    "upstream_page": 120
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dual Wielder",
+    "normalized_sha256": "397dd544f6c85627b0b072ea5866006e5c9efd02c991a0ad20639866175c8077",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/dual-wielder-d4feca63b6",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "dual wielder|xphb",
+    "upstream_page": 203
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dueling",
+    "normalized_sha256": "9ea7a69451546efe7dec466f7aeed64dbbe2c8b226ca2791d2b5daec1609b894",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/dueling-6270cd24b1",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "dueling|xphb",
+    "upstream_page": 209
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Durable",
+    "normalized_sha256": "c7e6d21d06bfcc728f1c42b2689b834516d4906b37ef9055a590f8254a1ba3c2",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/durable-1ab110338e",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "durable|xphb",
+    "upstream_page": 203
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Elemental Adept",
+    "normalized_sha256": "c1517ef32a9894daa761ad210e2854aad908cb058a5b6cf276d37804e2ae2b6b",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/elemental-adept-1db6c848aa",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "elemental adept|xphb",
+    "upstream_page": 203
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fey-Touched",
+    "normalized_sha256": "d7b76920e2acb353942735b7342e8ad70158e63403a05373ceddd45ab03466b4",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/fey-touched-8c809edd1d",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "fey-touched|xphb",
+    "upstream_page": 204
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Grappler",
+    "normalized_sha256": "ae43b902b753dc5309bbb5d041c7e77c6b37a3482f06ccdd811c3600688b268e",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/grappler-ef7e47261e",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "grappler|xphb",
+    "upstream_page": 204
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Great Weapon Fighting",
+    "normalized_sha256": "b69d81dcdbc08d14ef41e4af64c7921ff3a67a9ed0702153e9e29df68b772829",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/great-weapon-fighting-aeaf039768",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "great weapon fighting|xphb",
+    "upstream_page": 209
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Great Weapon Master",
+    "normalized_sha256": "9163aaf5ad30ecdf17e1d9c024e7034f01934110e9b5933e527dfdbd3ade4b2a",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/great-weapon-master-d37999a94c",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "great weapon master|xphb",
+    "upstream_page": 204
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Healer",
+    "normalized_sha256": "3842d98923eadf36235c0cb4eb2a07a83082d667c819e17b956a1f943513573f",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/healer-4bb7d83237",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "healer|xphb",
+    "upstream_page": 201
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Heavily Armored",
+    "normalized_sha256": "d4bf54c197546596a2fde32fb24fd3e2bb21566d303ce8c4addd10d942d731d3",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/heavily-armored-21b3caf91e",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "heavily armored|xphb",
+    "upstream_page": 204
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Heavy Armor Master",
+    "normalized_sha256": "b048cd36b6f25adecd39cf04af6cbaf9fdb2e70e05ca357bbd1ccb2a759e9e88",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/heavy-armor-master-41f988193f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "heavy armor master|xphb",
+    "upstream_page": 204
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Inspiring Leader",
+    "normalized_sha256": "ad6bc353d2e54afc4d998e2ab45e3d83b2547bbcf28557d19d7977fff594d9a2",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/inspiring-leader-2ad5d992d9",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "inspiring leader|xphb",
+    "upstream_page": 204
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Interception",
+    "normalized_sha256": "c8e993c25f831f562a3ea8c57172cbfd11d9c9ac24d3d2e92e158586d37cc761",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/interception-e93124060f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "interception|xphb",
+    "upstream_page": 209
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Keen Mind",
+    "normalized_sha256": "945be9a0862b5d501895bd1a63b929e174e9b67c24d1f9b30bb834636cf0fba7",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/keen-mind-f5dc121175",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "keen mind|xphb",
+    "upstream_page": 205
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lightly Armored",
+    "normalized_sha256": "7c6321b271d5a67ed2cd03bb3f63a222ed426008ca355d23a78e6a98288ed95d",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/lightly-armored-499294ff46",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "lightly armored|xphb",
+    "upstream_page": 205
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lucky",
+    "normalized_sha256": "1d2295bf08a81a231c757dc23e51c59cb6b840ed17b92c6369339947e991d078",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/lucky-113d6fda1f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "lucky|xphb",
+    "upstream_page": 201
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mage Slayer",
+    "normalized_sha256": "7fb1a19c091d0475b93211913566623ba705c64872bc1b5b0eb6624240acf5ba",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/mage-slayer-3d688108cc",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mage slayer|xphb",
+    "upstream_page": 205
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Magic Initiate",
+    "normalized_sha256": "5bc3a9add6b75a8e932cd173ecfd82613f049b05b18b65cd36e4667fb1c2a605",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/magic-initiate-12473179fa",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "magic initiate|xphb",
+    "upstream_page": 201
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Martial Weapon Training",
+    "normalized_sha256": "6a7e9da962b4e922475c3547cd64a492dcf0742d3480bec9f66f11ceefa7bf1c",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/martial-weapon-training-4e150ea5a3",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "martial weapon training|xphb",
+    "upstream_page": 205
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Medium Armor Master",
+    "normalized_sha256": "15cd627f3114e818b00d1560ded422b65129c5aacd508ec6091f1ee51243ee39",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/medium-armor-master-00f459c13d",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "medium armor master|xphb",
+    "upstream_page": 205
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Moderately Armored",
+    "normalized_sha256": "c933d5570be1a7ef20a641161dcd1c2b23f5cf5b27302ab4e095da6169842e31",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/moderately-armored-278f22f88d",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "moderately armored|xphb",
+    "upstream_page": 205
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mounted Combatant",
+    "normalized_sha256": "a0404c087b5c45498c6ca764c41d03c4b6e021101dc0a9c5d4e894079a657a0b",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/mounted-combatant-255f603f7a",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "mounted combatant|xphb",
+    "upstream_page": 205
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Musician",
+    "normalized_sha256": "dd5df6c6a3dc4d35f1bc8bce5c204c626e771700b02a59e97e6bd6cf30c81b1f",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/musician-7811be94e1",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "musician|xphb",
+    "upstream_page": 201
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Observant",
+    "normalized_sha256": "54c973e575a190ae1f0c602e2c9c6760d1262b207caa0b164c3da80b4048a741",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/observant-4de6c9d75b",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "observant|xphb",
+    "upstream_page": 205
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Piercer",
+    "normalized_sha256": "be8b73487443b5ee9b12073fc6e7599fcfbece830f3c8bb5b236ec25ab682f37",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/piercer-b56cd924ea",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "piercer|xphb",
+    "upstream_page": 206
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Poisoner",
+    "normalized_sha256": "af8593faa142d22e252090637c9421a041fe20af3b7b6c73f366f51957f3cb97",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/poisoner-2c5bdc512f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "poisoner|xphb",
+    "upstream_page": 206
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Polearm Master",
+    "normalized_sha256": "277c15b5b4c2d4c47df77c454f38eb2e6550e8f700c83719dc3e01f1d16004b9",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/polearm-master-35fd229ea2",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "polearm master|xphb",
+    "upstream_page": 206
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Protection",
+    "normalized_sha256": "7e70b66c31693216a0f6e2098492de8b7925cd4462e5b0d2c466ecb68cf99f06",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/protection-0bf8aa746c",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "protection|xphb",
+    "upstream_page": 209
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Resilient",
+    "normalized_sha256": "a129c17e2f99015407544d4acc8da8ac86955bf25ba1b693d3e9a285b0ebc098",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/resilient-5cbbcc6122",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "resilient|xphb",
+    "upstream_page": 206
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ritual Caster",
+    "normalized_sha256": "04e1e4396b028f8ab622d15584dfd6277862ba69d02a6271172d878e8a7c4173",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/ritual-caster-7ed68c998a",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "ritual caster|xphb",
+    "upstream_page": 206
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Savage Attacker",
+    "normalized_sha256": "c8e89511cb58edfb92bfc47c2f13909dbbfc8d803575e81945a9c34db395b7f0",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/savage-attacker-804a42117e",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "savage attacker|xphb",
+    "upstream_page": 201
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sentinel",
+    "normalized_sha256": "e13ca347f6452b02f7798d7ec75114b6ae3dc8a3b1690e3e7e31e3d3c162d57f",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/sentinel-bb0b7e9c60",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "sentinel|xphb",
+    "upstream_page": 207
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shadow-Touched",
+    "normalized_sha256": "d88671bd5a6ae65758418678ae3776fba12be9b7e09c176d5d234a3a1c3affd5",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/shadow-touched-eefa398078",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "shadow-touched|xphb",
+    "upstream_page": 207
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sharpshooter",
+    "normalized_sha256": "bfc0900f8aedc8a34e2deb2742b8ede6440b138e800707a1736f3a5bc1fec4e5",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/sharpshooter-6525e6510f",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "sharpshooter|xphb",
+    "upstream_page": 207
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shield Master",
+    "normalized_sha256": "430c637b7a4dfe1f2b0b18e79c80a750b0eae16122b2f375744552bbbd15e97a",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/shield-master-d5511ef8d8",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "shield master|xphb",
+    "upstream_page": 207
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Skill Expert",
+    "normalized_sha256": "64c64ea96e2effe284ee5f4fc79ad8beb6f3764fa95f657df6ef7189ba66866a",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/skill-expert-ca4f58d5a7",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "skill expert|xphb",
+    "upstream_page": 207
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Skilled",
+    "normalized_sha256": "fc18290c7b89d02d0d48c33347d5c18a4fdd184dcdd020f691b64b7e4010e52a",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/skilled-dc79095f1b",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "skilled|xphb",
+    "upstream_page": 201
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Skulker",
+    "normalized_sha256": "aa67cd5b0fa3908b363222cc118563603e64cc9643446e56bc9f4c5927bdf6ac",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/skulker-28281ccdf8",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "skulker|xphb",
+    "upstream_page": 208
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Slasher",
+    "normalized_sha256": "b0123ab8ca7cd5ff4cd4e8d151fb0e60e704641b4ea9c4da70da5f80bfc95c24",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/slasher-f7eafa38ce",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "slasher|xphb",
+    "upstream_page": 208
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Speedy",
+    "normalized_sha256": "f36d3dbcdc5dc4afc27e99654f7d773127dcb827b88f29cbeb4014389bf2bd38",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/speedy-43e58cdc10",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "speedy|xphb",
+    "upstream_page": 208
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spell Sniper",
+    "normalized_sha256": "843ad2d328e41c53ef016b8a2c3485cd850daa4b3326d4c81f61699f33a35b20",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/spell-sniper-71a5e820cd",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "spell sniper|xphb",
+    "upstream_page": 208
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tavern Brawler",
+    "normalized_sha256": "7c9574143536a0384701cff84e41060d696cdd5d7509c11e82da458a5f1ad9b8",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/tavern-brawler-231ec56cd2",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "tavern brawler|xphb",
+    "upstream_page": 202
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Telekinetic",
+    "normalized_sha256": "3c83a14bb58380787c527a8a4564dad20c42a69115649e67851f4474b8b6d5e8",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/telekinetic-b25ea71caa",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "telekinetic|xphb",
+    "upstream_page": 208
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Telepathic",
+    "normalized_sha256": "cd7dc942f34f8a298189df11ea9de727fe147bfea277ac1217844a1e09d79831",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/telepathic-ebdf26b633",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "telepathic|xphb",
+    "upstream_page": 208
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Thrown Weapon Fighting",
+    "normalized_sha256": "3edff9b4e1e14c2311b6cb1bcb8bfde4a1dd9085a2a16a9ff73bada129265ff3",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/thrown-weapon-fighting-5119d206e5",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "thrown weapon fighting|xphb",
+    "upstream_page": 210
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tough",
+    "normalized_sha256": "2590aacbd183fcaf75c9af48e410695fc153300c27d6d0246948f76f920293d8",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/tough-b429550606",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "tough|xphb",
+    "upstream_page": 202
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Two-Weapon Fighting",
+    "normalized_sha256": "d2fb98061683cd7212f5b63022f7f06950d3bf52a6d8e6da1f9ef488c43d7034",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/two-weapon-fighting-bea419d158",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "two-weapon fighting|xphb",
+    "upstream_page": 210
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Unarmed Fighting",
+    "normalized_sha256": "fe8bfdaedf3f60273bc36ccbe01167ddd35d8819c930475e02d3e547593aefe6",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/unarmed-fighting-9d4ec91fe8",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "unarmed fighting|xphb",
+    "upstream_page": 210
+  },
+  {
+    "conversion_status": "converted",
+    "name": "War Caster",
+    "normalized_sha256": "712abfcf6b8f9f0c346da2bbd013994ccbc39bd7fc80728f08fa74e12ca7341a",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/war-caster-3ad4fce259",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "war caster|xphb",
+    "upstream_page": 209
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Weapon Master",
+    "normalized_sha256": "4add8b3299ecf42f49473c877b14e16bd4d4fb7f3bee06fc074a71e51a5a0c2d",
+    "source": "XPHB",
+    "stable_key": "feat/xphb/weapon-master-58a664bac7",
+    "upstream_file": "data/feats.json",
+    "upstream_identity": "weapon master|xphb",
+    "upstream_page": 209
+  }
+]

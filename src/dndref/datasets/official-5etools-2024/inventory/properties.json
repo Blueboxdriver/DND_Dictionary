@@ -1,0 +1,132 @@
+[
+  {
+    "conversion_status": "converted",
+    "name": "Evolving Item",
+    "normalized_sha256": "53d8434a28f76d8249f3c507805231575775f445f63909868cc4bc8cd49e7c87",
+    "source": "AU",
+    "stable_key": "property/au/evo-831bd48fbb",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "evo|au",
+    "upstream_page": 0
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ammunition",
+    "normalized_sha256": "1cf0fdcc1505497ba74641c07233f2752a972ccaa56b1182e909a9069d6b09b5",
+    "source": "XDMG",
+    "stable_key": "property/xdmg/af-7e02784135",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "af|xdmg",
+    "upstream_page": 72
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Burst Fire",
+    "normalized_sha256": "55eb74f7ab141a4dd7bf2aed785356fa8b9de8bb7f73b3f0ffbaeb86ba0a85f1",
+    "source": "XDMG",
+    "stable_key": "property/xdmg/bf-62d5406c8f",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "bf|xdmg",
+    "upstream_page": 72
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Reload",
+    "normalized_sha256": "89dd1dc59187a5ad9590adf67903a071c5dcaab502bef0db8496e1c767422a88",
+    "source": "XDMG",
+    "stable_key": "property/xdmg/rld-5f0580f426",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "rld|xdmg",
+    "upstream_page": 72
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Two-Handed",
+    "normalized_sha256": "fa6a82bb21f3fc36e7ccd5eaf4e679194d093f6cb01bed1e109953f087faaad3",
+    "source": "XPHB",
+    "stable_key": "property/xphb/2h-cec461109c",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "2h|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ammunition",
+    "normalized_sha256": "0c8d781a9d5d1b2b2ec3f4475626a50711463bc8581d1f742cda4edab3c683ac",
+    "source": "XPHB",
+    "stable_key": "property/xphb/a-bff6237336",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "a|xphb",
+    "upstream_page": 213
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Finesse",
+    "normalized_sha256": "5bc29d8d260c1c494b5b38f6e18889066b6ce5a4509368147e9e1ab582c0d20e",
+    "source": "XPHB",
+    "stable_key": "property/xphb/f-1fe4b46094",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "f|xphb",
+    "upstream_page": 213
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Heavy",
+    "normalized_sha256": "74e5806150cd7344a344ff410e9fc53fd2ba2f6b5bd1907461f13a1a90304192",
+    "source": "XPHB",
+    "stable_key": "property/xphb/h-af99f8b1c9",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "h|xphb",
+    "upstream_page": 213
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Light",
+    "normalized_sha256": "481fa1679463afd55c70d2bef724cce85eeb66f2a502b1a1c401e14afadde48b",
+    "source": "XPHB",
+    "stable_key": "property/xphb/l-556bf3ee1d",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "l|xphb",
+    "upstream_page": 213
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Loading",
+    "normalized_sha256": "037799db96ecfdcfc3bf4320b9ec95f601aa75390c4c553256de8d91b1b30321",
+    "source": "XPHB",
+    "stable_key": "property/xphb/ld-9f3b43db1b",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "ld|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Reach",
+    "normalized_sha256": "5eff7f58b40e1b4c70452ce2a6ac81c49314a5f1c4f7d5096221522c1f803b6b",
+    "source": "XPHB",
+    "stable_key": "property/xphb/r-e91f538bc8",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "r|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Thrown",
+    "normalized_sha256": "a0efb5617083d3829306be9b802445621de1bcb904ce7c1c46bb490e18d6b930",
+    "source": "XPHB",
+    "stable_key": "property/xphb/t-ac2a6c8660",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "t|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Versatile",
+    "normalized_sha256": "ccb9f452be5df8d26dafbc3222efceb9c5d0d4b69200693e33f6d08d94691fec",
+    "source": "XPHB",
+    "stable_key": "property/xphb/v-4e904897d1",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "v|xphb",
+    "upstream_page": 214
+  }
+]

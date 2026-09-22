@@ -1,0 +1,386 @@
+[
+  {
+    "local_key": "feat/ability-score-improvement",
+    "name": "Ability Score Improvement",
+    "description": "Increase one ability score of your choice by 2, or increase two ability scores of your choice by 1. This feat can't increase an ability score above 20.",
+    "source": "srd-5-2-1",
+    "category": "General",
+    "prerequisite": "Level 4+",
+    "minimum_level": 4,
+    "repeatable": true,
+    "ability_increase": null,
+    "benefits": [
+      {
+        "key": "feat/ability-score-improvement/repeatable",
+        "heading": "Repeatable",
+        "body": "You can take this feat more than once.",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "local_key": "feat/alert",
+    "name": "Alert",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "Origin",
+    "prerequisite": null,
+    "minimum_level": null,
+    "repeatable": false,
+    "ability_increase": null,
+    "benefits": [
+      {
+        "key": "feat/alert/initiative-proficiency",
+        "heading": "Initiative Proficiency",
+        "body": "When you roll Initiative, you can add your Proficiency Bonus to the roll.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/alert/initiative-swap",
+        "heading": "Initiative Swap",
+        "body": "Immediately after you roll Initiative, you can swap your Initiative with the Initiative of one willing ally in the same combat. You can't make this swap if you or the ally has the Incapacitated condition.",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "local_key": "feat/archery",
+    "name": "Archery",
+    "description": "You gain a +2 bonus to attack rolls you make with Ranged weapons.",
+    "source": "srd-5-2-1",
+    "category": "Fighting Style",
+    "prerequisite": "Fighting Style Feature",
+    "minimum_level": null,
+    "repeatable": false,
+    "ability_increase": null,
+    "benefits": []
+  },
+  {
+    "local_key": "feat/boon-of-combat-prowess",
+    "name": "Boon of Combat Prowess",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "Epic Boon",
+    "prerequisite": "Level 19+",
+    "minimum_level": 19,
+    "repeatable": false,
+    "ability_increase": "Increase one ability score of your choice by 1, to a maximum of 30.",
+    "benefits": [
+      {
+        "key": "feat/boon-of-combat-prowess/ability-score-increase",
+        "heading": "Ability Score Increase",
+        "body": "Increase one ability score of your choice by 1, to a maximum of 30.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/boon-of-combat-prowess/peerless-aim",
+        "heading": "Peerless Aim",
+        "body": "When you miss with an attack roll, you can hit instead. Once you use this benefit, you can't use it again until the start of your next turn.",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "local_key": "feat/boon-of-dimensional-travel",
+    "name": "Boon of Dimensional Travel",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "Epic Boon",
+    "prerequisite": "Level 19+",
+    "minimum_level": 19,
+    "repeatable": false,
+    "ability_increase": "Increase one ability score of your choice by 1, to a maximum of 30.",
+    "benefits": [
+      {
+        "key": "feat/boon-of-dimensional-travel/ability-score-increase",
+        "heading": "Ability Score Increase",
+        "body": "Increase one ability score of your choice by 1, to a maximum of 30.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/boon-of-dimensional-travel/blink-steps",
+        "heading": "Blink Steps",
+        "body": "Immediately after you take the Attack action or the Magic action, you can teleport up to 30 feet to an unoccupied space you can see.",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "local_key": "feat/boon-of-fate",
+    "name": "Boon of Fate",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "Epic Boon",
+    "prerequisite": "Level 19+",
+    "minimum_level": 19,
+    "repeatable": false,
+    "ability_increase": "Increase one ability score of your choice by 1, to a maximum of 30.",
+    "benefits": [
+      {
+        "key": "feat/boon-of-fate/ability-score-increase",
+        "heading": "Ability Score Increase",
+        "body": "Increase one ability score of your choice by 1, to a maximum of 30.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/boon-of-fate/improve-fate",
+        "heading": "Improve Fate",
+        "body": "When you or another creature within 60 feet of you succeeds on or fails a D20 Test, you can roll 2d4 and apply the total rolled as a bonus or penalty to the d20 roll. Once you use this benefit, you can't use it again until you roll Initiative or finish a Short or Long Rest.",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "local_key": "feat/boon-of-irresistible-offense",
+    "name": "Boon of Irresistible Offense",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "Epic Boon",
+    "prerequisite": "Level 19+",
+    "minimum_level": 19,
+    "repeatable": false,
+    "ability_increase": "Increase your Strength or Dexterity score by 1, to a maximum of 30.",
+    "benefits": [
+      {
+        "key": "feat/boon-of-irresistible-offense/ability-score-increase",
+        "heading": "Ability Score Increase",
+        "body": "Increase your Strength or Dexterity score by 1, to a maximum of 30.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/boon-of-irresistible-offense/overcome-defenses",
+        "heading": "Overcome Defenses",
+        "body": "The Bludgeoning, Piercing, and Slashing damage you deal always ignores Resistance.",
+        "display_order": 2
+      },
+      {
+        "key": "feat/boon-of-irresistible-offense/overwhelming-strike",
+        "heading": "Overwhelming Strike",
+        "body": "When you roll a 20 on the d20 for an attack roll, you can deal extra damage to the target equal to the ability score increased by this feat. The extra damage's type is the same as the attack's type.",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "local_key": "feat/boon-of-spell-recall",
+    "name": "Boon of Spell Recall",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "Epic Boon",
+    "prerequisite": "Level 19+, Spellcasting Feature",
+    "minimum_level": 19,
+    "repeatable": false,
+    "ability_increase": "Increase your Intelligence, Wisdom, or Charisma score by 1, to a maximum of 30.",
+    "benefits": [
+      {
+        "key": "feat/boon-of-spell-recall/ability-score-increase",
+        "heading": "Ability Score Increase",
+        "body": "Increase your Intelligence, Wisdom, or Charisma score by 1, to a maximum of 30.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/boon-of-spell-recall/free-casting",
+        "heading": "Free Casting",
+        "body": "Whenever you cast a spell with a level 1–4 spell slot, roll 1d4. If the number you roll is the same as the slot's level, the slot isn't expended.",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "local_key": "feat/boon-of-the-night-spirit",
+    "name": "Boon of the Night Spirit",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "Epic Boon",
+    "prerequisite": "Level 19+",
+    "minimum_level": 19,
+    "repeatable": false,
+    "ability_increase": "Increase one ability score of your choice by 1, to a maximum of 30.",
+    "benefits": [
+      {
+        "key": "feat/boon-of-the-night-spirit/ability-score-increase",
+        "heading": "Ability Score Increase",
+        "body": "Increase one ability score of your choice by 1, to a maximum of 30.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/boon-of-the-night-spirit/merge-with-shadows",
+        "heading": "Merge with Shadows",
+        "body": "While within Dim Light or Darkness, you can give yourself the Invisible condition as a Bonus Action. The condition ends on you immediately after you take an action, a Bonus Action, or a Reaction.",
+        "display_order": 2
+      },
+      {
+        "key": "feat/boon-of-the-night-spirit/shadowy-form",
+        "heading": "Shadowy Form",
+        "body": "While within Dim Light or Darkness, you have Resistance to all damage except Psychic and Radiant.",
+        "display_order": 3
+      }
+    ]
+  },
+  {
+    "local_key": "feat/boon-of-truesight",
+    "name": "Boon of Truesight",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "Epic Boon",
+    "prerequisite": "Level 19+",
+    "minimum_level": 19,
+    "repeatable": false,
+    "ability_increase": "Increase one ability score of your choice by 1, to a maximum of 30.",
+    "benefits": [
+      {
+        "key": "feat/boon-of-truesight/ability-score-increase",
+        "heading": "Ability Score Increase",
+        "body": "Increase one ability score of your choice by 1, to a maximum of 30.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/boon-of-truesight/truesight",
+        "heading": "Truesight",
+        "body": "You have Truesight with a range of 60 feet. Selling",
+        "display_order": 2
+      }
+    ]
+  },
+  {
+    "local_key": "feat/defense",
+    "name": "Defense",
+    "description": "While you're wearing Light, Medium, or Heavy armor, you gain a +1 bonus to Armor Class.",
+    "source": "srd-5-2-1",
+    "category": "Fighting Style",
+    "prerequisite": "Fighting Style Feature",
+    "minimum_level": null,
+    "repeatable": false,
+    "ability_increase": null,
+    "benefits": []
+  },
+  {
+    "local_key": "feat/grappler",
+    "name": "Grappler",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "General",
+    "prerequisite": "Level 4+, Strength or Dexterity 13+",
+    "minimum_level": 4,
+    "repeatable": false,
+    "ability_increase": "Increase your Strength or Dexterity score by 1, to a maximum of 20.",
+    "benefits": [
+      {
+        "key": "feat/grappler/ability-score-increase",
+        "heading": "Ability Score Increase",
+        "body": "Increase your Strength or Dexterity score by 1, to a maximum of 20.",
+        "display_order": 1
+      },
+      {
+        "key": "feat/grappler/punch-and-grab",
+        "heading": "Punch and Grab",
+        "body": "When you hit a creature with an Unarmed Strike as part of the Attack action on your turn, you can use both the Damage and the Grapple option. You can use this benefit only once per turn.",
+        "display_order": 2
+      },
+      {
+        "key": "feat/grappler/attack-advantage",
+        "heading": "Attack Advantage",
+        "body": "You have Advantage on attack rolls against a creature Grappled by you.",
+        "display_order": 3
+      },
+      {
+        "key": "feat/grappler/fast-wrestler",
+        "heading": "Fast Wrestler",
+        "body": "You don't have to spend extra movement to move a creature Grappled by you if the creature is your size or smaller.",
+        "display_order": 4
+      }
+    ]
+  },
+  {
+    "local_key": "feat/great-weapon-fighting",
+    "name": "Great Weapon Fighting",
+    "description": "When you roll damage for an attack you make with a Melee weapon that you are holding with two hands, you can treat any 1 or 2 on a damage die as a 3. The weapon must have the Two-Handed or Versatile property to gain this benefit.",
+    "source": "srd-5-2-1",
+    "category": "Fighting Style",
+    "prerequisite": "Fighting Style Feature",
+    "minimum_level": null,
+    "repeatable": false,
+    "ability_increase": null,
+    "benefits": []
+  },
+  {
+    "local_key": "feat/magic-initiate",
+    "name": "Magic Initiate",
+    "description": "You gain the following benefits.",
+    "source": "srd-5-2-1",
+    "category": "Origin",
+    "prerequisite": null,
+    "minimum_level": null,
+    "repeatable": true,
+    "ability_increase": null,
+    "benefits": [
+      {
+        "key": "feat/magic-initiate/two-cantrips",
+        "heading": "Two Cantrips",
+        "body": "You learn two cantrips of your choice from the Cleric, Druid, or Wizard spell list. Intelligence, Wisdom, or Charisma is your spellcasting ability for this feat's spells (choose when you select this feat).",
+        "display_order": 1
+      },
+      {
+        "key": "feat/magic-initiate/level-1-spell",
+        "heading": "Level 1 Spell",
+        "body": "Choose a level 1 spell from the same list you selected for this feat's cantrips. You always have that spell prepared. You can cast it once without a spell slot, and you regain the ability to cast it in that way when you finish a Long Rest. You can also cast the spell using any spell slots you have.",
+        "display_order": 2
+      },
+      {
+        "key": "feat/magic-initiate/spell-change",
+        "heading": "Spell Change",
+        "body": "Whenever you gain a new level, you can replace one of the spells you chose for this feat with a different spell of the same level from the chosen spell list.",
+        "display_order": 3
+      },
+      {
+        "key": "feat/magic-initiate/repeatable",
+        "heading": "Repeatable",
+        "body": "You can take this feat more than once, but you must choose a different spell list each time.",
+        "display_order": 4
+      }
+    ]
+  },
+  {
+    "local_key": "feat/savage-attacker",
+    "name": "Savage Attacker",
+    "description": "You've trained to deal particularly damaging strikes. Once per turn when you hit a target with a weapon, you can roll the weapon's damage dice twice and use either roll against the target.",
+    "source": "srd-5-2-1",
+    "category": "Origin",
+    "prerequisite": null,
+    "minimum_level": null,
+    "repeatable": false,
+    "ability_increase": null,
+    "benefits": []
+  },
+  {
+    "local_key": "feat/skilled",
+    "name": "Skilled",
+    "description": "You gain proficiency in any combination of three skills or tools of your choice.",
+    "source": "srd-5-2-1",
+    "category": "Origin",
+    "prerequisite": null,
+    "minimum_level": null,
+    "repeatable": true,
+    "ability_increase": null,
+    "benefits": [
+      {
+        "key": "feat/skilled/repeatable",
+        "heading": "Repeatable",
+        "body": "You can take this feat more than once.",
+        "display_order": 1
+      }
+    ]
+  },
+  {
+    "local_key": "feat/two-weapon-fighting",
+    "name": "Two-Weapon Fighting",
+    "description": "When you make an extra attack as a result of using a weapon that has the Light property, you can add your ability modifier to the damage of that attack if you aren't already adding it to the damage.",
+    "source": "srd-5-2-1",
+    "category": "Fighting Style",
+    "prerequisite": "Fighting Style Feature",
+    "minimum_level": null,
+    "repeatable": false,
+    "ability_increase": null,
+    "benefits": []
+  }
+]

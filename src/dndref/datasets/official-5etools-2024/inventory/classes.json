@@ -1,0 +1,132 @@
+[
+  {
+    "conversion_status": "converted",
+    "name": "Artificer",
+    "normalized_sha256": "b6f8cb113d9100eec2b743d7fe13233434e5d3f134bcfda1b929bad9449b11f5",
+    "source": "EFA",
+    "stable_key": "class/efa/artificer-adece7de7b",
+    "upstream_file": "data/class/class-artificer.json",
+    "upstream_identity": "artificer|efa",
+    "upstream_page": 7
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Barbarian",
+    "normalized_sha256": "306d2f8ffa311128ad2b7dddcb40367df8b020fbb3c54772df36b07bf62e7e24",
+    "source": "XPHB",
+    "stable_key": "class/xphb/barbarian-3e9312f57f",
+    "upstream_file": "data/class/class-barbarian.json",
+    "upstream_identity": "barbarian|xphb",
+    "upstream_page": 50
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Bard",
+    "normalized_sha256": "b18b818f64f637fc6bdd91fca650d195e61939fefc7953d9645744275f22f10d",
+    "source": "XPHB",
+    "stable_key": "class/xphb/bard-a737459a05",
+    "upstream_file": "data/class/class-bard.json",
+    "upstream_identity": "bard|xphb",
+    "upstream_page": 58
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cleric",
+    "normalized_sha256": "10d930194c5fc8123bbbf89a66efbe44bca5709da9c895c348d414792e0eaeef",
+    "source": "XPHB",
+    "stable_key": "class/xphb/cleric-d7b325247d",
+    "upstream_file": "data/class/class-cleric.json",
+    "upstream_identity": "cleric|xphb",
+    "upstream_page": 68
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Druid",
+    "normalized_sha256": "a026ff2ab622d8edecb3b8b4c138c8efaca7a1d33ff9ab8c261efafcbae3e6f2",
+    "source": "XPHB",
+    "stable_key": "class/xphb/druid-e3ad37052c",
+    "upstream_file": "data/class/class-druid.json",
+    "upstream_identity": "druid|xphb",
+    "upstream_page": 78
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fighter",
+    "normalized_sha256": "2d009ae872cd1476cbe97eab9f3c643e1f283ecc172caea99f542b70a215979f",
+    "source": "XPHB",
+    "stable_key": "class/xphb/fighter-5264e16e85",
+    "upstream_file": "data/class/class-fighter.json",
+    "upstream_identity": "fighter|xphb",
+    "upstream_page": 90
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Monk",
+    "normalized_sha256": "7c01e0b1ef5c82177e97a1477c78dd2fc57866542dade91f6c77a4ea3b7509c8",
+    "source": "XPHB",
+    "stable_key": "class/xphb/monk-40f747e874",
+    "upstream_file": "data/class/class-monk.json",
+    "upstream_identity": "monk|xphb",
+    "upstream_page": 100
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Paladin",
+    "normalized_sha256": "0669e59826f33497ee62212310f599611a47b522de8258d77385087bcc11e68d",
+    "source": "XPHB",
+    "stable_key": "class/xphb/paladin-2e3c7d471e",
+    "upstream_file": "data/class/class-paladin.json",
+    "upstream_identity": "paladin|xphb",
+    "upstream_page": 108
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ranger",
+    "normalized_sha256": "bb40543cea96f3b69991450b6cb3e6f641fc15fa3e3f9aab6cec9d0fa9b33ae1",
+    "source": "XPHB",
+    "stable_key": "class/xphb/ranger-aedf2b8e26",
+    "upstream_file": "data/class/class-ranger.json",
+    "upstream_identity": "ranger|xphb",
+    "upstream_page": 118
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Rogue",
+    "normalized_sha256": "905862af3f421e0d6978afff72d8e3cf2fd816922bfaa2716808bb98a258ed1e",
+    "source": "XPHB",
+    "stable_key": "class/xphb/rogue-c8522cd59c",
+    "upstream_file": "data/class/class-rogue.json",
+    "upstream_identity": "rogue|xphb",
+    "upstream_page": 128
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sorcerer",
+    "normalized_sha256": "396f99dc574e9fc1f8d83947bf89cfae9595458525292438bbd775dd75ae039d",
+    "source": "XPHB",
+    "stable_key": "class/xphb/sorcerer-d1cf438bd9",
+    "upstream_file": "data/class/class-sorcerer.json",
+    "upstream_identity": "sorcerer|xphb",
+    "upstream_page": 138
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Warlock",
+    "normalized_sha256": "f324a1fac3383e5164c4f008094ffaec6f89fcaf773ab5b69b5dde1f921297f5",
+    "source": "XPHB",
+    "stable_key": "class/xphb/warlock-8f496097d0",
+    "upstream_file": "data/class/class-warlock.json",
+    "upstream_identity": "warlock|xphb",
+    "upstream_page": 152
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wizard",
+    "normalized_sha256": "32e75399e467f730d9b5f15feae4dcdf7bf2f345fa5a7ee92ac81e33a3cf38ef",
+    "source": "XPHB",
+    "stable_key": "class/xphb/wizard-2ba3c6a375",
+    "upstream_file": "data/class/class-wizard.json",
+    "upstream_identity": "wizard|xphb",
+    "upstream_page": 164
+  }
+]

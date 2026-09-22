@@ -1,0 +1,674 @@
+[
+  {
+    "conversion_status": "expanded",
+    "generated_count": 11,
+    "name": "+1 Ammunition",
+    "source": "XDMG",
+    "upstream_identity": "+1 ammunition|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "+1 Armor",
+    "source": "XDMG",
+    "upstream_identity": "+1 armor|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 1,
+    "name": "+1 Shield (*)",
+    "source": "XDMG",
+    "upstream_identity": "+1 shield (*)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 46,
+    "name": "+1 Weapon",
+    "source": "XDMG",
+    "upstream_identity": "+1 weapon|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 11,
+    "name": "+2 Ammunition",
+    "source": "XDMG",
+    "upstream_identity": "+2 ammunition|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "+2 Armor",
+    "source": "XDMG",
+    "upstream_identity": "+2 armor|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 1,
+    "name": "+2 Shield (*)",
+    "source": "XDMG",
+    "upstream_identity": "+2 shield (*)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 46,
+    "name": "+2 Weapon",
+    "source": "XDMG",
+    "upstream_identity": "+2 weapon|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 11,
+    "name": "+3 Ammunition",
+    "source": "XDMG",
+    "upstream_identity": "+3 ammunition|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "+3 Armor",
+    "source": "XDMG",
+    "upstream_identity": "+3 armor|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 1,
+    "name": "+3 Shield (*)",
+    "source": "XDMG",
+    "upstream_identity": "+3 shield (*)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 46,
+    "name": "+3 Weapon",
+    "source": "XDMG",
+    "upstream_identity": "+3 weapon|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 8,
+    "name": "Adamantine Armor",
+    "source": "XDMG",
+    "upstream_identity": "adamantine armor|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 39,
+    "name": "Adamantine Weapon",
+    "source": "XDMG",
+    "upstream_identity": "adamantine weapon|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 1,
+    "name": "All-Seeing Blade of the Guardian",
+    "source": "AU",
+    "upstream_identity": "all-seeing blade of the guardian|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 11,
+    "name": "Ammunition of Slaying",
+    "source": "XDMG",
+    "upstream_identity": "ammunition of slaying|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 5,
+    "name": "Aquatic Wave-Swept Weapon",
+    "source": "AU",
+    "upstream_identity": "aquatic wave-swept weapon|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Acid Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of acid resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Cold Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of cold resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Fire Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of fire resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Force Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of force resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Gleaming",
+    "source": "XDMG",
+    "upstream_identity": "armor of gleaming|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Lightning Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of lightning resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Necrotic Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of necrotic resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Poison Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of poison resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Psychic Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of psychic resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Radiant Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of radiant resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Thunder Resistance",
+    "source": "XDMG",
+    "upstream_identity": "armor of thunder resistance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Vulnerability (Bludgeoning)",
+    "source": "XDMG",
+    "upstream_identity": "armor of vulnerability (bludgeoning)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Vulnerability (Piercing)",
+    "source": "XDMG",
+    "upstream_identity": "armor of vulnerability (piercing)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Armor of Vulnerability (Slashing)",
+    "source": "XDMG",
+    "upstream_identity": "armor of vulnerability (slashing)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 5,
+    "name": "Ascendant Wave-Swept Weapon",
+    "source": "AU",
+    "upstream_identity": "ascendant wave-swept weapon|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 5,
+    "name": "Barnacled Wave-Swept Weapon",
+    "source": "AU",
+    "upstream_identity": "barnacled wave-swept weapon|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 3,
+    "name": "Berserker Axe",
+    "source": "XDMG",
+    "upstream_identity": "berserker axe|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Cast-Off Armor",
+    "source": "XDMG",
+    "upstream_identity": "cast-off armor|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 5,
+    "name": "Dancing Sword",
+    "source": "XDMG",
+    "upstream_identity": "dancing sword|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Dazzling Weapon",
+    "source": "EFA",
+    "upstream_identity": "dazzling weapon|efa"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 28,
+    "name": "Defender",
+    "source": "XDMG",
+    "upstream_identity": "defender|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Demon Armor",
+    "source": "XDMG",
+    "upstream_identity": "demon armor|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 11,
+    "name": "Dispelling Ammunition",
+    "source": "AU",
+    "upstream_identity": "dispelling ammunition|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Dragon Slayer",
+    "source": "XDMG",
+    "upstream_identity": "dragon slayer|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 2,
+    "name": "Dwarven Plate",
+    "source": "XDMG",
+    "upstream_identity": "dwarven plate|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 2,
+    "name": "Efreeti Chain",
+    "source": "XDMG",
+    "upstream_identity": "efreeti chain|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 2,
+    "name": "Elven Chain",
+    "source": "XDMG",
+    "upstream_identity": "elven chain|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 2,
+    "name": "Energy Bow",
+    "source": "XDMG",
+    "upstream_identity": "energy bow|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Enspelled Armor (Cantrip)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled armor (cantrip)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Enspelled Armor (Level 1)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled armor (level 1)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Enspelled Armor (Level 2)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled armor (level 2)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Enspelled Armor (Level 3)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled armor (level 3)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Enspelled Armor (Level 4)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled armor (level 4)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Enspelled Armor (Level 5)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled armor (level 5)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Enspelled Armor (Level 6)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled armor (level 6)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Enspelled Armor (Level 7)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled armor (level 7)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Enspelled Armor (Level 8)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled armor (level 8)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Enspelled Weapon (Cantrip)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled weapon (cantrip)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Enspelled Weapon (Level 1)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled weapon (level 1)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Enspelled Weapon (Level 2)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled weapon (level 2)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Enspelled Weapon (Level 3)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled weapon (level 3)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Enspelled Weapon (Level 4)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled weapon (level 4)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Enspelled Weapon (Level 5)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled weapon (level 5)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Enspelled Weapon (Level 6)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled weapon (level 6)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Enspelled Weapon (Level 7)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled weapon (level 7)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Enspelled Weapon (Level 8)",
+    "source": "XDMG",
+    "upstream_identity": "enspelled weapon (level 8)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 4,
+    "name": "Executioner's Axe",
+    "source": "XDMG",
+    "upstream_identity": "executioner's axe|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 28,
+    "name": "Flame Tongue",
+    "source": "XDMG",
+    "upstream_identity": "flame tongue|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 6,
+    "name": "Frost Brand",
+    "source": "XDMG",
+    "upstream_identity": "frost brand|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Giant Slayer",
+    "source": "XDMG",
+    "upstream_identity": "giant slayer|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 11,
+    "name": "Goading Ammunition",
+    "source": "AU",
+    "upstream_identity": "goading ammunition|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 2,
+    "name": "Hammer of Thunderbolts",
+    "source": "XDMG",
+    "upstream_identity": "hammer of thunderbolts|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Holy Avenger",
+    "source": "XDMG",
+    "upstream_identity": "holy avenger|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 7,
+    "name": "Luck Blade",
+    "source": "XDMG",
+    "upstream_identity": "luck blade|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Mariner's Armor",
+    "source": "XDMG",
+    "upstream_identity": "mariner's armor|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 8,
+    "name": "Mithral Armor",
+    "source": "XDMG",
+    "upstream_identity": "mithral armor|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 5,
+    "name": "Moon-Touched Sword",
+    "source": "XDMG",
+    "upstream_identity": "moon-touched sword|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 5,
+    "name": "Moonblade",
+    "source": "XDMG",
+    "upstream_identity": "moonblade|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Nine Lives Stealer",
+    "source": "XDMG",
+    "upstream_identity": "nine lives stealer|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 2,
+    "name": "Oathbow",
+    "source": "XDMG",
+    "upstream_identity": "oathbow|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 2,
+    "name": "Plate Armor of Etherealness (*)",
+    "source": "XDMG",
+    "upstream_identity": "plate armor of etherealness (*)|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 1,
+    "name": "Regal Breastplate of the Tyrant (*)",
+    "source": "AU",
+    "upstream_identity": "regal breastplate of the tyrant (*)|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 9,
+    "name": "Repeating Shot",
+    "source": "EFA",
+    "upstream_identity": "repeating shot|efa"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 1,
+    "name": "Resistant Blade of the Guardian",
+    "source": "AU",
+    "upstream_identity": "resistant blade of the guardian|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 7,
+    "name": "Returning Weapon",
+    "source": "EFA",
+    "upstream_identity": "returning weapon|efa"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Silvered Weapon",
+    "source": "XDMG",
+    "upstream_identity": "silvered weapon|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 12,
+    "name": "Smoldering Armor",
+    "source": "XDMG",
+    "upstream_identity": "smoldering armor|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 1,
+    "name": "Studious Blade of the Guardian",
+    "source": "AU",
+    "upstream_identity": "studious blade of the guardian|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 1,
+    "name": "Subjugating Breastplate of the Tyrant (*)",
+    "source": "AU",
+    "upstream_identity": "subjugating breastplate of the tyrant (*)|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 6,
+    "name": "Sword of Life Stealing",
+    "source": "XDMG",
+    "upstream_identity": "sword of life stealing|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 4,
+    "name": "Sword of Sharpness",
+    "source": "XDMG",
+    "upstream_identity": "sword of sharpness|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 6,
+    "name": "Sword of Vengeance",
+    "source": "XDMG",
+    "upstream_identity": "sword of vengeance|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 6,
+    "name": "Sword of Wounding",
+    "source": "XDMG",
+    "upstream_identity": "sword of wounding|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 6,
+    "name": "Sylvan Talon",
+    "source": "XDMG",
+    "upstream_identity": "sylvan talon|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 8,
+    "name": "Tramontane Armor",
+    "source": "AU",
+    "upstream_identity": "tramontane armor|au"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Vicious Weapon",
+    "source": "XDMG",
+    "upstream_identity": "vicious weapon|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 4,
+    "name": "Vorpal Sword",
+    "source": "XDMG",
+    "upstream_identity": "vorpal sword|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 11,
+    "name": "Walloping Ammunition",
+    "source": "XDMG",
+    "upstream_identity": "walloping ammunition|xdmg"
+  },
+  {
+    "conversion_status": "expanded",
+    "generated_count": 48,
+    "name": "Weapon of Warning",
+    "source": "XDMG",
+    "upstream_identity": "weapon of warning|xdmg"
+  }
+]

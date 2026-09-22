@@ -1,0 +1,4442 @@
+[
+  {
+    "conversion_status": "converted",
+    "name": "Aura of Evasion",
+    "normalized_sha256": "b825f8cb8b9ff44ae7aa7e64342802ccd70ed6ef32d50d974ee93c6c4b22f8a8",
+    "source": "AU",
+    "stable_key": "spell/au/aura-of-evasion-d9c24c5cec",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "aura of evasion|au",
+    "upstream_page": 35
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Battle Familiar",
+    "normalized_sha256": "40715bc19c88bcc0f3d09069efc8e207090423aa33f88097a3ac150564ede311",
+    "source": "AU",
+    "stable_key": "spell/au/battle-familiar-471a9786a6",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "battle familiar|au",
+    "upstream_page": 35
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Catnap",
+    "normalized_sha256": "9690947609bb70c64fe2d451010a9e16b80d8d917ca7e884cfb000c3b0d89945",
+    "source": "AU",
+    "stable_key": "spell/au/catnap-d1fd8f5db0",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "catnap|au",
+    "upstream_page": 37
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Detonate",
+    "normalized_sha256": "faf9d924c54ccaceb9f671c7d48ddca6eafb99f623416f3b5b480c472be4bba7",
+    "source": "AU",
+    "stable_key": "spell/au/detonate-d65a6b7afc",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "detonate|au",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Disruptive Tune",
+    "normalized_sha256": "ef9b968486eaabe8f16f6b62479c594c13d29d76b7ca679b8828afcce6aa4701",
+    "source": "AU",
+    "stable_key": "spell/au/disruptive-tune-4c076535b6",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "disruptive tune|au",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Distorted Distance",
+    "normalized_sha256": "56a66f60cd2ea91a56c362d8864b7add6958ca8ae31f11c58d1e455a6d937707",
+    "source": "AU",
+    "stable_key": "spell/au/distorted-distance-68fc671f7c",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "distorted distance|au",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dueling Ground",
+    "normalized_sha256": "0d5d14463b2c8ca501ba160d50c89e7c276c5be8724bbd39f2427b9ad657b928",
+    "source": "AU",
+    "stable_key": "spell/au/dueling-ground-fc25fe1319",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "dueling ground|au",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Enervation",
+    "normalized_sha256": "726a64f8528ea2e08f6a885527362edbe25b43b9f31d0ae8da9890d88aa3e085",
+    "source": "AU",
+    "stable_key": "spell/au/enervation-c959d55714",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "enervation|au",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Entrancing Mirrors",
+    "normalized_sha256": "ede17227a5681d41c2c5a73cbef42a13821d4ea30e3d98d7bb44176ed7c0681f",
+    "source": "AU",
+    "stable_key": "spell/au/entrancing-mirrors-132e91b568",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "entrancing mirrors|au",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Festering Blast",
+    "normalized_sha256": "d01587b88fedba7faa05ee7dcfd50add43e31f581d8946b32b72fde63f5e81a0",
+    "source": "AU",
+    "stable_key": "spell/au/festering-blast-70ea03e6ee",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "festering blast|au",
+    "upstream_page": 39
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fractured Awareness",
+    "normalized_sha256": "d5c15421e4531107008721bc2dcb3ad7a57c23539a8c7fcb19cf88c44eacfadd",
+    "source": "AU",
+    "stable_key": "spell/au/fractured-awareness-dc668aa133",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "fractured awareness|au",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Grave Ground",
+    "normalized_sha256": "42a7b47248097b42097d0093aae3bd7f86515ff961704a154f0b0d2674274ea5",
+    "source": "AU",
+    "stable_key": "spell/au/grave-ground-927c1c8f02",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "grave ground|au",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hindsight",
+    "normalized_sha256": "008c3b3fd7e1a9570df3920c141f8dbfff8c37d8e1f0f5a2feee9dcb2eea225f",
+    "source": "AU",
+    "stable_key": "spell/au/hindsight-7dc37600d1",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "hindsight|au",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Illusory Dragon",
+    "normalized_sha256": "4d4493022b92b48007f0f6d0f6406db931da67ada66a4c5a747eaa97eb5171d9",
+    "source": "AU",
+    "stable_key": "spell/au/illusory-dragon-229b2366cf",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "illusory dragon|au",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Inflict Doubt",
+    "normalized_sha256": "67f5eea4a2c5c00555fa560bb661f8493a4a4c5131e47a2c03b522444d02d5f5",
+    "source": "AU",
+    "stable_key": "spell/au/inflict-doubt-75871ec235",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "inflict doubt|au",
+    "upstream_page": 40
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Invulnerability",
+    "normalized_sha256": "2b95951739f3f6363354650e28d6c64d121f6381f9e432881508606f389acf0a",
+    "source": "AU",
+    "stable_key": "spell/au/invulnerability-52adad481b",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "invulnerability|au",
+    "upstream_page": 41
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Iron Body",
+    "normalized_sha256": "fd62583e413ba9808dbfe7560da692c1539842273d4b6b3c12ee346a3bb17a7d",
+    "source": "AU",
+    "stable_key": "spell/au/iron-body-c69cbf8d07",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "iron body|au",
+    "upstream_page": 41
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lightning Ring",
+    "normalized_sha256": "92c2c9386ffdb25d645c9cdc383b047664a015432a19a1ba1964c71951f875b2",
+    "source": "AU",
+    "stable_key": "spell/au/lightning-ring-3f8e6592a5",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "lightning ring|au",
+    "upstream_page": 41
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Moment of Prescience",
+    "normalized_sha256": "ffbba1dbac5b4da205f89ee3385869e2be0ccd3e344be4e89d79f564e19717d2",
+    "source": "AU",
+    "stable_key": "spell/au/moment-of-prescience-7ddf7f3772",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "moment of prescience|au",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mordenkainen's Lucubration",
+    "normalized_sha256": "1f008eca84cd4848c974fc00be8e9c0cf261c97bb649af3d14660ea42302a2c2",
+    "source": "AU",
+    "stable_key": "spell/au/mordenkainens-lucubration-17f44ea2ba",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "mordenkainen's lucubration|au",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Negative Energy Flood",
+    "normalized_sha256": "2cd4b96b6a87b0f04a011f09fd039a8dccd37f739c6a87d9bb8ebd6d7f0077f7",
+    "source": "AU",
+    "stable_key": "spell/au/negative-energy-flood-8cbd3aa25d",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "negative energy flood|au",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Power Word Pain",
+    "normalized_sha256": "15561b76caa1b3644108a72a7c2ad43d83d16121b0089d04302d8f7d8839502f",
+    "source": "AU",
+    "stable_key": "spell/au/power-word-pain-c65f9ae3e7",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "power word pain|au",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Reweave Fate",
+    "normalized_sha256": "3c38a60d33c64614b5b8c9afe088bebeb4fff37c701210bbc0f488780ae09485",
+    "source": "AU",
+    "stable_key": "spell/au/reweave-fate-97d6e40e05",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "reweave fate|au",
+    "upstream_page": 42
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spirit Lantern",
+    "normalized_sha256": "b99682d6cbd514f23cdcf3dcefa29a9641a2aa7d4bbd06d2ad13fa1729ea9e69",
+    "source": "AU",
+    "stable_key": "spell/au/spirit-lantern-93e09ebbc0",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "spirit lantern|au",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Dinosaur",
+    "normalized_sha256": "4a805f7803a3356fa9a44c53d73978b2352e63f7e4987f1cc13f2d0513d74297",
+    "source": "AU",
+    "stable_key": "spell/au/summon-dinosaur-bec2826311",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "summon dinosaur|au",
+    "upstream_page": 43
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Plant",
+    "normalized_sha256": "d143e912a68786e035f9045305b713d11283e7baec70ae6fd82a1e15d3894ead",
+    "source": "AU",
+    "stable_key": "spell/au/summon-plant-741fa123bc",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "summon plant|au",
+    "upstream_page": 44
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Transfix",
+    "normalized_sha256": "f383431862929a6535e7c38bf95ad355f2959c151881e4c20e7ad64c79eb18a2",
+    "source": "AU",
+    "stable_key": "spell/au/transfix-72c5c9ec11",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "transfix|au",
+    "upstream_page": 44
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Uncertain Footing",
+    "normalized_sha256": "6cdf8910f2f585ffe638b09ac0694cd695b38986cd2fd195f9378e390842c0c0",
+    "source": "AU",
+    "stable_key": "spell/au/uncertain-footing-8623d16c0e",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "uncertain footing|au",
+    "upstream_page": 44
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Vision of Elapsing Eons",
+    "normalized_sha256": "a3a998e395a88b2a16a23cbd48a0f49711ae4d58a140a3a5c31e523279289a08",
+    "source": "AU",
+    "stable_key": "spell/au/vision-of-elapsing-eons-a5ec2df962",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "vision of elapsing eons|au",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wail of the Banshee",
+    "normalized_sha256": "77b9eeefc48caca046b9c3e0e235ea8f676463d37e4845210791af1fee452d25",
+    "source": "AU",
+    "stable_key": "spell/au/wail-of-the-banshee-83515ed8dd",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "wail of the banshee|au",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Waves of Exhaustion",
+    "normalized_sha256": "8d8322a69f2d94a3426a875c35bb2e555a96a5b65ffa5da6fddfe85dbefb6c6e",
+    "source": "AU",
+    "stable_key": "spell/au/waves-of-exhaustion-148731d9e8",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "waves of exhaustion|au",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wither and Bloom",
+    "normalized_sha256": "e27e5bda5428f7165f4563e7c798591e4ae0b92d3710522fec8533093cae37c7",
+    "source": "AU",
+    "stable_key": "spell/au/wither-and-bloom-1f6d46fe88",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "wither and bloom|au",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Zone of Amicability",
+    "normalized_sha256": "f8a5428d6101aca9f0dc7ad0ed0688c8fb6fef8ffb9a6a637c7d6c0d7e37592a",
+    "source": "AU",
+    "stable_key": "spell/au/zone-of-amicability-bd70b7b190",
+    "upstream_file": "data/spells/spells-au.json",
+    "upstream_identity": "zone of amicability|au",
+    "upstream_page": 45
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Homunculus Servant",
+    "normalized_sha256": "213adf10138934dfc11cc47d50aa25749f67cd32ade6b4e77186ca4c1d3488e3",
+    "source": "EFA",
+    "stable_key": "spell/efa/homunculus-servant-52f3778806",
+    "upstream_file": "data/spells/spells-efa.json",
+    "upstream_identity": "homunculus servant|efa",
+    "upstream_page": 21
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Alustriel's Mooncloak",
+    "normalized_sha256": "934b7e1184d810646484bce1389173ee880582f8db8edb6395a818d273571e25",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/alustriels-mooncloak-1d0309653d",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "alustriel's mooncloak|frhof",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Backlash",
+    "normalized_sha256": "ec6d1872ebaa9b239acc258d7ba3d28456c5b4d1803ec8c2cceae742ca3b811c",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/backlash-74741421c9",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "backlash|frhof",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blade of Disaster",
+    "normalized_sha256": "55d8b03db138e6271cffb67e258ffd422cf440801ccba9ee4a7724b505b9e436",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/blade-of-disaster-6ce10c3d31",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "blade of disaster|frhof",
+    "upstream_page": 143
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cacophonic Shield",
+    "normalized_sha256": "2b16dfddc6028960db20ccbcb2b9675085af26bf8e2da37beabdcee9f253fc21",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/cacophonic-shield-5530fc2c05",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "cacophonic shield|frhof",
+    "upstream_page": 143
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjure Constructs",
+    "normalized_sha256": "74d2e3c5aa618ada7bb6ca361f143eb90830bc7c6f0cbc54a3e5776e1abc5ef4",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/conjure-constructs-95329492f4",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "conjure constructs|frhof",
+    "upstream_page": 143
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Death Armor",
+    "normalized_sha256": "cf3d64b5f9c234eff1d380c2e5317f42761f8cbe48585a7bd7dc47211c2b8431",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/death-armor-91e60901e8",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "death armor|frhof",
+    "upstream_page": 143
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Deryan's Helpful Homunculi",
+    "normalized_sha256": "6b1374a46ea1977976051d7fed0f958712a4253a34a91915cf7b40071310786c",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/deryans-helpful-homunculi-a34b2d0317",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "deryan's helpful homunculi|frhof",
+    "upstream_page": 143
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dirge",
+    "normalized_sha256": "2e6e7c7d27fb98e95eebc2cf7919c8d4e19cd49359f6413f528128708a048f7c",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/dirge-1dda925792",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "dirge|frhof",
+    "upstream_page": 144
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Doomtide",
+    "normalized_sha256": "d5a586c048ed46ed943a13c47aa5f16316f281592df2991c46ddb15ab132beaa",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/doomtide-050367270f",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "doomtide|frhof",
+    "upstream_page": 144
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Elminster's Effulgent Spheres",
+    "normalized_sha256": "145e20e7d04ca086d65166a15596f54c12985454382635d7335d6b3667cc3794",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/elminsters-effulgent-spheres-ecc6548cce",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "elminster's effulgent spheres|frhof",
+    "upstream_page": 144
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Elminster's Elusion",
+    "normalized_sha256": "f83d6e65eba13a99b8ed41758e62b54cc4fd00160c1b6f6bb514d4ae5dbb152c",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/elminsters-elusion-8de5a98180",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "elminster's elusion|frhof",
+    "upstream_page": 144
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Holy Star of Mystra",
+    "normalized_sha256": "bfaf3bb6899c84a8ffbdb8f641980a9b8d366227e62c34801098d16720f0c16d",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/holy-star-of-mystra-4f640b2cd7",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "holy star of mystra|frhof",
+    "upstream_page": 145
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Laeral's Silver Lance",
+    "normalized_sha256": "63edc6f20545f1b6ec4f3cb296cc8627a9d5b7af6a2242cdf7b1d810755d2894",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/laerals-silver-lance-f4032972fb",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "laeral's silver lance|frhof",
+    "upstream_page": 145
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Simbul's Synostodweomer",
+    "normalized_sha256": "504d03728dbe28ded739d03d0f01e3c5882f45ee382a0c229bd37727ceddb7ac",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/simbuls-synostodweomer-12315153dc",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "simbul's synostodweomer|frhof",
+    "upstream_page": 145
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Songal's Elemental Suffusion",
+    "normalized_sha256": "0866af630454ed69e156654910b6e4a88c85ce827f7b43d521971908c24b691d",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/songals-elemental-suffusion-0f30f8cebd",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "songal's elemental suffusion|frhof",
+    "upstream_page": 145
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spellfire Flare",
+    "normalized_sha256": "506c3eba750bb051af66fd794a39d414cf3920c5363c9f8b3eeb333cf1d8d3aa",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/spellfire-flare-cf1432500f",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "spellfire flare|frhof",
+    "upstream_page": 146
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spellfire Storm",
+    "normalized_sha256": "80eeba4cecb639deec979005a704a05dfbaa4ffcc96c58763a1c53b7d95ca303",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/spellfire-storm-2449966949",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "spellfire storm|frhof",
+    "upstream_page": 146
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Syluné's Viper",
+    "normalized_sha256": "f4c29680858b0422401c57adbec17abfaa5ee318402ecbb812c6c9293d1dfc2f",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/sylunes-viper-0b210f31a7",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "syluné's viper|frhof",
+    "upstream_page": 147
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wardaway",
+    "normalized_sha256": "01f1a497834748c871a01db152012c86a36b93556a36c6e5a6a6f5ca027934ff",
+    "source": "FRHoF",
+    "stable_key": "spell/frhof/wardaway-cec9c4ee5a",
+    "upstream_file": "data/spells/spells-frhof.json",
+    "upstream_identity": "wardaway|frhof",
+    "upstream_page": 147
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Acid Splash",
+    "normalized_sha256": "293da1c7671aa1384b3188ac677f6c84f9693a98ddc71ddff1c3659e8b7cfd21",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/acid-splash-17183674d7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "acid splash|xphb",
+    "upstream_page": 239
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Aid",
+    "normalized_sha256": "3661289f26a3cbb6d51fcbdd463eba50c8368dc9cdcc3fe3b55b6dea0e15a044",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/aid-abeb1278d3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "aid|xphb",
+    "upstream_page": 239
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Alarm",
+    "normalized_sha256": "2621d5941d48f7590ce6d4d6bd950a45bd603d1071b81b7d27b2364806e0a1e9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/alarm-31cc100eb2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "alarm|xphb",
+    "upstream_page": 239
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Alter Self",
+    "normalized_sha256": "b59a0d539fbb689aa315bb864e3505183d4510cdda8ad8d25a10256e00537f70",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/alter-self-cb84087b7c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "alter self|xphb",
+    "upstream_page": 239
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Animal Friendship",
+    "normalized_sha256": "a920ef7e3c4f7ca80505cf07ab24905a61869979f637c2ee59fe5a6b34c803b9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/animal-friendship-4ff44a192d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "animal friendship|xphb",
+    "upstream_page": 239
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Animal Messenger",
+    "normalized_sha256": "4902c183632ca263d4d439af94aeba493a0a4f2250aa339901b8475148eacef2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/animal-messenger-2a7039c075",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "animal messenger|xphb",
+    "upstream_page": 240
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Animal Shapes",
+    "normalized_sha256": "0c74f0e3fe76e4b328179250a1b131caa2787d2468a9a3ff012c974d9ce2e7bf",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/animal-shapes-89dec6cf49",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "animal shapes|xphb",
+    "upstream_page": 240
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Animate Dead",
+    "normalized_sha256": "a2f88b26c2e5659e926816b1c7827c6e21706cbc4d4f46d082543295296ac16c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/animate-dead-135f900c1d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "animate dead|xphb",
+    "upstream_page": 240
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Animate Objects",
+    "normalized_sha256": "dcc9d01c3b067db79e6706c3c2fd4353488b2b531e458a118e6c296375149b1a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/animate-objects-62e4a3f50e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "animate objects|xphb",
+    "upstream_page": 240
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Antilife Shell",
+    "normalized_sha256": "97711f1a58fe41a32742e19a14836d15a8b4d276740dd587c3be87f30e2c09a9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/antilife-shell-93e6935945",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "antilife shell|xphb",
+    "upstream_page": 241
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Antimagic Field",
+    "normalized_sha256": "77c22be7cb6cc3aec5e8d395c0fbd78109b4dbcc34cecb3eccde0e1f774bb6f9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/antimagic-field-54c738858e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "antimagic field|xphb",
+    "upstream_page": 241
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Antipathy/Sympathy",
+    "normalized_sha256": "2773bf43bff59563c71fc730cd3cc8c8d4d0e0eeabc460dcb041f882fe90e40b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/antipathy-sympathy-0a5b55327d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "antipathy/sympathy|xphb",
+    "upstream_page": 242
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Eye",
+    "normalized_sha256": "f57bccc454839cd906777ad7796f16adc4000d49a6b47fff095d1473674af787",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/arcane-eye-6c2c32ba1a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "arcane eye|xphb",
+    "upstream_page": 242
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Gate",
+    "normalized_sha256": "b4147e7e4f954deadcbd258c06023b29f313a0c606a4e6f7f6858767ed31e03f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/arcane-gate-9476942b80",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "arcane gate|xphb",
+    "upstream_page": 242
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Lock",
+    "normalized_sha256": "80c8281e37b7c5c622e1e2be77e26c06804c50ded9c609d96c9b9ae94c2b2996",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/arcane-lock-30988e45d5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "arcane lock|xphb",
+    "upstream_page": 242
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arcane Vigor",
+    "normalized_sha256": "417f5fc419e9be84b8b4fd4a312819d78d17e7395af5b474a43dc9e831f6576a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/arcane-vigor-412810e6c7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "arcane vigor|xphb",
+    "upstream_page": 242
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Armor of Agathys",
+    "normalized_sha256": "cfd979c6603a4bb18951ca2db8c4513b0facdb82e088604a148bbb3a90d6bb63",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/armor-of-agathys-c007b0e3a7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "armor of agathys|xphb",
+    "upstream_page": 243
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Arms of Hadar",
+    "normalized_sha256": "b093b831f62b93995f8f30ae1eb12870a4a842e87152b06ab44b123891d0f049",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/arms-of-hadar-117417dc5a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "arms of hadar|xphb",
+    "upstream_page": 243
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Astral Projection",
+    "normalized_sha256": "4c13a938c7cbc154789cd0b9d5a320b5816eccaca7bd3cdc50c8b755c167cf8c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/astral-projection-a962b60833",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "astral projection|xphb",
+    "upstream_page": 243
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Augury",
+    "normalized_sha256": "33b4e1207784ac1723e20ce4e54d4ec0eff9e72731ff812add8a62a1c7065428",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/augury-d16b1023b2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "augury|xphb",
+    "upstream_page": 244
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Aura of Life",
+    "normalized_sha256": "9e5fa5022c73b8ed458ff34ee16cb675f90b5acda1b64eca03fd8c4375c30734",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/aura-of-life-c3c21660c2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "aura of life|xphb",
+    "upstream_page": 244
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Aura of Purity",
+    "normalized_sha256": "2191064d151cadbdf4f3314bf78ecedca47367537b5fe1e434e2427972728e47",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/aura-of-purity-299dc5c5c0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "aura of purity|xphb",
+    "upstream_page": 244
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Aura of Vitality",
+    "normalized_sha256": "e03a02eb2b07329e4a84bc059ff575c9a0071b4bad2dc2440822dbd37a4202a4",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/aura-of-vitality-47aaad72d4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "aura of vitality|xphb",
+    "upstream_page": 244
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Awaken",
+    "normalized_sha256": "788a6065cf66ec95526577291e061b4849b0534c2866d7d6d721520c3046b83c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/awaken-7e51d85e52",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "awaken|xphb",
+    "upstream_page": 244
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Bane",
+    "normalized_sha256": "079198cd7eb43fcea4e4e18c4964b4488944b52f790a0ead087dc3d2b4528baa",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/bane-f4a0b19905",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "bane|xphb",
+    "upstream_page": 245
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Banishing Smite",
+    "normalized_sha256": "ade3813b3ba05a77773ccc86a5c25d067e9ae73a5fc3415db7c38bc5b2ded4e8",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/banishing-smite-aa98d63253",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "banishing smite|xphb",
+    "upstream_page": 245
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Banishment",
+    "normalized_sha256": "ecc821569026bff760f1fa6250b1ce5ffb420847fd398771e62118082064bf0e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/banishment-73943aa4f3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "banishment|xphb",
+    "upstream_page": 245
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Barkskin",
+    "normalized_sha256": "b77efd3b0861adbdbfd597384898bc68a6cb3999f78030d5b6812b3022bfca29",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/barkskin-53b93e6f2b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "barkskin|xphb",
+    "upstream_page": 245
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Beacon of Hope",
+    "normalized_sha256": "92cf008c45f801efffe6b92f042f9337a1a090f0fb4db2dc4ada35cd2682d8b5",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/beacon-of-hope-936a285388",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "beacon of hope|xphb",
+    "upstream_page": 245
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Beast Sense",
+    "normalized_sha256": "bf14c6611f5e169d5e7ab7c99ba1516a6c68cbe566fbfdf3664d29bbed7b993d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/beast-sense-4ed3f329b9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "beast sense|xphb",
+    "upstream_page": 245
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Befuddlement",
+    "normalized_sha256": "ba27e130de2355c757dd356e0fac5e8d88dec31f90aeb0cab4a0f0773b88ef9e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/befuddlement-26c6aeb7d5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "befuddlement|xphb",
+    "upstream_page": 245
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Bestow Curse",
+    "normalized_sha256": "ed926846f450a1b3aca69ae10a0eba35544f71039319c313af34449d6398fba7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/bestow-curse-3bdf8af56c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "bestow curse|xphb",
+    "upstream_page": 246
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Bigby's Hand",
+    "normalized_sha256": "d0518d743a2a7d00c8e0c58f610e1719d24c9e826b559100eb16417a8815f122",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/bigbys-hand-eb1eda0f23",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "bigby's hand|xphb",
+    "upstream_page": 246
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blade Barrier",
+    "normalized_sha256": "613f01daf138189db261714b65a73e9e8bf4e20f86b741268026632068d71e1e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/blade-barrier-9db117606f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "blade barrier|xphb",
+    "upstream_page": 247
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blade Ward",
+    "normalized_sha256": "90eef4290cd09e0ee1ff506e14ae63fdb5a00790800da23bef43ddfd2fc4f208",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/blade-ward-4a21ab8f0f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "blade ward|xphb",
+    "upstream_page": 247
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Bless",
+    "normalized_sha256": "a3e491b4af93c1f5e79733d5f6eb40762896e588dbc09a2a136deae2cfd3ede8",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/bless-94641ef620",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "bless|xphb",
+    "upstream_page": 247
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blight",
+    "normalized_sha256": "22425f9845af9ad60b695023ded8aff6980f652e874599a67f67fa2acb425f04",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/blight-d33f0264b0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "blight|xphb",
+    "upstream_page": 247
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blinding Smite",
+    "normalized_sha256": "d57d16b7b4e8ae6d06c24b364f9c13ff0460f4e8610356ef0f500e755be21ecb",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/blinding-smite-ad1b8c7699",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "blinding smite|xphb",
+    "upstream_page": 247
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blindness/Deafness",
+    "normalized_sha256": "427898e37b35b4de84aaf8e0a58bbc58b7a9e93074bb46c52bcc4e7553bdc638",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/blindness-deafness-dbffd007ae",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "blindness/deafness|xphb",
+    "upstream_page": 248
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blink",
+    "normalized_sha256": "8ce1709780ceece4c7eed08b23eaccfe4a92fe36a97c714267d7b2190fb526bc",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/blink-6ea01cd17c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "blink|xphb",
+    "upstream_page": 248
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Blur",
+    "normalized_sha256": "1ec85af04bfa397d219f63be8bec10f04fce39c01364c99ed16663a4c3f22358",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/blur-b07d2eb245",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "blur|xphb",
+    "upstream_page": 248
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Burning Hands",
+    "normalized_sha256": "e2408e4898659c008f7c0687805a01b7734734aac1f447574c6b17a2efbb78af",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/burning-hands-450d4175d9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "burning hands|xphb",
+    "upstream_page": 248
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Call Lightning",
+    "normalized_sha256": "ab05e8fd8e5cf4a6c06b721af62e1372271504f9811d0344bc73380b0d782613",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/call-lightning-61b9705e2c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "call lightning|xphb",
+    "upstream_page": 248
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Calm Emotions",
+    "normalized_sha256": "47c9863fabbdbdd680e4e8058f721e84a727068e821067e44326d81b3b527f64",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/calm-emotions-17c7788d29",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "calm emotions|xphb",
+    "upstream_page": 249
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Chain Lightning",
+    "normalized_sha256": "932561380967d961b82a29c48c58819608dd1ebd749a1d13380cb923a9696286",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/chain-lightning-40d7d3fa1f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "chain lightning|xphb",
+    "upstream_page": 249
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Charm Monster",
+    "normalized_sha256": "740d69299eccbcad2e5c4e896820d0ed922f5a7e9d7e22e954c2284d89a7424d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/charm-monster-e56cca014a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "charm monster|xphb",
+    "upstream_page": 249
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Charm Person",
+    "normalized_sha256": "f8d17b53fad9277fecc03d23cda8674c0f4e48c8c2d5883ec678bc150475a36c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/charm-person-8045ad729e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "charm person|xphb",
+    "upstream_page": 249
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Chill Touch",
+    "normalized_sha256": "0256e76ef4961bb949ec81ccfe168d776c1a09d67f778dfc4912e66eac052eaf",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/chill-touch-6f7357dfc6",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "chill touch|xphb",
+    "upstream_page": 249
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Chromatic Orb",
+    "normalized_sha256": "cee4a2ebf4bfbb25e23cc770a347fa2e36321c491e2e7b500589771c00571bf1",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/chromatic-orb-23fa12af2a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "chromatic orb|xphb",
+    "upstream_page": 249
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Circle of Death",
+    "normalized_sha256": "7767a6c1578f4de5f17404c5b2c8a96d8b89120593483ea27a2312130c8d0f8b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/circle-of-death-31b0494628",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "circle of death|xphb",
+    "upstream_page": 250
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Circle of Power",
+    "normalized_sha256": "836d72ef1319b73c27b61c7be1d7ca809e79cb50c0839d31c70de4b4f8f82670",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/circle-of-power-2516378ce4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "circle of power|xphb",
+    "upstream_page": 250
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Clairvoyance",
+    "normalized_sha256": "21f38fcde934a29c81ff2c287ed013d684a980f9c49839f960b6abefff502e85",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/clairvoyance-a5077ab320",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "clairvoyance|xphb",
+    "upstream_page": 250
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Clone",
+    "normalized_sha256": "9eff8363fed55f31a627fda19f562139816afa1fb03f363fa8b5644e4c106b86",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/clone-89a96436d6",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "clone|xphb",
+    "upstream_page": 251
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cloud of Daggers",
+    "normalized_sha256": "b2a77171f012b871e3b7bdeb7b48f0d640e6f633cc7fa15b01ef18d2851b26bb",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/cloud-of-daggers-9c75d5167b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "cloud of daggers|xphb",
+    "upstream_page": 251
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cloudkill",
+    "normalized_sha256": "42e5992bd32c83f244c6550a9e27913c0c7acfaede31bce6c3b4e1b6e9e94006",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/cloudkill-9344b71c74",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "cloudkill|xphb",
+    "upstream_page": 251
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Color Spray",
+    "normalized_sha256": "7bc862f6e0c02147f75930474b26893eb3922db99707ebfa9e65b026360bcedc",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/color-spray-d3781b6a71",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "color spray|xphb",
+    "upstream_page": 251
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Command",
+    "normalized_sha256": "e1296abb4ec2e64e32cb80cb4527a9a61689f1263cfb71491a53ca63087b3230",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/command-0d20060ac5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "command|xphb",
+    "upstream_page": 251
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Commune",
+    "normalized_sha256": "c4e42787bef40c8bf1f109c23af92e6023da12ce473122eefdf13994a7f8b202",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/commune-30aaacd3bb",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "commune|xphb",
+    "upstream_page": 251
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Commune with Nature",
+    "normalized_sha256": "f6951bb1bf59997e1f5c9d92624bf9c44a5d475be5d8696370fd703fb11ea7d7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/commune-with-nature-91ba1d9eb4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "commune with nature|xphb",
+    "upstream_page": 252
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Compelled Duel",
+    "normalized_sha256": "e8a20b9f42cb6afe4e598c1d25942d680ed17b85f3b29d57552944c292040fa9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/compelled-duel-b930c360c9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "compelled duel|xphb",
+    "upstream_page": 252
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Comprehend Languages",
+    "normalized_sha256": "967125267246f3836de664c4659ff628a35e36a048c83f98da314c1fa61b1141",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/comprehend-languages-e7d1e937d4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "comprehend languages|xphb",
+    "upstream_page": 252
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Compulsion",
+    "normalized_sha256": "833979c9ce9b3f333d9e1bbe6c078ec7ec08e3a77fa66b7b8830745e53a221a2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/compulsion-5ec30fc230",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "compulsion|xphb",
+    "upstream_page": 252
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cone of Cold",
+    "normalized_sha256": "749be19fb425c6966668645836ad3ca3424906ca0bdc785c35382ccb072bcc37",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/cone-of-cold-f5f354c1c5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "cone of cold|xphb",
+    "upstream_page": 253
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Confusion",
+    "normalized_sha256": "78bb3750712926e3046142b18a9996ca8fb0368cbdc8a39ccf86bad8389b0674",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/confusion-c86d0c2c02",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "confusion|xphb",
+    "upstream_page": 253
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjure Animals",
+    "normalized_sha256": "f10ad5acd27a39673c51dd7aa45bc8644312d1d2777d20cff17e67c698ef4226",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/conjure-animals-1e660e825b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "conjure animals|xphb",
+    "upstream_page": 254
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjure Barrage",
+    "normalized_sha256": "0ce427bcef4a34e762ceb48043b15407a28d80de38fb62506d89b30294688d35",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/conjure-barrage-40f074cdfe",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "conjure barrage|xphb",
+    "upstream_page": 254
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjure Celestial",
+    "normalized_sha256": "9493764e4c8e18e4d37e17e62d779968610b12553253eb50a2bdb9c3b78e4f76",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/conjure-celestial-bb2c103464",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "conjure celestial|xphb",
+    "upstream_page": 254
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjure Elemental",
+    "normalized_sha256": "11704b5d29ca2eb2588852dc1872e3ed1743433d4ba4127a0a0eade5f99fe092",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/conjure-elemental-52d5c06ab2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "conjure elemental|xphb",
+    "upstream_page": 254
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjure Fey",
+    "normalized_sha256": "79aebfd889f3817edde87eb16c027c97c5f7407056a33e80b1f32223f06d4e6e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/conjure-fey-ca60655934",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "conjure fey|xphb",
+    "upstream_page": 255
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjure Minor Elementals",
+    "normalized_sha256": "daed5003b91b1da8d90c6692623db972919c8331c76d1b6681e427c464204c82",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/conjure-minor-elementals-bc78e8450b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "conjure minor elementals|xphb",
+    "upstream_page": 255
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjure Volley",
+    "normalized_sha256": "6fbd70a0829e8fa05ffea921c2594ced954c1136392afed006a65fdaa64723cc",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/conjure-volley-4d94cd516d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "conjure volley|xphb",
+    "upstream_page": 255
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Conjure Woodland Beings",
+    "normalized_sha256": "b0799ee3960d1846f33e1cd0f090776d773af744d0a3ce2f188d7762c15832d4",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/conjure-woodland-beings-0cb9a28c8d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "conjure woodland beings|xphb",
+    "upstream_page": 255
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Contact Other Plane",
+    "normalized_sha256": "1aa6d8895c9a8fc60ce93ceeda4cdea43ae9d2408f4858c84218b896a9fea4fd",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/contact-other-plane-228c3b9b6c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "contact other plane|xphb",
+    "upstream_page": 255
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Contagion",
+    "normalized_sha256": "41a6484c9bbf4e0c45906f408f2eb69b2e0068148ead5327d11d36533ea82049",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/contagion-f1bc5bd86e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "contagion|xphb",
+    "upstream_page": 256
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Contingency",
+    "normalized_sha256": "69650a9e7544b66137f34dfb899b03ad4c488f5e4d5b684ee4eca0b86ef75c7c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/contingency-aace3bf462",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "contingency|xphb",
+    "upstream_page": 256
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Continual Flame",
+    "normalized_sha256": "c6be09f99af175f013e9a19a836370b7e5bda8b89fb2b1b94adff8eeed43c464",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/continual-flame-ea4ca994ef",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "continual flame|xphb",
+    "upstream_page": 256
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Control Water",
+    "normalized_sha256": "e42231667e23b5cc23919a33b05574524eff174511482eee0de2793bd35fcd9a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/control-water-369cdecfaf",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "control water|xphb",
+    "upstream_page": 256
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Control Weather",
+    "normalized_sha256": "e495485b78af72f607cfeebe6e09ecf3dcec6f0e69a7d98e65ec4146ba47fcf8",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/control-weather-aab1e7db78",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "control weather|xphb",
+    "upstream_page": 257
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cordon of Arrows",
+    "normalized_sha256": "b0beacfb2ea33661d9760109f5d06c4248e162ef82b5b183922884c99b920dd2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/cordon-of-arrows-0a0f8ce53f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "cordon of arrows|xphb",
+    "upstream_page": 258
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Counterspell",
+    "normalized_sha256": "11889b66ffcc248ebaa3740dc30e130c630a538cb5aa43795b0833fd8be5dc61",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/counterspell-45901f37f0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "counterspell|xphb",
+    "upstream_page": 258
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Create Food and Water",
+    "normalized_sha256": "b672ddb56f20819069a6f0204419a5715f00f1c4c7825a088d9e9242f35c76ea",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/create-food-and-water-bb97465786",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "create food and water|xphb",
+    "upstream_page": 258
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Create or Destroy Water",
+    "normalized_sha256": "ede9755d9028531afa0865247f34e540c7c21174a226ec2b1c94096b8a619902",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/create-or-destroy-water-a95c015581",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "create or destroy water|xphb",
+    "upstream_page": 258
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Create Undead",
+    "normalized_sha256": "a1384b39dc46c01ae8722f4dfa2832677ea96115c2dc135b9ace3ab334175aaf",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/create-undead-b24950e361",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "create undead|xphb",
+    "upstream_page": 258
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Creation",
+    "normalized_sha256": "4fbff83df274e4571d85fc527adf9175147d6ea5e3f310e4b7bac9ec12b2faae",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/creation-d9c17ada0e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "creation|xphb",
+    "upstream_page": 259
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Crown of Madness",
+    "normalized_sha256": "eb41f698573dea5161722691b43692608897f39ed1cd2e7909c780f6bfc2e7e6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/crown-of-madness-b790c07703",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "crown of madness|xphb",
+    "upstream_page": 259
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Crusader's Mantle",
+    "normalized_sha256": "6bbb12fdf1441a9ce64a75d957ca0327ccdcc8c6622771adba2374619f4998c5",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/crusaders-mantle-f9ac803136",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "crusader's mantle|xphb",
+    "upstream_page": 259
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cure Wounds",
+    "normalized_sha256": "d4a7307827bbabaa9a876010c59b0e07647a60c170dce2fadf7ba94ea15752ba",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/cure-wounds-cfb410db7b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "cure wounds|xphb",
+    "upstream_page": 259
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dancing Lights",
+    "normalized_sha256": "2074e1fa922f634912635d56723c8adfc01ef4fd999481310a6574870b1819b5",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dancing-lights-9376b61da2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dancing lights|xphb",
+    "upstream_page": 259
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Darkness",
+    "normalized_sha256": "6251d07736d8d63913470eb1cd4bbc5ef79352406d01712ce6919a2a34e09cdb",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/darkness-edbf99beb2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "darkness|xphb",
+    "upstream_page": 260
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Darkvision",
+    "normalized_sha256": "c943cd0b1ae8d7962c45cf5a52112a02368bbc1c4c49cbb3e1d4ad9aca2fcf9c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/darkvision-8def54c9b7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "darkvision|xphb",
+    "upstream_page": 260
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Daylight",
+    "normalized_sha256": "95f4b5d534c42e8d6af2c5b827a5eab8e9eb6228bc111e157b9770653e9c8eb2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/daylight-dd84af52a4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "daylight|xphb",
+    "upstream_page": 260
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Death Ward",
+    "normalized_sha256": "9aba1d37a8b8c2e188e7ca0affaa2d9c64d73e78d8b8e90014dc1f300a2ea121",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/death-ward-959f417e0f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "death ward|xphb",
+    "upstream_page": 261
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Delayed Blast Fireball",
+    "normalized_sha256": "fadcd90bec1c650a1315f871197d36e8d53c0a24f598e47a122979676791307b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/delayed-blast-fireball-4f31aa1ceb",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "delayed blast fireball|xphb",
+    "upstream_page": 261
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Demiplane",
+    "normalized_sha256": "bc806153ca5c208509d18acddb861551f9947a3a05e100057495f40b6801f065",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/demiplane-2ed979f7ad",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "demiplane|xphb",
+    "upstream_page": 261
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Destructive Wave",
+    "normalized_sha256": "d217e82e9f65ec5ef832a3df43aae6dbea3508b2d48f2404667ddd9a6ced76c7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/destructive-wave-a587e2f49b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "destructive wave|xphb",
+    "upstream_page": 261
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Detect Evil and Good",
+    "normalized_sha256": "34d6a23bb911d5a03352f6fb9ba65c70da51771c9872aeb01f769b5fd6722cd5",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/detect-evil-and-good-ab05de1520",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "detect evil and good|xphb",
+    "upstream_page": 261
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Detect Magic",
+    "normalized_sha256": "8d2dc342103b5a1ff9feca40a7cd54b09b5e7985cd17330c5b1701330b237415",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/detect-magic-5e8addbd8b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "detect magic|xphb",
+    "upstream_page": 262
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Detect Poison and Disease",
+    "normalized_sha256": "1fbd6016a134e8ef856c40286bc3472ed594898a0f924f784c69193083ac818b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/detect-poison-and-disease-a64f4d7b87",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "detect poison and disease|xphb",
+    "upstream_page": 262
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Detect Thoughts",
+    "normalized_sha256": "d989766e642c8920755642c140fef7bcebf3729a59449c7f37c1670fd6a5df58",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/detect-thoughts-f13a9f132c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "detect thoughts|xphb",
+    "upstream_page": 262
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dimension Door",
+    "normalized_sha256": "dc2ce44a1558c330cde74fba28cd5634de60b9603f7a69298bc97d7d6845d940",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dimension-door-3bfaa7e0d9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dimension door|xphb",
+    "upstream_page": 262
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Disguise Self",
+    "normalized_sha256": "5d04f9208e85ec91b3caa5a984dfac6c579e24464d3d9f0e65c030e916f7ef33",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/disguise-self-9b17fbd699",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "disguise self|xphb",
+    "upstream_page": 262
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Disintegrate",
+    "normalized_sha256": "baecf6ea037d31ce5b06f01c5bc103a92737045f9317f7eb079f03ceec64407a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/disintegrate-18718246aa",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "disintegrate|xphb",
+    "upstream_page": 263
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dispel Evil and Good",
+    "normalized_sha256": "480147e45e28878a7cef39848a339f2ec4b1264d924a3830aa37d75b12ae37a2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dispel-evil-and-good-b4728d6592",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dispel evil and good|xphb",
+    "upstream_page": 263
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dispel Magic",
+    "normalized_sha256": "124d48b815d7ae1acdbdd52f7c3d1159b92f9f86dcacba89b9f6f40895741837",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dispel-magic-c64c9c46e2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dispel magic|xphb",
+    "upstream_page": 264
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dissonant Whispers",
+    "normalized_sha256": "c320add280c1b3bfbf98a79ded6342e0def4736d87704f7c97eee03cc6b10431",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dissonant-whispers-207d72b819",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dissonant whispers|xphb",
+    "upstream_page": 264
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Divination",
+    "normalized_sha256": "dbd76a285b5d08cc7b94bb57177fdbe01327be35f960122a78e096503eb5a2f6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/divination-e06bf9b577",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "divination|xphb",
+    "upstream_page": 264
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Divine Favor",
+    "normalized_sha256": "4dff5a280543e6e467225110292ff6315046020ce5a1ed9a1c7168e304ba45c1",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/divine-favor-8aeedf7cdd",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "divine favor|xphb",
+    "upstream_page": 265
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Divine Smite",
+    "normalized_sha256": "0968e6b3e051a2ff69651374dabbf5071af5feacffc758d569cb38a77040818e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/divine-smite-9aea206ee3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "divine smite|xphb",
+    "upstream_page": 265
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Divine Word",
+    "normalized_sha256": "6a2cfb43b3f10c31a1c1191a9461a89fbae177ff02c681e0a455d0a8fb48a0c8",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/divine-word-89c7d7f44e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "divine word|xphb",
+    "upstream_page": 265
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dominate Beast",
+    "normalized_sha256": "ea16307fe8e10e458ce13a49a138afbfac04a195c0d6346fd1dfda6a30efe6c1",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dominate-beast-00d115abcd",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dominate beast|xphb",
+    "upstream_page": 265
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dominate Monster",
+    "normalized_sha256": "94570a35eeb3c7a35e46469fc0c01acb43b2918af2c8645375fe64e1167d94ab",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dominate-monster-a94ed7bb5c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dominate monster|xphb",
+    "upstream_page": 265
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dominate Person",
+    "normalized_sha256": "6bf71c9a0e1c235fa787252c0b4d427f717b08d893311b7929654e3fa5658943",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dominate-person-bc9dc5f838",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dominate person|xphb",
+    "upstream_page": 266
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dragon's Breath",
+    "normalized_sha256": "9456b7972b817d528bcc0820df32a3283bc6393488575bc4e9ed4a0fd4c898af",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dragons-breath-28e1ee1cae",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dragon's breath|xphb",
+    "upstream_page": 266
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Drawmij's Instant Summons",
+    "normalized_sha256": "e26659fdd651149367afd1210745157f5cf268c11ca7a51488874029f9b4cd60",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/drawmijs-instant-summons-2cbc0fe543",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "drawmij's instant summons|xphb",
+    "upstream_page": 266
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dream",
+    "normalized_sha256": "65e3ba157ba4477fbeda17967e78b40a294e5d0da19653c5b9d340ad3dc11672",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/dream-6f7e4ae669",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "dream|xphb",
+    "upstream_page": 266
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Druidcraft",
+    "normalized_sha256": "9d5994eba70ce931752bdf8eac46cd5545c6f1d41ab6f0b007713bf838d4b028",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/druidcraft-64d8aeb0f0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "druidcraft|xphb",
+    "upstream_page": 266
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Earthquake",
+    "normalized_sha256": "bf5e7ee31ac91e408283337041de2866bb0c624524fa36aeadeb8eaf461055b2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/earthquake-6f0555c493",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "earthquake|xphb",
+    "upstream_page": 267
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Eldritch Blast",
+    "normalized_sha256": "e5f9e7e9d2873c06caebc5d6de2bd7ed5cfaa5468a4b792f7de9b72fae0005bc",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/eldritch-blast-59fa9b9c4c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "eldritch blast|xphb",
+    "upstream_page": 267
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Elemental Weapon",
+    "normalized_sha256": "1d9a7ebb8f5f93a784b48f426c4b6a908046e77514d127195aed1e44cff7a741",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/elemental-weapon-9e6384136b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "elemental weapon|xphb",
+    "upstream_page": 267
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Elementalism",
+    "normalized_sha256": "b866de32495533ffb018f0702c738fad089b4e2ffb7047203c7fd55e6667a8d2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/elementalism-fb3acee15f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "elementalism|xphb",
+    "upstream_page": 267
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Enhance Ability",
+    "normalized_sha256": "5b51c301d11f3b8fe001cf52160d76218c6025bba1c6d9e710ecefb5ba5c55cb",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/enhance-ability-bcfbd39fb0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "enhance ability|xphb",
+    "upstream_page": 268
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Enlarge/Reduce",
+    "normalized_sha256": "27e5b8a26157fa821d8c5673e7efbe773e665414207473abe8ffaee8b390f758",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/enlarge-reduce-a27853b523",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "enlarge/reduce|xphb",
+    "upstream_page": 268
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ensnaring Strike",
+    "normalized_sha256": "34125c1314b87a1f51f380112c16f7a673b7bac170e6460308b5ee2fbbaf2c8b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/ensnaring-strike-37398aa0d3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "ensnaring strike|xphb",
+    "upstream_page": 268
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Entangle",
+    "normalized_sha256": "f85284baf502e3df1c41e6bbc5de0943a3ee57f120111d1023d0957435dc7f59",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/entangle-bd060c5353",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "entangle|xphb",
+    "upstream_page": 268
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Enthrall",
+    "normalized_sha256": "e319fcc03282be352cb87b0136f6d23e6bf033f5109ba8465a2f06d56495a512",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/enthrall-ae65bda638",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "enthrall|xphb",
+    "upstream_page": 269
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Etherealness",
+    "normalized_sha256": "572429e05987a6cef62a9fb6f05324e823dcda4ec2451f0e327687845344b1a2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/etherealness-0763c499d4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "etherealness|xphb",
+    "upstream_page": 269
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Evard's Black Tentacles",
+    "normalized_sha256": "87b68cf6bc5bcbb02f38c6b94787290aeb21b19db5c0fec78b8a25a2b201c5fb",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/evards-black-tentacles-970bb3b9d3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "evard's black tentacles|xphb",
+    "upstream_page": 270
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Expeditious Retreat",
+    "normalized_sha256": "fc5e7dbd75d1831a875042f3993677c46c339f50a9ccff51ed432c5ebc5bf081",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/expeditious-retreat-50897e3a58",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "expeditious retreat|xphb",
+    "upstream_page": 270
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Eyebite",
+    "normalized_sha256": "b612d807a4082c3a828f18a7d7c805d4ed669ff1705a058584bf685e996e73cd",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/eyebite-abb47145e3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "eyebite|xphb",
+    "upstream_page": 270
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fabricate",
+    "normalized_sha256": "9bc846cfef70d3f33afd404145c6afbd5d5554ca3a5690c3dadbcb3f300ff3b7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/fabricate-e85f38e79d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "fabricate|xphb",
+    "upstream_page": 271
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Faerie Fire",
+    "normalized_sha256": "3743efdb88075b673126a2da56c0bf7e4e1b9ce52a53ed9ffdf009177cef11d6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/faerie-fire-65cb79e9ca",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "faerie fire|xphb",
+    "upstream_page": 271
+  },
+  {
+    "conversion_status": "converted",
+    "name": "False Life",
+    "normalized_sha256": "3cddc372f2d540555ffadc28219d564de511bc78200729673835db55580ba7f6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/false-life-b81d44b212",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "false life|xphb",
+    "upstream_page": 271
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fear",
+    "normalized_sha256": "4a0f3d886d1e16454e3faf950b903ec768333ac56107cde2f2c759d5054c3ae7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/fear-f3b4170e61",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "fear|xphb",
+    "upstream_page": 271
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Feather Fall",
+    "normalized_sha256": "22191f595891dc1a5337cdc725c03cb5efba93a9b4bece695463b0477bee39dc",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/feather-fall-a51a1d7ad0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "feather fall|xphb",
+    "upstream_page": 271
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Feign Death",
+    "normalized_sha256": "e4c46e6dc3655ef6b241d8de863b1c14826ce28d12a0e4b937b7d0468070c7ad",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/feign-death-68da793713",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "feign death|xphb",
+    "upstream_page": 271
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Find Familiar",
+    "normalized_sha256": "f00c4664c5e37c142b404cecd085b33dcf0ec78b6a06bb29e9fbffb6b84ce3bb",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/find-familiar-2e1ffffc75",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "find familiar|xphb",
+    "upstream_page": 272
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Find Steed",
+    "normalized_sha256": "c9410f397367969fc20a37da2a4dd228900a653046c1133e14c859927599e521",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/find-steed-5d986e4ad5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "find steed|xphb",
+    "upstream_page": 272
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Find the Path",
+    "normalized_sha256": "a179289b05b2fdb41a7e70913a5a1b68cff99210a21e845b8abd82217e95825c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/find-the-path-4cdc5d14e9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "find the path|xphb",
+    "upstream_page": 273
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Find Traps",
+    "normalized_sha256": "9e3658105322a666e2ccfb644e6b0348a744478b669cb2cb7cae811c64873b76",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/find-traps-694b933f9d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "find traps|xphb",
+    "upstream_page": 273
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Finger of Death",
+    "normalized_sha256": "bdc2157fe1617fc4acdf002cb17d642c918df0dfa813b83a6177d635020d56a1",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/finger-of-death-cae04789a5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "finger of death|xphb",
+    "upstream_page": 273
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fire Bolt",
+    "normalized_sha256": "3a6c9180340494989ba9d0c65e61050facf644de6788db4d20d9a51d81ed6bc5",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/fire-bolt-29135d6ea1",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "fire bolt|xphb",
+    "upstream_page": 274
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fire Shield",
+    "normalized_sha256": "d3719a34bb1fb09a7550980d84bc194af4a08d63607f28e1a60be68a1f736f5e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/fire-shield-b1ce2003d9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "fire shield|xphb",
+    "upstream_page": 274
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fire Storm",
+    "normalized_sha256": "f597b086d4600746bbb44530be25767597a0a020e3eb9f508e45eca0b375fc1b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/fire-storm-8c79f8af60",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "fire storm|xphb",
+    "upstream_page": 275
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fireball",
+    "normalized_sha256": "8248a0bdf1778b059e3d5fa625538a2dabf1c531d38731db7c9c05b31e90c0e2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/fireball-aba7cc939b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "fireball|xphb",
+    "upstream_page": 274
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Flame Blade",
+    "normalized_sha256": "485ab70b511e47038598fb87c97c8e2bb33b01cad9aa59881aef16e513b6c179",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/flame-blade-942ec5904f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "flame blade|xphb",
+    "upstream_page": 275
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Flame Strike",
+    "normalized_sha256": "94eb0ceba9a4553411d7aba22deb04ee5978e6da91725d348b7df81b7350ce8e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/flame-strike-8fee9d2e7c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "flame strike|xphb",
+    "upstream_page": 275
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Flaming Sphere",
+    "normalized_sha256": "efa846ba3d3dee88d71c115fcc82382ac7fa9dea7517de4f8ce2109ee69b44ca",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/flaming-sphere-57049f9061",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "flaming sphere|xphb",
+    "upstream_page": 275
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Flesh to Stone",
+    "normalized_sha256": "8cdb6ae213364b7b7b91c8e1d7b0e611827842752194970c91dfa5c7577d1cf3",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/flesh-to-stone-c77695bc34",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "flesh to stone|xphb",
+    "upstream_page": 275
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fly",
+    "normalized_sha256": "3854087072ca64514cec8c50d6f3d8a4ee19532eb3b6da552c69487a2d599903",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/fly-f8719ec562",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "fly|xphb",
+    "upstream_page": 276
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fog Cloud",
+    "normalized_sha256": "a015d6b0c2d5356c7684778d119444bb43986131fc6f87943603b0d6c9656d29",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/fog-cloud-46034a4ed3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "fog cloud|xphb",
+    "upstream_page": 276
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Forbiddance",
+    "normalized_sha256": "e5759900ab41c4930142cab08f979bbcaf138b5efe3e8eca7a84a16b9705b12a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/forbiddance-f096db907e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "forbiddance|xphb",
+    "upstream_page": 276
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Forcecage",
+    "normalized_sha256": "acad96f6838d9d4a55e79fddb58bedbb7fa0ad472ca5aea691e4a8819b456e6b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/forcecage-267dba112c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "forcecage|xphb",
+    "upstream_page": 276
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Foresight",
+    "normalized_sha256": "592485040860c64860def1bcc90ca9db7345b48cb82e444edc7c4d7f0a59eb32",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/foresight-43b4efd6c7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "foresight|xphb",
+    "upstream_page": 276
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Fount of Moonlight",
+    "normalized_sha256": "f6f7c76382a067ea6edc96331d1f1921425f3e5c9b234cc0fbfbd64e0fdfb830",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/fount-of-moonlight-13c0dbb5df",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "fount of moonlight|xphb",
+    "upstream_page": 277
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Freedom of Movement",
+    "normalized_sha256": "80364bc3daecbde4b05d205e0c56a3603a788f2447a617464dad6510e96d38f7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/freedom-of-movement-fd86a557a7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "freedom of movement|xphb",
+    "upstream_page": 277
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Friends",
+    "normalized_sha256": "bdf8ca61a244db1bee92615855d72b707ff3c5e5a0bf6ad1f96387c31daef0de",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/friends-31c54e6eb6",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "friends|xphb",
+    "upstream_page": 277
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Gaseous Form",
+    "normalized_sha256": "dab1619d9e97aee2872b787f03f5764a155c0d23c940d13a5e52df6255be226b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/gaseous-form-7c3210a7f9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "gaseous form|xphb",
+    "upstream_page": 277
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Gate",
+    "normalized_sha256": "28d99f69572c29ed55c8ae0e85dd8c7fcb21dc1484e9b3c8b09a7246f7b8ef4a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/gate-48d3192882",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "gate|xphb",
+    "upstream_page": 277
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Geas",
+    "normalized_sha256": "4bfaec5da0ba9ce52e435360b13419f9d674c4a1a1b91d953268024840572820",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/geas-cf83e8c4cd",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "geas|xphb",
+    "upstream_page": 278
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Gentle Repose",
+    "normalized_sha256": "7b2ceaf302b0240a4b69132fa637ae4e8cc2b59ac3155ba7f04a44e76a513b0e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/gentle-repose-f37eee65ad",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "gentle repose|xphb",
+    "upstream_page": 278
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Giant Insect",
+    "normalized_sha256": "d2161eb0d08a977dc5cc3ee55657c00f43b985df3d8111cb409b6909ac034c3d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/giant-insect-4520d7d99a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "giant insect|xphb",
+    "upstream_page": 279
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Glibness",
+    "normalized_sha256": "25e06997a156807a4cfdcaa684e65d99b59d445172018c5a65525e64bccb8e27",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/glibness-c1350b92f1",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "glibness|xphb",
+    "upstream_page": 279
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Globe of Invulnerability",
+    "normalized_sha256": "44333e96799a1ee8382d9baaa1176cf8b127d790e6dd04010cfd8e7dcfda4cba",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/globe-of-invulnerability-1fae1d2269",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "globe of invulnerability|xphb",
+    "upstream_page": 279
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Glyph of Warding",
+    "normalized_sha256": "3beeea3bc5b17577022e36d7bba80b91bc5e1631888b7ccea693fcca4c19c28f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/glyph-of-warding-a74ffd03e1",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "glyph of warding|xphb",
+    "upstream_page": 279
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Goodberry",
+    "normalized_sha256": "80c1a54f712e96e391b77c3cf4d9b5288f9d83e1754d60cf08db5fb165b5c3bd",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/goodberry-39d81f3fc4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "goodberry|xphb",
+    "upstream_page": 280
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Grasping Vine",
+    "normalized_sha256": "6237483e11435d3a957da035eb916b19c18a62d0effd5d554e85de4f1230cd1e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/grasping-vine-ad8cf34b9d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "grasping vine|xphb",
+    "upstream_page": 280
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Grease",
+    "normalized_sha256": "0aad10dacbbcc7978cce7caa5378322a5b14944a07b8186736dd8e61e62818a5",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/grease-3d95c8025d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "grease|xphb",
+    "upstream_page": 280
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Invisibility",
+    "normalized_sha256": "f4d5ba376144cd7417d3590ff074b17d29928d0064c5adf56ffefa1bafa3dcd2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/greater-invisibility-44fd3f3ffa",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "greater invisibility|xphb",
+    "upstream_page": 281
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Greater Restoration",
+    "normalized_sha256": "8b8d7f05a04f92378b05515e07c7450a108046772ac124cb640fe7a498dfbb38",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/greater-restoration-b9f4ad5d52",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "greater restoration|xphb",
+    "upstream_page": 281
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Guardian of Faith",
+    "normalized_sha256": "9243ffa7cc2ab78bcd3e5faad06b4e63f824ac8a786653993f3231470fb365de",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/guardian-of-faith-c44e5113fd",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "guardian of faith|xphb",
+    "upstream_page": 281
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Guards and Wards",
+    "normalized_sha256": "a0b988c82efe7b1aa99743b2283f1d246198dd4f479a6269e775eb398e9cace7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/guards-and-wards-b6efc8200f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "guards and wards|xphb",
+    "upstream_page": 282
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Guidance",
+    "normalized_sha256": "0e7e28c3e0e1301f10e63a4cf17212f291cd7d3ac65286a387966e8f49f6eb99",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/guidance-6bfcce56fe",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "guidance|xphb",
+    "upstream_page": 282
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Guiding Bolt",
+    "normalized_sha256": "e12222b3990e203f7cb71b7d0fac9c09f0f5e4bbb28f5df92a79db057d97336b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/guiding-bolt-1644116076",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "guiding bolt|xphb",
+    "upstream_page": 282
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Gust of Wind",
+    "normalized_sha256": "3cf08fd9d08faad2b05c7f6370f39ba9986e9f561b550318c77dbdfd2218036e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/gust-of-wind-cf7e32fb19",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "gust of wind|xphb",
+    "upstream_page": 282
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hail of Thorns",
+    "normalized_sha256": "b74648eaad74b69d8db2f65b1b27a82dfbd1147bdc6a583d121a6e29591911f7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hail-of-thorns-c7c2968981",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hail of thorns|xphb",
+    "upstream_page": 283
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hallow",
+    "normalized_sha256": "bec020b738497da673bf64c6a3674ef8b93367d9b22755953950ba516cb12281",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hallow-ca20f8453a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hallow|xphb",
+    "upstream_page": 283
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hallucinatory Terrain",
+    "normalized_sha256": "cb4a75ca950ee764f52048f1b8a9487416afd9a9f267e8d48e4b345328d6e404",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hallucinatory-terrain-58e970e1a5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hallucinatory terrain|xphb",
+    "upstream_page": 283
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Harm",
+    "normalized_sha256": "8703d2c355a14e4849353699870f2cbcbbe880c6c97fa2b0665f66857234a262",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/harm-d11af909d6",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "harm|xphb",
+    "upstream_page": 283
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Haste",
+    "normalized_sha256": "e751d092b4280af71be816ca6f7275f98ebc17218e77d4f64eaf467f54f1b044",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/haste-e0a2e8e1e7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "haste|xphb",
+    "upstream_page": 284
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Heal",
+    "normalized_sha256": "e827fecd686541889a3680e81c040c0911de632185cf8aa609e3b042c2528977",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/heal-219dc066cc",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "heal|xphb",
+    "upstream_page": 284
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Healing Word",
+    "normalized_sha256": "741ab26ef073d5ff4c029f5ecf6797ae9735fa5a784dc81e7786358799b9c6c7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/healing-word-c301d4775d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "healing word|xphb",
+    "upstream_page": 284
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Heat Metal",
+    "normalized_sha256": "74872f05825b36f9a3f9234307b7ed0c4308af98952605b1288c02ca5416b3d0",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/heat-metal-159a04ed6a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "heat metal|xphb",
+    "upstream_page": 284
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hellish Rebuke",
+    "normalized_sha256": "97d5a704347a95aa8019d96b0c7fe58d006f6944b4f6008d4d6e66607ab8459b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hellish-rebuke-f325b0b727",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hellish rebuke|xphb",
+    "upstream_page": 284
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Heroes' Feast",
+    "normalized_sha256": "0e6539ce383cd5e8057ce499cbb43048c8c373d715cb7c12927a3f2a40ed559b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/heroes-feast-66db71fd33",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "heroes' feast|xphb",
+    "upstream_page": 284
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Heroism",
+    "normalized_sha256": "1cea51782248cd7a5ca6c127a2087935c73c8620a947baf6de8007254c875997",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/heroism-aa06461262",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "heroism|xphb",
+    "upstream_page": 285
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hex",
+    "normalized_sha256": "90b1d90f709092ffa8b17c89c80c4bb412d195bd0d752d13c8e6b2836f66d063",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hex-527ace809e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hex|xphb",
+    "upstream_page": 285
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hold Monster",
+    "normalized_sha256": "9e195c77aa53d3528f59ff90e760f56e2a72281d2488f5bf4fe0d60bf18e7839",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hold-monster-96033a6d15",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hold monster|xphb",
+    "upstream_page": 285
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hold Person",
+    "normalized_sha256": "64dc60435c81cf3f0f8328fd7ec8bca3b89243d8676cec5e5fa74163e9b72b06",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hold-person-9138a5bbba",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hold person|xphb",
+    "upstream_page": 286
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Holy Aura",
+    "normalized_sha256": "71503a1f5fe3591a165a9570475a23f0dc064e0067fc220e188f200e123075e9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/holy-aura-18ad2329e8",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "holy aura|xphb",
+    "upstream_page": 286
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hunger of Hadar",
+    "normalized_sha256": "98c5371d64f1a451262d7cbf44b171e259836d45454a1e8c4c5fff7d249a0eb4",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hunger-of-hadar-262a8a89ac",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hunger of hadar|xphb",
+    "upstream_page": 286
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hunter's Mark",
+    "normalized_sha256": "a82b510a3f043eb1f6c74ea6cbe84012e3b9e40c8ec8ccf25c102bb4673515dd",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hunters-mark-10fccfbf5f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hunter's mark|xphb",
+    "upstream_page": 287
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hypnotic Pattern",
+    "normalized_sha256": "d1e23684c5bcfca52aa33a652046bffe3962d7aea53c2e886c93721d5f2cc662",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/hypnotic-pattern-cb4052c124",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "hypnotic pattern|xphb",
+    "upstream_page": 287
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ice Knife",
+    "normalized_sha256": "e3743d43ff627d6f98e4dd6c8a8cdfd3e0cc9058f572065b2b4c52572da108a3",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/ice-knife-ae3c9366b0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "ice knife|xphb",
+    "upstream_page": 287
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ice Storm",
+    "normalized_sha256": "4fe00d10847d35713dbe4f03cfb8032061c53c9534692e3d7b4119bd3ef58932",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/ice-storm-b90df12ff8",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "ice storm|xphb",
+    "upstream_page": 287
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Identify",
+    "normalized_sha256": "3af5091ead5596a9319260f5e3b9431ae22228e898adcfa829e1e3999a0d4e92",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/identify-4caffdc6b4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "identify|xphb",
+    "upstream_page": 287
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Illusory Script",
+    "normalized_sha256": "6c730bf555f53eca57af7e3c0a5a4c808438939f3ed63e9b0a11a51434445ed6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/illusory-script-c4bd282894",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "illusory script|xphb",
+    "upstream_page": 288
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Imprisonment",
+    "normalized_sha256": "a9585ff361503034a986fe766da180e381d9001d72990915c583d0acae61eb06",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/imprisonment-a5d449d903",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "imprisonment|xphb",
+    "upstream_page": 288
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Incendiary Cloud",
+    "normalized_sha256": "5e91794fc2d987697b6222185a49f15d0bb900f6e439d00bd0ea49eadc5e0333",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/incendiary-cloud-d83b010fda",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "incendiary cloud|xphb",
+    "upstream_page": 288
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Inflict Wounds",
+    "normalized_sha256": "894c4ddab70b5e9355f2ffad922c1aa1c6f89059d0b9f99ef7a97f22fe91d5b4",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/inflict-wounds-859de9d365",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "inflict wounds|xphb",
+    "upstream_page": 288
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Insect Plague",
+    "normalized_sha256": "4b8d362f1b181976bf9289b343a5d40a1fb34d803d5820e37ddbaf6c0908db29",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/insect-plague-4c96d98c5d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "insect plague|xphb",
+    "upstream_page": 289
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Invisibility",
+    "normalized_sha256": "cbc053545e4b8e50daaa74f66887601e5903594c39378a2a522e47f2d468bc43",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/invisibility-216bf57066",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "invisibility|xphb",
+    "upstream_page": 289
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Jallarzi's Storm of Radiance",
+    "normalized_sha256": "dedabcfbeb9a38559e064be241a659e80935c12edea886988bca2b7c462c586c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/jallarzis-storm-of-radiance-d8911c3e25",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "jallarzi's storm of radiance|xphb",
+    "upstream_page": 289
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Jump",
+    "normalized_sha256": "0554cc844bc17041df1923f376eaacdcb16f2dc87e507cf5440b2316fcacaade",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/jump-4eefd99603",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "jump|xphb",
+    "upstream_page": 290
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Knock",
+    "normalized_sha256": "acf13049fac445fa84085a53b7d1ba6176d28c1b321430ec8eb10ffb685f8d2a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/knock-4c39c56378",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "knock|xphb",
+    "upstream_page": 290
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Legend Lore",
+    "normalized_sha256": "62d64c24de4deea9b23bb4358be8df41e21df1bf2253059703eafc3410da2a3e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/legend-lore-57319c840b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "legend lore|xphb",
+    "upstream_page": 290
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Leomund's Secret Chest",
+    "normalized_sha256": "60b2eda0fca2831d77a2642f570a3e714ea055083ca234c108f6de69bcf3569b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/leomunds-secret-chest-74a13d5d74",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "leomund's secret chest|xphb",
+    "upstream_page": 290
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Leomund's Tiny Hut",
+    "normalized_sha256": "e200e071d5677da8dfa44f8e41ebd9bda709b7eae6ff0fbd4ccf1e94f96abd85",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/leomunds-tiny-hut-07c1bc4e8c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "leomund's tiny hut|xphb",
+    "upstream_page": 291
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lesser Restoration",
+    "normalized_sha256": "51f4d8279f4cc3aae3b0680b1d6cbd5fed305ba43c0d8b154015044f078c9a47",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/lesser-restoration-bf017985c2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "lesser restoration|xphb",
+    "upstream_page": 291
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Levitate",
+    "normalized_sha256": "37154961fceb37cda092c55b7133cbdb0b5caca90284c3e056598748ca18470e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/levitate-904952091d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "levitate|xphb",
+    "upstream_page": 291
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Light",
+    "normalized_sha256": "c1afdc9f41c18e55e1d2b739bf0ce7427cc22d69012f89bbb5df7bd04c5d7060",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/light-5dde61742e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "light|xphb",
+    "upstream_page": 292
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lightning Arrow",
+    "normalized_sha256": "82ec027e8f781d76506ccf91b9e2630da9651dfbc655fbc80502fabf922b517f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/lightning-arrow-ed876e875a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "lightning arrow|xphb",
+    "upstream_page": 292
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lightning Bolt",
+    "normalized_sha256": "6cc8d9b8672174e51139a6bfef86a55f5dfb2b5b0afbacbab75bf2b34b572d4d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/lightning-bolt-84d255e49b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "lightning bolt|xphb",
+    "upstream_page": 292
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Locate Animals or Plants",
+    "normalized_sha256": "52d9c7b9136af44156fcc43b0d552ea9b1d1ddf7c05d1f1b0dba4a351b7feeb9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/locate-animals-or-plants-894b7c2921",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "locate animals or plants|xphb",
+    "upstream_page": 292
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Locate Creature",
+    "normalized_sha256": "8cf305eb0c87ce8af5768280fc13acf6d161a539ce02a715c4626a41aa854412",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/locate-creature-0e7c92cad5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "locate creature|xphb",
+    "upstream_page": 292
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Locate Object",
+    "normalized_sha256": "93eff4b1d1934f445ca3a2d9ce326ad480fb043ebe9d78db34b88831f06fdb4d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/locate-object-88718f5a67",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "locate object|xphb",
+    "upstream_page": 293
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Longstrider",
+    "normalized_sha256": "c74184e74c92319d8b5163d078a0121ea56c3784a3d5242df5c9302526077163",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/longstrider-17fb467d04",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "longstrider|xphb",
+    "upstream_page": 293
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mage Armor",
+    "normalized_sha256": "616ef6f2324d8bcf1cb2ee510bb62ec92198a651cfdd8cdc22a49efb6093e84d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mage-armor-addf67567e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mage armor|xphb",
+    "upstream_page": 293
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mage Hand",
+    "normalized_sha256": "4fbd882a1a83e36c5ccfaa579f86841bf380603ee358a84d20bc2134bf313c24",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mage-hand-f0797100d3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mage hand|xphb",
+    "upstream_page": 293
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Magic Circle",
+    "normalized_sha256": "31f0df4640604f9ca6146e1363f4322b59244f9d4f7cc3770c00ec038b2367e9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/magic-circle-889c0b9992",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "magic circle|xphb",
+    "upstream_page": 293
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Magic Jar",
+    "normalized_sha256": "a5fc66c6f980f122ede42ee6723e68a25a5bfe4f0d5e63c124bc982e25fda977",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/magic-jar-b8d93a5fcf",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "magic jar|xphb",
+    "upstream_page": 294
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Magic Missile",
+    "normalized_sha256": "19c86b31f5a77b3bc93232c82e4f4df9377ce76b4247654be2f4618c0fc5c81d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/magic-missile-7b70c43497",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "magic missile|xphb",
+    "upstream_page": 295
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Magic Mouth",
+    "normalized_sha256": "05a6b669bcb904aca82da9e5f18d8d20d6117a9cc7e8c9505a90c93db40ef3a6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/magic-mouth-de5ed886a7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "magic mouth|xphb",
+    "upstream_page": 295
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Magic Weapon",
+    "normalized_sha256": "8f2082167cd15cf945b1f4436c74dff12b6e53d5fcb75767289bf05799e0e88a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/magic-weapon-9a57ece12b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "magic weapon|xphb",
+    "upstream_page": 295
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Major Image",
+    "normalized_sha256": "17b18ded678af7979b14db34b4eddc97ac6d7804b410a8cc5946d0d2c4afee2d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/major-image-3452252170",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "major image|xphb",
+    "upstream_page": 295
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mass Cure Wounds",
+    "normalized_sha256": "5ef0e6ea98beee1b2e7d5f57ade5be1e87a0a3b13ea9eb2b392de87620a6c54c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mass-cure-wounds-c883214f43",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mass cure wounds|xphb",
+    "upstream_page": 296
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mass Heal",
+    "normalized_sha256": "bb933aeb724a69a557f9e68c0dd79a6073032460988535afb644f9b720ce5e38",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mass-heal-b51237fec9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mass heal|xphb",
+    "upstream_page": 296
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mass Healing Word",
+    "normalized_sha256": "aa89f0560c3b683d54a9a8099762d207e6f6d97b83747199c677912dc9dbdd49",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mass-healing-word-aea19eb842",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mass healing word|xphb",
+    "upstream_page": 296
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mass Suggestion",
+    "normalized_sha256": "4cc7772d2d160e5ab9cb7bb2211b67d7e8463b55361a715c974ce4c551358b27",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mass-suggestion-5cd4e84121",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mass suggestion|xphb",
+    "upstream_page": 296
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Maze",
+    "normalized_sha256": "cb504c2d8242765617a2928e30b45af837a289da13d76c8587b230280b048879",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/maze-fbec9360d7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "maze|xphb",
+    "upstream_page": 296
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Meld into Stone",
+    "normalized_sha256": "a42cc292e0527a363e08215dfe95d7d2965712a7d327a938773541fa40c31287",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/meld-into-stone-4a600c700c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "meld into stone|xphb",
+    "upstream_page": 296
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Melf's Acid Arrow",
+    "normalized_sha256": "575d7c1377276c399576a4673ec27eb8f2f1b7aa1c3e2f6a3f0fa188614ce2a0",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/melfs-acid-arrow-46f0b09db5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "melf's acid arrow|xphb",
+    "upstream_page": 297
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mending",
+    "normalized_sha256": "6adb86fb3a69f7cbd04d08d1b0130359cd9904472b88a5457028e63357318072",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mending-50bd69b477",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mending|xphb",
+    "upstream_page": 297
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Message",
+    "normalized_sha256": "2c79a32407428553494e85b3298e83c84b6ed7717305478c7f8a09a245cd0c08",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/message-bc130b56a8",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "message|xphb",
+    "upstream_page": 298
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Meteor Swarm",
+    "normalized_sha256": "afc17558ebe926d5d7df6842b8f3493f80b7a9f6d39622d72888c2010d963f2f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/meteor-swarm-a68f0737e9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "meteor swarm|xphb",
+    "upstream_page": 298
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mind Blank",
+    "normalized_sha256": "8f4fa808557486b4b050827284006f864d6f29787a2172ce24baa24820999df9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mind-blank-871b874d94",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mind blank|xphb",
+    "upstream_page": 298
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mind Sliver",
+    "normalized_sha256": "25908a23d0ea87b97df69f4ea4a1523c2beaadc30d562ad805be78770fb48cbe",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mind-sliver-a3dd254bf9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mind sliver|xphb",
+    "upstream_page": 298
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mind Spike",
+    "normalized_sha256": "0cf94961ab0e118d4d6290de87d10383d66b489942a9aeca5d01ca3db3d3ad9d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mind-spike-aaceac5715",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mind spike|xphb",
+    "upstream_page": 298
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Minor Illusion",
+    "normalized_sha256": "02f52fb375bd42addec50e2dcdaa188adada03d3d12777489cbcb321c53caa34",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/minor-illusion-302931443a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "minor illusion|xphb",
+    "upstream_page": 298
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mirage Arcane",
+    "normalized_sha256": "d7bcd3902eb30568d4a1b66ad3a35717168463e43a81767da8336f62c26c3b6e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mirage-arcane-51364914b2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mirage arcane|xphb",
+    "upstream_page": 299
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mirror Image",
+    "normalized_sha256": "b0fa278938e7fdb6e74ff00752296641c34550afd9410c3a7e15171c939a478f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mirror-image-1c3aed800e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mirror image|xphb",
+    "upstream_page": 299
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mislead",
+    "normalized_sha256": "50894ac019bcaaa6606027ef29b6ae28c4a35bd99e162f2ec78b5b42c77716e5",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mislead-4aecaf8e3f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mislead|xphb",
+    "upstream_page": 299
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Misty Step",
+    "normalized_sha256": "9c2d9b3f95c6e8276b65313a097731b5a0b4df3bde0f8294d0a838c376a383de",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/misty-step-a743f0d535",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "misty step|xphb",
+    "upstream_page": 299
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Modify Memory",
+    "normalized_sha256": "f1d1ccb6f1c1bd7361034b1c0a870027c5f1fdcf1e232739be167323ec6226d7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/modify-memory-7e72e39861",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "modify memory|xphb",
+    "upstream_page": 299
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Moonbeam",
+    "normalized_sha256": "0535b6ccf8c29442b9811acecd16a066823d4f9827a9530da5051a6e3d1b4575",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/moonbeam-121af37ec2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "moonbeam|xphb",
+    "upstream_page": 300
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mordenkainen's Faithful Hound",
+    "normalized_sha256": "d4e12965a249ced877c2d80a543cfc24f6a25c3dbcc6c70fcf75d371585a1699",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mordenkainens-faithful-hound-fb7ce52a65",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mordenkainen's faithful hound|xphb",
+    "upstream_page": 300
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mordenkainen's Magnificent Mansion",
+    "normalized_sha256": "501c9a9a7df359eef372a4cfd3381d79ced369837f48b8aeb5b11b61c318a765",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mordenkainens-magnificent-mansion-b8e960ffb4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mordenkainen's magnificent mansion|xphb",
+    "upstream_page": 300
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mordenkainen's Private Sanctum",
+    "normalized_sha256": "85c079e9f6c23e93061e816809f95166779da6c5ea24c5f40c209f4556691912",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mordenkainens-private-sanctum-44d72d43a8",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mordenkainen's private sanctum|xphb",
+    "upstream_page": 301
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mordenkainen's Sword",
+    "normalized_sha256": "f157fa686a86d2532a0757e1fea08ecb43cb5824216e9fbe35321f47dc1b6460",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/mordenkainens-sword-16d9153612",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "mordenkainen's sword|xphb",
+    "upstream_page": 302
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Move Earth",
+    "normalized_sha256": "01169b3bf8da2cd1765a9e42851632302e9bec91fce263b537a055b55808b893",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/move-earth-2426129ced",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "move earth|xphb",
+    "upstream_page": 302
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Nondetection",
+    "normalized_sha256": "576b87b96e8e5ae2a21aebf604654c68cc55ec90749aef22b85ea8ea43edf1de",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/nondetection-7ad0f21477",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "nondetection|xphb",
+    "upstream_page": 302
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Nystul's Magic Aura",
+    "normalized_sha256": "7c9dbbb1c275884cf1ef863eaff04c45f0c88ac0a5b05a346790fc72d8ef4bae",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/nystuls-magic-aura-f6aad9b12a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "nystul's magic aura|xphb",
+    "upstream_page": 302
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Otiluke's Freezing Sphere",
+    "normalized_sha256": "d6f497959166213b006c8c96d3b53a723a11b494c77196d5330ad39be859b376",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/otilukes-freezing-sphere-a28644f802",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "otiluke's freezing sphere|xphb",
+    "upstream_page": 302
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Otiluke's Resilient Sphere",
+    "normalized_sha256": "0ab7dbc1243b6ac14f02d7739ee5c4ffbaa202b675b1ac84566c7ab8fe1a5eb2",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/otilukes-resilient-sphere-73ae8ddb42",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "otiluke's resilient sphere|xphb",
+    "upstream_page": 303
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Otto's Irresistible Dance",
+    "normalized_sha256": "c8a01693821c352ea7de07598e88d2ff474285f0f3ec3758f03d953eb0577040",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/ottos-irresistible-dance-f91d9b0a2a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "otto's irresistible dance|xphb",
+    "upstream_page": 303
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Pass without Trace",
+    "normalized_sha256": "1767e8f305891c747f9834f36dcaadcb5ec64b1c602a505e7e59812e13c7d50f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/pass-without-trace-5fe9348d57",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "pass without trace|xphb",
+    "upstream_page": 303
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Passwall",
+    "normalized_sha256": "642832a0034bea98f089283849fad536ba0a2dd5bde715cf971035f829f92a07",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/passwall-815b6551af",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "passwall|xphb",
+    "upstream_page": 304
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Phantasmal Force",
+    "normalized_sha256": "caabda94bb40b6db85034b32f47ed88bcce5a7fcc8a897aa63724bbd87f01f35",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/phantasmal-force-edbaa12939",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "phantasmal force|xphb",
+    "upstream_page": 304
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Phantasmal Killer",
+    "normalized_sha256": "ef112fe7cc1b0b572d21eeec6ccf322205b36bce58df8a99f6b8d06e1b3113e6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/phantasmal-killer-8d11c9a38d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "phantasmal killer|xphb",
+    "upstream_page": 304
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Phantom Steed",
+    "normalized_sha256": "eef5631cabc05b6cafc11d6976abb61457c596ee81c1c0197e54366c0c37e1eb",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/phantom-steed-8297205379",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "phantom steed|xphb",
+    "upstream_page": 304
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Planar Ally",
+    "normalized_sha256": "f07f78a10c458346b05dba04142e8c30668632ef7432261b3a31e35b43bc3a22",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/planar-ally-19574531a6",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "planar ally|xphb",
+    "upstream_page": 304
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Planar Binding",
+    "normalized_sha256": "8d37e9cb61063dacf24f6f78fb65a9e01e0ac14fbdcdc45c312806f31e031551",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/planar-binding-f7bf237994",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "planar binding|xphb",
+    "upstream_page": 305
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Plane Shift",
+    "normalized_sha256": "e0daae23817e32be513ec927ca59b13e5d1e090fc8f5e0113179023a2df74d37",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/plane-shift-0994837c65",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "plane shift|xphb",
+    "upstream_page": 305
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Plant Growth",
+    "normalized_sha256": "e6cdce51d5a67fe3366f8a449b3d716a345d92fba2b4973270e267d2627a2591",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/plant-growth-59fe5193f5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "plant growth|xphb",
+    "upstream_page": 305
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Poison Spray",
+    "normalized_sha256": "6db09e6a6260ae8530635acaa37fbb4d40a72cc95f5e67393ef25f63af4ba38e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/poison-spray-23a2ffb197",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "poison spray|xphb",
+    "upstream_page": 306
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Polymorph",
+    "normalized_sha256": "bd1d678bff0508858b1bfee488d847b0ec2ab77e156af89122d53a6e21c7e109",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/polymorph-ed51010a36",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "polymorph|xphb",
+    "upstream_page": 306
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Power Word Fortify",
+    "normalized_sha256": "81a19d5227562b78a8fc5fb38c96801280cf6b122b507f34be13767f98be5f18",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/power-word-fortify-f398382cc9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "power word fortify|xphb",
+    "upstream_page": 306
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Power Word Heal",
+    "normalized_sha256": "e282b7ea322a371ac444c76853ca2cd35f9ede971f1d84da90d38e44f542a9e5",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/power-word-heal-20659260eb",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "power word heal|xphb",
+    "upstream_page": 306
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Power Word Kill",
+    "normalized_sha256": "557f37f423b7878c1d40cd582070b56a62e92ff08b4a17829dfac5a197da70f9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/power-word-kill-7b1b11aeb8",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "power word kill|xphb",
+    "upstream_page": 306
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Power Word Stun",
+    "normalized_sha256": "284141ddd26e490a7131b7f18f3065815c3d14365734ae027c7581f3ae9fa31c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/power-word-stun-47ead7ec25",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "power word stun|xphb",
+    "upstream_page": 306
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Prayer of Healing",
+    "normalized_sha256": "a81a64bad742224118d774e9bd2fc9505bda9a2236f28624cdb89ed07d6f4840",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/prayer-of-healing-811d46bd2d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "prayer of healing|xphb",
+    "upstream_page": 307
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Prestidigitation",
+    "normalized_sha256": "f80fe2c162cd46ba20442ad4048ad3e92b1403be05bdd9b651a79f6e01dc3138",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/prestidigitation-926b295d48",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "prestidigitation|xphb",
+    "upstream_page": 307
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Prismatic Spray",
+    "normalized_sha256": "cc6ea44f355b536ae0a76e3139d75b8b9f659d22af5ebd7cb6dde303959e053b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/prismatic-spray-2bfc498581",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "prismatic spray|xphb",
+    "upstream_page": 307
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Prismatic Wall",
+    "normalized_sha256": "440031a48e71cf679d1e9653b1786584fe0aa2a359ab3622e3886c12197f5ad1",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/prismatic-wall-1306b0bf42",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "prismatic wall|xphb",
+    "upstream_page": 308
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Produce Flame",
+    "normalized_sha256": "c34250f2fb49c239b4237b838e400b51d0877e2c9ed2e525f8c3a184c851360b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/produce-flame-54200d8c3a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "produce flame|xphb",
+    "upstream_page": 308
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Programmed Illusion",
+    "normalized_sha256": "0df654d5827d286175d7c48ea4ddaae5356913df87c424f1c01112459fa9e41e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/programmed-illusion-61cf76c45a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "programmed illusion|xphb",
+    "upstream_page": 309
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Project Image",
+    "normalized_sha256": "2d57574ef55ec6ce57fe9e3a6009e1313505a7f24f8cc5e01ce01165dc53d7fc",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/project-image-44a18abc64",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "project image|xphb",
+    "upstream_page": 309
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Protection from Energy",
+    "normalized_sha256": "ec994014d71483a9fa9c59b0042107477b6e76904fa68407179eadcc5827fd2c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/protection-from-energy-f1653e0c85",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "protection from energy|xphb",
+    "upstream_page": 309
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Protection from Evil and Good",
+    "normalized_sha256": "0fad7be4fd33b7409d3ee440b9db37ec32327cdbdad50c141ddbd303a6085821",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/protection-from-evil-and-good-28b2e02c8d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "protection from evil and good|xphb",
+    "upstream_page": 309
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Protection from Poison",
+    "normalized_sha256": "60dfc8be1b3226a173e25cc4fcf8f8d4ed1469c377f4cb4a8ecddb043d7ba1bb",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/protection-from-poison-b20505f6e3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "protection from poison|xphb",
+    "upstream_page": 310
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Purify Food and Drink",
+    "normalized_sha256": "86698f71d3894b8bf7a72b3d98f570df309c32b9e64b9ed38e0384fa870fe1ce",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/purify-food-and-drink-d101ee7e8f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "purify food and drink|xphb",
+    "upstream_page": 310
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Raise Dead",
+    "normalized_sha256": "ac99728b0e5072275dadbbb379acdbbdcf80c5acc14263d794f7245c0e83e901",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/raise-dead-ccfe055684",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "raise dead|xphb",
+    "upstream_page": 310
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Rary's Telepathic Bond",
+    "normalized_sha256": "1e1231aee5e25638642db6b651b8d46838ee597ce37a705d5c7df5dbfc596d0c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/rarys-telepathic-bond-01ed8f331f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "rary's telepathic bond|xphb",
+    "upstream_page": 311
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ray of Enfeeblement",
+    "normalized_sha256": "0d7a4f83163e37bf26af3bba8dcaf5d5ea64e6e9f8c02811965ae3a05bc6ea60",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/ray-of-enfeeblement-dac9d841b6",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "ray of enfeeblement|xphb",
+    "upstream_page": 311
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ray of Frost",
+    "normalized_sha256": "e4b8a075db14d2e94cda12c64cc0ddae4c540776a4890ff031470444416ab653",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/ray-of-frost-df5c00546f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "ray of frost|xphb",
+    "upstream_page": 311
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ray of Sickness",
+    "normalized_sha256": "9488a05197e61e3f7d8ee44918426e0389cfb17c14536d4c4c0b1462e7f87fe6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/ray-of-sickness-02aabbb720",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "ray of sickness|xphb",
+    "upstream_page": 311
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Regenerate",
+    "normalized_sha256": "0fadf33df1236d0d4c114b65b6ed47664c15f76e027bd3cb6a7113a8f77ee181",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/regenerate-dab4297249",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "regenerate|xphb",
+    "upstream_page": 311
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Reincarnate",
+    "normalized_sha256": "06607620804fdc083e0c1dfecd7fbd846e581e5aba4fd782e751b58b42422abf",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/reincarnate-136dd3e85d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "reincarnate|xphb",
+    "upstream_page": 311
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Remove Curse",
+    "normalized_sha256": "a2ac338d919af4128236e3ce01478ca4af46088eafeb534bb8d0c987763a43dc",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/remove-curse-ad4296a00d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "remove curse|xphb",
+    "upstream_page": 312
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Resistance",
+    "normalized_sha256": "e0f04625b2621bc1117b9bbcd50a5d800471e1acd9394f65a7d6d915739b8961",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/resistance-b6c089b20e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "resistance|xphb",
+    "upstream_page": 312
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Resurrection",
+    "normalized_sha256": "56a4e8ea5c60bd33da161554e88fcf5cfb29b60906b2d09456fdf8a4a487ada9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/resurrection-a104397346",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "resurrection|xphb",
+    "upstream_page": 312
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Reverse Gravity",
+    "normalized_sha256": "908b877d709ace7dec12e754c4b0fd32fa8576ee5c1f49893ea56deea2616658",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/reverse-gravity-6b81aa5adf",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "reverse gravity|xphb",
+    "upstream_page": 312
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Revivify",
+    "normalized_sha256": "53c0cb56b7bc6f063be797a0c659e83c7755faa7821f86f9483d29f49be2df99",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/revivify-99aabebf98",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "revivify|xphb",
+    "upstream_page": 312
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Rope Trick",
+    "normalized_sha256": "1583bf790182fb86ea08a38dd9feb792be912a98d8d6d509f37faec6dcb0b8ef",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/rope-trick-9a2526dfb2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "rope trick|xphb",
+    "upstream_page": 312
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sacred Flame",
+    "normalized_sha256": "f8cb78506a3f35a107dbeae411962e67ba776dad1dc9ca5cc3e33590f5c88fae",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/sacred-flame-1012dbea17",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "sacred flame|xphb",
+    "upstream_page": 313
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sanctuary",
+    "normalized_sha256": "310f963f35931571a3a7dc13cb62298ab3b2141d7a054a7dc8583201bbfaa6c0",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/sanctuary-e8cc5902e0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "sanctuary|xphb",
+    "upstream_page": 313
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Scorching Ray",
+    "normalized_sha256": "a7e8e2f44eda0546998161e9083ff3b953b60711cca8218870ba78466323e564",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/scorching-ray-e4baf324cf",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "scorching ray|xphb",
+    "upstream_page": 313
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Scrying",
+    "normalized_sha256": "3bc2c041774eb53be97a2eebba6eafae7fa4010b2fb99bd34f9cca06ed340586",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/scrying-e18cbd57e7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "scrying|xphb",
+    "upstream_page": 313
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Searing Smite",
+    "normalized_sha256": "58f2f75efa3aac48d5f6c69be018af040944f6bb7ed3033f8c89766793c584b3",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/searing-smite-49678b9bea",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "searing smite|xphb",
+    "upstream_page": 314
+  },
+  {
+    "conversion_status": "converted",
+    "name": "See Invisibility",
+    "normalized_sha256": "1c2d022012933a6d06b7aaf597a36951d4d3b00a2ba1a9a5fe9d2d53b5bb29e0",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/see-invisibility-c71b05b243",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "see invisibility|xphb",
+    "upstream_page": 314
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Seeming",
+    "normalized_sha256": "c55a4a0ecef9a48cdd0c1460cf8cc058b103e561f6413b2190e3c555fbe98711",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/seeming-f672f2f720",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "seeming|xphb",
+    "upstream_page": 314
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sending",
+    "normalized_sha256": "159b5c0c60f6b20be9cdb0e59b5af99799f809b0c1eddaf52fe2d7fde2dbf59e",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/sending-d19febb19d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "sending|xphb",
+    "upstream_page": 314
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sequester",
+    "normalized_sha256": "c3202cb340f716591a5b59941bb756b3ab31b7ee443fd625582467514c2ce149",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/sequester-6de745c511",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "sequester|xphb",
+    "upstream_page": 315
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shapechange",
+    "normalized_sha256": "9b264c84852ca577646a39031fd24e676a45d56c88dd3499d8437e9647326664",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/shapechange-0d3fc8faa7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "shapechange|xphb",
+    "upstream_page": 315
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shatter",
+    "normalized_sha256": "a6a1131a6912448415bb485fc412edabce8a60ed361c4ee54e51d2a766cf4287",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/shatter-5d030efec1",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "shatter|xphb",
+    "upstream_page": 316
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shield",
+    "normalized_sha256": "181c80566240abc9bf959575073673925771b692927c47f2617164df0c97f86f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/shield-4b31a425d3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "shield|xphb",
+    "upstream_page": 316
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shield of Faith",
+    "normalized_sha256": "4a7b1beb467e78c29f78b4773240be280a78dbe4a630451d21eb3b1013a91f10",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/shield-of-faith-aef8f21972",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "shield of faith|xphb",
+    "upstream_page": 316
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shillelagh",
+    "normalized_sha256": "7f58a9dd2e911e9e83d988aade08a67aa25494a498d6d9b35ea97d753b7b3b45",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/shillelagh-b04320c994",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "shillelagh|xphb",
+    "upstream_page": 316
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shining Smite",
+    "normalized_sha256": "c86c5b4e5c7b03b15e4141a39920c7106cfc7cd829f7ee03c144fcae6dfbc475",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/shining-smite-e1d70ddba2",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "shining smite|xphb",
+    "upstream_page": 316
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shocking Grasp",
+    "normalized_sha256": "f862f7d55a233ef1242993ba8a9cbcf80e4db6a3fa5aad7c19b3d37c3bcefda6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/shocking-grasp-3d63446f3b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "shocking grasp|xphb",
+    "upstream_page": 316
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Silence",
+    "normalized_sha256": "9ecbbf54a58b53fe4387f4819fc6615809e75faf691c806ee02c47621ee78c11",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/silence-1597236e17",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "silence|xphb",
+    "upstream_page": 316
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Silent Image",
+    "normalized_sha256": "7e4a3eff40ca18f0b150c500edf15077236de4620cc59a6c7d347a1f1723850a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/silent-image-a5382abfb4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "silent image|xphb",
+    "upstream_page": 317
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Simulacrum",
+    "normalized_sha256": "1d2ca4175f448a09465b2fca2c972e4cfdc108e4693287ec389da767c3be1b2f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/simulacrum-afcf61b631",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "simulacrum|xphb",
+    "upstream_page": 317
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sleep",
+    "normalized_sha256": "8c8731e6d93e91270e130a743f85e62f589c0bb1d38bdef2ec31d82842aaf933",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/sleep-1002bda1bd",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "sleep|xphb",
+    "upstream_page": 317
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sleet Storm",
+    "normalized_sha256": "bfe1293e0a75d53202348ce06d2162ce76dd033e25714482a0f92b0aaa28c5d8",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/sleet-storm-76db439d2e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "sleet storm|xphb",
+    "upstream_page": 317
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Slow",
+    "normalized_sha256": "9e9cdbe48246a8c3272d778b8239396870c86342b706716676e4678e3913ab7b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/slow-1b2e921966",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "slow|xphb",
+    "upstream_page": 318
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sorcerous Burst",
+    "normalized_sha256": "52e6a6bd1f4ef5bbd2f9c9ab7684f7b4ffc36e76bf4491c049d23ce757151d39",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/sorcerous-burst-242b9d73af",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "sorcerous burst|xphb",
+    "upstream_page": 318
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spare the Dying",
+    "normalized_sha256": "70ee1dd17bd6a5a4e837a7bdd74f3a21cd7fe8cd6e27bd4c3ec94746db76fd89",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/spare-the-dying-82f037ce78",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "spare the dying|xphb",
+    "upstream_page": 318
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Speak with Animals",
+    "normalized_sha256": "af0293b0bca4fc2e77e9dad309f9ea9c3d0da55466c574681e6707b6617115c4",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/speak-with-animals-12b5273446",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "speak with animals|xphb",
+    "upstream_page": 318
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Speak with Dead",
+    "normalized_sha256": "6403ebdb1f895dd5d079304d184e50f99fec688026fdc765b8fb7e813d3864d8",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/speak-with-dead-2d50dcb660",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "speak with dead|xphb",
+    "upstream_page": 318
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Speak with Plants",
+    "normalized_sha256": "06ba1bdc57e61fc2c84a840499a9cf5c7da610c8f374f05d6fb4d20baf9323f6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/speak-with-plants-0d6065900a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "speak with plants|xphb",
+    "upstream_page": 319
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spider Climb",
+    "normalized_sha256": "d626c015844090cd71b698f81c1384b32da9a9af1af60c4e0a2a35a3c8e180f7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/spider-climb-2f19557636",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "spider climb|xphb",
+    "upstream_page": 319
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spike Growth",
+    "normalized_sha256": "fa77fca2d490c475b82620c9fe1c00a921aaeb95b59c9c805a184f2b498a6e89",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/spike-growth-18a3cab397",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "spike growth|xphb",
+    "upstream_page": 319
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spirit Guardians",
+    "normalized_sha256": "62164ee87c51a63a91017182a07380688e1c49cff0a3c9a9ea1091c03988eb04",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/spirit-guardians-8e8d7ee4f6",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "spirit guardians|xphb",
+    "upstream_page": 319
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spiritual Weapon",
+    "normalized_sha256": "d00718744ed47f10df8d992264cb97d6b2083995da3f4703679a48ba74cdf583",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/spiritual-weapon-d16bc7f6a4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "spiritual weapon|xphb",
+    "upstream_page": 319
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Staggering Smite",
+    "normalized_sha256": "0c02019c865065f149c5407721ecccf2d3d5bb168ab20faf988baec7987ff8dd",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/staggering-smite-c271dd7a0c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "staggering smite|xphb",
+    "upstream_page": 320
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Starry Wisp",
+    "normalized_sha256": "c68b9f14796a406fe31d708be87441b1f5d75b8fe1eb34f81d9a364ebb1e34ea",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/starry-wisp-21bca3853e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "starry wisp|xphb",
+    "upstream_page": 320
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Steel Wind Strike",
+    "normalized_sha256": "8a27bf54440a18d790ba5c0ed1a29e3d3af220b31deb84e9266cd65fff6b4fd9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/steel-wind-strike-6f54677294",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "steel wind strike|xphb",
+    "upstream_page": 320
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Stinking Cloud",
+    "normalized_sha256": "0a85b0df797f013e7120707ff342c5189a005c493703035fe947dce87f3322c7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/stinking-cloud-7c43094f05",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "stinking cloud|xphb",
+    "upstream_page": 321
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Stone Shape",
+    "normalized_sha256": "6cef045bc07d5eb5a495e8a948d25d16a703527671261af2d69cf3eadf93cc03",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/stone-shape-1c5dab14be",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "stone shape|xphb",
+    "upstream_page": 321
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Stoneskin",
+    "normalized_sha256": "507327536ec35ff1f0184ff0bd1d982fd17059dd9014af527a9f82abb5e2f656",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/stoneskin-2c49726758",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "stoneskin|xphb",
+    "upstream_page": 321
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Storm of Vengeance",
+    "normalized_sha256": "8e6ca4cbc5934b566b32f746fc6f7c284263630117731ac9d2ff96db7b5e447f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/storm-of-vengeance-67db75d2a3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "storm of vengeance|xphb",
+    "upstream_page": 321
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Suggestion",
+    "normalized_sha256": "ce6e1666bc0f11c64a63e4f3199df2102f01a4d437a81cd2726c487d44a6d669",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/suggestion-dd283ba45e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "suggestion|xphb",
+    "upstream_page": 321
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Aberration",
+    "normalized_sha256": "cacc8447264a1d5935d7275009de8652f940243995aa7500f1ad3dbedf1377c9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/summon-aberration-184c51e093",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "summon aberration|xphb",
+    "upstream_page": 322
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Beast",
+    "normalized_sha256": "2a845d577ba680a6c3f3f4a446535729e3098f044ca0697a951b3af07ed0ea94",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/summon-beast-58f54ff5f1",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "summon beast|xphb",
+    "upstream_page": 322
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Celestial",
+    "normalized_sha256": "5f67bb8175ebe06b6bdc590f17f2b369858cb1449c93f094019af4cd624e11b7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/summon-celestial-22047c6624",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "summon celestial|xphb",
+    "upstream_page": 323
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Construct",
+    "normalized_sha256": "1f081507b82b36246bb68d61b7e314df69a32f9f72979a5a4b6e91c9be4f4fa1",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/summon-construct-60b9f62446",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "summon construct|xphb",
+    "upstream_page": 324
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Dragon",
+    "normalized_sha256": "de8e2259f702a3fa831edd8f4076f1e8690c3825967dcc760779f7bc22430822",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/summon-dragon-187a8291c3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "summon dragon|xphb",
+    "upstream_page": 324
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Elemental",
+    "normalized_sha256": "7788667358fb989ca1fd73f0a76f4ade4e0a1d9e7b0c419028a301583fd1453f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/summon-elemental-15b58e5b03",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "summon elemental|xphb",
+    "upstream_page": 325
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Fey",
+    "normalized_sha256": "1b8953105b41c1f252dd5f764583a329e7d7b1852086c667b1def026cd9139f0",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/summon-fey-5887a3d028",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "summon fey|xphb",
+    "upstream_page": 326
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Fiend",
+    "normalized_sha256": "b04296c22f41cf5d878559f272082b73d3b04c4361fbba6990401fff8e569bf4",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/summon-fiend-33658bdb5a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "summon fiend|xphb",
+    "upstream_page": 326
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Summon Undead",
+    "normalized_sha256": "1e20256c424778c5310e18f68aa0237c509a91598847b446c7c1a2f41f54cdb3",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/summon-undead-f6def98189",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "summon undead|xphb",
+    "upstream_page": 328
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sunbeam",
+    "normalized_sha256": "c710b344a5dd5c6563dbebf75f75ea71e9c2b802e5ef5efc2f83800a6d57a2b1",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/sunbeam-8b1726e34f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "sunbeam|xphb",
+    "upstream_page": 329
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sunburst",
+    "normalized_sha256": "f444e70b3cc856aeea687b635154ec41de17d137eff150baaeba2f32be06553d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/sunburst-6b854e36fe",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "sunburst|xphb",
+    "upstream_page": 329
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Swift Quiver",
+    "normalized_sha256": "48d4927fa0d3a7f76d9a036e47dbb2f7a91d2741bc1dc57dc46968d11e4ccf40",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/swift-quiver-f05a26ab90",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "swift quiver|xphb",
+    "upstream_page": 329
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Symbol",
+    "normalized_sha256": "15cc0b72f31fccdb5cfde3354eb8ef7ff70900c6257b828af115d36b0d8baba8",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/symbol-d665f4ec30",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "symbol|xphb",
+    "upstream_page": 329
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Synaptic Static",
+    "normalized_sha256": "959e7c1b907915e8f643628a408a580f54be76235342d49370bbb954160a267b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/synaptic-static-088ee9c370",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "synaptic static|xphb",
+    "upstream_page": 330
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tasha's Bubbling Cauldron",
+    "normalized_sha256": "6554f1fea4a66acd6cdd38d8660da5d74ef4e8ea519ac43b0b8ff4df0aca0fef",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/tashas-bubbling-cauldron-bbab86abbb",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "tasha's bubbling cauldron|xphb",
+    "upstream_page": 330
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tasha's Hideous Laughter",
+    "normalized_sha256": "d168b627d7a867b1ec0ea05c0f2fa30f3e965ff362509634198a3a135c3ca41a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/tashas-hideous-laughter-fc6bdfeb6b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "tasha's hideous laughter|xphb",
+    "upstream_page": 331
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Telekinesis",
+    "normalized_sha256": "df085f7f815e66741ea603a48045c4c67cf59997a719db5f982d032c11ea89da",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/telekinesis-8e51ab5dd4",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "telekinesis|xphb",
+    "upstream_page": 331
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Telepathy",
+    "normalized_sha256": "68f57b00ccd6d7b1bf318f4ab19b38bd58f17ea77fa6ee13794ea5c00eada3cc",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/telepathy-6f9197e403",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "telepathy|xphb",
+    "upstream_page": 331
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Teleport",
+    "normalized_sha256": "e3c1c2ae9532a6f309863bbb3ea1e80ed12bca54f210c1282c8c40c145c40381",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/teleport-8feffa3b69",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "teleport|xphb",
+    "upstream_page": 331
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Teleportation Circle",
+    "normalized_sha256": "1565130f1c27a6d94468713df690754a0bfcadf14f357ec1f5c7ce3247308028",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/teleportation-circle-10300d59f3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "teleportation circle|xphb",
+    "upstream_page": 332
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tenser's Floating Disk",
+    "normalized_sha256": "90dbf469ed83fd85d2e251197809f2daa00f88eff2860e919851ad3ce8c9651d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/tensers-floating-disk-83951311b3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "tenser's floating disk|xphb",
+    "upstream_page": 332
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Thaumaturgy",
+    "normalized_sha256": "6fbfa74c3fd10512e10a0525d949e150050b2bbf324e53bf6d44cb61e1ed4032",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/thaumaturgy-c6da89497f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "thaumaturgy|xphb",
+    "upstream_page": 333
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Thorn Whip",
+    "normalized_sha256": "3c878d5fde9b2151f87f7251c9024efe9ea7a6473d221002f7c3027115472dfa",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/thorn-whip-ad3274c1a1",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "thorn whip|xphb",
+    "upstream_page": 333
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Thunderclap",
+    "normalized_sha256": "fb97fc1abc43918238518a8f6dcb8a0ec4126a9752b31eca7fc6d1c5486cfebd",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/thunderclap-9d70e55084",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "thunderclap|xphb",
+    "upstream_page": 333
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Thunderous Smite",
+    "normalized_sha256": "57fc548e9be78f4d9b3c1d68ff28c5a13fbddc7b1ab14a48e8d8dee3d57b10a6",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/thunderous-smite-59d6d4ba37",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "thunderous smite|xphb",
+    "upstream_page": 334
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Thunderwave",
+    "normalized_sha256": "c2abc1f887c5cd75e95de1d3b46d7701aedd42c861c940ae74e1772117bf9cd7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/thunderwave-bc91e4ea8b",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "thunderwave|xphb",
+    "upstream_page": 334
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Time Stop",
+    "normalized_sha256": "ad5344f41bd3b561cca34aafd7b309e5cc261761347363290bfe8393f50bd46a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/time-stop-83d2e42212",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "time stop|xphb",
+    "upstream_page": 334
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Toll the Dead",
+    "normalized_sha256": "e85132021ce1a12133ff132b694971c908f70acde13ca88b8a602d268572d9e9",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/toll-the-dead-a28ae4d8f3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "toll the dead|xphb",
+    "upstream_page": 334
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tongues",
+    "normalized_sha256": "31e549cd9b4545fd9d648afa64424045891f07f61e504e99f17aa3afbd4d4f03",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/tongues-09b1cc14f3",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "tongues|xphb",
+    "upstream_page": 334
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Transport via Plants",
+    "normalized_sha256": "4d082fc43d4d83846e0b13d6b6fffeec1c1b39713b12d800f925f37e659fc867",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/transport-via-plants-61eea2deaa",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "transport via plants|xphb",
+    "upstream_page": 334
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tree Stride",
+    "normalized_sha256": "875352da8009ceaf2a2448c4c63ed8d1da6f7e499f519ebdc0c44e2f75c3c75f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/tree-stride-5f6c2563ba",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "tree stride|xphb",
+    "upstream_page": 335
+  },
+  {
+    "conversion_status": "converted",
+    "name": "True Polymorph",
+    "normalized_sha256": "fe6ee57b290bcd459bfea66e7b08077c4a0b288a0237d7009a7569fcde24ffc8",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/true-polymorph-af4fb0e0cb",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "true polymorph|xphb",
+    "upstream_page": 335
+  },
+  {
+    "conversion_status": "converted",
+    "name": "True Resurrection",
+    "normalized_sha256": "395151c0e1a3274d325fd3664121db9482c02da8c1377e8d7a40c76568d2233a",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/true-resurrection-de84524bba",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "true resurrection|xphb",
+    "upstream_page": 336
+  },
+  {
+    "conversion_status": "converted",
+    "name": "True Seeing",
+    "normalized_sha256": "6f3a71aaf0561c3b7cce8ed2e2951fa532ea3d48c3ac25add247aa986b27b469",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/true-seeing-277e65c057",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "true seeing|xphb",
+    "upstream_page": 336
+  },
+  {
+    "conversion_status": "converted",
+    "name": "True Strike",
+    "normalized_sha256": "cbc752bf8f15c233d20fbc2568e09b7844621464348a9df69637b0372d5fa92b",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/true-strike-0367008dec",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "true strike|xphb",
+    "upstream_page": 336
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tsunami",
+    "normalized_sha256": "3ae10baf411835e9510c8cb67eacd7558be06c1c80989cd1853e6d1164316e2d",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/tsunami-51c26bdf68",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "tsunami|xphb",
+    "upstream_page": 336
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Unseen Servant",
+    "normalized_sha256": "61909b75cc8abf439c59d676ecf15b5bbd530c75168282bf4f15a44ffb020bcf",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/unseen-servant-be7fad0928",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "unseen servant|xphb",
+    "upstream_page": 336
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Vampiric Touch",
+    "normalized_sha256": "f8ee04b77ed2c887df6d6bc4b23a23c30d29938dcbbf5418821f894baf986bb4",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/vampiric-touch-9d125cfbb7",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "vampiric touch|xphb",
+    "upstream_page": 337
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Vicious Mockery",
+    "normalized_sha256": "fccad1839701192121a6037a6d6c19fbc3941f97563b2ca2e1f9b731e798891c",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/vicious-mockery-998b81e404",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "vicious mockery|xphb",
+    "upstream_page": 337
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Vitriolic Sphere",
+    "normalized_sha256": "dd8cfcf5f29a4dd5f9246a824181e990e81c4b3623ac96f0e0aaac981aa509a7",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/vitriolic-sphere-cecbdde792",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "vitriolic sphere|xphb",
+    "upstream_page": 337
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wall of Fire",
+    "normalized_sha256": "c451df46c0b1af892babab9d417b87bb18cd3261420b6ae1417d0c5787d92be8",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/wall-of-fire-7f13e39ca8",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "wall of fire|xphb",
+    "upstream_page": 338
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wall of Force",
+    "normalized_sha256": "08167e1dae5267ec6baab3dd64048f423fae9768fbe5f559d2f4da9152512564",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/wall-of-force-34f270b844",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "wall of force|xphb",
+    "upstream_page": 338
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wall of Ice",
+    "normalized_sha256": "50e79101e65b18a48e03d6a1f3399a18e713bd0475fd839e996872e526984bd4",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/wall-of-ice-10a7d717b5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "wall of ice|xphb",
+    "upstream_page": 339
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wall of Stone",
+    "normalized_sha256": "8712e0e0fb1b38cf286ccbd21d361427ce59b5a721c4bf1c74951fcd9f973421",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/wall-of-stone-24d7b03f4a",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "wall of stone|xphb",
+    "upstream_page": 339
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wall of Thorns",
+    "normalized_sha256": "100c9fe92bc32f6d279a1e94764548c3e134e4932ffdf9db1b7d929254fe08ae",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/wall-of-thorns-ec519174b0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "wall of thorns|xphb",
+    "upstream_page": 339
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Warding Bond",
+    "normalized_sha256": "bfbb2949ec02f45bb6d3b2385329b93018f03e6d4f22ab8019343593c9796f73",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/warding-bond-2e377f5532",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "warding bond|xphb",
+    "upstream_page": 340
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Water Breathing",
+    "normalized_sha256": "0dfb1b67558bff9a5268c801b2f2cc47c62a0add8497dca5662ac27eb340f128",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/water-breathing-29d08d7866",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "water breathing|xphb",
+    "upstream_page": 340
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Water Walk",
+    "normalized_sha256": "5ec267d00297c019246b6af46982a986dce49d80b4ca4b4f594ba88019e0586f",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/water-walk-ade50ec13c",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "water walk|xphb",
+    "upstream_page": 340
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Web",
+    "normalized_sha256": "f125c518b094483ef237e8fa26db77a96d0e0ad394c8321e5bfbb7cb47895503",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/web-13d008dfc5",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "web|xphb",
+    "upstream_page": 340
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Weird",
+    "normalized_sha256": "81958fc35dc3742f719f965a5d44409038079d74f65bb2526c229f716b8b5136",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/weird-329469495d",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "weird|xphb",
+    "upstream_page": 341
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wind Walk",
+    "normalized_sha256": "dfdc11c7aace9cb01ef9eb27ca328205387c4542067854ee8b80ebbc86b17434",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/wind-walk-ae1648f38f",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "wind walk|xphb",
+    "upstream_page": 341
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wind Wall",
+    "normalized_sha256": "e0c42b634372d547ced839f79c5cda818787a9c0465c8187b9b1f17cb8f7c042",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/wind-wall-791264feb1",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "wind wall|xphb",
+    "upstream_page": 341
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wish",
+    "normalized_sha256": "e4ec2d1164e5b6d5d0d049ecd2ac2c2977c8dc9b8134ce83ca4c31bb380b8d61",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/wish-84eb7e4bb1",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "wish|xphb",
+    "upstream_page": 341
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Witch Bolt",
+    "normalized_sha256": "de91478db6dc78cdfb5e6bcf5be75d9faf1c318db31299d4ff6bd7989bd0a867",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/witch-bolt-83d0e888d0",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "witch bolt|xphb",
+    "upstream_page": 343
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Word of Radiance",
+    "normalized_sha256": "1b7ec15528fe421ab20e35e51fa9641c8671cbbbc52604bbb14d33f32d23be17",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/word-of-radiance-04d4e9a205",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "word of radiance|xphb",
+    "upstream_page": 343
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Word of Recall",
+    "normalized_sha256": "8e0178f796439797665a1dbb0a455d7a887c1075b0a59207ac76406bda328e89",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/word-of-recall-673588559e",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "word of recall|xphb",
+    "upstream_page": 343
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wrathful Smite",
+    "normalized_sha256": "8d51a9b6638a65d24f4487f8ebfbf3d9f5296b02e6f9ad3093e1523e89341f93",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/wrathful-smite-df2d59ffc1",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "wrathful smite|xphb",
+    "upstream_page": 343
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Yolande's Regal Presence",
+    "normalized_sha256": "2620137ed40d24093f9c2d7149ac132ee4da0871b7d9563d71857719cc1fe079",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/yolandes-regal-presence-1b0bc211e9",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "yolande's regal presence|xphb",
+    "upstream_page": 343
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Zone of Truth",
+    "normalized_sha256": "93efe6af450fd78ef35216bb703abcd20796fd2bf7bbcc027dc475098853da55",
+    "source": "XPHB",
+    "stable_key": "spell/xphb/zone-of-truth-4a3a8392af",
+    "upstream_file": "data/spells/spells-xphb.json",
+    "upstream_identity": "zone of truth|xphb",
+    "upstream_page": 343
+  }
+]

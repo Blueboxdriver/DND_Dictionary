@@ -1,0 +1,62 @@
+{
+  "attribution": "Dungeons & Dragons content by Wizards of the Coast. Community-structured data provided by 5etools. Personal local reference; this dataset is not SRD or an assertion of redistribution rights.",
+  "dataset_id": "official-5etools-2024",
+  "dependencies": [],
+  "language": "en",
+  "license_identifier": "LicenseRef-Proprietary-Wizards-of-the-Coast",
+  "origin_url": "https://github.com/5etools-mirror-3/5etools-src",
+  "ruleset": "D&D 5.5e / 2024 rules",
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "citation": "Arcana Unleashed, Wizards of the Coast, 2026-09-15",
+      "edition": "2024 rules",
+      "key": "AU",
+      "title": "Arcana Unleashed"
+    },
+    {
+      "citation": "Eberron: Forge of the Artificer, Wizards of the Coast, 2025-12-09",
+      "edition": "2024 rules",
+      "key": "EFA",
+      "title": "Eberron: Forge of the Artificer"
+    },
+    {
+      "citation": "Forgotten Realms: Adventures in Faerûn, Wizards of the Coast, 2025-11-11",
+      "edition": "2024 rules",
+      "key": "FRAiF",
+      "title": "Forgotten Realms: Adventures in Faerûn"
+    },
+    {
+      "citation": "Forgotten Realms: Heroes of Faerûn, Wizards of the Coast, 2025-11-11",
+      "edition": "2024 rules",
+      "key": "FRHoF",
+      "title": "Forgotten Realms: Heroes of Faerûn"
+    },
+    {
+      "citation": "Ravenloft: The Horrors Within, Wizards of the Coast, 2026-06-16",
+      "edition": "2024 rules",
+      "key": "RHW",
+      "title": "Ravenloft: The Horrors Within"
+    },
+    {
+      "citation": "Dungeon Master's Guide (2024), Wizards of the Coast, 2024-11-12",
+      "edition": "2024 rules",
+      "key": "XDMG",
+      "title": "Dungeon Master's Guide (2024)"
+    },
+    {
+      "citation": "Monster Manual (2025), Wizards of the Coast, 2025-02-18",
+      "edition": "2024 rules",
+      "key": "XMM",
+      "title": "Monster Manual (2025)"
+    },
+    {
+      "citation": "Player's Handbook (2024), Wizards of the Coast, 2024-09-17",
+      "edition": "2024 rules",
+      "key": "XPHB",
+      "title": "Player's Handbook (2024)"
+    }
+  ],
+  "title": "Official D&D 2024 Reference",
+  "version": "3a09c05a3a3be94423cd2b3c33936034eeae02f2"
+}

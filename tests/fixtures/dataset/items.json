@@ -1,0 +1,81 @@
+{
+  "properties": [
+    {
+      "key": "property/finesse",
+      "name": "Finesse",
+      "description": "Use Strength or Dexterity for the attack and damage rolls.",
+      "source": "example-core"
+    }
+  ],
+  "items": [
+    {
+      "local_key": "item/adventuring-pack",
+      "name": "Adventuring Pack",
+      "description": "A practical collection of travel supplies.",
+      "source": "example-core",
+      "kind": "mundane",
+      "type": "Adventuring Gear",
+      "weight_display": "5 lb.",
+      "weight": 5,
+      "cost_display": "2 gp",
+      "cost": {"amount": 2, "currency": "gp"}
+    },
+    {
+      "local_key": "item/rapier",
+      "name": "Rapier",
+      "description": "A slender martial blade.",
+      "source": "example-core",
+      "kind": "weapon",
+      "type": "Weapon",
+      "subtype": "Martial Melee",
+      "weight_display": "2 lb.",
+      "weight": 2,
+      "cost_display": "25 gp",
+      "cost": {"amount": 25, "currency": "gp"},
+      "properties": [{"property_key": "property/finesse"}],
+      "weapon": {
+        "damage_expression": "1d8",
+        "damage_type": "piercing",
+        "range": "5 ft.",
+        "mastery": "Vex"
+      }
+    },
+    {
+      "local_key": "item/chain-shirt",
+      "name": "Chain Shirt",
+      "description": "A shirt of interlocking metal rings.",
+      "source": "example-core",
+      "kind": "armor",
+      "type": "Armor",
+      "subtype": "Medium",
+      "weight_display": "20 lb.",
+      "weight": 20,
+      "cost_display": "50 gp",
+      "cost": {"amount": 50, "currency": "gp"},
+      "armor": {
+        "armor_category": "Medium",
+        "ac_expression": "13 + Dex modifier (max 2)",
+        "stealth_disadvantage": false
+      }
+    },
+    {
+      "local_key": "item/star-map",
+      "name": "Star Map",
+      "description": "A magic chart that glimmers under moonlight.",
+      "source": "example-core",
+      "kind": "magic_item",
+      "type": "Wondrous Item",
+      "rarity": "uncommon",
+      "requires_attunement": true,
+      "attunement_prerequisite": "a spellcaster",
+      "sections": [
+        {
+          "key": "item/star-map/effect",
+          "heading": "Starlit Guidance",
+          "body": "The map sheds dim light while unfolded.",
+          "display_order": 1
+        }
+      ]
+    }
+  ]
+}

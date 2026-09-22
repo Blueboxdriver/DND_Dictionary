@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "example-5e",
+  "title": "Example Reference Pack",
+  "version": "2026.09",
+  "ruleset": "Original fantasy reference rules",
+  "language": "en",
+  "license_identifier": "CC0-1.0",
+  "attribution": "Original test content for D&D Reference.",
+  "origin_url": "https://example.test/dndref",
+  "sources": [
+    {
+      "key": "example-core",
+      "title": "Example Core Rules",
+      "edition": "1st edition",
+      "citation": "Example Core Rules, 2026"
+    }
+  ],
+  "dependencies": []
+}

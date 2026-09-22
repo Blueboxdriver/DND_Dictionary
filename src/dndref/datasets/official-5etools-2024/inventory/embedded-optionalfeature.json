@@ -1,0 +1,662 @@
+[
+  {
+    "conversion_status": "embedded",
+    "name": "Banishing Shot",
+    "normalized_sha256": "342374e5078b77816cbfe6bd0d28a86315a973e39a6fa8f34b6e26eba05c84a5",
+    "source": "AU",
+    "stable_key": "optionalfeature/au/banishing-shot-033d450884",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "banishing shot|au",
+    "upstream_page": null
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Beguiling Shot",
+    "normalized_sha256": "6317e9c317efe8b2bf7c228700c2c94552ae75c651d9def484eb0d51946ba893",
+    "source": "AU",
+    "stable_key": "optionalfeature/au/beguiling-shot-fc966d60df",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "beguiling shot|au",
+    "upstream_page": null
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Bursting Shot",
+    "normalized_sha256": "13cd508b5e6c08c00d09f7d17e94db975246525c8f6f27abbf35d585d309b70f",
+    "source": "AU",
+    "stable_key": "optionalfeature/au/bursting-shot-b2bb299863",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "bursting shot|au",
+    "upstream_page": null
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Enfeebling Shot",
+    "normalized_sha256": "9ed8fa9e645141b15ccb3592ffb4bc891ba2d5404791379c98ed72ff83c16a61",
+    "source": "AU",
+    "stable_key": "optionalfeature/au/enfeebling-shot-9bacffd912",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "enfeebling shot|au",
+    "upstream_page": null
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Grasping Shot",
+    "normalized_sha256": "22d9091fd76145966f54afedd10cfaee6eac03f1495dacdd9b58df03b94e0948",
+    "source": "AU",
+    "stable_key": "optionalfeature/au/grasping-shot-d32996d4aa",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "grasping shot|au",
+    "upstream_page": null
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Piercing Shot",
+    "normalized_sha256": "b35e8018ae1cb4dc51c3fdd59bd5b337f65163b0311b20a24ee17dafc9cef9ff",
+    "source": "AU",
+    "stable_key": "optionalfeature/au/piercing-shot-662da29fac",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "piercing shot|au",
+    "upstream_page": null
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Seeking Shot",
+    "normalized_sha256": "8086bfe8bd605e437c06924d7bcba8dc760cc518ebd7df0642d30dad5baeefdb",
+    "source": "AU",
+    "stable_key": "optionalfeature/au/seeking-shot-db06e8b07c",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "seeking shot|au",
+    "upstream_page": null
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Shadow Shot",
+    "normalized_sha256": "878585127748bb999c1633bf8cd133d64406f16deedda666c8ef80d9a0ecbfc6",
+    "source": "AU",
+    "stable_key": "optionalfeature/au/shadow-shot-ff591356df",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "shadow shot|au",
+    "upstream_page": null
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Agonizing Blast",
+    "normalized_sha256": "19a82324c70e848264c71f8591b877bad8b35aafaa92c6e980332c6260eb48e0",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/agonizing-blast-1449af6863",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "agonizing blast|xphb",
+    "upstream_page": 155
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Ambush",
+    "normalized_sha256": "5603aabddea01bc0c459faa95dcd9b717ba58818415e4a6f870bf487dc57cec0",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/ambush-76a2c1e637",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "ambush|xphb",
+    "upstream_page": 94
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Armor of Shadows",
+    "normalized_sha256": "64e4a225ae8fc76d932f2871df773388768b0dd644ffc88621f67b21a683f4ec",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/armor-of-shadows-514d46f91b",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "armor of shadows|xphb",
+    "upstream_page": 155
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Ascendant Step",
+    "normalized_sha256": "5eba92e001d523a5a757af0b3eac3268b5195b4a7de4652909db5bc21c1ec697",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/ascendant-step-81069a6cc7",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "ascendant step|xphb",
+    "upstream_page": 155
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Bait and Switch",
+    "normalized_sha256": "0628505b4ec5221cef8109fac74bf9960de6403aa95cc517831bd3079a76a53d",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/bait-and-switch-b9bd30be88",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "bait and switch|xphb",
+    "upstream_page": 94
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Careful Spell",
+    "normalized_sha256": "dd31de2822285dbd60313e6dd331785f3188a67a6003ab85ac3323c7cb28adde",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/careful-spell-0c6015bebd",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "careful spell|xphb",
+    "upstream_page": 141
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Commander's Strike",
+    "normalized_sha256": "881ccafaeb9afc3bf52bdd3f362521f67bf791172ba81999a7cb74a4acf867fa",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/commanders-strike-5dbff6e5e5",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "commander's strike|xphb",
+    "upstream_page": 94
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Commanding Presence",
+    "normalized_sha256": "991de7aee0382c91a0c3684df54dd1017583248b0644d62581ca0e97c7d4a74a",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/commanding-presence-fd95505411",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "commanding presence|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Devil's Sight",
+    "normalized_sha256": "4ae1cf472ae41471557633a1b8efaa70adc8965835260edbce6bd948b5938ca3",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/devils-sight-099eee33b9",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "devil's sight|xphb",
+    "upstream_page": 155
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Devouring Blade",
+    "normalized_sha256": "4b3f111a16da85a4964175593c8bc3fea38cf36b14d0bb438d8caebffd127ed4",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/devouring-blade-bfdab87d36",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "devouring blade|xphb",
+    "upstream_page": 155
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Disarming Attack",
+    "normalized_sha256": "3789e6ff0aa37a3b77a42c1c5a0011d80168811ab6a76705a72f28cb5395fd1b",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/disarming-attack-4cc57b076f",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "disarming attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Distant Spell",
+    "normalized_sha256": "889f9630fde931e7a80e4fecb736fb1999006daa9a7edf5079065dc43d4ac64a",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/distant-spell-735146d7b6",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "distant spell|xphb",
+    "upstream_page": 141
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Distracting Strike",
+    "normalized_sha256": "64cc534caa320926a83e0e9529175477656929a93e832a3db95f2e1e3afaf5d8",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/distracting-strike-db032ea135",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "distracting strike|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Eldritch Mind",
+    "normalized_sha256": "27694175f025e421c6b0210299df9c92023487b5c5f713aa43a3cc325c72ea82",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/eldritch-mind-ef3b0ff4bd",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "eldritch mind|xphb",
+    "upstream_page": 155
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Eldritch Smite",
+    "normalized_sha256": "e3a5a1da73b3c6ae246219b22b28ab5aaff5039f142804b58f717db4ed00fb02",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/eldritch-smite-13fcc5f893",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "eldritch smite|xphb",
+    "upstream_page": 155
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Eldritch Spear",
+    "normalized_sha256": "1501ded9f9a4c5b7b1c54986d1656fc3bd38eb4123060e03dc556ffe0582d61e",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/eldritch-spear-fa22f5ef82",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "eldritch spear|xphb",
+    "upstream_page": 155
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Empowered Spell",
+    "normalized_sha256": "06c9b1e49471cec05a8f12b13d9e0ab72ead12e7246eed01ee846e3b4a259b61",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/empowered-spell-76cb93dceb",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "empowered spell|xphb",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Evasive Footwork",
+    "normalized_sha256": "dc6b2e9eec9734251ce23e7b4d273a464934e57cd6b4f607fb509e456c4eb002",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/evasive-footwork-2dc0513b01",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "evasive footwork|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Extended Spell",
+    "normalized_sha256": "6ecbd4f45126ec146a434c7bc788808ccbc9a0c0d2cd08033eae0d4297b4d326",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/extended-spell-384e0ceb5a",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "extended spell|xphb",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Feinting Attack",
+    "normalized_sha256": "b8d711dad93b9b85c32ea92fcf0252e5f1a4dc79cc5448cca881c1325b240f9a",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/feinting-attack-d38f79614d",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "feinting attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Fiendish Vigor",
+    "normalized_sha256": "7b6b2daca4e01b4d1fac7a076103562b3edb6c634fe9b4a33f0e0b21e754bb46",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/fiendish-vigor-679839e65a",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "fiendish vigor|xphb",
+    "upstream_page": 155
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Gaze of Two Minds",
+    "normalized_sha256": "f9c5503d2abb3496517155841b8f49ffe3f3110f58d5b3376efbf8b46d73debc",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/gaze-of-two-minds-71689ec9c9",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "gaze of two minds|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Gift of the Depths",
+    "normalized_sha256": "2acca60ff7946b0769baed2e6e87782227d3e57e8ab0c6e4b3351d65ffa02f90",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/gift-of-the-depths-76af09cdf9",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "gift of the depths|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Gift of the Protectors",
+    "normalized_sha256": "ff0393c570d200a420a2beef65558e9dc4a0285c0164e02754d675538fcef8aa",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/gift-of-the-protectors-fece528c5d",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "gift of the protectors|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Goading Attack",
+    "normalized_sha256": "2a679a9d3c92e8b2acb6036ec96f20972de6b1817ee44f8982f208ff048e0c9d",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/goading-attack-7c5fd6744c",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "goading attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Heightened Spell",
+    "normalized_sha256": "64ef6e975c7d5505b9f25bd67a8b5dd2444b6045391cabd25b9a09c629b4ce5b",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/heightened-spell-357908cafe",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "heightened spell|xphb",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Investment of the Chain Master",
+    "normalized_sha256": "5ec9167d48f7df5a7b02dc7b4b3f23b8c18183f3e989a8e8250db1c39f77db4d",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/investment-of-the-chain-master-ad1eae4d72",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "investment of the chain master|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Lessons of the First Ones",
+    "normalized_sha256": "2877f92f60bcca20d66c06e175b076435a655cd202fff8861d1b627020e59b9f",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/lessons-of-the-first-ones-396efde6ff",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "lessons of the first ones|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Lifedrinker",
+    "normalized_sha256": "ef335d80bb49a29730c66b21064e6cfc43c36bd16e3fa468dd3df5803c35b514",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/lifedrinker-0e9e9e514c",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "lifedrinker|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Lunging Attack",
+    "normalized_sha256": "b2a81caef4d0e274ae054d5b263357440c01a21e5f1943f314b9490c43f0da25",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/lunging-attack-287b6060c9",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "lunging attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Maneuvering Attack",
+    "normalized_sha256": "a668fae93a4cf7dab71c6c0df64f14e4a675e0e4d85d6b58ce8a920c7cf13651",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/maneuvering-attack-69ce67b8b0",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "maneuvering attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Mask of Many Faces",
+    "normalized_sha256": "ab75d06b412a6e1f82631392935aa54a4fe9050d3961a8b3805856fb8aab516f",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/mask-of-many-faces-e6b7125cd0",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "mask of many faces|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Master of Myriad Forms",
+    "normalized_sha256": "45b31963c141f519d74322b9a725d422df5fca1f14b791fb94252d77fc536a56",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/master-of-myriad-forms-f47d43254b",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "master of myriad forms|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Menacing Attack",
+    "normalized_sha256": "35569200caf9d4c31907717a5aeed850f60c46bdf419508a6b8b218428a5d3dc",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/menacing-attack-9a608c774d",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "menacing attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Misty Visions",
+    "normalized_sha256": "11436bff8f2bc43d885d3dec0c1beba91ebd15e439af1a669e537edda4adbaea",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/misty-visions-f5e9138fba",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "misty visions|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "One with Shadows",
+    "normalized_sha256": "43caa0cde1c89e5ee57c068f1ae7d2ea19978896ebde4b13f4fe9c9db14f9de8",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/one-with-shadows-585e4ec978",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "one with shadows|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Otherworldly Leap",
+    "normalized_sha256": "8c53a6c91e368f9bd546c009064b67e5d8a7cef88549d8cad51c3e0834caf654",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/otherworldly-leap-9783a3e7fc",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "otherworldly leap|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Pact of the Blade",
+    "normalized_sha256": "317ca7c9b5b2e50c309530a2f2416f671e657028f0ca4ff0467c746cc7896c2c",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/pact-of-the-blade-a15e979c43",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "pact of the blade|xphb",
+    "upstream_page": 156
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Pact of the Chain",
+    "normalized_sha256": "128b048eaa4d829bbf62e2cddb3063f6d2f0fa809aee681b6023108061b4d979",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/pact-of-the-chain-4baddbc9fb",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "pact of the chain|xphb",
+    "upstream_page": 157
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Pact of the Tome",
+    "normalized_sha256": "57796668379ef3b62601e845ffa6fd85468a504e01a2af612c3d1c556a1d90c3",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/pact-of-the-tome-c8e0cf1ade",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "pact of the tome|xphb",
+    "upstream_page": 157
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Parry",
+    "normalized_sha256": "844a822cc1f86ca4d6667f64be9253f82672c5c6f2bbe7e725580d3ca69964fa",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/parry-964c2d8f50",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "parry|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Precision Attack",
+    "normalized_sha256": "3269e6191ef86988b1ca9f5217c9eeacfc57246a5e3752e4326cf700420e5afc",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/precision-attack-aa330c297f",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "precision attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Pushing Attack",
+    "normalized_sha256": "eef1fc8bb86af0246849ea245894b30def43336a6ac515581eac5cc0975b392a",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/pushing-attack-978ab21c2c",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "pushing attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Quickened Spell",
+    "normalized_sha256": "59811cfbf0746657d98035d89a2ee5620c4257cc50ffcd86a96fad754f801c8e",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/quickened-spell-2ec7bfed67",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "quickened spell|xphb",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Rally",
+    "normalized_sha256": "a02e187e1253025111e560fed7c7e52bf64f9229e0f6943c44b787c1a88c2d85",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/rally-c3afb53bbb",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "rally|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Repelling Blast",
+    "normalized_sha256": "67d295f16f41a2c4a0ce305d47a55a21bef684fa7239ecfbbc7c86cec9b9ade2",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/repelling-blast-cfeb2a8e3c",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "repelling blast|xphb",
+    "upstream_page": 157
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Riposte",
+    "normalized_sha256": "c38ebe2cf27b04e6fccddeb994a33eefe13a24489afdefaa1ba63382f9647f13",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/riposte-ad3bca5f8a",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "riposte|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Seeking Spell",
+    "normalized_sha256": "194bc91dccf6b2bca7cfc4d425b949ac703c29b53fc85d43abc1dd173478e254",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/seeking-spell-f0f2e5cdc2",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "seeking spell|xphb",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Subtle Spell",
+    "normalized_sha256": "725bd325a21a7be466d1af7d8d2d2f63679c7ecd84a5cea67f71f22896bd91ee",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/subtle-spell-dd134095cd",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "subtle spell|xphb",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Sweeping Attack",
+    "normalized_sha256": "8e46d7097aa7f5233a2194cbb9810aaa41efd0ebd78861ee0012466211a23a7f",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/sweeping-attack-2f3aead045",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "sweeping attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Tactical Assessment",
+    "normalized_sha256": "181f74f4e34ab26ca8cb87eda340033c7d99744f24b0fb239f89ade87d09bd8e",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/tactical-assessment-f4d7564e57",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "tactical assessment|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Thirsting Blade",
+    "normalized_sha256": "953e76fdb68a6dc81e0a80a72c6c12ac2a17cc3c4afb0bbbcd78629434959b08",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/thirsting-blade-46799eb26a",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "thirsting blade|xphb",
+    "upstream_page": 157
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Transmuted Spell",
+    "normalized_sha256": "5315c7a81a60d2b461aa01fb06b5ffff949debf0f84cb82432fe48cac478e2c9",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/transmuted-spell-4cca0c9fdb",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "transmuted spell|xphb",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Trip Attack",
+    "normalized_sha256": "d832fdbec8f0bdda9cc2c8eacdea9a0ce83df8959f2b69cf468c92a3b1f7fe9f",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/trip-attack-3b36cee2cd",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "trip attack|xphb",
+    "upstream_page": 95
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Twinned Spell",
+    "normalized_sha256": "4454ee44a33b99a9901f86f6c3109bbcf8661ebadc8ba87e16f28f1a88ee55f6",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/twinned-spell-8f9b43b463",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "twinned spell|xphb",
+    "upstream_page": 142
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Visions of Distant Realms",
+    "normalized_sha256": "df49070cf6b2c5926382d22b01249dc26c93278324b03ecc35721417aff070da",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/visions-of-distant-realms-8240558c8d",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "visions of distant realms|xphb",
+    "upstream_page": 157
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Whispers of the Grave",
+    "normalized_sha256": "e3d9a34b2cf8d24aa9107c74f0b01dd47e95f0164b3940df4c31141dcf7d0851",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/whispers-of-the-grave-7d5059daf4",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "whispers of the grave|xphb",
+    "upstream_page": 157
+  },
+  {
+    "conversion_status": "embedded",
+    "name": "Witch Sight",
+    "normalized_sha256": "50177b2ebf3825ad0ff14c3359be725152adac17c1b5c1d2375fb107d4894fde",
+    "source": "XPHB",
+    "stable_key": "optionalfeature/xphb/witch-sight-1a2ab093a6",
+    "upstream_file": "data/optionalfeatures.json",
+    "upstream_identity": "witch sight|xphb",
+    "upstream_page": 157
+  }
+]

@@ -28,6 +28,7 @@ class SearchCategory(StrEnum):
     FEATS = "feats"
     CLASSES = "classes"
     SUBCLASSES = "subclasses"
+    MONSTERS = "monsters"
 
     @property
     def storage_kind(self) -> str:
@@ -84,11 +85,13 @@ def _coerce_category(value: SearchCategory | str) -> SearchCategory:
         "feat": SearchCategory.FEATS,
         "class": SearchCategory.CLASSES,
         "subclass": SearchCategory.SUBCLASSES,
+        "monster": SearchCategory.MONSTERS,
     }
     if isinstance(value, SearchCategory):
         return value
     try:
-        return aliases.get(value.casefold(), SearchCategory(value.casefold()))
+        normalized = value.casefold()
+        return aliases[normalized] if normalized in aliases else SearchCategory(normalized)
     except ValueError as exc:
         raise ValueError(f"unsupported search category: {value!r}") from exc
 
@@ -104,7 +107,8 @@ def _coerce_mode(value: SearchMode | str) -> SearchMode:
     if isinstance(value, SearchMode):
         return value
     try:
-        return aliases.get(value.casefold(), SearchMode(value.casefold()))
+        normalized = value.casefold()
+        return aliases[normalized] if normalized in aliases else SearchMode(normalized)
     except ValueError as exc:
         raise ValueError(f"unsupported search mode: {value!r}") from exc
 
@@ -181,11 +185,20 @@ class SearchQuery:
     editions: tuple[str, ...] = ()
     sources: tuple[SourceIdentity, ...] = ()
     parent_class: str | None = None
+    challenge_ratings: tuple[str, ...] = ()
+    creature_types: tuple[str, ...] = ()
+    sizes: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "category", _coerce_category(self.category))
         object.__setattr__(self, "mode", _coerce_mode(self.mode))
         object.__setattr__(self, "editions", _edition_values(self.editions))
+        if any((self.challenge_ratings, self.creature_types, self.sizes)):
+            if self.category is not SearchCategory.MONSTERS:
+                raise ValueError("monster filters require the Monsters category")
+            from .models.monster import cr_value
+            for cr in self.challenge_ratings:
+                cr_value(cr)
         source_values: list[SourceIdentity] = []
         for source in self.sources:
             if not isinstance(source, SourceIdentity):
@@ -339,6 +352,12 @@ class SearchService:
 
     def __init__(self, database: Database) -> None:
         self.database = database
+
+    def list_monster_facets(self) -> dict[str, tuple[str, ...]]:
+        from .storage.repository import list_monster_facets
+
+        with self.database.connection() as connection:
+            return list_monster_facets(connection)
 
     def search(self, query: SearchQuery) -> SearchPage:
         from .storage.repository import search_entries, search_subclasses

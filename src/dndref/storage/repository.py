@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
@@ -46,6 +47,7 @@ def _category_for_kind(kind: str):
         "spell": SearchCategory.SPELLS,
         "feat": SearchCategory.FEATS,
         "class": SearchCategory.CLASSES,
+        "monster": SearchCategory.MONSTERS,
         "subclass": SearchCategory.SUBCLASSES,
     }[kind]
 
@@ -159,6 +161,20 @@ def _entry_search_body(connection: sqlite3.Connection, entry: sqlite3.Row) -> st
                 "SELECT label FROM class_progression_columns "
                 "WHERE class_id = ? ORDER BY display_order, column_key",
                 (entry_id,),
+            ).fetchall()
+        )
+    elif kind == "monster":
+        row = connection.execute(
+            "SELECT creature_type, subtype, languages FROM monsters WHERE entry_id = ?",
+            (entry_id,),
+        ).fetchone()
+        if row is not None:
+            parts.append(_search_text(*row))
+        parts.extend(
+            _search_text(row["name"], row["description"])
+            for row in connection.execute(
+                "SELECT name, description FROM monster_abilities WHERE monster_id = ? "
+                "ORDER BY section, display_order", (entry_id,)
             ).fetchall()
         )
     return _search_text(*parts)
@@ -427,6 +443,8 @@ def apply_dataset(
             ("feat", feat) for feat in pack.feats
         ] + [
             ("class", character_class) for character_class in pack.classes
+        ] + [
+            ("monster", monster) for monster in pack.monsters
         ]
         for kind, entry in sorted(entries, key=lambda item: item[1].local_key):
             cursor = connection.execute(
@@ -552,6 +570,45 @@ def apply_dataset(
                     _bool(spell.ritual),
                     spell.higher_level_effects,
                 ),
+            )
+
+        from ..models.monster import cr_value
+        for monster in sorted(pack.monsters, key=lambda record: record.local_key):
+            values = monster.model_dump(mode="json")
+            columns = (
+                "page", "group", "variant", "size", "creature_type", "subtype", "alignment",
+                "armor_class", "hit_points", "hit_points_text", "hit_dice", "speed",
+                "speed_text", "abilities", "saving_throws", "skills", "proficiency_bonus",
+                "damage_vulnerabilities", "damage_resistances", "damage_immunities",
+                "condition_immunities", "senses", "passive_perception", "languages",
+                "telepathy", "challenge_rating", "xp", "legendary_intro",
+            )
+            row_values = [
+                json.dumps(values[key], ensure_ascii=False) if key in
+                {"speed", "abilities", "saving_throws", "skills"} else values[key]
+                for key in columns
+            ]
+            cr_eighths = int(cr_value(monster.challenge_rating) * 8)
+            connection.execute(
+                "INSERT INTO monsters (entry_id, dataset_id, page, group_name, variant, size, "
+                "creature_type, subtype, alignment, armor_class, hit_points, hit_points_text, "
+                "hit_dice, speed_json, speed_text, abilities_json, saving_throws_json, "
+                "skills_json, proficiency_bonus, damage_vulnerabilities, damage_resistances, "
+                "damage_immunities, condition_immunities, senses, passive_perception, "
+                "languages, telepathy, challenge_rating, cr_eighths, xp, legendary_intro) "
+                "VALUES (" + ",".join("?" for _ in range(31)) + ")",
+                (entry_ids[monster.local_key], dataset_id, *row_values[:-2], cr_eighths,
+                 *row_values[-2:]),
+            )
+            connection.executemany(
+                "INSERT INTO monster_abilities "
+                "(monster_id, section, name, description, display_order, cost) "
+                "VALUES (?, ?, ?, ?, ?, ?)",
+                [
+                    (entry_ids[monster.local_key], ability.section, ability.name,
+                     ability.description, ability.display_order, ability.cost)
+                    for ability in monster.abilities_and_actions
+                ],
             )
 
         for feat in sorted(pack.feats, key=lambda record: record.local_key):
@@ -696,7 +753,12 @@ def _fts_query(tokens: tuple[str, ...]) -> str:
     return " AND ".join(quoted)
 
 
-def _name_match_sql(tokens: tuple[str, ...]) -> str:
+def _name_match_sql(tokens: tuple[str, ...], *, monster: bool = False) -> str:
+    if monster:
+        return " AND ".join(
+            "(instr(e.normalized_name, ?) > 0 OR instr(lower(m.creature_type), ?) > 0)"
+            for _ in tokens
+        )
     return " AND ".join("instr(e.normalized_name, ?) > 0" for _ in tokens)
 
 
@@ -709,6 +771,7 @@ LEFT JOIN items AS i ON i.entry_id = e.id
 LEFT JOIN spells AS sp ON sp.entry_id = e.id
 LEFT JOIN feats AS f ON f.entry_id = e.id
 LEFT JOIN classes AS c ON c.entry_id = e.id
+LEFT JOIN monsters AS m ON m.entry_id = e.id
 """
 
 _SUMMARY_SELECT = """
@@ -734,6 +797,7 @@ SELECT
             || ' · ' || sp.school
         WHEN 'feat' THEN f.category
         WHEN 'class' THEN 'd' || c.hit_die || ' Hit Die'
+        WHEN 'monster' THEN 'CR ' || m.challenge_rating || ' · ' || m.size || ' ' || m.creature_type
     END AS subtitle
 """
 
@@ -754,10 +818,24 @@ def _search_clauses(query: "SearchQuery") -> tuple[str, list[object], str, list[
         where.append("(" + " OR ".join(source_terms) + ")")
         for source in query.sources:
             where_params.extend((source.dataset_id, source.source_key))
-    name_match = _name_match_sql(tokens)
+    if query.challenge_ratings:
+        from ..models.monster import cr_value
+        where.append(f"m.cr_eighths IN ({', '.join('?' for _ in query.challenge_ratings)})")
+        where_params.extend(int(cr_value(value) * 8) for value in query.challenge_ratings)
+    if query.creature_types:
+        where.append(f"m.creature_type IN ({', '.join('?' for _ in query.creature_types)})")
+        where_params.extend(query.creature_types)
+    if query.sizes:
+        where.append(f"m.size IN ({', '.join('?' for _ in query.sizes)})")
+        where_params.extend(query.sizes)
+    from ..search import SearchCategory
+
+    monster = query.category is SearchCategory.MONSTERS
+    name_match = _name_match_sql(tokens, monster=monster)
+    match_params = [part for token in tokens for part in ((token, token) if monster else (token,))]
     if tokens:
         where.append(f"({name_match})")
-        where_params.extend(tokens)
+        where_params.extend(match_params)
         if query.mode is SearchMode.ALL_TEXT:
             where[-1] = (
                 f"(({name_match}) OR e.id IN "
@@ -776,7 +854,7 @@ def _search_clauses(query: "SearchQuery") -> tuple[str, list[object], str, list[
             "e.normalized_name, e.dataset_id, e.local_key"
         )
         order_params.extend((normalized_query, _escaped_like(normalized_query)))
-        order_params.extend(tokens)
+        order_params.extend(match_params)
     return " AND ".join(where), where_params, order_sql, order_params
 
 
@@ -1025,7 +1103,11 @@ def search_grouped_entries(
 ) -> "SearchPage":
     """Page matching name groups before fetching their matching member records."""
 
-    from ..search import GroupedEntrySummary, SearchPage
+    from ..search import GroupedEntrySummary, SearchCategory, SearchPage
+
+    if query.category is SearchCategory.MONSTERS:
+        # Equal names can denote different stat blocks even within one source.
+        return search_entries(connection, query)
 
     where_sql, where_params, order_sql, order_params = _search_clauses(query)
     rank_sql = order_sql.split(", e.normalized_name", 1)[0] if order_params else "0"
@@ -1108,6 +1190,22 @@ def _edition_sort_key(value: str) -> tuple[object, ...]:
     if value.isdecimal():
         return (0, int(value), value)
     return (1, value.casefold(), value)
+
+
+def list_monster_facets(connection: sqlite3.Connection) -> dict[str, tuple[str, ...]]:
+    """Available CR, type, and size choices from installed stat blocks."""
+    cr_rows = connection.execute(
+        "SELECT DISTINCT challenge_rating, cr_eighths FROM monsters ORDER BY cr_eighths"
+    ).fetchall()
+    return {
+        "cr": tuple(str(row["challenge_rating"]) for row in cr_rows),
+        "type": tuple(str(row[0]) for row in connection.execute(
+            "SELECT DISTINCT creature_type FROM monsters ORDER BY creature_type COLLATE NOCASE"
+        )),
+        "size": tuple(str(row[0]) for row in connection.execute(
+            "SELECT DISTINCT size FROM monsters ORDER BY size COLLATE NOCASE"
+        )),
+    }
 
 
 def _entry_scope(category: "SearchCategory | None") -> tuple[str, list[object]]:
@@ -1274,12 +1372,26 @@ def get_entry_detail(
     ).fetchone()[0]
     kind = str(row["kind"])
     fields: dict[str, object] = {}
-    table = {"item": "items", "spell": "spells", "feat": "feats", "class": "classes"}[kind]
+    table = {
+        "item": "items", "spell": "spells", "feat": "feats",
+        "class": "classes", "monster": "monsters",
+    }[kind]
     category_row = connection.execute(
         f"SELECT * FROM {table} WHERE entry_id = ?", (entry_id,)
     ).fetchone()
     if category_row is not None:
         fields.update({key: category_row[key] for key in category_row.keys() if key != "entry_id"})
+    if kind == "monster":
+        for key in ("speed_json", "abilities_json", "saving_throws_json", "skills_json"):
+            fields[key.removesuffix("_json")] = json.loads(str(fields.pop(key)))
+        fields["edition"] = row["source_edition"]
+        fields["source_key"] = row["source_key"]
+        fields["abilities_and_actions"] = tuple(
+            dict(ability) for ability in connection.execute(
+                "SELECT section, name, description, display_order, cost FROM monster_abilities "
+                "WHERE monster_id = ? ORDER BY section, display_order", (entry_id,)
+            ).fetchall()
+        )
     sections = tuple(
         DetailSection(
             key=str(section["section_key"]),

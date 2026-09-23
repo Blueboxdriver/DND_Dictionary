@@ -7,7 +7,13 @@ from importlib import resources
 from pathlib import Path
 from typing import Iterator
 
-from .importer import DatasetError, ImportReport, import_dataset, load_dataset
+from .importer import (
+    DatasetError,
+    ImportReport,
+    import_dataset,
+    legacy_monsterless_hash,
+    load_dataset,
+)
 from .storage.database import Database
 
 BUNDLED_DATASET_DIRECTORIES = (
@@ -50,16 +56,20 @@ def install_bundled_datasets(database: Database) -> tuple[ImportReport, ...]:
 
     with database.connection() as connection:
         installed = {
-            str(row[0])
-            for row in connection.execute("SELECT dataset_id FROM datasets").fetchall()
+            str(row[0]): str(row[1])
+            for row in connection.execute(
+                "SELECT dataset_id, content_hash FROM datasets"
+            ).fetchall()
         }
 
     reports: list[ImportReport] = []
     with bundled_dataset_paths() as paths:
         for path in paths:
             loaded = load_dataset(path)
-            if loaded.dataset_id in installed:
-                continue
+            previous_hash = installed.get(loaded.dataset_id)
+            if previous_hash is not None:
+                if not loaded.pack.monsters or previous_hash != legacy_monsterless_hash(loaded):
+                    continue
             reports.append(import_dataset(database, loaded))
-            installed.add(loaded.dataset_id)
+            installed[loaded.dataset_id] = loaded.content_hash
     return tuple(reports)

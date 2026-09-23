@@ -12,6 +12,7 @@ from . import __version__
 from .app import FoundationApp
 from .bundled import install_bundled_datasets
 from .config import ApplicationPaths, Config, ConfigurationError, UIConfig, load_config
+from .images import format_image_diagnostics, run_image_test
 from .importer import (
     DatasetError,
     DatasetImportError,
@@ -42,6 +43,9 @@ def build_parser() -> argparse.ArgumentParser:
         help="image backend policy for the browser (default: config or auto)",
     )
     commands = parser.add_subparsers(dest="command")
+
+    commands.add_parser("image-diagnostics", help="report image support and fallback reason")
+    commands.add_parser("image-test", help="display and clear a generated terminal image")
 
     validate = commands.add_parser("validate", help="validate a local dataset pack")
     validate.add_argument("path", type=Path)
@@ -78,6 +82,24 @@ def initialize_application(
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+
+    if args.command in {"image-diagnostics", "image-test"}:
+        try:
+            config = load_config(ApplicationPaths.default())
+        except (ConfigurationError, OSError) as exc:
+            print(f"dndref: error: {exc}", file=sys.stderr)
+            return 2
+        mode = args.images or config.ui.images
+        if args.command == "image-diagnostics":
+            print(format_image_diagnostics(mode))
+            return 0
+        try:
+            return run_image_test(mode)
+        except (ImportError, OSError, RuntimeError, ValueError) as exc:
+            print(f"dndref: image test failed: {exc}", file=sys.stderr)
+            return 2
+        except KeyboardInterrupt:
+            return 130
 
     if args.command == "validate":
         try:

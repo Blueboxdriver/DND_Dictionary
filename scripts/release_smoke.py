@@ -195,9 +195,10 @@ def main() -> None:
             2,
             3,
             4,
+            5,
         ]
-        assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 3533
-        assert connection.execute("SELECT COUNT(*) FROM entry_search").fetchone()[0] == 3533
+        assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 4036
+        assert connection.execute("SELECT COUNT(*) FROM entry_search").fetchone()[0] == 4036
         assert not connection.execute("PRAGMA foreign_key_check").fetchall()
     service = SearchService(database)
     assert service.search(SearchQuery("items", "Longsword")).total_count
@@ -228,7 +229,7 @@ def main() -> None:
         assert older.initialize() == (1, 2, 3)
         import_dataset(older, load_dataset(fixture_path))
         upgraded = Database(older.path)
-        assert upgraded.initialize() == (4,)
+        assert upgraded.initialize() == (4, 5)
         assert upgraded.initialize() == ()
         assert SearchService(upgraded).search(SearchQuery("items", "Rapier")).total_count
         with upgraded.connection() as connection:

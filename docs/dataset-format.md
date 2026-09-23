@@ -9,6 +9,7 @@ dataset/
 ├── spells.json
 ├── feats.json
 ├── classes.json
+├── monsters.json (optional for older packs)
 └── images/
 ```
 
@@ -42,9 +43,11 @@ Example: `official-5etools-2024` is the dataset/provider; its manifest ruleset
 is `D&D 5.5e / 2024 rules`; a source can carry edition `2024` and title
 `Player's Handbook (2024)`.
 
-The four category models cover structured spell components, item weapon/armor
+The five category models cover structured spell components, item weapon/armor
 details, feat benefits, and class features, subclasses, and presentation-only
-progression columns and values. Prerequisites and rules text remain display
+progression columns and values. Monsters add core statistics and ordered
+trait/action sections; their source must have a canonical edition.
+Prerequisites and rules text remain display
 content; the models do not implement a rules engine.
 
 ## Import and storage
@@ -73,4 +76,5 @@ PYTHONPATH=src .venv/bin/python -m dndref.models.schema --output schemas
 ```
 
 This writes deterministic `manifest.schema.json`, `items.schema.json`,
-`spells.schema.json`, `feats.schema.json`, and `classes.schema.json` files.
+`spells.schema.json`, `feats.schema.json`, `classes.schema.json`, and
+`monsters.schema.json` files.

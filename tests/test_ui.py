@@ -715,6 +715,9 @@ async def test_artwork_toggle_resize_and_search_input_isolation(tmp_path: Path) 
         assert panel.display is True
         await pilot.press("?")
         assert panel.display is False
+        await pilot.resize_terminal(100, 30)
+        await pilot.resize_terminal(140, 40)
+        assert panel.display is False
         await pilot.press("escape")
         await pilot.pause(0.4)
         assert panel.display is True
@@ -747,6 +750,23 @@ async def test_stale_image_error_cannot_clear_current_artwork(tmp_path: Path) ->
         assert not app._current_image_request(old_name)
         app._handle_image_result(DecodedImage(object(), 1, 1, "stale"), old_name)
         assert panel.display is False
+
+
+@pytest.mark.asyncio
+async def test_exit_cleans_current_artwork_widget(tmp_path: Path) -> None:
+    app = BrowserApp(
+        image_fixture_database(tmp_path), config=Config(ui=UIConfig(images="off"))
+    )
+    app.image_adapter = fake_image_adapter()
+    cleaned: list[object] = []
+    app.image_adapter.cleanup_widget = cleaned.append  # type: ignore[method-assign]
+    async with app.run_test(size=(140, 40)) as pilot:
+        await pilot.pause(0.2)
+        await pilot.press("1")
+        await pilot.pause(0.6)
+        current = app._image_widget
+        assert current is not None
+    assert current in cleaned
 
 
 @pytest.mark.asyncio

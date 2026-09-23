@@ -251,6 +251,7 @@ def test_json_schema_generation_is_deterministic(tmp_path: Path) -> None:
         "spells.schema.json",
         "feats.schema.json",
         "classes.schema.json",
+        "monsters.schema.json",
     ]
     for first_path, second_path in zip(first_paths, second_paths, strict=True):
         assert first_path.read_bytes() == second_path.read_bytes()

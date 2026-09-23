@@ -28,11 +28,12 @@ needs a separate rights decision.
   reserved image panel.
 - [x] Separate `[images]` clean install: Pillow and textual-image import; no
   compatible graphics terminal was claimed by the headless check.
-- [ ] Kitty real-terminal rendering: unverified. Check image display, switching,
-  rapid navigation, overlays, resize, `i`, and exit cleanup in a visual Kitty
-  session.
+- [x] Kitty real-terminal rendering: verified in Milestone 14, including image
+  display, switching, scrolling, overlays, resize, `i`, and exit cleanup. See
+  [the verification record](image-rendering-verification.md).
 - [ ] Sixel real-terminal rendering: unverified. Check stationary panel,
-  scrolling, switching, resize, and exit cleanup in a Sixel terminal.
+  scrolling, switching, resize, and exit cleanup in a Sixel terminal. Output
+  generation and lifecycle code are implementation-tested in Milestone 14.
 - [x] README, example configuration, source provenance, release notes, and
   Linux/Python/terminal scope reviewed. Clean-environment checks used Python
   3.14; Python 3.12 and 3.13 were not separately exercised here.

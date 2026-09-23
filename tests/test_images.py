@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import time
+from io import StringIO
 from pathlib import Path
 from types import ModuleType, SimpleNamespace
 
 import pytest
 
-from dndref.cli import build_parser, initialize_application
+from dndref.cli import build_parser, initialize_application, main
 from dndref.config import ApplicationPaths, load_config
 from dndref.images import (
     DecodedImage,
@@ -14,8 +15,10 @@ from dndref.images import (
     ImageBackend,
     ImageLoader,
     ThumbnailCache,
+    _stable_kitty_widget,
     detect_capabilities,
     fit_aspect_ratio,
+    format_image_diagnostics,
 )
 
 
@@ -98,6 +101,14 @@ def test_auto_requires_proof_and_disables_ssh_or_multiplexer() -> None:
 
 
 def test_supported_backend_selection_and_missing_dependency() -> None:
+    auto_kitty = detect_capabilities(
+        "auto", environ={}, module_loader=fake_module, probe=lambda: terminal(tgp=True),
+    )
+    assert auto_kitty.backend is ImageBackend.KITTY
+    auto_sixel = detect_capabilities(
+        "auto", environ={}, module_loader=fake_module, probe=lambda: terminal(sixel=True),
+    )
+    assert auto_sixel.backend is ImageBackend.SIXEL
     capabilities = detect_capabilities(
         "kitty",
         environ={},
@@ -123,11 +134,81 @@ def test_supported_backend_selection_and_missing_dependency() -> None:
     assert forced.backend is ImageBackend.SIXEL
     assert "unverified" in forced.reason
 
+    unsupported = detect_capabilities(
+        "auto", environ={}, module_loader=fake_module, probe=lambda: terminal(),
+    )
+    assert unsupported.backend is ImageBackend.NONE
+
+
+def test_no_color_and_corrupt_probe_cannot_claim_kitty() -> None:
+    for mode in ("auto", "kitty"):
+        result = detect_capabilities(
+            mode, environ={"NO_COLOR": "1"}, module_loader=fake_module,
+            probe=lambda: terminal(tgp=True),
+        )
+        assert result.backend is ImageBackend.NONE
+        assert "NO_COLOR" in result.reason
+    sixel_fallback = detect_capabilities(
+        "auto", environ={"NO_COLOR": "1"}, module_loader=fake_module,
+        probe=lambda: terminal(tgp=True, sixel=True),
+    )
+    assert sixel_fallback.backend is ImageBackend.SIXEL
+    corrupt = detect_capabilities(
+        "auto", environ={}, module_loader=fake_module,
+        probe=lambda: SimpleNamespace(
+            tgp="false", sixel="true", cell_size=SimpleNamespace(width=10, height=20)
+        ),
+    )
+    assert corrupt.backend is ImageBackend.NONE
+    invalid_size = detect_capabilities(
+        "auto", environ={}, module_loader=fake_module,
+        probe=lambda: SimpleNamespace(
+            tgp=True, sixel=False, cell_size=SimpleNamespace(width=True, height=20)
+        ),
+    )
+    assert invalid_size.backend is ImageBackend.NONE
+
+
+def test_kitty_renderable_is_reused_across_unrelated_redraws() -> None:
+    class Base:
+        _Renderable = object
+
+        def __init_subclass__(cls, *, Renderable: type[object]) -> None:
+            cls._Renderable = Renderable
+
+        def __init__(self) -> None:
+            self._renderable: object | None = None
+            self.created = 0
+
+        def render(self) -> object:
+            self.created += 1
+            self._renderable = object()
+            return self._renderable
+
+    widget = _stable_kitty_widget(Base)()
+    first = widget.render()
+    assert widget.render() is first
+    assert widget.created == 1
+    widget._renderable = None
+    assert widget.render() is not first
+    assert widget.created == 2
+
+
+def test_dumb_auto_never_imports_or_probes() -> None:
+    def unexpected() -> ModuleType:
+        raise AssertionError("TERM=dumb attempted optional image work")
+
+    result = detect_capabilities(
+        "auto", environ={"TERM": "dumb"}, module_loader=unexpected, probe=unexpected,
+    )
+    assert result.backend is ImageBackend.NONE
+    assert result.reason == "TERM=dumb"
+
 
 def test_probe_timeout_is_bounded() -> None:
     started = time.monotonic()
     capabilities = detect_capabilities(
-        "kitty",
+        "auto",
         environ={},
         module_loader=fake_module,
         probe=lambda: time.sleep(2),
@@ -135,6 +216,51 @@ def test_probe_timeout_is_bounded() -> None:
     )
     assert time.monotonic() - started < 0.5
     assert "timed out" in capabilities.reason
+
+    forced = detect_capabilities(
+        "kitty", environ={}, module_loader=fake_module,
+        probe=lambda: time.sleep(2), timeout=0.05,
+    )
+    assert forced.backend is ImageBackend.KITTY
+    assert "unverified" in forced.reason
+
+
+def test_diagnostics_reports_selection_and_missing_dependencies(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path,
+) -> None:
+    from dndref import images
+
+    selected = detect_capabilities(
+        "kitty", environ={}, module_loader=fake_module, probe=lambda: terminal(tgp=True),
+    )
+    report = format_image_diagnostics(
+        "kitty", environ={"TERM": "xterm-kitty"}, capabilities=selected,
+    )
+    assert "Selected backend: kitty" in report
+    assert "TERM: xterm-kitty" in report
+    fallback = format_image_diagnostics("off", environ={"TERM": "dumb"})
+    assert "Selected backend: text" in fallback
+    assert "Reason: images disabled" in fallback
+
+    monkeypatch.setattr(images, "_installed", lambda _module: False)
+    missing = format_image_diagnostics("off", environ={"TERM": "dumb"})
+    assert "Pillow: missing" in missing
+    assert "textual-image: missing" in missing
+    assert "Sample decode: unavailable" in missing
+    monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path))
+    assert main(["--images", "off", "image-diagnostics"]) == 0
+    assert "Selected backend: text" in capsys.readouterr().out
+
+
+def test_image_test_failure_is_reported_without_a_traceback(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path,
+) -> None:
+    from dndref import cli
+
+    monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path))
+    monkeypatch.setattr(cli, "run_image_test", lambda _mode: (_ for _ in ()).throw(OSError("oops")))
+    assert main(["--images", "kitty", "image-test"]) == 2
+    assert "image test failed: oops" in capsys.readouterr().err
 
 
 def test_aspect_ratio_and_bounded_cache_cleanup() -> None:
@@ -196,3 +322,35 @@ def test_extensionless_staged_asset_uses_recorded_media_type(tmp_path: Path) -> 
     assert (loaded.width, loaded.height) == (24, 12)
     with pytest.raises(ValueError, match="media type"):
         ImageLoader().load(path, media_type="image/jpeg")
+
+
+def test_jpeg_webp_bad_media_type_and_unreadable(tmp_path: Path) -> None:
+    PIL = pytest.importorskip("PIL.Image")
+    loader = ImageLoader()
+    for format_name, media_type, suffix in (
+        ("JPEG", "image/jpeg", "jpg"), ("WEBP", "image/webp", "webp"),
+    ):
+        path = tmp_path / f"valid.{suffix}"
+        PIL.new("RGB", (20, 10), "red").save(path, format=format_name)
+        assert loader.load(path, media_type=media_type).width == 20
+        with pytest.raises(ValueError, match="media type"):
+            loader.load(path, media_type="image/gif")
+    unreadable = tmp_path / "unreadable.png"
+    unreadable.mkdir()
+    with pytest.raises(ValueError, match="decode|unreadable"):
+        loader.load(unreadable)
+
+
+def test_sixel_renderer_produces_a_bounded_control_string() -> None:
+    PIL = pytest.importorskip("PIL.Image")
+    sixel = pytest.importorskip("textual_image.renderable.sixel")
+    from rich.console import Console
+
+    output = StringIO()
+    renderable = sixel.Image(PIL.new("RGB", (16, 16), "red"))
+    Console(file=output, force_terminal=True, color_system="truecolor").print(renderable)
+    sequence = output.getvalue()
+    assert sequence.count("\x1bP") == 1
+    assert sequence.count("\x1b\\") == 1
+    assert len(sequence) < 1024
+    renderable.cleanup()

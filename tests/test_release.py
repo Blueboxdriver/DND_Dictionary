@@ -55,12 +55,12 @@ def test_first_run_installs_bundled_data_and_second_run_is_idempotent(tmp_path: 
         counts = connection.execute(
             "SELECT dataset_id, COUNT(*) FROM entries GROUP BY dataset_id ORDER BY dataset_id"
         ).fetchall()
-    assert counts == [("official-5etools-2024", 3177), ("srd-5-2-1", 356)]
+    assert counts == [("official-5etools-2024", 3680), ("srd-5-2-1", 356)]
 
     initialize_application(paths, image_mode="off")
     with sqlite3.connect(paths.database_path) as connection:
         assert connection.execute("SELECT COUNT(*) FROM datasets").fetchone()[0] == 2
-        assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 3533
+        assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 4036
 
     service = SearchService(Database(paths.database_path))
     results = service.search(SearchQuery("items", "Longsword"))

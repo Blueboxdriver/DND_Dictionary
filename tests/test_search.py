@@ -473,7 +473,7 @@ def test_upgrade_from_milestone_4_backfills_fts(tmp_path: Path) -> None:
         connection.commit()
 
     upgraded = Database(database_path)
-    assert upgraded.initialize() == (3, 4)
+    assert upgraded.initialize() == (3, 4, 5)
     assert search(upgraded, SearchQuery("items", "finesse", SearchMode.ALL_TEXT)).total_count == 1
     with upgraded.connection() as connection:
         assert connection.execute(

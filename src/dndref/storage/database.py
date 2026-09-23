@@ -124,13 +124,21 @@ def apply_migrations(
     for migration in migrations:
         if migration.version in applied:
             continue
+        rebuild_entries = "requires foreign_keys=off" in migration.sql
         try:
+            if rebuild_entries:
+                connection.execute("PRAGMA foreign_keys = OFF")
             connection.executescript(_migration_script(migration))
+            if rebuild_entries and connection.execute("PRAGMA foreign_key_check").fetchone():
+                raise MigrationError("entry-table migration left invalid foreign keys")
         except (OSError, sqlite3.Error) as exc:
             connection.rollback()
             raise MigrationError(
                 f"migration {migration.version:03d}_{migration.name} failed: {exc}"
             ) from exc
+        finally:
+            if rebuild_entries:
+                connection.execute("PRAGMA foreign_keys = ON")
         applied[migration.version] = migration.name
         applied_now.append(migration.version)
 

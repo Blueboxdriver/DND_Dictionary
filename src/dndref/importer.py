@@ -140,6 +140,7 @@ def _all_entries(pack: DatasetPack) -> tuple[tuple[str, Any], ...]:
         + [("spell", spell) for spell in pack.spells]
         + [("feat", feat) for feat in pack.feats]
         + [("class", character_class) for character_class in pack.classes]
+        + [("monster", monster) for monster in pack.monsters]
     )
 
 
@@ -160,6 +161,7 @@ def _validate_storage_invariants(pack: DatasetPack) -> None:
         ("spells.json", pack.spells),
         ("feats.json", pack.feats),
         ("classes.json", pack.classes),
+        ("monsters.json", pack.monsters),
     ):
         for entry in entries:
             sections = list(entry.sections)
@@ -231,13 +233,18 @@ def _entry_hash(kind: str, entry: Any) -> str:
     return hashlib.sha256(_canonical(payload).encode()).hexdigest()
 
 
-def _content_hash(pack: DatasetPack, assets: tuple[AssetRecord, ...]) -> str:
+def _content_hash(
+    pack: DatasetPack, assets: tuple[AssetRecord, ...], *, include_monsters: bool = True
+) -> str:
     raw = pack.model_dump(mode="json")
+    if not include_monsters:
+        raw.pop("monsters")
     raw["items"]["properties"] = sorted(
         raw["items"]["properties"], key=lambda item: item["key"]
     )
     raw["items"]["items"] = sorted(raw["items"]["items"], key=lambda item: item["local_key"])
-    for category in ("spells", "feats", "classes"):
+    for category in (("spells", "feats", "classes", "monsters") if include_monsters
+                     else ("spells", "feats", "classes")):
         raw[category] = sorted(raw[category], key=lambda item: item["local_key"])
     digest = hashlib.sha256(_canonical(raw).encode())
     for asset in assets:
@@ -246,6 +253,11 @@ def _content_hash(pack: DatasetPack, assets: tuple[AssetRecord, ...]) -> str:
         digest.update(b"\0")
         digest.update(asset.content_hash.encode())
     return digest.hexdigest()
+
+
+def legacy_monsterless_hash(loaded: LoadedDataset) -> str:
+    """Hash the pre-Milestone-15 shape to identify an unmodified bundled pack."""
+    return _content_hash(loaded.pack, loaded.assets, include_monsters=False)
 
 
 def load_dataset(path: Path | str) -> LoadedDataset:
@@ -258,7 +270,7 @@ def load_dataset(path: Path | str) -> LoadedDataset:
         if not file_path.is_file():
             raise DatasetLoadError(f"Missing required file: {name}")
 
-    from .models import CharacterClass, DatasetManifest, Feat, ItemCatalog, Spell
+    from .models import CharacterClass, DatasetManifest, Feat, ItemCatalog, Monster, Spell
 
     manifest = _validate_model("manifest.json", DatasetManifest, _read_json(files["manifest.json"]))
     items = _validate_model("items.json", ItemCatalog, _read_json(files["items.json"]))
@@ -271,12 +283,17 @@ def load_dataset(path: Path | str) -> LoadedDataset:
     classes = _validate_model(
         "classes.json", TypeAdapter(list[CharacterClass]), _read_json(files["classes.json"])
     )
+    monsters = _validate_model(
+        "monsters.json", TypeAdapter(list[Monster]),
+        _read_json(root / "monsters.json") if (root / "monsters.json").is_file() else [],
+    )
     pack = DatasetPack(
         manifest=manifest,
         items=items,
         spells=spells,
         feats=feats,
         classes=classes,
+        monsters=monsters,
     )
     try:
         validate_dataset(pack)

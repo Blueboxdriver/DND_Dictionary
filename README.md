@@ -1,7 +1,7 @@
 # D&D Reference
 
 D&D Reference (`dndref`) is a Linux-first, offline terminal browser for D&D
-items, spells, feats, classes, and subclasses. It searches local SQLite data and works in
+items, spells, feats, classes, subclasses, and monsters. It searches local SQLite data and works in
 text-only terminals. The first launch creates user directories and imports the
 two bundled datasets without a network connection.
 
@@ -28,11 +28,25 @@ python -m pip install 'dist/dnd_reference-0.1.0-py3-none-any.whl[images]'
 ```
 
 The base install includes full text browsing. With the image extra, `auto`
-enables Kitty or Sixel artwork only when terminal capability is detected.
-Unsupported terminals, missing artwork, and image failures fall back to text
-without reserving an artwork panel. Use `dndref --images off` for explicit text
-mode, or `--images kitty` / `--images sixel` to request a backend. Protocol
-rendering still needs verification in a compatible real terminal.
+uses a terminal capability query to select Kitty graphics or Sixel. `TERM` and
+Kitty environment variables are diagnostic hints, not proof by themselves.
+Unsupported terminals, missing dependencies or artwork, invalid image files,
+and image failures fall back to text without reserving an artwork panel.
+`TERM=dumb` and `--images off` do not probe. Use `--images kitty` or
+`--images sixel` to request a backend when probing is inconclusive; `NO_COLOR`
+still disables Kitty graphics because its image placeholders require color.
+The `i` key clears visible artwork immediately and restores the current
+selection when pressed again. It cannot override `off`.
+
+Run `dndref image-diagnostics` for a concise capability and dependency report,
+or `dndref image-test` in an interactive terminal to display and clear a
+generated sample outside the full browser. Both commands accept a preceding
+`--images` override. If Kitty is detected but `NO_COLOR` appears in the report,
+run the app with `env -u NO_COLOR dndref`. Kitty 0.48.1 was visually verified
+on Ubuntu 26.04.1; the Sixel output path is implementation-tested but has not
+been visually verified in a Sixel-capable terminal. See
+[the verification record](docs/image-rendering-verification.md) for the test
+matrix and remaining limits.
 
 ## Browse
 
@@ -43,9 +57,10 @@ main keyboard controls:
 | --- | --- |
 | `/`, `Ctrl+F` | Focus search |
 | `F2` | Toggle Names / All text search |
-| `1`–`5` | Items / Spells / Feats / Classes / Subclasses |
+| `1`–`6` | Items / Spells / Feats / Classes / Subclasses / Monsters |
 | `e`, `s` | Edition / source filter |
 | `f` | Parent class filter while browsing Subclasses |
+| `c`, `t`, `z` | CR / creature type / size filter while browsing Monsters |
 | `p` | Filter presets |
 | `g`, `v` | Toggle alternate-source grouping / choose a variant |
 | `b` | Sourcebook browser |
@@ -76,6 +91,18 @@ same-edition subclasses from every installed sourcebook, even when the class
 browser has a source filter. Standalone Subclasses browsing applies its own
 edition, source, and parent class filters. Cross-edition compatibility is not
 assumed.
+
+Monsters show source, edition, page, size, type, AC, HP, multiple speeds, six
+ability scores, defenses, senses, languages, CR, and ordered abilities and
+actions where the source provides them. Sparse stat blocks omit empty sections.
+The Monsters list shows CR and type; narrow layouts keep the stat block
+scrollable and split abilities into two short rows. Edition, source, exact CR,
+creature type, and size filters combine. CR choices follow numeric order, so
+fractional values such as `1/8` and `1/2` stay distinct. Names search matches
+monster names and creature type; All text also searches languages, traits, and
+actions. Same named monster stat blocks stay separate, including across
+editions. The existing image pane shows monster artwork when a local pack
+provides an image; the packaged monsters do not require artwork.
 
 ## Configuration
 
@@ -111,6 +138,8 @@ manifest warns that inclusion does not assert redistribution rights. See
 [SRD provenance](docs/milestone-8.md) and
 [community-data provenance](docs/milestone-9-10.md). About/Data (`F3`) shows
 installed metadata. No content or artwork is fetched at runtime.
+The Monster Manual (2025) stat blocks are included in the separate official
+reference pack. See [Milestone 15 provenance](docs/milestone-15.md).
 
 Additional local packs can be checked and imported with:
 

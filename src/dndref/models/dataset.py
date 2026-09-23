@@ -54,6 +54,7 @@ class DatasetPack(ContractModel):
     spells: list["Spell"] = Field(default_factory=list)
     feats: list["Feat"] = Field(default_factory=list)
     classes: list["CharacterClass"] = Field(default_factory=list)
+    monsters: list["Monster"] = Field(default_factory=list)
 
 
 class DatasetValidationError(ValueError):
@@ -85,6 +86,7 @@ def validate_dataset(pack: DatasetPack) -> DatasetPack:
         "spells.json": pack.spells,
         "feats.json": pack.feats,
         "classes.json": pack.classes,
+        "monsters.json": pack.monsters,
     }
     all_keys: dict[str, str] = {}
     category_keys: dict[str, set[str]] = {}
@@ -109,6 +111,13 @@ def validate_dataset(pack: DatasetPack) -> DatasetPack:
             errors.append(
                 f"items.json.properties[{index}].source: unknown source "
                 f"'{property_definition.source}'"
+            )
+
+    for index, monster in enumerate(pack.monsters):
+        edition = source_editions.get(monster.source)
+        if edition is None or edition in {"2014 rules", "2024 rules"}:
+            errors.append(
+                f"monsters.json[{index}].source: monster source requires a canonical edition"
             )
 
     property_keys = {property_definition.key for property_definition in pack.items.properties}
@@ -168,6 +177,7 @@ def validate_dataset(pack: DatasetPack) -> DatasetPack:
 from .character_class import CharacterClass  # noqa: E402  (type-only cycle resolution)
 from .feat import Feat  # noqa: E402
 from .item import ItemCatalog  # noqa: E402
+from .monster import Monster  # noqa: E402
 from .spell import Spell  # noqa: E402
 
 DatasetPack.model_rebuild()

@@ -8,13 +8,17 @@ optional dependency.
 from __future__ import annotations
 
 import importlib
+import importlib.util
 import os
+import sys
+import tempfile
 import threading
 import time
 import warnings
 from collections import OrderedDict
 from dataclasses import dataclass
 from enum import StrEnum
+from functools import lru_cache
 from pathlib import Path
 from types import ModuleType
 from typing import Any, Callable, Mapping
@@ -106,37 +110,71 @@ def _run_bounded(function: Callable[[], Any], timeout: float) -> tuple[Any | Non
 def _backend_class(module: ModuleType, backend: ImageBackend) -> type[Any] | None:
     name = "TGPImage" if backend is ImageBackend.KITTY else "SixelImage"
     candidate = getattr(module, name, None)
-    return candidate if isinstance(candidate, type) else None
+    if not isinstance(candidate, type):
+        return None
+    if backend is ImageBackend.KITTY and hasattr(candidate, "_Renderable"):
+        return _stable_kitty_widget(candidate)
+    return candidate
+
+
+@lru_cache(maxsize=4)
+def _stable_kitty_widget(base: type[Any]) -> type[Any]:
+    # textual-image recreates and deletes its Kitty renderable on every render.
+    # Textual can then decide the placeholder cells have not changed and skip
+    # repainting them, leaving a blank pane after an unrelated list redraw.
+    # This UI always replaces the widget when its image or dimensions change.
+    class StableKittyImage(base, Renderable=base._Renderable):  # type: ignore[misc, valid-type]
+        def render(self) -> Any:
+            if self._renderable is not None:
+                return self._renderable
+            return super().render()
+
+    return StableKittyImage
 
 
 def _capability_from_probe(
     requested: str,
     module: ModuleType,
     terminal: Any,
+    environment: Mapping[str, str],
 ) -> ImageCapabilities:
     cell_size = getattr(terminal, "cell_size", None)
     cell_width = getattr(cell_size, "width", 0)
     cell_height = getattr(cell_size, "height", 0)
     if (
-        not isinstance(cell_width, int)
-        or not isinstance(cell_height, int)
-        or min(cell_width, cell_height) <= 0
+        type(cell_width) is not int
+        or type(cell_height) is not int
+        or not (1 <= cell_width <= 1000 and 1 <= cell_height <= 1000)
     ):
         return ImageCapabilities(
             requested, ImageBackend.NONE, False, "terminal cell dimensions are unusable"
         )
 
+    kitty = getattr(terminal, "tgp", False) is True
+    sixel = getattr(terminal, "sixel", False) is True
+    # Kitty's virtual placements use an RGB foreground color to identify image
+    # placeholders. Rich/Textual suppress that color when NO_COLOR is present.
+    kitty_usable = kitty and "NO_COLOR" not in environment
     if requested == "auto":
-        if bool(getattr(terminal, "tgp", False)):
+        if kitty_usable:
             backend = ImageBackend.KITTY
-        elif bool(getattr(terminal, "sixel", False)):
+        elif sixel:
             backend = ImageBackend.SIXEL
         else:
+            reason = (
+                "NO_COLOR prevents Kitty image placeholders from rendering"
+                if kitty else "terminal did not prove Kitty or Sixel support"
+            )
             return ImageCapabilities(
-                requested, ImageBackend.NONE, False, "terminal did not prove Kitty or Sixel support"
+                requested, ImageBackend.NONE, False, reason
             )
     else:
         backend = ImageBackend(requested)
+    if backend is ImageBackend.KITTY and "NO_COLOR" in environment:
+        return ImageCapabilities(
+            requested, ImageBackend.NONE, False,
+            "NO_COLOR prevents Kitty image placeholders from rendering",
+        )
 
     if _backend_class(module, backend) is None:
         return ImageCapabilities(
@@ -145,7 +183,7 @@ def _capability_from_probe(
             False,
             f"textual-image does not expose its {backend.value} widget",
         )
-    proven = bool(getattr(terminal, "tgp" if backend is ImageBackend.KITTY else "sixel", False))
+    proven = kitty if backend is ImageBackend.KITTY else sixel
     reason = (
         f"{backend.value} capability confirmed" if proven
         else f"{backend.value} selected by override; support unverified"
@@ -174,6 +212,13 @@ def _detect_capabilities(
     environment = os.environ if environ is None else environ
     if mode == "off":
         return ImageCapabilities(mode, ImageBackend.NONE, False, "images disabled"), None
+    if mode == "auto" and environment.get("TERM") == "dumb":
+        return ImageCapabilities(mode, ImageBackend.NONE, False, "TERM=dumb"), None
+    if mode == "kitty" and "NO_COLOR" in environment:
+        return ImageCapabilities(
+            mode, ImageBackend.NONE, False,
+            "NO_COLOR prevents Kitty image placeholders from rendering",
+        ), None
     if mode == "auto" and _multiplexed_or_ssh(environment):
         return (
             ImageCapabilities(
@@ -184,24 +229,42 @@ def _detect_capabilities(
             ),
             None,
         )
-    def load_and_probe() -> tuple[ModuleType, Any]:
-        return module_loader(), probe()
-
-    loaded, timed_out = _run_bounded(load_and_probe, timeout)
+    module, timed_out = _run_bounded(module_loader, timeout)
     if timed_out:
         return (
-            ImageCapabilities(mode, ImageBackend.NONE, False, "terminal image probe timed out"),
+            ImageCapabilities(mode, ImageBackend.NONE, False, "image dependency load timed out"),
             None,
         )
-    if loaded is None:
+    if module is None:
         return (
             ImageCapabilities(
-                mode, ImageBackend.NONE, False, "optional image dependency or probe unavailable"
+                mode, ImageBackend.NONE, False, "optional image dependency unavailable"
             ),
             None,
         )
-    module, terminal = loaded
-    capabilities = _capability_from_probe(mode, module, terminal)
+    terminal, timed_out = _run_bounded(probe, timeout)
+    if timed_out or terminal is None:
+        if mode == "auto":
+            reason = (
+                "terminal image probe timed out" if timed_out else "terminal image probe failed"
+            )
+            return ImageCapabilities(mode, ImageBackend.NONE, False, reason), None
+        backend = ImageBackend(mode)
+        if _backend_class(module, backend) is None:
+            return ImageCapabilities(
+                mode, ImageBackend.NONE, False,
+                f"textual-image does not expose its {backend.value} widget",
+            ), None
+        return ImageCapabilities(
+            mode, backend, True, f"{mode} selected by override; support unverified"
+        ), module
+    try:
+        capabilities = _capability_from_probe(mode, module, terminal, environment)
+    except (AttributeError, TypeError, ValueError):
+        return (
+            ImageCapabilities(mode, ImageBackend.NONE, False, "invalid terminal probe result"),
+            None,
+        )
     return capabilities, module if capabilities.available else None
 
 
@@ -223,6 +286,116 @@ def detect_capabilities(
         timeout=timeout,
     )
     return capabilities
+
+
+def _installed(module: str) -> bool:
+    try:
+        return importlib.util.find_spec(module) is not None
+    except (ImportError, ValueError):
+        return False
+
+
+def _sample_decode() -> str:
+    if not _installed("PIL"):
+        return "unavailable (Pillow missing)"
+    try:
+        from PIL import Image
+
+        with tempfile.TemporaryDirectory(prefix="dndref-image-") as directory:
+            path = Path(directory) / "sample.png"
+            Image.new("RGB", (16, 16), "#b85731").save(path)
+            loader = ImageLoader()
+            try:
+                loader.load(path, media_type="image/png")
+            finally:
+                loader.close()
+    except (OSError, RuntimeError, ValueError) as exc:
+        return f"failed ({type(exc).__name__})"
+    return "passed (generated PNG)"
+
+
+def format_image_diagnostics(
+    mode: str = "auto", *, environ: Mapping[str, str] | None = None,
+    capabilities: ImageCapabilities | None = None,
+) -> str:
+    """A concise, safe-to-share report of the current image decision."""
+    environment = os.environ if environ is None else environ
+    selected = capabilities or detect_capabilities(mode, environ=environment)
+    term = environment.get("TERM", "unset")
+    identity = "Kitty" if term == "xterm-kitty" else (
+        "unknown" if term in {"unset", "dumb"} else term
+    )
+    signals = [
+        f"TTY={'yes' if sys.stdin.isatty() and sys.stdout.isatty() else 'no'}",
+        f"Kitty window={'yes' if 'KITTY_WINDOW_ID' in environment else 'no'}",
+        f"SSH/multiplexer={'yes' if _multiplexed_or_ssh(environment) else 'no'}",
+        f"NO_COLOR={'yes' if 'NO_COLOR' in environment else 'no'}",
+    ]
+    kitty = "not probed"
+    sixel = "not probed"
+    if mode != "off" and _installed("textual_image") and term != "dumb":
+        terminal, timed_out = _run_bounded(_terminal_probe, IMAGE_PROBE_TIMEOUT)
+        if terminal is not None and not timed_out:
+            kitty = "supported" if getattr(terminal, "tgp", False) is True else "not detected"
+            sixel = "supported" if getattr(terminal, "sixel", False) is True else "not detected"
+        elif timed_out:
+            kitty = sixel = "probe timed out"
+        else:
+            kitty = sixel = "probe failed"
+    if kitty == "supported" and "NO_COLOR" in environment:
+        kitty = "detected; disabled by NO_COLOR"
+    lines = [
+        f"Image mode: {mode}",
+        f"TERM: {term}",
+        f"Terminal: {identity}",
+        f"Signals: {', '.join(signals)}",
+        f"Pillow: {'available' if _installed('PIL') else 'missing'}",
+        f"textual-image: {'available' if _installed('textual_image') else 'missing'}",
+        f"Kitty protocol: {kitty}",
+        f"Sixel protocol: {sixel}",
+        f"Selected backend: {selected.backend.value if selected.available else 'text'}",
+        f"Sample decode: {_sample_decode()}",
+    ]
+    if not selected.available:
+        lines.append(f"Reason: {selected.reason}")
+    return "\n".join(lines)
+
+
+def run_image_test(mode: str = "auto") -> int:
+    """Render a generated image outside Textual, then clear its terminal state."""
+    if not sys.stdin.isatty() or not sys.stdout.isatty():
+        print("image-test requires an interactive terminal", file=sys.stderr)
+        return 2
+    capabilities = detect_capabilities(mode)
+    if not capabilities.available:
+        print(f"No graphics backend: {capabilities.reason}")
+        return 2
+    from PIL import Image, ImageDraw
+    from rich.console import Console
+
+    image = Image.new("RGB", (160, 96), "#285f9b")
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((8, 8, 151, 87), outline="white", width=3)
+    draw.text((65, 40), "OK", fill="white")
+    module = "tgp" if capabilities.backend is ImageBackend.KITTY else "sixel"
+    renderable_class = importlib.import_module(f"textual_image.renderable.{module}").Image
+    renderable = renderable_class(image)
+    console = Console(force_terminal=True, color_system="truecolor")
+    try:
+        with console.screen():
+            try:
+                console.print(
+                    f"Backend: {capabilities.backend.value}. Confirm the blue image appears."
+                )
+                console.print(renderable)
+                input("Press Enter to clear and exit: ")
+            finally:
+                cleanup = getattr(renderable, "cleanup", None)
+                if callable(cleanup):
+                    cleanup()
+    finally:
+        image.close()
+    return 0
 
 
 class ImageAdapter:
@@ -393,4 +566,6 @@ __all__ = [
     "ThumbnailCache",
     "detect_capabilities",
     "fit_aspect_ratio",
+    "format_image_diagnostics",
+    "run_image_test",
 ]

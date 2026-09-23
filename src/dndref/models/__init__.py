@@ -42,6 +42,7 @@ from .item import (
     ItemRarity,
     WeaponDetails,
 )
+from .monster import Monster, MonsterAbility, cr_value
 from .spell import MagicSchool, Spell, SpellComponents
 
 __all__ = [
@@ -69,6 +70,8 @@ __all__ = [
     "ItemRarity",
     "LocalKey",
     "MagicSchool",
+    "Monster",
+    "MonsterAbility",
     "ProgressionColumn",
     "ProgressionLevel",
     "SourceKey",
@@ -80,6 +83,7 @@ __all__ = [
     "SubclassFeature",
     "WeaponDetails",
     "display_edition",
+    "cr_value",
     "split_reference",
     "validate_dataset",
 ]

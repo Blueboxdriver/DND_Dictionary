@@ -119,7 +119,9 @@ Manual terminal matrix:
 | SSH or tmux/screen | `--images auto` | all requested sizes | Auto text fallback covered |
 | Any terminal | `--images off` | all requested sizes and below minimum | Text path covered |
 
-No compatible Kitty or Sixel terminal was available for this checkout. Do not
+This matrix records the Milestone 11 state. Milestone 14 later visually
+verified Kitty; see [the current verification record](image-rendering-verification.md).
+No compatible Kitty or Sixel terminal was available for the Milestone 11 run. Do not
 treat forced environment variables or pilot tests as protocol verification.
 The `TERM=dumb` PTY check returned the no-image backend for both `auto` and
 `off`; headless tests covered text layout at all requested sizes.

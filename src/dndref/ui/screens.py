@@ -399,9 +399,10 @@ class HelpScreen(ModalScreen[None]):
 
 `/` or `Ctrl+F`  Focus search  
 `F2`  Toggle Names / All text  
-`1`–`5`  Select Items / Spells / Feats / Classes / Subclasses
+`1`–`6`  Select Items / Spells / Feats / Classes / Subclasses / Monsters
 `e` Edition filter · `s` Source filter
 `f` Parent class filter in Subclasses
+`c` CR · `t` creature type · `z` size filter in Monsters
 `p` Filter presets · `b` Browse sources
 `g` Group alternates on/off · `v` Select source variant
 `i` Toggle artwork when available

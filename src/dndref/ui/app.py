@@ -33,6 +33,7 @@ from ..search import (
 )
 from ..storage.database import Database
 from .class_detail import ClassDetailView, render_class_detail, render_subclass_detail
+from .monster_detail import render_monster_detail
 from .screens import AboutScreen, ChoiceScreen, FilterScreen, HelpScreen, SourceBrowserScreen
 from .widgets import ImagePanel, ResultRow
 
@@ -43,6 +44,9 @@ class CategoryState:
     editions: tuple[str, ...] = ()
     sources: tuple[SourceIdentity, ...] = ()
     parent_class: str | None = None
+    challenge_rating: str | None = None
+    creature_type: str | None = None
+    size: str | None = None
     filters_initialized: bool = False
     selected_id: str | None = None
     list_index: int = 0
@@ -205,6 +209,14 @@ class BrowserApp(App[None]):
         text-style: dim;
     }
 
+    Screen.-stacked ResultRow {
+        height: 3;
+    }
+
+    Screen.-stacked .result-source {
+        display: none;
+    }
+
     #result-message {
         height: auto;
         padding: 1;
@@ -320,6 +332,7 @@ class BrowserApp(App[None]):
         SearchCategory.FEATS,
         SearchCategory.CLASSES,
         SearchCategory.SUBCLASSES,
+        SearchCategory.MONSTERS,
     )
     CATEGORY_LABELS = {
         SearchCategory.ITEMS: "Items",
@@ -327,6 +340,7 @@ class BrowserApp(App[None]):
         SearchCategory.FEATS: "Feats",
         SearchCategory.CLASSES: "Classes",
         SearchCategory.SUBCLASSES: "Subclasses",
+        SearchCategory.MONSTERS: "Monsters",
     }
 
     def __init__(
@@ -413,7 +427,7 @@ class BrowserApp(App[None]):
             id="too-small",
         )
         yield Static(
-            "/ Search   F2 Mode   1–5 Category   Tab Focus   ? Help   q Quit",
+            "/ Search   F2 Mode   1–6 Category   Tab Focus   ? Help   q Quit",
             id="footer",
         )
 
@@ -428,6 +442,9 @@ class BrowserApp(App[None]):
         self._queue_search()
 
     def on_resize(self, event: events.Resize) -> None:
+        # A virtual Kitty placement and a Sixel bitmap can outlive the cells
+        # that owned them. Invalidate in-flight loads before moving the pane.
+        self._clear_image()
         self._update_layout(event.size.width, event.size.height)
 
     def on_unmount(self) -> None:
@@ -530,7 +547,7 @@ class BrowserApp(App[None]):
             event.stop()
             self.action_show_about()
             return
-        if event.character in {"1", "2", "3", "4", "5"}:
+        if event.character in {"1", "2", "3", "4", "5", "6"}:
             event.stop()
             self._switch_category(self.CATEGORIES[int(event.character) - 1])
             return
@@ -549,6 +566,10 @@ class BrowserApp(App[None]):
         if event.character == "f" and self.category is SearchCategory.SUBCLASSES:
             event.stop()
             self.action_parent_class()
+            return
+        if event.character in {"c", "t", "z"} and self.category is SearchCategory.MONSTERS:
+            event.stop()
+            self.action_monster_filter({"c": "cr", "t": "type", "z": "size"}[event.character])
             return
         if event.character == "g":
             event.stop()
@@ -722,6 +743,36 @@ class BrowserApp(App[None]):
             self._restore_current_image()
             return
         self.state.parent_class = self._parent_options[index] if index else None
+        self._update_filter_status()
+        self._apply_filter_change()
+
+    def action_monster_filter(self, kind: str) -> None:
+        if self.layout_mode == "compact":
+            return
+        try:
+            values = self.search_service.list_monster_facets()[kind]
+        except Exception:
+            self._show_error("Monster filter options are unavailable.")
+            return
+        self._monster_filter_kind = kind
+        self._monster_filter_values = ("All", *values)
+        current = {"cr": self.state.challenge_rating, "type": self.state.creature_type,
+                   "size": self.state.size}[kind]
+        selected = self._monster_filter_values.index(current) if current in values else 0
+        self._clear_image()
+        self.push_screen(
+            ChoiceScreen({"cr": "Challenge rating", "type": "Creature type", "size": "Size"}[kind],
+                         self._monster_filter_values, selected),
+            self._monster_filter_selected,
+        )
+
+    def _monster_filter_selected(self, index: int | None) -> None:
+        if index is None:
+            self._restore_current_image()
+            return
+        value = self._monster_filter_values[index] if index else None
+        setattr(self.state, {"cr": "challenge_rating", "type": "creature_type",
+                             "size": "size"}[self._monster_filter_kind], value)
         self._update_filter_status()
         self._apply_filter_change()
 
@@ -934,6 +985,10 @@ class BrowserApp(App[None]):
         heading = "Results"
         if self.category is SearchCategory.SUBCLASSES:
             heading = "Subclasses · f Class: " + (self.state.parent_class or "All")
+        elif self.category is SearchCategory.MONSTERS:
+            active = [f"CR {self.state.challenge_rating}" if self.state.challenge_rating else "",
+                      self.state.creature_type or "", self.state.size or ""]
+            heading = "Monsters" + (" · " + " / ".join(filter(None, active)) if any(active) else "")
         self._query_widget("#list-heading", Label).update(heading)
         if not self.state.editions:
             edition_label = "All Editions"
@@ -969,7 +1024,7 @@ class BrowserApp(App[None]):
 
     def _update_group_status(self) -> None:
         self._query_widget("#footer", Static).update(
-            "/ Search   F2 Mode   1–5 Category   "
+            "/ Search   F2 Mode   1–6 Category   "
             f"g Groups: {'On' if self.group_alternate_sources else 'Off'}   ? Help   q Quit"
         )
 
@@ -1036,6 +1091,9 @@ class BrowserApp(App[None]):
             editions=self.state.editions,
             sources=self.state.sources,
             parent_class=self.state.parent_class,
+            challenge_ratings=(self.state.challenge_rating,) if self.state.challenge_rating else (),
+            creature_types=(self.state.creature_type,) if self.state.creature_type else (),
+            sizes=(self.state.size,) if self.state.size else (),
         )
         self.run_worker(
             lambda: self._search_page(query),
@@ -1060,6 +1118,9 @@ class BrowserApp(App[None]):
             editions=self.state.editions,
             sources=self.state.sources,
             parent_class=self.state.parent_class,
+            challenge_ratings=(self.state.challenge_rating,) if self.state.challenge_rating else (),
+            creature_types=(self.state.creature_type,) if self.state.creature_type else (),
+            sizes=(self.state.size,) if self.state.size else (),
         )
         self.run_worker(
             lambda: self._search_page(query),
@@ -1325,6 +1386,7 @@ class BrowserApp(App[None]):
         return (
             self._artwork_visible and self.layout_mode == "split"
             and self.size.width >= 120 and self.size.height >= 30
+            and self.screen is self.screen_stack[0]
         )
 
     def action_toggle_artwork(self) -> None:
@@ -1432,6 +1494,11 @@ class BrowserApp(App[None]):
             self.layout_mode = "split"
         self.remove_class("-compact", "-stacked", "-split")
         self.add_class(f"-{self.layout_mode}")
+        for category in self.CATEGORIES:
+            label = self.CATEGORY_LABELS[category]
+            if width < 80 and category is SearchCategory.SUBCLASSES:
+                label = "Subcls"
+            self._query_widget(f"#tab-{category.value}", Button).label = label
         self._update_filter_status()
         if not self._image_layout_available():
             self._clear_image()
@@ -1485,6 +1552,8 @@ def render_detail(detail: EntryDetail) -> str:
         return render_class_detail(detail)
     if detail.category is SearchCategory.SUBCLASSES:
         return render_subclass_detail(detail)
+    if detail.category is SearchCategory.MONSTERS:
+        return render_monster_detail(detail)
     output = [
         f"# {detail.name}",
         f"*{detail.category.value.title()} · {detail.dataset_title} · {detail.source_label}*\n",

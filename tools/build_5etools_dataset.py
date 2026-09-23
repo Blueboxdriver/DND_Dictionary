@@ -1415,7 +1415,9 @@ def main():
         for name, raw in files.items():
             if (args.output / name).read_bytes() != raw:
                 raise ValueError(f"Generated output differs: {name}")
+        # Monsters are generated separately from the same pinned snapshot.
         actual = {p.relative_to(args.output).as_posix() for p in args.output.rglob("*.json")}
+        actual.discard("monsters.json")
         if actual != set(files):
             raise ValueError(
                 f"Unexpected/missing output files: {actual.symmetric_difference(files)}"

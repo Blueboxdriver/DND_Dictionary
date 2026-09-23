@@ -3,6 +3,11 @@
 Initial Linux-first local release. Install the wheel with Python 3.12+ and run
 `dndref`; first launch imports the bundled packs offline.
 
+Milestone 15 development adds a Monsters category with XMM stat blocks,
+numeric CR filtering, ordered abilities, and monster search. See
+[Milestone 15](milestone-15.md). The checklist below describes the original
+0.1.0 verification state and is not a claim of a new public release.
+
 - Browse items, spells, feats, and classes with full class progression details.
 - Search names or full text. Filter by edition and source, apply presets, browse
   sourcebooks, and switch between alternate source entries.
@@ -18,9 +23,10 @@ Initial Linux-first local release. Install the wheel with Python 3.12+ and run
 
 ## Verification limits
 
-Real Kitty and Sixel protocol rendering has not been verified in a compatible
-terminal. Headless layout, image fallback, and optional-library imports are
-tested separately and do not prove protocol output. The release is Linux-first;
+At the time of this release, real Kitty and Sixel rendering was unverified.
+Milestone 14 later verified Kitty 0.48.1 visually; Sixel remains visually
+unverified. See [the verification record](image-rendering-verification.md).
+The release is Linux-first;
 Windows and macOS have not been verified. Clean release checks ran on Python
 3.14; Python 3.12 and 3.13 were not separately tested here. The
 official-content pack retains

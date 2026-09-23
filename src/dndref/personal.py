@@ -36,6 +36,36 @@ class PersonalDataService:
     def __init__(self, database: Database) -> None:
         self.database = database
 
+    def record_search(self, query: str, limit: int = 25) -> None:
+        cleaned = " ".join(query.split())
+        if not cleaned:
+            return
+        with self.database.connection() as db:
+            db.execute("DELETE FROM user_recent_searches WHERE lower(query)=lower(?)", (cleaned,))
+            db.execute(
+                "INSERT INTO user_recent_searches(query,used_at) VALUES (?,CURRENT_TIMESTAMP)",
+                (cleaned,),
+            )
+            db.execute(
+                "DELETE FROM user_recent_searches WHERE query NOT IN "
+                "(SELECT query FROM user_recent_searches ORDER BY search_id DESC LIMIT ?)",
+                (max(1, limit),),
+            )
+            db.commit()
+
+    def recent_searches(self, limit: int = 25) -> tuple[str, ...]:
+        with self.database.connection() as db:
+            rows = db.execute(
+                "SELECT query FROM user_recent_searches ORDER BY search_id DESC LIMIT ?",
+                (max(1, limit),),
+            ).fetchall()
+            return tuple(str(row[0]) for row in rows)
+
+    def clear_recent_searches(self) -> None:
+        with self.database.connection() as db:
+            db.execute("DELETE FROM user_recent_searches")
+            db.commit()
+
     @staticmethod
     def _metadata(detail: EntryDetail) -> tuple[str, str | None, str, str | None, str]:
         return (

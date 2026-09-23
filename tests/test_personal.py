@@ -37,14 +37,14 @@ def test_migration_005_upgrade_and_fresh_schema(tmp_path: Path) -> None:
     with old_database.connection() as db:
         before = db.execute("SELECT COUNT(*) FROM entries").fetchone()[0]
     database = Database(database_path)
-    assert database.initialize() == (6,)
+    assert database.initialize() == (6, 7)
     with database.connection() as db:
         assert db.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == before
         assert (
             db.execute(
                 "SELECT version FROM schema_migrations ORDER BY version DESC LIMIT 1"
             ).fetchone()[0]
-            == 6
+            == 7
         )
         assert db.execute("PRAGMA foreign_key_check").fetchall() == []
         tables = {row[0] for row in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
@@ -164,3 +164,23 @@ def test_same_named_entry_in_another_dataset_keeps_separate_favorite_identity(
     assert len(favorites) == 1
     assert favorites[0].identity == "pack-2014:spell/spark"
     assert favorites[0].edition == "2014"
+
+
+def test_recent_search_history_is_local_bounded_and_deduplicated(tmp_path: Path) -> None:
+    database, dataset = _initialized(tmp_path)
+    service = PersonalDataService(database)
+    service.record_search("  fireball   ")
+    service.record_search("dragon")
+    service.record_search("FIREBALL")
+    service.record_search("   ")
+    assert service.recent_searches()[:2] == ("FIREBALL", "dragon")
+    service.clear_recent_searches()
+    for index in range(30):
+        service.record_search(f"query {index}", limit=25)
+    assert len(service.recent_searches()) == 25
+    assert service.recent_searches()[0] == "query 29"
+    service.record_search("persist across import")
+    import_dataset(database, load_dataset(dataset))
+    assert service.recent_searches()[0] == "persist across import"
+    service.clear_recent_searches()
+    assert service.recent_searches() == ()

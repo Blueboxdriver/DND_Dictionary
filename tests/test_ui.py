@@ -8,7 +8,7 @@ from pathlib import Path
 from types import ModuleType, SimpleNamespace
 
 import pytest
-from textual.widgets import Label, ListView, Static
+from textual.widgets import Input, Label, ListView, Static
 
 from dndref.config import Config, ContentConfig, FilterPreset, UIConfig
 from dndref.images import DecodedImage, ImageAdapter
@@ -26,6 +26,7 @@ from dndref.search import (
 from dndref.storage.database import Database
 from dndref.ui.app import BrowserApp, render_detail
 from dndref.ui.class_detail import progression_table
+from dndref.ui.launchers import CommandPaletteScreen, UniversalSearchScreen
 from dndref.ui.screens import (
     AboutScreen,
     ChoiceScreen,
@@ -39,6 +40,174 @@ from dndref.ui.screens import (
 )
 
 FIXTURE = Path("tests/fixtures/dataset")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("size", [(140, 40), (100, 30), (80, 24), (60, 20)])
+async def test_search_launchers_fit_and_isolate_typed_shortcut_letters(
+    tmp_path: Path, size: tuple[int, int]
+) -> None:
+    database = populated_database(tmp_path)
+    async with BrowserApp(database).run_test(size=size) as pilot:
+        await pilot.pause(0.3)
+        original_category = pilot.app.category
+        original_detail = pilot.app._detail_loaded_for
+        await pilot.press("ctrl+k")
+        await pilot.pause(0.1)
+        assert isinstance(pilot.app.screen, UniversalSearchScreen)
+        search_input = pilot.app.screen.query_one("#universal-input", Input)
+        assert search_input.region.width > 0 and search_input.region.height > 0
+        await pilot.press("r", "i", "f", "n")
+        await pilot.pause(0.3)
+        assert pilot.app.category is original_category
+        assert pilot.app._detail_loaded_for == original_detail
+        await pilot.press("escape")
+        assert pilot.app.screen is pilot.app.screen_stack[0]
+
+        await pilot.press("ctrl+p")
+        await pilot.pause(0.1)
+        assert isinstance(pilot.app.screen, CommandPaletteScreen)
+        palette_input = pilot.app.screen.query_one("#palette-input", Input)
+        assert palette_input.region.width > 0 and palette_input.region.height > 0
+        await pilot.press("r", "i", "f", "n")
+        await pilot.pause(0.3)
+        assert pilot.app.category is original_category
+        assert pilot.app._detail_loaded_for == original_detail
+        await pilot.press("escape")
+        assert pilot.app.screen is pilot.app.screen_stack[0]
+
+
+@pytest.mark.asyncio
+async def test_universal_search_entry_back_restores_query_and_selection(tmp_path: Path) -> None:
+    database = populated_database(tmp_path)
+    async with BrowserApp(database).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.35)
+        origin = pilot.app._current_detail.identity
+        await pilot.press("ctrl+k")
+        await pilot.press(*list("spark"))
+        await pilot.pause(0.45)
+        screen = pilot.app.screen
+        assert isinstance(screen, UniversalSearchScreen)
+        assert screen.query_one("#universal-list", ListView).children
+        await pilot.press("enter")
+        await pilot.pause(0.5)
+        assert pilot.app._current_detail.identity == "example-5e:spell/spark"
+        assert pilot.app.personal_data.recent_searches()[0] == "spark"
+        await pilot.press("alt+left")
+        await pilot.pause(0.5)
+        assert isinstance(pilot.app.screen, UniversalSearchScreen)
+        assert pilot.app.screen.query_one("#universal-input", Input).value == "spark"
+        assert pilot.app.screen.query_one("#universal-list", ListView).index == 0
+        await pilot.press("alt+left")
+        await pilot.pause(0.4)
+        assert pilot.app.screen is pilot.app.screen_stack[0]
+        assert pilot.app._current_detail.identity == origin
+        await pilot.press("alt+right")
+        await pilot.pause(0.4)
+        assert isinstance(pilot.app.screen, UniversalSearchScreen)
+        assert pilot.app.screen.query_one("#universal-input", Input).value == "spark"
+        await pilot.press("alt+right")
+        await pilot.pause(0.5)
+        assert pilot.app._current_detail.identity == "example-5e:spell/spark"
+
+
+@pytest.mark.asyncio
+async def test_universal_search_refresh_survives_empty_and_populated_transitions(
+    tmp_path: Path,
+) -> None:
+    database = populated_database(tmp_path)
+    async with BrowserApp(database).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.35)
+        await pilot.press("ctrl+k")
+        await pilot.press(*list("spark"))
+        await pilot.pause(0.35)
+
+        screen = pilot.app.screen
+        assert isinstance(screen, UniversalSearchScreen)
+        rows = screen.query_one("#universal-list", ListView)
+        search_input = screen.query_one("#universal-input", Input)
+        assert rows.children
+
+        # Replacing a highlighted, populated list with an unknown-prefix literal
+        # query used to raise NoMatches while the ListView was clearing rows.
+        search_input.value = "banana:"
+        await pilot.press("down", "up")
+        await pilot.pause(0.35)
+        assert screen.is_mounted
+        assert not rows.children
+        assert screen.query_one("#universal-status", Static).renderable == "0 results"
+
+        # Exercise the reverse transition and keyboard navigation after refresh.
+        search_input.value = "spark"
+        await pilot.pause(0.35)
+        assert screen.is_mounted
+        assert rows.children
+        await pilot.press("down", "up")
+        assert screen.is_mounted
+
+
+@pytest.mark.asyncio
+async def test_universal_search_prefix_queries_and_rapid_edits_do_not_crash(
+    tmp_path: Path,
+) -> None:
+    database = populated_database(tmp_path)
+    queries = (
+        "banana:",
+        "banana:fireball",
+        "unknown:value",
+        ":",
+        "spell:",
+        "edition:",
+        "source:",
+        "monster:dragon",
+        "fireball",
+    )
+    async with BrowserApp(database).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.35)
+        for iteration in range(2):
+            await pilot.press("ctrl+k")
+            screen = pilot.app.screen
+            assert isinstance(screen, UniversalSearchScreen)
+            search_input = screen.query_one("#universal-input", Input)
+            for query in queries:
+                search_input.focus()
+                search_input.value = query
+                await pilot.pause(0.02)
+                # Rapidly replace in-flight queries and exercise held-style deletion.
+                await pilot.press("backspace", "backspace")
+                search_input.value = query
+                await pilot.pause(0.28)
+                assert screen.is_mounted
+                await pilot.press("up", "down")
+                assert screen.is_mounted
+            assert search_input.value == queries[-1]
+            await pilot.press("escape")
+            await pilot.pause(0.05)
+            assert pilot.app.screen is pilot.app.screen_stack[0]
+
+
+@pytest.mark.asyncio
+async def test_command_palette_fuzzy_command_and_direct_record_navigation(tmp_path: Path) -> None:
+    database = populated_database(tmp_path)
+    async with BrowserApp(database).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.35)
+        await pilot.press("ctrl+p")
+        await pilot.press(*list("mons"))
+        await pilot.pause(0.2)
+        assert isinstance(pilot.app.screen, CommandPaletteScreen)
+        await pilot.press("enter")
+        await pilot.pause(0.3)
+        assert pilot.app.category is SearchCategory.MONSTERS
+        await pilot.press("ctrl+p")
+        await pilot.press(*list("spark"))
+        await pilot.pause(0.45)
+        await pilot.press("enter")
+        await pilot.pause(0.5)
+        assert pilot.app.screen is pilot.app.screen_stack[0]
+        assert pilot.app._current_detail.identity == "example-5e:spell/spark"
+        await pilot.press("alt+left")
+        await pilot.pause(0.4)
+        assert pilot.app.category is SearchCategory.MONSTERS
 
 
 def populated_database(tmp_path: Path, dataset: Path = FIXTURE) -> Database:

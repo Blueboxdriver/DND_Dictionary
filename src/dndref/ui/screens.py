@@ -768,7 +768,9 @@ class HelpScreen(ModalScreen[None]):
 
 **Search**
 
-`/` or `Ctrl+F`  Focus search  
+`/` or `Ctrl+F`  Focus current category search
+`Ctrl+K`  Universal Search across Items, Spells, Feats, Classes, Subclasses, and Monsters
+`Ctrl+P`  Command Palette for views, actions, and direct entry lookup
 `F2`  Toggle Names / All text  
 `1`–`6`  Select Items / Spells / Feats / Classes / Subclasses / Monsters
 `e` Edition filter · `s` Source filter
@@ -803,6 +805,17 @@ their stored parent relationship. Arbitrary prose is intentionally not auto-link
 Favorites, collections, tags, and notes are stored locally in the application
 database. Personal records use exact entry IDs; missing entries stay marked as
 missing and may resolve again when the same ID returns.
+
+Universal Search recognizes `item:`, `spell:`, `feat:`, `class:`, `subclass:`,
+`monster:`, `edition:`, and `source:` prefixes. Examples: `spell: fireball`,
+`monster:dragon edition:2024`, and `source:XMM dragon`. Results show category,
+edition, and source. Recent Searches are local, capped at 25, and can be cleared
+with `Ctrl+L` inside Universal Search. Opening an entry records its search in
+Back/Forward history, including its query and selected result.
+
+The Command Palette offers category views, Favorites, Collections, Recently
+Viewed, Sources, Universal Search, Back/Forward, image toggle, Help, image
+instructions, and Quit. Typing a reference name also searches records.
 
 `?` / `F1`  Help  
 `F3`  About / installed dataset data

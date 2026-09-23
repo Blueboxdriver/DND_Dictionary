@@ -18,6 +18,7 @@ from dndref.search import (
     list_available_editions,
     list_available_sources,
     normalize_name,
+    parse_universal_query,
     search,
 )
 from dndref.storage.database import Database
@@ -395,6 +396,53 @@ def test_unknown_editions_are_unfiltered_but_not_specific_edition_matches(tmp_pa
     assert list_available_sources(database)[0].edition is None
 
 
+@pytest.mark.parametrize(
+    ("text", "expected_text", "category", "edition", "source"),
+    [
+        ("fireball", "fireball", None, None, None),
+        ("spell:fireball", "fireball", SearchCategory.SPELLS, None, None),
+        ("spell: wall of force", "wall of force", SearchCategory.SPELLS, None, None),
+        ("monster:dragon", "dragon", SearchCategory.MONSTERS, None, None),
+        ("monster:dragon edition:2024", "dragon", SearchCategory.MONSTERS, "2024", None),
+        ("class:fighter", "fighter", SearchCategory.CLASSES, None, None),
+        ("subclass:champion", "champion", SearchCategory.SUBCLASSES, None, None),
+        ("source:XMM dragon", "dragon", None, None, "XMM"),
+        ("edition:2024 wizard", "wizard", None, "2024", None),
+        ("unknownprefix:fireball", "unknownprefix:fireball", None, None, None),
+        ("spell:", "", SearchCategory.SPELLS, None, None),
+    ],
+)
+def test_universal_query_parser(text, expected_text, category, edition, source) -> None:
+    parsed = parse_universal_query(text)
+    assert (parsed.text, parsed.category, parsed.edition, parsed.source) == (
+        expected_text, category, edition, source
+    )
+
+
+def test_universal_search_scopes_ranks_and_keeps_editions(tmp_path: Path) -> None:
+    first = copy_fixture(tmp_path, "pack-2014")
+    second = copy_fixture(tmp_path, "pack-2024")
+    configure_source(first, dataset_id="pack-2014", key="PHB", title="PHB", edition="2014")
+    configure_source(second, dataset_id="pack-2024", key="PHB", title="PHB", edition="2024")
+    database = imported_database(tmp_path, first, second)
+    service = SearchService(database)
+
+    all_spark = service.search_all("spark")
+    assert [row.stable_id for row in all_spark.results] == [
+        "pack-2014:spell/spark", "pack-2024:spell/spark"
+    ]
+    assert {row.source_edition for row in all_spark.results} == {"2014", "2024"}
+    scoped = service.search_all("spell:spark edition:2024")
+    assert [row.source_edition for row in scoped.results] == ["2024"]
+    assert all_spark.results[0].rank == 1
+    assert {row.category for row in service.search_all("item:rapier").results} == {
+        SearchCategory.ITEMS
+    }
+    assert service.search_all("spell:comet", limit=1).total_count == 2
+    assert len(service.search_all("spell:comet", limit=1).results) == 1
+    assert service.search_all("source:PHB spark").total_count == 2
+
+
 def test_filter_discovery_uses_searchable_entries_and_scopes_category(tmp_path: Path) -> None:
     first = copy_fixture(tmp_path, "first")
     second = copy_fixture(tmp_path, "second")
@@ -473,7 +521,7 @@ def test_upgrade_from_milestone_4_backfills_fts(tmp_path: Path) -> None:
         connection.commit()
 
     upgraded = Database(database_path)
-    assert upgraded.initialize() == (3, 4, 5, 6)
+    assert upgraded.initialize() == (3, 4, 5, 6, 7)
     assert search(upgraded, SearchQuery("items", "finesse", SearchMode.ALL_TEXT)).total_count == 1
     with upgraded.connection() as connection:
         assert connection.execute(

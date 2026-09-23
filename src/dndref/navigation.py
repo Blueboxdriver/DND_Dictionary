@@ -31,6 +31,10 @@ class NavigationState:
     personal_category_filter: str | None = None
     personal_edition_filter: str | None = None
     personal_tag_filter: str | None = None
+    universal_search: bool = False
+    universal_query: str = ""
+    universal_selected_index: int = 0
+    universal_scroll: int = 0
 
     @property
     def logical_key(self) -> tuple[object, ...]:
@@ -57,6 +61,10 @@ class NavigationState:
             self.personal_category_filter,
             self.personal_edition_filter,
             self.personal_tag_filter,
+            self.universal_search,
+            self.universal_query,
+            self.universal_selected_index,
+            self.universal_scroll,
         )
 
 

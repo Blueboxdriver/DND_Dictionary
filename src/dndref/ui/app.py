@@ -14,6 +14,7 @@ from textual.timer import Timer
 from textual.widgets import Button, DataTable, Input, Label, ListItem, ListView, Markdown, Static
 from textual.worker import Worker, WorkerState
 
+from ..commands import Command, CommandRegistry
 from ..config import ApplicationPaths, Config, FilterPreset
 from ..crossrefs import CrossReferenceResolver, ReferenceTarget
 from ..images import DecodedImage, ImageAdapter, ImageLoader
@@ -36,6 +37,7 @@ from ..search import (
 )
 from ..storage.database import Database
 from .class_detail import ClassDetailView, render_class_detail, render_subclass_detail
+from .launchers import CommandPaletteScreen, UniversalSearchScreen
 from .monster_detail import render_monster_detail
 from .screens import (
     AboutScreen,
@@ -349,6 +351,8 @@ class BrowserApp(App[None]):
     BINDINGS = [
         ("ctrl+q", "quit", "Quit"),
         ("ctrl+f", "focus_search", "Search"),
+        ("ctrl+k", "universal_search", "Universal Search"),
+        ("ctrl+p", "command_palette", "Command Palette"),
         ("f2", "toggle_mode", "Mode"),
         ("f1", "show_help", "Help"),
         ("f3", "show_about", "About/Data"),
@@ -383,6 +387,7 @@ class BrowserApp(App[None]):
         self.database = database or Database(self.paths.database_path)
         self.search_service = SearchService(self.database)
         self.personal_data = PersonalDataService(self.database)
+        self.commands = CommandRegistry()
         self.personal_view: str | None = None
         self.personal_collection_id: int | None = None
         self.personal_query = ""
@@ -422,7 +427,41 @@ class BrowserApp(App[None]):
         self._edition_options = ()
         self._source_options = ()
         self._presets: tuple[FilterPreset, ...] = ()
+        self._register_commands()
         super().__init__()
+
+    def _register_commands(self) -> None:
+        for category in self.CATEGORIES:
+            aliases = {
+                SearchCategory.MONSTERS: ("monsters", "creatures", "mons"),
+                SearchCategory.SUBCLASSES: ("subclasses",),
+            }.get(category, ())
+            self.commands.register(
+                Command(
+                    f"open-{category.value}", f"Open {self.CATEGORY_LABELS[category]}", aliases
+                ),
+                lambda category=category: self._switch_category(category),
+            )
+        actions = (
+            ("favorites", "Open Favorites", ("fav", "favourites"), self.action_favorites),
+            ("collections", "Open Collections", ("collection",), self.action_collections),
+            ("recent", "Open Recently Viewed", ("recent",), self.action_recently_viewed),
+            ("sources", "Open Sources", ("source browser",), self.action_browse_sources),
+            ("universal-search", "Universal Search", ("search",), self.action_universal_search),
+            ("back", "Back", ("previous",), self.action_back),
+            ("forward", "Forward", ("next",), self.action_forward),
+            ("images", "Toggle Images", ("artwork",), self.action_toggle_artwork),
+            ("help", "Help", ("?",), self.action_show_help),
+            (
+                "image-diagnostics",
+                "Image Diagnostics / Instructions",
+                ("diagnostics",),
+                self.action_show_about,
+            ),
+            ("quit", "Quit", ("exit",), self.exit),
+        )
+        for command_id, name, aliases, handler in actions:
+            self.commands.register(Command(command_id, name, aliases), handler)
 
     @property
     def state(self) -> CategoryState:
@@ -573,6 +612,13 @@ class BrowserApp(App[None]):
 
     def on_key(self, event: events.Key) -> None:
         focus = self.screen.focused
+        if not isinstance(self.screen, ModalScreen) and event.key in {"ctrl+k", "ctrl+p"}:
+            event.stop()
+            if event.key == "ctrl+k":
+                self.action_universal_search()
+            else:
+                self.action_command_palette()
+            return
         if isinstance(focus, Input):
             if event.key == "escape":
                 event.stop()
@@ -590,6 +636,14 @@ class BrowserApp(App[None]):
         if event.key == "alt+right":
             event.stop()
             self.action_forward()
+            return
+        if event.key == "ctrl+k":
+            event.stop()
+            self.action_universal_search()
+            return
+        if event.key == "ctrl+p":
+            event.stop()
+            self.action_command_palette()
             return
 
         if event.character == "q":
@@ -786,6 +840,85 @@ class BrowserApp(App[None]):
 
     def action_focus_search(self) -> None:
         self._query_widget("#search-input", Input).focus()
+
+    def action_universal_search(self) -> None:
+        origin = self._navigation_state()
+        self._clear_image()
+        screen = UniversalSearchScreen(
+            self.search_service,
+            self.personal_data.recent_searches(),
+            self.recently_viewed.records,
+        )
+        self.push_screen(screen, lambda result: self._universal_search_result(result, origin))
+
+    def _universal_search_result(
+        self, result: tuple[object, ...] | None, origin: NavigationState
+    ) -> None:
+        if result is None:
+            if origin.universal_search:
+                self.action_back()
+            else:
+                self._restore_current_image()
+            return
+        if result[0] == "history":
+            self.action_back() if result[1] == "alt+left" else self.action_forward()
+            return
+        if result[0] == "clear":
+            self.personal_data.clear_recent_searches()
+            query = str(result[1])
+            screen = UniversalSearchScreen(
+                self.search_service,
+                (),
+                self.recently_viewed.records,
+                query=query,
+                selected_index=int(result[2]),
+                scroll=int(result[3]),
+            )
+            self.push_screen(screen, lambda value: self._universal_search_result(value, origin))
+            return
+        if result[0] == "search":
+            query = str(result[1])
+            self.personal_data.record_search(query)
+            screen = UniversalSearchScreen(
+                self.search_service,
+                self.personal_data.recent_searches(),
+                self.recently_viewed.records,
+                query=query,
+            )
+            self.push_screen(screen, lambda value: self._universal_search_result(value, origin))
+            return
+        if result[0] != "entry":
+            self._restore_current_image()
+            return
+        _, identity, query, selected_index, scroll = result
+        query_text = str(query)
+        self.personal_data.record_search(query_text)
+        universal = replace(
+            origin,
+            universal_search=True,
+            universal_query=query_text,
+            universal_selected_index=int(selected_index),
+            universal_scroll=int(scroll),
+        )
+        self.navigation_history.navigate_to(universal)
+        self._navigate_to_identity(str(identity))
+
+    def action_command_palette(self) -> None:
+        self._clear_image()
+        self.push_screen(
+            CommandPaletteScreen(self.search_service, self.commands.commands),
+            self._command_palette_result,
+        )
+
+    def _command_palette_result(self, result: tuple[str, object] | None) -> None:
+        if result is None:
+            self._restore_current_image()
+            return
+        kind, value = result
+        if kind == "command":
+            self.commands.execute(str(value))
+        elif kind == "entry":
+            self._navigate_to_identity(str(value))
 
     def action_editions(self) -> None:
         if self.layout_mode == "compact":
@@ -1685,6 +1818,8 @@ class BrowserApp(App[None]):
 
     def _commit_current_location(self) -> None:
         current = self.navigation_history.current
+        if current is not None and current.universal_search:
+            return
         if current is not None and current.personal_view and current.detail_id is None:
             return
         self.navigation_history.navigate_to(self._navigation_state())
@@ -1732,6 +1867,20 @@ class BrowserApp(App[None]):
                 self._load_variant_identity(state.detail_id)
         elif state.personal_view:
             self.call_after_refresh(self._show_personal_view)
+        if state.universal_search:
+            self.call_after_refresh(lambda: self._open_universal_search_from_state(state))
+
+    def _open_universal_search_from_state(self, state: NavigationState) -> None:
+        self._clear_image()
+        screen = UniversalSearchScreen(
+            self.search_service,
+            self.personal_data.recent_searches(),
+            self.recently_viewed.records,
+            query=state.universal_query,
+            selected_index=state.universal_selected_index,
+            scroll=state.universal_scroll,
+        )
+        self.push_screen(screen, lambda result: self._universal_search_result(result, state))
 
     def action_back(self) -> None:
         while self.navigation_history.can_go_back:

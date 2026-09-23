@@ -86,7 +86,7 @@ def test_monster_import_idempotency_foreign_keys_and_migration(tmp_path: Path) -
     assert db.initialize() == (1, 2, 3, 4)
     assert import_dataset(db, load_dataset(FIXTURE)).added == 8
     db = Database(db.path)
-    assert db.initialize() == (5, 6)
+    assert db.initialize() == (5, 6, 7)
     assert import_dataset(db, load_dataset(root)).added == 6
     assert import_dataset(db, load_dataset(root)).is_noop
     with db.connection() as connection:

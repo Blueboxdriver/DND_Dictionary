@@ -30,6 +30,9 @@ MIGRATIONS = (
     "002_content.sql",
     "003_search_fts.sql",
     "004_canonical_source_editions.sql",
+    "005_monsters.sql",
+    "006_personal_organization.sql",
+    "007_recent_searches.sql",
 )
 
 

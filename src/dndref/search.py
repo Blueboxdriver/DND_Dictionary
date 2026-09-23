@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import StrEnum
 from pathlib import Path
 from typing import TYPE_CHECKING, Mapping
@@ -37,6 +37,59 @@ class SearchCategory(StrEnum):
         if self is SearchCategory.SUBCLASSES:
             return "subclass"
         return self.value[:-1]
+
+
+_UNIVERSAL_CATEGORIES = {
+    "item": SearchCategory.ITEMS,
+    "spell": SearchCategory.SPELLS,
+    "feat": SearchCategory.FEATS,
+    "class": SearchCategory.CLASSES,
+    "subclass": SearchCategory.SUBCLASSES,
+    "monster": SearchCategory.MONSTERS,
+}
+_UNIVERSAL_PREFIX = re.compile(
+    r"(?i)(?:^|\s)(item|spell|feat|class|subclass|monster|edition|source):\s*"
+)
+
+
+@dataclass(frozen=True)
+class UniversalSearchQuery:
+    """Small deterministic scope parser for universal reference searches."""
+
+    text: str
+    category: SearchCategory | None = None
+    edition: str | None = None
+    source: str | None = None
+
+
+def parse_universal_query(value: str) -> UniversalSearchQuery:
+    """Parse recognized prefixes in any order; leave unknown syntax as literal text."""
+
+    if not isinstance(value, str):
+        raise TypeError("universal search query must be text")
+    scopes: dict[str, str] = {}
+    spans: list[tuple[int, int]] = []
+    for match in _UNIVERSAL_PREFIX.finditer(value):
+        key = match.group(1).casefold()
+        end = match.end()
+        if key in {"edition", "source"}:
+            token = re.match(r"([^\s]+)", value[end:])
+            scopes.setdefault(key, token.group(1) if token else "")
+            if token:
+                end += token.end()
+        else:
+            scopes.setdefault(key, "")
+        spans.append((match.start(), end))
+    remainder = value
+    for start, end in reversed(spans):
+        remainder = remainder[:start] + " " + remainder[end:]
+    category = next((cat for key, cat in _UNIVERSAL_CATEGORIES.items() if key in scopes), None)
+    return UniversalSearchQuery(
+        " ".join(remainder.split()),
+        category,
+        scopes.get("edition") or None,
+        scopes.get("source") or None,
+    )
 
 
 Category = SearchCategory
@@ -197,6 +250,7 @@ class SearchQuery:
             if self.category is not SearchCategory.MONSTERS:
                 raise ValueError("monster filters require the Monsters category")
             from .models.monster import cr_value
+
             for cr in self.challenge_ratings:
                 cr_value(cr)
         source_values: list[SourceIdentity] = []
@@ -246,6 +300,7 @@ class EntrySummary:
     source_identity: SourceIdentity
     source_edition: str | None
     group_key: str | None = None
+    rank: int | None = None
 
     @property
     def identity(self) -> str:
@@ -371,6 +426,99 @@ class SearchService:
             raise
         except Exception as exc:
             raise SearchError(f"search failed: {exc}") from exc
+
+    def search_all(self, text: str, *, limit: int = 50, offset: int = 0) -> SearchPage:
+        """Search indexed categories together, preserving exact record identities."""
+
+        from .storage.repository import search_entries, search_subclasses
+
+        if not 1 <= limit <= 200 or offset < 0:
+            raise ValueError("universal search requires limit 1..200 and non-negative offset")
+        parsed = parse_universal_query(text)
+        categories = (parsed.category,) if parsed.category else tuple(SearchCategory)
+        try:
+            with self.database.connection() as connection:
+                editions: tuple[str, ...] = ()
+                sources: tuple[SourceIdentity, ...] = ()
+                if parsed.edition:
+                    rows = connection.execute(
+                        "SELECT DISTINCT src.edition FROM entries e JOIN sources src "
+                        "ON src.id=e.source_id WHERE lower(src.edition)=lower(?) "
+                        "ORDER BY src.edition",
+                        (parsed.edition,),
+                    ).fetchall()
+                    editions = tuple(str(row[0]) for row in rows)
+                    if not editions:
+                        return SearchPage((), 0, offset, limit)
+                if parsed.source:
+                    rows = connection.execute(
+                        "SELECT DISTINCT src.dataset_id,src.source_key FROM sources src "
+                        "JOIN entries e ON e.source_id=src.id JOIN datasets d "
+                        "ON d.dataset_id=src.dataset_id WHERE lower(src.source_key)=lower(?) "
+                        "OR lower(src.title)=lower(?) OR lower(src.dataset_id)=lower(?) "
+                        "OR lower(d.title)=lower(?) ORDER BY src.dataset_id,src.source_key",
+                        (parsed.source,) * 4,
+                    ).fetchall()
+                    sources = tuple(SourceIdentity(str(row[0]), str(row[1])) for row in rows)
+                    if not sources:
+                        return SearchPage((), 0, offset, limit)
+                candidates: list[EntrySummary] = []
+                total = 0
+                # Each category runs its existing indexed, category-scoped query on one
+                # shared connection. The per-category top limit is sufficient for a
+                # global top-limit merge because category ranking is deterministic.
+                per_category_limit = min(200, offset + limit)
+                for category in categories:
+                    query = SearchQuery(
+                        category,
+                        parsed.text,
+                        SearchMode.NAMES,
+                        limit=per_category_limit,
+                        editions=editions,
+                        sources=sources,
+                    )
+                    page = (
+                        search_subclasses(connection, query)
+                        if category is SearchCategory.SUBCLASSES
+                        else search_entries(connection, query)
+                    )
+                    total += page.total_count
+                    candidates.extend(
+                        item for item in page.results if isinstance(item, EntrySummary)
+                    )
+                normalized = normalize_name(parsed.text)
+
+                def rank(item: EntrySummary) -> tuple[object, ...]:
+                    name = normalize_name(item.name)
+                    if item.name.strip() == parsed.text.strip() and parsed.text:
+                        match_rank = 0
+                    elif name == normalized and normalized:
+                        match_rank = 1
+                    elif normalized and name.startswith(normalized):
+                        match_rank = 2
+                    elif normalized and all(token in name for token in search_tokens(parsed.text)):
+                        match_rank = 3
+                    elif normalized:
+                        match_rank = 4
+                    else:
+                        match_rank = 5
+                    return (
+                        match_rank,
+                        name,
+                        item.category.value,
+                        item.source_edition or "",
+                        item.source_label.casefold(),
+                        item.dataset_id,
+                        item.local_key,
+                    )
+
+                candidates.sort(key=rank)
+                ranked = [replace(item, rank=int(rank(item)[0])) for item in candidates]
+                return SearchPage(tuple(ranked[offset : offset + limit]), total, offset, limit)
+        except SearchError:
+            raise
+        except Exception as exc:
+            raise SearchError(f"universal search failed: {exc}") from exc
 
     def search_grouped(
         self, query: SearchQuery, preferred_sources: tuple[SourceIdentity, ...] = ()
@@ -517,9 +665,11 @@ __all__ = [
     "SearchQuery",
     "SearchRepository",
     "SearchService",
+    "UniversalSearchQuery",
     "SourceInfo",
     "get_entry_detail",
     "normalize_name",
+    "parse_universal_query",
     "fts_tokens",
     "search",
     "search_tokens",

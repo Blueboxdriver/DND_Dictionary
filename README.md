@@ -55,7 +55,9 @@ main keyboard controls:
 
 | Key | Action |
 | --- | --- |
-| `/`, `Ctrl+F` | Focus search |
+| `/`, `Ctrl+F` | Focus current category search |
+| `Ctrl+K` | Universal Search across reference categories |
+| `Ctrl+P` | Command Palette for commands and direct record lookup |
 | `F2` | Toggle Names / All text search |
 | `1`–`6` | Items / Spells / Feats / Classes / Subclasses / Monsters |
 | `e`, `s` | Edition / source filter |
@@ -87,6 +89,30 @@ mechanics. Grouping only combines their result rows. Use `v` to inspect each
 variant, or `g` to list them separately. Preferred sources choose the initially
 shown variant. The sourcebook browser (`b`) shows installed books and their
 category counts.
+
+Universal Search (`Ctrl+K`) keeps category browsing intact and searches Items,
+Spells, Feats, Classes, Subclasses, and Monsters together. It supports `item:`,
+`spell:`, `feat:`, `class:`, `subclass:`, `monster:`, `edition:`, and `source:`
+prefixes. For example:
+
+```text
+fireball
+spell:fireball
+monster:dragon edition:2024
+source:XMM dragon
+```
+
+Results include category, edition, and source and retain separate records for
+different editions and variants. Recent Searches are stored locally in the
+user-owned SQLite database, capped at 25, and cleared with `Ctrl+L` from
+Universal Search. Opening a result puts Universal Search into ordinary
+Back/Forward history with its query and selected result.
+
+The Command Palette (`Ctrl+P`) exposes the existing category browsers,
+Favorites, Collections, Recently Viewed, Sources, Universal Search, Back,
+Forward, Toggle Images, Help, image instructions, and Quit. It also searches
+reference record names and opens the selected stable entry ID through normal
+navigation.
 
 Subclasses can be browsed and searched directly by subclass or parent class name.
 Class pages list compatible subclasses; Tab to the list and press Enter to open

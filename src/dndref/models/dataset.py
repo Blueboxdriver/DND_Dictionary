@@ -79,6 +79,7 @@ def validate_dataset(pack: DatasetPack) -> DatasetPack:
 
     errors: list[str] = []
     source_keys = {source.key for source in pack.manifest.sources}
+    source_editions = {source.key: source.edition for source in pack.manifest.sources}
     category_entries = {
         "items.json": pack.items.items,
         "spells.json": pack.spells,
@@ -142,6 +143,14 @@ def validate_dataset(pack: DatasetPack) -> DatasetPack:
                 errors.append(
                     f"classes.json[{index}].subclasses[{subclass_index}].source: "
                     f"unknown source '{subclass.source}'"
+                )
+            elif (
+                source_editions.get(character_class.source)
+                != source_editions.get(subclass.source)
+            ):
+                errors.append(
+                    f"classes.json[{index}].subclasses[{subclass_index}].source: "
+                    "subclass and parent class must have the same edition"
                 )
             for feature_index, feature in enumerate(subclass.features):
                 if feature.source is not None and feature.source not in source_keys:

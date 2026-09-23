@@ -5,11 +5,13 @@ import shutil
 import time
 from dataclasses import replace
 from pathlib import Path
+from types import ModuleType, SimpleNamespace
 
 import pytest
 from textual.widgets import Label, ListView, Static
 
 from dndref.config import Config, ContentConfig, FilterPreset, UIConfig
+from dndref.images import DecodedImage, ImageAdapter
 from dndref.importer import import_dataset, load_dataset
 from dndref.search import (
     EditionOption,
@@ -39,6 +41,35 @@ def populated_database(tmp_path: Path, dataset: Path = FIXTURE) -> Database:
     database = Database(tmp_path / "data" / "dndref.sqlite3")
     import_dataset(database, load_dataset(dataset))
     return database
+
+
+def image_fixture_database(tmp_path: Path) -> Database:
+    image = pytest.importorskip("PIL.Image")
+    dataset = tmp_path / "image-pack"
+    shutil.copytree(FIXTURE, dataset)
+    (dataset / "images").mkdir()
+    image.new("RGB", (200, 100), (20, 40, 60)).save(dataset / "images" / "item.png")
+    items_path = dataset / "items.json"
+    items = json.loads(items_path.read_text(encoding="utf-8"))
+    items["items"][0]["image"] = "images/item.png"
+    items_path.write_text(json.dumps(items), encoding="utf-8")
+    return populated_database(tmp_path, dataset)
+
+
+def fake_image_adapter() -> ImageAdapter:
+    module = ModuleType("textual_image.widget")
+
+    class FakeImage(Static):
+        def __init__(self, _image: object) -> None:
+            super().__init__("artwork")
+
+    module.TGPImage = FakeImage  # type: ignore[attr-defined]
+    return ImageAdapter(
+        "kitty", environ={}, module_loader=lambda: module,
+        probe=lambda: SimpleNamespace(
+            tgp=True, sixel=False, cell_size=SimpleNamespace(width=10, height=20)
+        ),
+    )
 
 
 def dual_fixture_database(tmp_path: Path) -> Database:
@@ -325,6 +356,10 @@ async def test_filter_selectors_support_multiple_and_all_clears(tmp_path: Path) 
         }
         await pilot.press("s", "up", "up", "space", "enter")
         await pilot.pause(0.2)
+        assert pilot.app.state.sources == ()
+        await pilot.press("p", "enter")
+        await pilot.pause(0.2)
+        assert pilot.app.state.editions == ("2024",)
         assert pilot.app.state.sources == ()
 
 
@@ -613,10 +648,123 @@ async def test_presets_reconcile_sources_and_remain_editable(tmp_path: Path) -> 
         await pilot.press("s", "home", "space", "enter")
         await pilot.pause(0.2)
         assert pilot.app.state.sources == ()
-        await pilot.press("p", "enter")
+
+
+@pytest.mark.asyncio
+async def test_preset_preview_explains_selected_and_all_filters(tmp_path: Path) -> None:
+    phb = SourceIdentity("pack-2024", "example-core")
+    config = Config(content=ContentConfig(
+        default_editions=(),
+        filter_presets=(FilterPreset("2024 Core", ("2024",), (phb,)),),
+    ))
+    async with BrowserApp(edition_fixture_database(tmp_path), config=config).run_test(
+        size=(80, 24)
+    ) as pilot:
+        await pilot.pause(0.3)
+        await pilot.press("p")
+        screen = pilot.app.screen
+        assert isinstance(screen, ChoiceScreen)
+        preview = screen.query_one("#choice-preview", Static)
+        assert "[x] All Sources" in str(preview.renderable)
+        await pilot.press("end")
+        await pilot.pause()
+        rendered = str(preview.renderable)
+        assert "[x] 2024 / 5.5e" in rendered
+        assert "[ ] 2014 / 5e" in rendered
+        assert "[x]" in rendered and "[ ]" in rendered
+        assert "Sources" in rendered
+        screen.query_one("#choice-list", ListView).index = len(screen.labels) - 1
+        await pilot.press("enter")
         await pilot.pause(0.2)
         assert pilot.app.state.editions == ("2024",)
-        assert pilot.app.state.sources == ()
+        assert pilot.app.state.sources == (phb,)
+
+
+@pytest.mark.asyncio
+async def test_artwork_toggle_resize_and_search_input_isolation(tmp_path: Path) -> None:
+    app = BrowserApp(
+        image_fixture_database(tmp_path), config=Config(ui=UIConfig(images="off"))
+    )
+    app.image_adapter = fake_image_adapter()
+    async with app.run_test(size=(140, 40)) as pilot:
+        await pilot.pause(0.2)
+        await pilot.press("1")
+        await pilot.pause(0.6)
+        panel = app.query_one("#image-panel")
+        assert panel.display is True
+        await pilot.press("i")
+        assert panel.display is False
+        await pilot.press("i")
+        await pilot.pause(0.4)
+        assert panel.display is True
+        await pilot.resize_terminal(100, 30)
+        await pilot.pause()
+        assert panel.display is False
+        await pilot.resize_terminal(120, 30)
+        await pilot.pause(0.4)
+        assert panel.display is True
+        await pilot.press("p")
+        assert panel.display is False
+        await pilot.press("escape")
+        await pilot.pause(0.4)
+        assert panel.display is True
+        await pilot.press("b")
+        assert panel.display is False
+        await pilot.press("escape")
+        await pilot.pause(0.4)
+        assert panel.display is True
+        await pilot.press("?")
+        assert panel.display is False
+        await pilot.press("escape")
+        await pilot.pause(0.4)
+        assert panel.display is True
+        await pilot.press("ctrl+f", "i")
+        assert app.state.query == "i"
+        assert app._artwork_visible is True
+        await pilot.press("z", "z", "z", "z", "z", "z")
+        await pilot.pause(0.3)
+        assert panel.display is False
+
+
+@pytest.mark.asyncio
+async def test_stale_image_error_cannot_clear_current_artwork(tmp_path: Path) -> None:
+    app = BrowserApp(
+        image_fixture_database(tmp_path), config=Config(ui=UIConfig(images="off"))
+    )
+    app.image_adapter = fake_image_adapter()
+    async with app.run_test(size=(140, 40)) as pilot:
+        await pilot.pause(0.2)
+        await pilot.press("1")
+        await pilot.pause(0.6)
+        panel = app.query_one("#image-panel")
+        assert panel.display is True
+        request = app._image_request_id
+        assert app._current_image_request(f"image:{request}:{app._selected_variant_id}")
+        old_name = f"image:{request}:{app._selected_variant_id}"
+        await pilot.press("down")
+        await pilot.pause(0.2)
+        assert panel.display is False
+        assert not app._current_image_request(old_name)
+        app._handle_image_result(DecodedImage(object(), 1, 1, "stale"), old_name)
+        assert panel.display is False
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("size", [(80, 24), (60, 20)])
+async def test_small_layouts_keep_artwork_collapsed_with_available_backend(
+    tmp_path: Path, size: tuple[int, int]
+) -> None:
+    app = BrowserApp(
+        image_fixture_database(tmp_path), config=Config(ui=UIConfig(images="off"))
+    )
+    app.image_adapter = fake_image_adapter()
+    async with app.run_test(size=size) as pilot:
+        await pilot.pause(0.2)
+        await pilot.press("1")
+        await pilot.pause(0.4)
+        assert app.state.results
+        assert app.query_one("#image-panel").display is False
+        assert app.query_one("#list-pane").display is True
 
 
 @pytest.mark.asyncio

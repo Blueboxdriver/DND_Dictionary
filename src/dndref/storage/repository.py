@@ -46,6 +46,7 @@ def _category_for_kind(kind: str):
         "spell": SearchCategory.SPELLS,
         "feat": SearchCategory.FEATS,
         "class": SearchCategory.CLASSES,
+        "subclass": SearchCategory.SUBCLASSES,
     }[kind]
 
 
@@ -800,6 +801,195 @@ def _summary_from_row(row: sqlite3.Row) -> "EntrySummary":
     )
 
 
+_SUBCLASS_SELECT = """
+SELECT s.dataset_id, s.subclass_key, s.name, s.introduction,
+       parent.name AS parent_name, parent.normalized_name AS parent_key,
+       parent.local_key AS parent_local_key,
+       src.title AS source_label, src.dataset_id AS source_dataset_id,
+       src.source_key, src.edition AS source_edition, d.title AS dataset_title,
+       (SELECT GROUP_CONCAT(sf.title || ' ' || sf.description, ' ')
+        FROM subclass_features AS sf WHERE sf.subclass_id = s.id) AS feature_text
+FROM subclasses AS s
+JOIN entries AS parent ON parent.id = s.class_id
+JOIN sources AS parent_src ON parent_src.id = parent.source_id
+JOIN sources AS src ON src.id = s.source_id
+JOIN datasets AS d ON d.dataset_id = s.dataset_id
+WHERE src.edition IS NOT NULL AND src.edition = parent_src.edition
+"""
+
+
+def _subclass_summary(row: sqlite3.Row) -> "EntrySummary":
+    from ..search import EntrySummary, SearchCategory, SourceIdentity
+
+    return EntrySummary(
+        stable_id=(
+            f"{row['dataset_id']}:subclass:{row['parent_local_key']}:"
+            f"{row['subclass_key']}"
+        ),
+        category=SearchCategory.SUBCLASSES,
+        name=str(row["name"]),
+        subtitle=f"{row['parent_name']} Subclass",
+        source_label=str(row["source_label"]),
+        dataset_id=str(row["dataset_id"]),
+        local_key=str(row["subclass_key"]),
+        dataset_title=str(row["dataset_title"]),
+        source_identity=SourceIdentity(str(row["source_dataset_id"]), str(row["source_key"])),
+        source_edition=str(row["source_edition"]),
+        group_key=(
+            f"group:subclasses:{row['parent_key']}:{row['source_edition']}:"
+            f"{normalize_name(str(row['name']))}"
+        ),
+    )
+
+
+def _matching_subclass_rows(
+    connection: sqlite3.Connection, query: "SearchQuery"
+) -> list[sqlite3.Row]:
+    """Filter existing subclass records without duplicating them in entries."""
+
+    from ..search import SearchMode
+
+    clauses: list[str] = []
+    parameters: list[object] = []
+    if query.editions:
+        clauses.append(f"src.edition IN ({', '.join('?' for _ in query.editions)})")
+        parameters.extend(query.editions)
+    if query.sources:
+        clauses.append(
+            "(" + " OR ".join(
+                "(src.dataset_id = ? AND src.source_key = ?)" for _ in query.sources
+            ) + ")"
+        )
+        for source in query.sources:
+            parameters.extend((source.dataset_id, source.source_key))
+    if query.parent_class:
+        clauses.append("parent.normalized_name = ?")
+        parameters.append(normalize_name(query.parent_class))
+    sql = _SUBCLASS_SELECT + (" AND " + " AND ".join(clauses) if clauses else "")
+    try:
+        rows = connection.execute(sql, parameters).fetchall()
+    except sqlite3.Error as exc:
+        raise RepositoryError(f"cannot search subclasses: {exc}") from exc
+    tokens = query.tokens
+    if tokens:
+        rows = [
+            row for row in rows
+            if all(
+                token in normalize_name(str(row["name"]))
+                or token in str(row["parent_key"])
+                or (
+                    query.mode is SearchMode.ALL_TEXT
+                    and token in normalize_name(
+                        f"{row['introduction']} {row['feature_text'] or ''}"
+                    )
+                )
+                for token in tokens
+            )
+        ]
+    rows.sort(
+        key=lambda row: (
+            0 if normalize_name(str(row["name"])) == query.normalized_text else 1,
+            normalize_name(str(row["name"])),
+            str(row["source_edition"]),
+            str(row["dataset_id"]),
+            str(row["subclass_key"]),
+        )
+    )
+    return rows
+
+
+def search_subclasses(connection: sqlite3.Connection, query: "SearchQuery") -> "SearchPage":
+    from ..search import SearchPage
+
+    rows = _matching_subclass_rows(connection, query)
+    page = rows[query.offset : query.offset + query.limit]
+    return SearchPage(
+        tuple(_subclass_summary(row) for row in page),
+        len(rows), query.offset, query.limit, query.request_id,
+    )
+
+
+def search_grouped_subclasses(
+    connection: sqlite3.Connection,
+    query: "SearchQuery",
+    preferred_sources: tuple["SourceIdentity", ...] = (),
+) -> "SearchPage":
+    from ..search import GroupedEntrySummary, SearchPage
+
+    rows = _matching_subclass_rows(connection, query)
+    groups: dict[tuple[str, str, str], list["EntrySummary"]] = {}
+    for row in rows:
+        summary = _subclass_summary(row)
+        key = (str(row["parent_key"]), str(row["source_edition"]), normalize_name(summary.name))
+        groups.setdefault(key, []).append(summary)
+    preference = {source: index for index, source in enumerate(preferred_sources)}
+    results: list["EntrySummary | GroupedEntrySummary"] = []
+    for members in groups.values():
+        counts: dict["SourceIdentity", int] = {}
+        for member in members:
+            counts[member.source_identity] = counts.get(member.source_identity, 0) + 1
+        if any(count > 1 for count in counts.values()):
+            results.extend(members)
+            continue
+        members.sort(key=lambda member: (
+            preference.get(member.source_identity, len(preference)),
+            member.source_label.casefold(), member.dataset_id, member.local_key,
+        ))
+        results.append(
+            GroupedEntrySummary(
+                query.category, normalize_name(members[0].name),
+                members[0], tuple(members[1:]),
+                group_key=members[0].group_key,
+            ) if len(members) > 1 else members[0]
+        )
+    return SearchPage(
+        tuple(results[query.offset : query.offset + query.limit]),
+        len(results), query.offset, query.limit, query.request_id,
+    )
+
+
+def list_compatible_subclasses(
+    connection: sqlite3.Connection, class_identity: str
+) -> tuple["EntrySummary", ...]:
+    if ":" not in class_identity:
+        return ()
+    dataset_id, local_key = class_identity.split(":", 1)
+    parent = connection.execute(
+        "SELECT e.normalized_name, src.edition FROM entries AS e "
+        "JOIN sources AS src ON src.id = e.source_id "
+        "WHERE e.dataset_id = ? AND e.local_key = ? AND e.kind = 'class'",
+        (dataset_id, local_key),
+    ).fetchone()
+    if parent is None or parent["edition"] is None:
+        return ()
+    rows = connection.execute(
+        _SUBCLASS_SELECT + " AND parent.normalized_name = ? AND src.edition = ? "
+        "ORDER BY s.name COLLATE NOCASE, src.title COLLATE NOCASE, s.dataset_id, s.subclass_key",
+        (parent["normalized_name"], parent["edition"]),
+    ).fetchall()
+    return tuple(_subclass_summary(row) for row in rows)
+
+
+def list_subclass_parents(
+    connection: sqlite3.Connection, editions: tuple[str, ...] = ()
+) -> tuple[str, ...]:
+    clauses = ""
+    parameters: list[object] = []
+    if editions:
+        clauses = f" AND src.edition IN ({', '.join('?' for _ in editions)})"
+        parameters.extend(editions)
+    rows = connection.execute(
+        "SELECT DISTINCT parent.name, parent.normalized_name FROM subclasses AS s "
+        "JOIN entries AS parent ON parent.id = s.class_id "
+        "JOIN sources AS src ON src.id = s.source_id "
+        "JOIN sources AS parent_src ON parent_src.id = parent.source_id "
+        "WHERE src.edition IS NOT NULL AND src.edition = parent_src.edition"
+        + clauses + " ORDER BY parent.normalized_name, parent.name",
+        parameters,
+    ).fetchall()
+    return tuple(dict.fromkeys(str(row["name"]) for row in rows))
+
+
 def search_entries(connection: sqlite3.Connection, query: "SearchQuery") -> "SearchPage":
     """Run a paged, category-scoped search using the caller's connection."""
 
@@ -934,6 +1124,16 @@ def list_available_editions(
     from ..models import display_edition
     from ..search import EditionOption
 
+    if category is not None and category.value == "subclasses":
+        rows = connection.execute(
+            "SELECT DISTINCT src.edition FROM subclasses AS s "
+            "JOIN sources AS src ON src.id = s.source_id "
+            "JOIN entries AS parent ON parent.id = s.class_id "
+            "JOIN sources AS parent_src ON parent_src.id = parent.source_id "
+            "WHERE src.edition IS NOT NULL AND src.edition = parent_src.edition"
+        ).fetchall()
+        values = sorted((str(row[0]) for row in rows), key=_edition_sort_key)
+        return tuple(EditionOption(value, display_edition(value) or value) for value in values)
     category_sql, parameters = _entry_scope(category)
     rows = connection.execute(
         "SELECT DISTINCT src.edition FROM entries AS e "
@@ -952,8 +1152,20 @@ def list_available_sources(
 ) -> tuple["SourceOption", ...]:
     """Return source identities that actually contribute entries to this scope."""
 
-    from ..search import SourceIdentity, SourceOption
-
+    if category is not None and category.value == "subclasses":
+        where = ["src.edition IS NOT NULL", "src.edition = parent_src.edition"]
+        values: list[object] = []
+        if editions:
+            where.append(f"src.edition IN ({', '.join('?' for _ in editions)})")
+            values.extend(editions)
+        rows = connection.execute(
+            "SELECT DISTINCT src.dataset_id, src.source_key, src.title, src.edition "
+            "FROM subclasses AS s JOIN sources AS src ON src.id = s.source_id "
+            "JOIN entries AS parent ON parent.id = s.class_id "
+            "JOIN sources AS parent_src ON parent_src.id = parent.source_id "
+            "WHERE " + " AND ".join(where), values,
+        ).fetchall()
+        return _source_options(rows)
     category_sql, parameters = _entry_scope(category)
     where = ["1 = 1" + category_sql]
     values = list(parameters)
@@ -966,6 +1178,12 @@ def list_available_sources(
         "WHERE " + " AND ".join(where),
         values,
     ).fetchall()
+    return _source_options(rows)
+
+
+def _source_options(rows: list[sqlite3.Row]) -> tuple["SourceOption", ...]:
+    from ..search import SourceIdentity, SourceOption
+
     options = [
         SourceOption(
             SourceIdentity(str(row["dataset_id"]), str(row["source_key"])),
@@ -989,9 +1207,12 @@ def list_available_sources(
 def list_source_contents(connection: sqlite3.Connection) -> tuple["SourceBrowseInfo", ...]:
     """List installed searchable sources and their real per-category counts."""
 
-    from ..search import SourceBrowseInfo
+    from ..search import SearchCategory, SourceBrowseInfo
 
-    options = list_available_sources(connection)
+    source_options = {option.identity: option for option in list_available_sources(connection)}
+    for option in list_available_sources(connection, category=SearchCategory.SUBCLASSES):
+        source_options[option.identity] = option
+    options = tuple(source_options.values())
     rows = connection.execute(
         "SELECT src.dataset_id, src.source_key, e.kind, COUNT(*) AS entry_count "
         "FROM entries AS e JOIN sources AS src ON src.id = e.source_id "
@@ -1003,6 +1224,17 @@ def list_source_contents(connection: sqlite3.Connection) -> tuple["SourceBrowseI
         counts.setdefault(key, {})[_category_for_kind(str(row["kind"]))] = int(
             row["entry_count"]
         )
+    subclass_rows = connection.execute(
+        "SELECT src.dataset_id, src.source_key, COUNT(*) AS entry_count "
+        "FROM subclasses AS s JOIN sources AS src ON src.id = s.source_id "
+        "JOIN entries AS parent ON parent.id = s.class_id "
+        "JOIN sources AS parent_src ON parent_src.id = parent.source_id "
+        "WHERE src.edition IS NOT NULL AND src.edition = parent_src.edition "
+        "GROUP BY src.dataset_id, src.source_key"
+    ).fetchall()
+    for row in subclass_rows:
+        key = (str(row["dataset_id"]), str(row["source_key"]))
+        counts.setdefault(key, {})[SearchCategory.SUBCLASSES] = int(row["entry_count"])
     return tuple(
         SourceBrowseInfo(option, counts.get((option.dataset_id, option.identity.source_key), {}))
         for option in options
@@ -1021,6 +1253,11 @@ def get_entry_detail(
     if not identity or ":" not in identity:
         return None
     dataset_id, local_key = identity.split(":", 1)
+    if local_key.startswith("subclass:"):
+        parent_key, separator, subclass_key = local_key.removeprefix("subclass:").partition(":")
+        if not separator:
+            return None
+        return _get_subclass_detail(connection, dataset_id, parent_key, subclass_key)
     row = connection.execute(
         _SUMMARY_SELECT.replace(
             "SELECT\n", "SELECT\n    e.description,\n", 1
@@ -1057,6 +1294,16 @@ def get_entry_detail(
         ).fetchall()
     )
     if kind == "class":
+        fields["edition"] = row["source_edition"]
+        fields["compatible_subclasses"] = tuple(
+            {
+                "stable_id": summary.identity,
+                "name": summary.name,
+                "source_label": summary.source_label,
+                "edition": summary.source_edition,
+            }
+            for summary in list_compatible_subclasses(connection, identity)
+        )
         fields["progression_columns"] = tuple(
             dict(column)
             for column in connection.execute(
@@ -1172,4 +1419,58 @@ def get_entry_detail(
         fields=fields,
         sections=sections,
         image=image,
+    )
+
+
+def _get_subclass_detail(
+    connection: sqlite3.Connection, dataset_id: str,
+    parent_local_key: str, subclass_key: str,
+) -> "EntryDetail | None":
+    from ..search import EntryDetail, SearchCategory
+
+    row = connection.execute(
+        _SUBCLASS_SELECT
+        + " AND s.dataset_id = ? AND parent.local_key = ? AND s.subclass_key = ?",
+        (dataset_id, parent_local_key, subclass_key),
+    ).fetchone()
+    if row is None:
+        return None
+    feature_rows = connection.execute(
+        "SELECT sf.feature_key, sf.level, sf.title, sf.description, sf.display_order, "
+        "feature_src.title AS source_label FROM subclass_features AS sf "
+        "LEFT JOIN sources AS feature_src ON feature_src.id = sf.source_id "
+        "JOIN subclasses AS s ON s.id = sf.subclass_id "
+        "JOIN entries AS parent ON parent.id = s.class_id "
+        "WHERE s.dataset_id = ? AND parent.local_key = ? AND s.subclass_key = ? "
+        "ORDER BY sf.level, sf.display_order, sf.feature_key",
+        (dataset_id, parent_local_key, subclass_key),
+    ).fetchall()
+    parent = connection.execute(
+        "SELECT e.dataset_id, e.local_key FROM entries AS e "
+        "JOIN sources AS src ON src.id = e.source_id "
+        "WHERE e.kind = 'class' AND e.normalized_name = ? AND src.edition = ? "
+        "ORDER BY CASE WHEN e.dataset_id = ? THEN 0 ELSE 1 END, "
+        "e.dataset_id, e.local_key LIMIT 1",
+        (row["parent_key"], row["source_edition"], dataset_id),
+    ).fetchone()
+    fields: dict[str, object] = {
+        "parent_class": str(row["parent_name"]),
+        "parent_class_key": str(row["parent_key"]),
+        "edition": str(row["source_edition"]),
+        "parent_class_identity": (
+            f"{parent['dataset_id']}:{parent['local_key']}" if parent is not None else None
+        ),
+        "features": tuple(dict(feature) for feature in feature_rows),
+    }
+    return EntryDetail(
+        stable_id=f"{dataset_id}:subclass:{parent_local_key}:{subclass_key}",
+        category=SearchCategory.SUBCLASSES,
+        name=str(row["name"]),
+        description=str(row["introduction"]),
+        source_label=str(row["source_label"]),
+        dataset_id=dataset_id,
+        local_key=subclass_key,
+        dataset_title=str(row["dataset_title"]),
+        fields=fields,
+        sections=(),
     )

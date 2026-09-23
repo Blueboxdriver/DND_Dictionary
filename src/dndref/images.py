@@ -54,6 +54,11 @@ class DecodedImage:
 
 
 def _textual_image_module() -> ModuleType:
+    # textual-image imports its widget after calling get_cell_size(), which
+    # probes stdin on first use. Bound that internal read before widget import.
+    terminal = importlib.import_module("textual_image._terminal")
+    if hasattr(terminal, "_PROBE_TIMEOUT"):
+        terminal._PROBE_TIMEOUT = min(terminal._PROBE_TIMEOUT, 0.5)
     return importlib.import_module("textual_image.widget")
 
 
@@ -132,13 +137,6 @@ def _capability_from_probe(
             )
     else:
         backend = ImageBackend(requested)
-        if not bool(getattr(terminal, "tgp" if backend is ImageBackend.KITTY else "sixel", False)):
-            return ImageCapabilities(
-                requested,
-                ImageBackend.NONE,
-                False,
-                f"terminal did not prove {backend.value} support",
-            )
 
     if _backend_class(module, backend) is None:
         return ImageCapabilities(
@@ -147,7 +145,12 @@ def _capability_from_probe(
             False,
             f"textual-image does not expose its {backend.value} widget",
         )
-    return ImageCapabilities(requested, backend, True, f"{backend.value} capability confirmed")
+    proven = bool(getattr(terminal, "tgp" if backend is ImageBackend.KITTY else "sixel", False))
+    reason = (
+        f"{backend.value} capability confirmed" if proven
+        else f"{backend.value} selected by override; support unverified"
+    )
+    return ImageCapabilities(requested, backend, True, reason)
 
 
 def _detect_capabilities(
@@ -323,12 +326,18 @@ class ImageLoader:
     def __init__(self, cache: ThumbnailCache | None = None) -> None:
         self.cache = cache or ThumbnailCache()
 
-    def load(self, path: Path, *, max_width: int = 280, max_height: int = 240) -> DecodedImage:
+    def load(
+        self, path: Path, *, media_type: str | None = None,
+        max_width: int = 280, max_height: int = 240,
+    ) -> DecodedImage:
         try:
             stat = path.stat()
         except OSError as exc:
             raise ValueError("image asset is missing or unreadable") from exc
-        cache_key = f"{path}:{stat.st_mtime_ns}:{stat.st_size}:{max_width}x{max_height}"
+        cache_key = (
+            f"{path}:{stat.st_mtime_ns}:{stat.st_size}:"
+            f"{media_type}:{max_width}x{max_height}"
+        )
         cached = self.cache.get(cache_key)
         if cached is not None:
             return cached
@@ -344,9 +353,10 @@ class ImageLoader:
             with warnings.catch_warnings():
                 warnings.simplefilter("error", DecompressionBombWarning)
                 with Image.open(path) as source:
-                    if path.suffix.lower() not in {".png", ".jpg", ".jpeg", ".webp"}:
-                        raise ValueError("unsupported image format")
-                    if source.format not in {"PNG", "JPEG", "WEBP"}:
+                    formats = {"image/png": "PNG", "image/jpeg": "JPEG", "image/webp": "WEBP"}
+                    if media_type is not None and formats.get(media_type) != source.format:
+                        raise ValueError("image format does not match stored media type")
+                    if source.format not in formats.values():
                         raise ValueError("unsupported image format")
                     width, height = source.size
                     if width <= 0 or height <= 0 or width * height > MAX_IMAGE_PIXELS:

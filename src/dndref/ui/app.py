@@ -28,10 +28,11 @@ from ..search import (
     SearchQuery,
     SearchService,
     SourceIdentity,
+    SourceOption,
     normalize_name,
 )
 from ..storage.database import Database
-from .class_detail import ClassDetailView, render_class_detail
+from .class_detail import ClassDetailView, render_class_detail, render_subclass_detail
 from .screens import AboutScreen, ChoiceScreen, FilterScreen, HelpScreen, SourceBrowserScreen
 from .widgets import ImagePanel, ResultRow
 
@@ -41,6 +42,7 @@ class CategoryState:
     query: str = ""
     editions: tuple[str, ...] = ()
     sources: tuple[SourceIdentity, ...] = ()
+    parent_class: str | None = None
     filters_initialized: bool = False
     selected_id: str | None = None
     list_index: int = 0
@@ -76,6 +78,10 @@ class BrowserApp(App[None]):
         color: #d4aa58;
         text-style: bold;
         content-align: left middle;
+    }
+
+    Screen.-stacked #brand {
+        display: none;
     }
 
     #tabs {
@@ -313,12 +319,14 @@ class BrowserApp(App[None]):
         SearchCategory.SPELLS,
         SearchCategory.FEATS,
         SearchCategory.CLASSES,
+        SearchCategory.SUBCLASSES,
     )
     CATEGORY_LABELS = {
         SearchCategory.ITEMS: "Items",
         SearchCategory.SPELLS: "Spells",
         SearchCategory.FEATS: "Feats",
         SearchCategory.CLASSES: "Classes",
+        SearchCategory.SUBCLASSES: "Subclasses",
     }
 
     def __init__(
@@ -345,6 +353,7 @@ class BrowserApp(App[None]):
         self._detail_loaded_for: str | None = None
         self._selected_variant_id: str | None = None
         self._current_detail: EntryDetail | None = None
+        self._related_history: list[str] = []
         self._updating_input = False
         self._page_loading = False
         self.image_adapter = ImageAdapter(self.config.ui.images)
@@ -353,6 +362,8 @@ class BrowserApp(App[None]):
         self._image_request_id = 0
         self._image_widget: Any | None = None
         self._image_worker: Worker[Any] | None = None
+        self._artwork_visible = True
+        self._image_status = self.image_adapter.capabilities.reason
         self._edition_options = ()
         self._source_options = ()
         self._presets: tuple[FilterPreset, ...] = ()
@@ -402,7 +413,7 @@ class BrowserApp(App[None]):
             id="too-small",
         )
         yield Static(
-            "/ Search   F2 Mode   1–4 Category   Tab Focus   ? Help   q Quit",
+            "/ Search   F2 Mode   1–5 Category   Tab Focus   ? Help   q Quit",
             id="footer",
         )
 
@@ -453,6 +464,9 @@ class BrowserApp(App[None]):
             self._load_next_page_if_needed()
 
     def on_list_view_selected(self, event: ListView.Selected) -> None:
+        if event.list_view.id == "subclass-list":
+            self._open_highlighted_subclass()
+            return
         if event.list_view.id != "result-list" or not isinstance(event.item, ResultRow):
             return
         self._select_summary(event.item.summary)
@@ -469,7 +483,7 @@ class BrowserApp(App[None]):
             elif worker.name.startswith("page:"):
                 await self._handle_page_result(worker.result)
             elif worker.name.startswith("detail:"):
-                self._handle_detail_result(worker.result, worker.name)
+                await self._handle_detail_result(worker.result, worker.name)
             elif worker.name.startswith("image:"):
                 self._handle_image_result(worker.result, worker.name)
             elif worker.name == "about" and isinstance(self.screen, AboutScreen):
@@ -480,9 +494,17 @@ class BrowserApp(App[None]):
                 if request_id == self._request_id:
                     self._show_error("Search unavailable. Initialize or import a dataset first.")
             elif worker.name.startswith("detail:"):
-                self._show_detail_error("The selected entry could not be loaded.")
+                parts = worker.name.split(":", 2)
+                if (
+                    len(parts) == 3 and parts[1].isdigit()
+                    and int(parts[1]) == self._detail_request_id
+                    and parts[2] == self._selected_variant_id
+                ):
+                    self._show_detail_error("The selected entry could not be loaded.")
             elif worker.name.startswith("image:"):
-                self._clear_image()
+                if self._current_image_request(worker.name):
+                    self._image_status = "Image could not be loaded."
+                    self._clear_image()
 
     def on_key(self, event: events.Key) -> None:
         focus = self.screen.focused
@@ -508,7 +530,7 @@ class BrowserApp(App[None]):
             event.stop()
             self.action_show_about()
             return
-        if event.character in {"1", "2", "3", "4"}:
+        if event.character in {"1", "2", "3", "4", "5"}:
             event.stop()
             self._switch_category(self.CATEGORIES[int(event.character) - 1])
             return
@@ -523,6 +545,10 @@ class BrowserApp(App[None]):
         if event.character == "s":
             event.stop()
             self.action_sources()
+            return
+        if event.character == "f" and self.category is SearchCategory.SUBCLASSES:
+            event.stop()
+            self.action_parent_class()
             return
         if event.character == "g":
             event.stop()
@@ -540,8 +566,22 @@ class BrowserApp(App[None]):
             event.stop()
             self.action_browse_sources()
             return
+        if event.character == "i":
+            event.stop()
+            self.action_toggle_artwork()
+            return
+        if event.character == "c" and self._current_detail is not None:
+            if self._current_detail.category is SearchCategory.SUBCLASSES:
+                parent_id = self._current_detail.fields.get("parent_class_identity")
+                if isinstance(parent_id, str):
+                    event.stop()
+                    self._open_related_detail(parent_id)
+                    return
         if event.key == "enter" and isinstance(focus, ListView):
             event.stop()
+            if focus.id == "subclass-list":
+                self._open_highlighted_subclass()
+                return
             row = focus.highlighted_child
             if isinstance(row, ResultRow):
                 self._select_summary(row.summary)
@@ -552,6 +592,9 @@ class BrowserApp(App[None]):
             return
         if event.key == "escape":
             event.stop()
+            if self._related_history:
+                self._load_variant_identity(self._related_history.pop())
+                return
             if self.layout_mode == "stacked" and self.narrow_detail_open:
                 self.narrow_detail_open = False
                 self._update_layout(self.size.width, self.size.height)
@@ -655,6 +698,33 @@ class BrowserApp(App[None]):
         screen = FilterScreen("source", self._source_options, self.state.sources)
         self.push_screen(screen, self._source_filter_selected)
 
+    def action_parent_class(self) -> None:
+        if self.layout_mode == "compact" or self.category is not SearchCategory.SUBCLASSES:
+            return
+        try:
+            parents = self.search_service.list_subclass_parents(self.state.editions)
+        except Exception:
+            self._show_error("Class filter is unavailable.")
+            return
+        self._parent_options = ("All Classes", *parents)
+        selected = next(
+            (index for index, name in enumerate(self._parent_options)
+             if name == self.state.parent_class), 0
+        )
+        self._clear_image()
+        self.push_screen(
+            ChoiceScreen("Parent class", self._parent_options, selected),
+            self._parent_class_selected,
+        )
+
+    def _parent_class_selected(self, index: int | None) -> None:
+        if index is None:
+            self._restore_current_image()
+            return
+        self.state.parent_class = self._parent_options[index] if index else None
+        self._update_filter_status()
+        self._apply_filter_change()
+
     def action_toggle_grouping(self) -> None:
         if self.layout_mode == "compact":
             return
@@ -674,7 +744,8 @@ class BrowserApp(App[None]):
             )
         elif isinstance(previous, EntrySummary) and self.group_alternate_sources:
             self.state.selected_id = (
-                f"group:{previous.category.value}:{normalize_name(previous.name)}"
+                previous.group_key
+                or f"group:{previous.category.value}:{normalize_name(previous.name)}"
             )
         self.state.list_index = 0
         self._update_group_status()
@@ -687,6 +758,7 @@ class BrowserApp(App[None]):
             None,
         )
         if not isinstance(selected, GroupedEntrySummary) or not selected.alternates:
+            self.notify("No alternate sources for this entry.", timeout=2)
             return
         variants = selected.variants
         labels = tuple(
@@ -696,13 +768,17 @@ class BrowserApp(App[None]):
             (index for index, variant in enumerate(variants)
              if variant.identity == self._selected_variant_id), 0
         )
+        self._clear_image()
         self.push_screen(
-            ChoiceScreen("Source variants", labels, current),
+            ChoiceScreen("Source variants", labels, current, mark_selected=True),
             lambda index: self._variant_selected(selected, index),
         )
 
     def _variant_selected(self, group: GroupedEntrySummary, index: int | None) -> None:
-        if index is None or self.state.selected_id != group.identity:
+        if index is None:
+            self._restore_current_image()
+            return
+        if self.state.selected_id != group.identity:
             return
         self._load_variant(group.variants[index])
 
@@ -719,17 +795,55 @@ class BrowserApp(App[None]):
         }
         presets.update((preset.name, preset) for preset in self.config.content.filter_presets)
         self._presets = tuple(presets.values())
+        try:
+            all_sources = self.search_service.list_available_sources(self.category, ())
+        except Exception:
+            all_sources = self._source_options
+        previews = tuple(self._preset_preview(preset, all_sources) for preset in self._presets)
+        self._clear_image()
         self.push_screen(
-            ChoiceScreen("Filter presets", tuple(preset.name for preset in self._presets)),
+            ChoiceScreen(
+                "Filter presets", tuple(preset.name for preset in self._presets),
+                previews=previews,
+            ),
             self._preset_selected,
         )
 
+    def _preset_preview(
+        self, preset: FilterPreset, all_sources: tuple[SourceOption, ...]
+    ) -> str:
+        lines = ["Editions"]
+        if not preset.editions:
+            lines.append("  [x] All Editions")
+        else:
+            lines.extend(
+                f"  {'[x]' if option.value in preset.editions else '[ ]'} {option.label}"
+                for option in self._edition_options
+            )
+        lines.append("Sources")
+        if not preset.sources:
+            lines.append("  [x] All Sources")
+        else:
+            lines.extend(
+                f"  {'[x]' if option.identity in preset.sources else '[ ]'} "
+                f"{option.title} · {display_edition(option.edition) or 'Unknown edition'}"
+                for option in all_sources
+            )
+            available = {option.identity for option in all_sources}
+            lines.extend(
+                f"  [x] {source} (unavailable)"
+                for source in preset.sources if source not in available
+            )
+        return "\n".join(lines)
+
     def _preset_selected(self, index: int | None) -> None:
         if index is None:
+            self._restore_current_image()
             return
         preset = self._presets[index]
         self.state.editions = preset.editions
         self.state.sources = preset.sources
+        self.state.parent_class = None
         self.state.filters_initialized = True
         self._refresh_filter_options()
         self._apply_filter_change()
@@ -742,18 +856,21 @@ class BrowserApp(App[None]):
         except Exception:
             self._show_error("Source browser is unavailable.")
             return
+        self._clear_image()
         self.push_screen(SourceBrowserScreen(sources), self._source_category_selected)
 
     def _source_category_selected(
         self, selection: tuple[SourceIdentity, SearchCategory] | None
     ) -> None:
         if selection is None:
+            self._restore_current_image()
             return
         source, category = selection
         self._switch_category(category)
         self.state.query = ""
         self.state.editions = ()
         self.state.sources = (source,)
+        self.state.parent_class = None
         self.state.filters_initialized = True
         self._update_input_from_state()
         self._refresh_filter_options()
@@ -761,6 +878,7 @@ class BrowserApp(App[None]):
 
     def _edition_filter_selected(self, values: tuple[object, ...] | None) -> None:
         if values is None:
+            self._restore_current_image()
             return
         self.state.editions = tuple(str(value) for value in values)
         self._refresh_filter_options()
@@ -769,6 +887,7 @@ class BrowserApp(App[None]):
 
     def _source_filter_selected(self, values: tuple[object, ...] | None) -> None:
         if values is None:
+            self._restore_current_image()
             return
         self.state.sources = tuple(
             value for value in values if isinstance(value, SourceIdentity)
@@ -793,6 +912,10 @@ class BrowserApp(App[None]):
             sources = self.search_service.list_available_sources(
                 self.category, self.state.editions
             )
+            if self.category is SearchCategory.SUBCLASSES and self.state.parent_class:
+                parents = self.search_service.list_subclass_parents(self.state.editions)
+                if self.state.parent_class not in parents:
+                    self.state.parent_class = None
         except Exception:
             self._show_error("Filter options are unavailable.")
             return False
@@ -808,6 +931,10 @@ class BrowserApp(App[None]):
     def _update_filter_status(self) -> None:
         if not self.is_mounted:
             return
+        heading = "Results"
+        if self.category is SearchCategory.SUBCLASSES:
+            heading = "Subclasses · f Class: " + (self.state.parent_class or "All")
+        self._query_widget("#list-heading", Label).update(heading)
         if not self.state.editions:
             edition_label = "All Editions"
         elif len(self.state.editions) > 1:
@@ -842,18 +969,18 @@ class BrowserApp(App[None]):
 
     def _update_group_status(self) -> None:
         self._query_widget("#footer", Static).update(
-            "/ Search   F2 Mode   1–4 Category   "
+            "/ Search   F2 Mode   1–5 Category   "
             f"g Groups: {'On' if self.group_alternate_sources else 'Off'}   ? Help   q Quit"
         )
 
     def action_show_help(self) -> None:
         self._clear_image()
-        self.push_screen(HelpScreen())
+        self.push_screen(HelpScreen(), lambda _value: self._restore_current_image())
 
     def action_show_about(self) -> None:
         self._clear_image()
-        screen = AboutScreen(self.image_adapter.capabilities)
-        self.push_screen(screen)
+        screen = AboutScreen(self.image_adapter.capabilities, self._image_status)
+        self.push_screen(screen, lambda _value: self._restore_current_image())
         self.run_worker(
             self.search_service.list_installed_datasets,
             name="about",
@@ -870,6 +997,13 @@ class BrowserApp(App[None]):
 
     def _invalidate_search(self) -> int:
         self._request_id += 1
+        self._detail_request_id += 1
+        self._detail_requested_for = None
+        self._detail_loaded_for = None
+        self._selected_variant_id = None
+        self._current_detail = None
+        self._related_history.clear()
+        self._clear_image()
         self._page_loading = False
         return self._request_id
 
@@ -901,6 +1035,7 @@ class BrowserApp(App[None]):
             request_id=request_id,
             editions=self.state.editions,
             sources=self.state.sources,
+            parent_class=self.state.parent_class,
         )
         self.run_worker(
             lambda: self._search_page(query),
@@ -924,6 +1059,7 @@ class BrowserApp(App[None]):
             request_id=request_id,
             editions=self.state.editions,
             sources=self.state.sources,
+            parent_class=self.state.parent_class,
         )
         self.run_worker(
             lambda: self._search_page(query),
@@ -1042,6 +1178,7 @@ class BrowserApp(App[None]):
             self._mark_selected_row()
             return
         self.state.detail_scroll = 0
+        self._related_history.clear()
         self.state.selected_id = summary.identity
         self._detail_requested_for = summary.identity
         self._detail_loaded_for = None
@@ -1054,19 +1191,22 @@ class BrowserApp(App[None]):
         self._load_variant(primary)
 
     def _load_variant(self, variant: EntrySummary) -> None:
-        self._selected_variant_id = variant.identity
+        self._load_variant_identity(variant.identity)
+
+    def _load_variant_identity(self, identity: str) -> None:
+        self._selected_variant_id = identity
         self._clear_image()
         self._detail_request_id += 1
         detail_request_id = self._detail_request_id
         self.run_worker(
-            lambda: self.search_service.get_entry_detail(variant.identity),
-            name=f"detail:{detail_request_id}:{variant.identity}",
+            lambda: self.search_service.get_entry_detail(identity),
+            name=f"detail:{detail_request_id}:{identity}",
             group="detail",
             thread=True,
             exit_on_error=False,
         )
 
-    def _handle_detail_result(self, detail: Any, worker_name: str) -> None:
+    async def _handle_detail_result(self, detail: Any, worker_name: str) -> None:
         parts = worker_name.split(":", 2)
         if len(parts) != 3 or int(parts[1]) != self._detail_request_id:
             return
@@ -1078,9 +1218,9 @@ class BrowserApp(App[None]):
             return
         self._detail_loaded_for = detail.identity
         self._current_detail = detail
-        self._render_detail(detail)
+        await self._render_detail(detail)
 
-    def _render_detail(self, detail: EntryDetail) -> None:
+    async def _render_detail(self, detail: EntryDetail) -> None:
         detail_copy = self._query_widget("#detail-copy", Markdown)
         class_detail = self._query_widget("#class-detail", ClassDetailView)
         selected = next(
@@ -1088,7 +1228,11 @@ class BrowserApp(App[None]):
             None,
         )
         hint = self._query_widget("#detail-variant-hint", Static)
-        if isinstance(selected, GroupedEntrySummary) and selected.alternates:
+        if (
+            not self._related_history
+            and isinstance(selected, GroupedEntrySummary)
+            and selected.alternates
+        ):
             hint.update(
                 f"Source: {detail.source_label} · "
                 f"{len(selected.alternates)} alternates · v Variants"
@@ -1099,13 +1243,32 @@ class BrowserApp(App[None]):
         if detail.category is SearchCategory.CLASSES:
             detail_copy.display = False
             class_detail.display = True
-            class_detail.update_detail(detail)
+            await class_detail.update_detail(detail)
         else:
             class_detail.display = False
             detail_copy.display = True
             detail_copy.update(render_detail(detail))
         self._query_widget("#detail-scroll", VerticalScroll).scroll_y = self.state.detail_scroll
         self._schedule_image(detail)
+
+    def _open_highlighted_subclass(self) -> None:
+        subclass_list = self._query_widget("#subclass-list", ListView)
+        class_detail = self._query_widget("#class-detail", ClassDetailView)
+        index = subclass_list.index
+        if index is not None and 0 <= index < len(getattr(class_detail, "subclass_ids", ())):
+            self._open_related_detail(class_detail.subclass_ids[index])
+
+    def _open_related_detail(self, identity: str) -> None:
+        if self._current_detail is None or identity == self._current_detail.identity:
+            return
+        self._related_history.append(self._current_detail.identity)
+        self.state.detail_scroll = 0
+        self._current_detail = None
+        self._query_widget("#detail-copy", Markdown).display = True
+        self._query_widget("#class-detail", ClassDetailView).display = False
+        self._query_widget("#detail-copy", Markdown).update("Loading details…")
+        self._query_widget("#detail-scroll", VerticalScroll).scroll_home()
+        self._load_variant_identity(identity)
 
     def _show_detail_error(self, message: str) -> None:
         self._current_detail = None
@@ -1159,7 +1322,29 @@ class BrowserApp(App[None]):
         self._show_loading(message)
 
     def _image_layout_available(self) -> bool:
-        return self.layout_mode == "split" and self.size.width >= 120 and self.size.height >= 30
+        return (
+            self._artwork_visible and self.layout_mode == "split"
+            and self.size.width >= 120 and self.size.height >= 30
+        )
+
+    def action_toggle_artwork(self) -> None:
+        if not self.image_adapter.capabilities.available:
+            self.notify("No image backend available.", timeout=2)
+            return
+        self._artwork_visible = not self._artwork_visible
+        if self._artwork_visible:
+            self._restore_current_image()
+        else:
+            self._clear_image()
+        self.notify(f"Artwork {'shown' if self._artwork_visible else 'hidden'}.", timeout=2)
+
+    def _current_image_request(self, worker_name: str) -> bool:
+        parts = worker_name.split(":", 2)
+        return (
+            len(parts) == 3 and parts[1].isdigit()
+            and int(parts[1]) == self._image_request_id
+            and parts[2] == self._selected_variant_id
+        )
 
     def _clear_image(self) -> None:
         self._image_request_id += 1
@@ -1207,7 +1392,9 @@ class BrowserApp(App[None]):
         ):
             return
         self._image_worker = self.run_worker(
-            lambda: self.image_loader.load(detail.image.path),
+            lambda: self.image_loader.load(
+                detail.image.path, media_type=detail.image.media_type
+            ),
             name=f"image:{request_id}:{detail.identity}",
             group="image",
             thread=True,
@@ -1218,16 +1405,23 @@ class BrowserApp(App[None]):
         parts = worker_name.split(":", 2)
         if len(parts) != 3 or not isinstance(decoded, DecodedImage):
             return
-        if int(parts[1]) != self._image_request_id or parts[2] != self._selected_variant_id:
+        if not self._current_image_request(worker_name):
             return
         self._image_worker = None
         widget = self.image_adapter.create_widget(decoded.image)
         if widget is None:
+            self._image_status = "Image could not be displayed."
             self._clear_image()
             return
-        panel = self._query_widget("#image-panel", ImagePanel)
-        panel.show_image(widget)
-        self._image_widget = widget
+        try:
+            panel = self._query_widget("#image-panel", ImagePanel)
+            panel.show_image(widget)
+            self._image_widget = widget
+            self._image_status = f"{self.image_adapter.capabilities.backend.value} image ready"
+        except Exception:
+            self.image_adapter.cleanup_widget(widget)
+            self._image_status = "Image could not be displayed."
+            self._clear_image()
 
     def _update_layout(self, width: int, height: int) -> None:
         if width < 50 or height < 16:
@@ -1289,6 +1483,8 @@ def render_detail(detail: EntryDetail) -> str:
     fields = detail.fields
     if detail.category is SearchCategory.CLASSES:
         return render_class_detail(detail)
+    if detail.category is SearchCategory.SUBCLASSES:
+        return render_subclass_detail(detail)
     output = [
         f"# {detail.name}",
         f"*{detail.category.value.title()} · {detail.dataset_title} · {detail.source_label}*\n",

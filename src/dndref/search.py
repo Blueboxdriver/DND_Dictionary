@@ -21,16 +21,21 @@ class SearchMode(StrEnum):
 
 
 class SearchCategory(StrEnum):
-    """The four independently browsable entry categories."""
+    """The independently browsable content categories."""
 
     ITEMS = "items"
     SPELLS = "spells"
     FEATS = "feats"
     CLASSES = "classes"
+    SUBCLASSES = "subclasses"
 
     @property
     def storage_kind(self) -> str:
-        return self.value[:-1] if self is not SearchCategory.CLASSES else "class"
+        if self is SearchCategory.CLASSES:
+            return "class"
+        if self is SearchCategory.SUBCLASSES:
+            return "subclass"
+        return self.value[:-1]
 
 
 Category = SearchCategory
@@ -78,6 +83,7 @@ def _coerce_category(value: SearchCategory | str) -> SearchCategory:
         "spell": SearchCategory.SPELLS,
         "feat": SearchCategory.FEATS,
         "class": SearchCategory.CLASSES,
+        "subclass": SearchCategory.SUBCLASSES,
     }
     if isinstance(value, SearchCategory):
         return value
@@ -174,6 +180,7 @@ class SearchQuery:
     request_id: str | int | None = None
     editions: tuple[str, ...] = ()
     sources: tuple[SourceIdentity, ...] = ()
+    parent_class: str | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "category", _coerce_category(self.category))
@@ -192,6 +199,11 @@ class SearchQuery:
             raise ValueError("search offset must be non-negative")
         if self.limit < 1 or self.limit > 200:
             raise ValueError("search limit must be between 1 and 200")
+        if self.parent_class is not None:
+            if self.category is not SearchCategory.SUBCLASSES:
+                raise ValueError("parent class filtering requires the Subclasses category")
+            if not self.parent_class.strip():
+                raise ValueError("parent class filter must not be empty")
 
     @property
     def normalized_text(self) -> str:
@@ -220,6 +232,7 @@ class EntrySummary:
     dataset_title: str
     source_identity: SourceIdentity
     source_edition: str | None
+    group_key: str | None = None
 
     @property
     def identity(self) -> str:
@@ -232,10 +245,11 @@ class GroupedEntrySummary:
     normalized_name: str
     primary: EntrySummary
     alternates: tuple[EntrySummary, ...]
+    group_key: str | None = None
 
     @property
     def identity(self) -> str:
-        return f"group:{self.category.value}:{self.normalized_name}"
+        return self.group_key or f"group:{self.category.value}:{self.normalized_name}"
 
     @property
     def variants(self) -> tuple[EntrySummary, ...]:
@@ -327,10 +341,12 @@ class SearchService:
         self.database = database
 
     def search(self, query: SearchQuery) -> SearchPage:
-        from .storage.repository import search_entries
+        from .storage.repository import search_entries, search_subclasses
 
         try:
             with self.database.connection() as connection:
+                if query.category is SearchCategory.SUBCLASSES:
+                    return search_subclasses(connection, query)
                 return search_entries(connection, query)
         except SearchError:
             raise
@@ -340,10 +356,12 @@ class SearchService:
     def search_grouped(
         self, query: SearchQuery, preferred_sources: tuple[SourceIdentity, ...] = ()
     ) -> SearchPage:
-        from .storage.repository import search_grouped_entries
+        from .storage.repository import search_grouped_entries, search_grouped_subclasses
 
         try:
             with self.database.connection() as connection:
+                if query.category is SearchCategory.SUBCLASSES:
+                    return search_grouped_subclasses(connection, query, preferred_sources)
                 return search_grouped_entries(connection, query, preferred_sources)
         except SearchError:
             raise
@@ -411,6 +429,26 @@ class SearchService:
                 return list_source_contents(connection)
         except Exception as exc:
             raise SearchError(f"source browser lookup failed: {exc}") from exc
+
+    def list_compatible_subclasses(self, class_identity: str) -> tuple[EntrySummary, ...]:
+        """List every same-class, same-edition subclass across installed sources."""
+
+        from .storage.repository import list_compatible_subclasses
+
+        try:
+            with self.database.connection() as connection:
+                return list_compatible_subclasses(connection, class_identity)
+        except Exception as exc:
+            raise SearchError(f"compatible subclass lookup failed: {exc}") from exc
+
+    def list_subclass_parents(self, editions: tuple[str, ...] = ()) -> tuple[str, ...]:
+        from .storage.repository import list_subclass_parents
+
+        try:
+            with self.database.connection() as connection:
+                return list_subclass_parents(connection, _edition_values(editions))
+        except Exception as exc:
+            raise SearchError(f"subclass parent lookup failed: {exc}") from exc
 
 
 SearchRepository = SearchService

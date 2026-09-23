@@ -6,8 +6,9 @@ from collections.abc import Iterable, Mapping
 
 from textual.app import ComposeResult
 from textual.containers import Vertical
-from textual.widgets import DataTable, Markdown, Static
+from textual.widgets import DataTable, Label, ListItem, ListView, Markdown, Static
 
+from ..models import display_edition
 from ..search import EntryDetail
 
 
@@ -45,9 +46,13 @@ def _grouped_features(features: Iterable[object]) -> list[tuple[int, list[object
 
 def _metadata_markdown(detail: EntryDetail) -> str:
     fields = detail.fields
+    edition = display_edition(_text(fields.get("edition")))
+    origin = " · ".join(
+        part for part in ("Class", edition, detail.dataset_title, detail.source_label) if part
+    )
     output = [
         f"# {detail.name}",
-        f"*Class · {detail.dataset_title} · {detail.source_label}*\n",
+        f"*{origin}*\n",
     ]
     if detail.description.strip():
         output.append(f"{detail.description}\n")
@@ -199,6 +204,35 @@ def render_class_detail(detail: EntryDetail) -> str:
     return "\n\n".join(part for part in output if part)
 
 
+def render_subclass_detail(detail: EntryDetail) -> str:
+    """Render the stored subclass progression at its actual feature levels."""
+
+    parent = _text(detail.fields.get("parent_class"))
+    edition = display_edition(_text(detail.fields.get("edition"))) or "Unknown edition"
+    parts = [
+        f"# {detail.name}",
+        f"*{parent} Subclass*",
+        f"**Edition:** {edition}  \n**Source:** {detail.source_label} · {detail.dataset_title}",
+    ]
+    if detail.description.strip():
+        parts.append(detail.description)
+    parts.append("Press `c` to open the matching edition parent class.")
+    groups = _grouped_features(detail.fields.get("features") or ())
+    if not groups:
+        parts.append("## Features\n\nNo subclass features are recorded.")
+    for level, features in groups:
+        parts.append(f"## Level {level}")
+        for feature in features:
+            title = _text(_get(feature, "title")) or "Feature"
+            description = _text(_get(feature, "description"))
+            source = _text(_get(feature, "source_label"))
+            parts.append(
+                f"### {title}\n\n{description}"
+                + (f"\n\n*Source: {source}*" if source else "")
+            )
+    return "\n\n".join(parts)
+
+
 class ClassDetailView(Vertical):
     """Structured class detail with a separately focusable progression table."""
 
@@ -228,6 +262,14 @@ class ClassDetailView(Vertical):
         width: 1fr;
         padding: 1 0;
     }
+
+    #subclass-list {
+        width: 1fr;
+        height: 8;
+        max-height: 8;
+        border: round #6c5530;
+        margin: 0 0 1 0;
+    }
     """
 
     def compose(self) -> ComposeResult:
@@ -239,9 +281,12 @@ class ClassDetailView(Vertical):
             show_row_labels=False,
             zebra_stripes=True,
         )
+        yield Static("Subclasses · Tab to list, Enter to open", classes="detail-heading")
+        yield Label("No compatible subclasses installed.", id="subclass-empty")
+        yield ListView(id="subclass-list")
         yield Markdown("", id="class-sections")
 
-    def update_detail(self, detail: EntryDetail) -> None:
+    async def update_detail(self, detail: EntryDetail) -> None:
         if not self.is_mounted:
             return
         self.query_one("#class-meta", Markdown).update(_metadata_markdown(detail))
@@ -253,11 +298,24 @@ class ClassDetailView(Vertical):
             table.add_column(label, width=width, key=_key)
         for row in rows:
             table.add_row(*row, height=None)
+        subclass_list = self.query_one("#subclass-list", ListView)
+        await subclass_list.clear()
+        subclasses = detail.fields.get("compatible_subclasses") or ()
+        self.query_one("#subclass-empty", Label).display = not bool(subclasses)
+        subclass_list.display = bool(subclasses)
+        for subclass in subclasses:
+            name = _text(_get(subclass, "name"))
+            source = _text(_get(subclass, "source_label"))
+            edition = display_edition(_text(_get(subclass, "edition")))
+            label = f"{name} · {source}" + (f" · {edition}" if edition else "")
+            await subclass_list.mount(ListItem(Label(label)))
+        self.subclass_ids = tuple(
+            _text(_get(subclass, "stable_id")) for subclass in subclasses
+        )
         sections = "\n\n".join(
             part
             for part in (
                 _features_markdown(detail.fields.get("features") or ()),
-                _subclasses_markdown(detail.fields.get("subclasses") or ()),
                 *(
                     f"### {section.heading}\n\n{section.body}\n"
                     for section in detail.sections
@@ -269,4 +327,4 @@ class ClassDetailView(Vertical):
         self.query_one("#class-sections", Markdown).update(sections)
 
 
-__all__ = ["ClassDetailView", "progression_table", "render_class_detail"]
+__all__ = ["ClassDetailView", "progression_table", "render_class_detail", "render_subclass_detail"]

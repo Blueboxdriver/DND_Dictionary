@@ -116,6 +116,13 @@ def test_supported_backend_selection_and_missing_dependency() -> None:
     assert not missing.capabilities.available
     assert missing.create_widget(object()) is None
 
+    forced = detect_capabilities(
+        "sixel", environ={"TMUX": "1"}, module_loader=fake_module,
+        probe=lambda: terminal(),
+    )
+    assert forced.backend is ImageBackend.SIXEL
+    assert "unverified" in forced.reason
+
 
 def test_probe_timeout_is_bounded() -> None:
     started = time.monotonic()
@@ -178,3 +185,14 @@ def test_valid_corrupt_and_bomb_image_inputs(tmp_path: Path) -> None:
     PIL.new("RGBA", (4096, 4096), (0, 0, 0, 255)).save(huge)
     with pytest.raises(ValueError, match="pixel|decompression"):
         ImageLoader().load(huge)
+
+
+def test_extensionless_staged_asset_uses_recorded_media_type(tmp_path: Path) -> None:
+    PIL = pytest.importorskip("PIL.Image")
+    path = tmp_path / "sha256" / "a1" / "hash-without-extension"
+    path.parent.mkdir(parents=True)
+    PIL.new("RGB", (200, 100), (20, 40, 60)).save(path, format="PNG")
+    loaded = ImageLoader().load(path, media_type="image/png", max_width=28, max_height=12)
+    assert (loaded.width, loaded.height) == (24, 12)
+    with pytest.raises(ValueError, match="media type"):
+        ImageLoader().load(path, media_type="image/jpeg")

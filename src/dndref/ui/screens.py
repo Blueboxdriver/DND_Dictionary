@@ -195,14 +195,22 @@ class ChoiceScreen(ModalScreen[int | None]):
         padding: 1 2; border: round $accent; background: $surface; }
     #choice-list { height: auto; max-height: 1fr; border: none; }
     #choice-list > ListItem { height: 2; }
+    #choice-list > ListItem.--highlight { background: #4a3a20; color: #eee7d5; }
+    #choice-preview { height: auto; max-height: 10; overflow-y: auto;
+        border-top: solid #6c5530; padding: 1 1 0 1; color: #aaa18e; }
     #choice-help { height: 1; }
     """
     BINDINGS = [("escape", "cancel", "Cancel")]
 
-    def __init__(self, title: str, labels: tuple[str, ...], selected: int = 0) -> None:
+    def __init__(
+        self, title: str, labels: tuple[str, ...], selected: int = 0,
+        *, previews: tuple[str, ...] = (), mark_selected: bool = False,
+    ) -> None:
         self.choice_title = title
         self.labels = labels
         self.selected = selected
+        self.previews = previews
+        self.mark_selected = mark_selected
         super().__init__()
 
     def compose(self) -> ComposeResult:
@@ -211,6 +219,8 @@ class ChoiceScreen(ModalScreen[int | None]):
             with ListView(id="choice-list"):
                 for label in self.labels:
                     yield ListItem(Label(label))
+            if self.previews:
+                yield Static("", id="choice-preview")
             yield Static("Enter Select   Esc Cancel", id="choice-help")
 
     def on_mount(self) -> None:
@@ -242,9 +252,12 @@ class ChoiceScreen(ModalScreen[int | None]):
     def _render_rows(self) -> None:
         options = self.query_one("#choice-list", ListView)
         for index, item in enumerate(options.children):
+            check = f"{'[x]' if index == self.selected else '[ ]'} " if self.mark_selected else ""
             item.query_one(Label).update(
-                f"{'> ' if index == options.index else '  '}{self.labels[index]}"
+                f"{'> ' if index == options.index else '  '}{check}{self.labels[index]}"
             )
+        if self.previews and options.index is not None:
+            self.query_one("#choice-preview", Static).update(self.previews[options.index])
 
 
 class SourceBrowserScreen(ModalScreen[tuple[SourceIdentity, SearchCategory] | None]):
@@ -256,7 +269,8 @@ class SourceBrowserScreen(ModalScreen[tuple[SourceIdentity, SearchCategory] | No
         padding: 1 2; border: round $accent; background: $surface; }
     #source-browser-list { height: auto; max-height: 1fr; border: none; }
     #source-browser-list > ListItem { height: 2; }
-    #source-detail { height: 5; }
+    #source-browser-list > ListItem.--highlight { background: #4a3a20; color: #eee7d5; }
+    #source-detail { height: 5; color: #aaa18e; }
     """
     BINDINGS = [("escape", "back", "Back")]
 
@@ -272,7 +286,7 @@ class SourceBrowserScreen(ModalScreen[tuple[SourceIdentity, SearchCategory] | No
                 for source in self.sources:
                     yield ListItem(Label(source.source.title))
             yield Static("", id="source-detail")
-            yield Static("Enter Open   Esc Back", id="source-browser-help")
+            yield Static("Enter Open   Esc Back   j/k Navigate", id="source-browser-help")
 
     def on_mount(self) -> None:
         options = self.query_one("#source-browser-list", ListView)
@@ -352,7 +366,7 @@ class SourceBrowserScreen(ModalScreen[tuple[SourceIdentity, SearchCategory] | No
                 counts = " · ".join(
                     f"{category.value.title()} {count}" for category, count in source.counts.items()
                 )
-                detail = f"{edition}\n{counts}"
+                detail = f"{source.source.title}\n{edition}\n{counts or 'No categories available.'}"
             else:
                 detail = "No sources installed."
         else:
@@ -360,7 +374,11 @@ class SourceBrowserScreen(ModalScreen[tuple[SourceIdentity, SearchCategory] | No
             labels = tuple(
                 f"{category.value.title()}  {count}" for category, count in source.counts.items()
             )
-            detail = display_edition(source.source.edition) or "Unknown edition"
+            detail = (
+                f"{source.source.title}\n"
+                f"{display_edition(source.source.edition) or 'Unknown edition'}\n"
+                "Choose a category to browse."
+            )
         self.query_one("#source-detail", Static).update(detail)
         for row_index, item in enumerate(options.children):
             if row_index < len(labels):
@@ -381,10 +399,12 @@ class HelpScreen(ModalScreen[None]):
 
 `/` or `Ctrl+F`  Focus search  
 `F2`  Toggle Names / All text  
-`1`–`4`  Select Items / Spells / Feats / Classes  
+`1`–`5`  Select Items / Spells / Feats / Classes / Subclasses
 `e` Edition filter · `s` Source filter
+`f` Parent class filter in Subclasses
 `p` Filter presets · `b` Browse sources
 `g` Group alternates on/off · `v` Select source variant
+`i` Toggle artwork when available
 
 Filter dialogs show `>` for the active row and `[x]` for a selected row.
 Space toggles a filter choice; Enter applies; Escape cancels.
@@ -397,6 +417,8 @@ Space toggles a filter choice; Enter applies; Escape cancels.
 `Left`/`Right` or `h`/`l`  Scroll a focused class progression table horizontally  
 `Home`/`End`  Start or end  
 `Enter`  Open or select  
+On a class page, Tab to Subclasses and Enter to open one.
+On a subclass page, `c` opens its matching edition parent class.
 `Escape`  Back, close, or leave search  
 
 `?` / `F1`  Help  
@@ -473,8 +495,9 @@ class AboutScreen(ModalScreen[None]):
 
     BINDINGS = [("escape", "dismiss", "Close"), ("f3", "dismiss", "Close")]
 
-    def __init__(self, capabilities: ImageCapabilities) -> None:
+    def __init__(self, capabilities: ImageCapabilities, status: str | None = None) -> None:
         self.capabilities = capabilities
+        self.status = status or capabilities.reason
         self.datasets: tuple[DatasetMetadata, ...] = ()
         super().__init__()
 
@@ -493,7 +516,7 @@ class AboutScreen(ModalScreen[None]):
             "# D&D Reference — About / Data",
             f"Application version: `{__version__}`",
             f"Image mode: `{self.capabilities.requested_mode}` · backend: `{backend}`",
-            f"Image status: {self.capabilities.reason}",
+            f"Image status: {self.status}",
             "",
             "Artwork metadata: no artwork attribution is recorded by the installed packs.",
             "",

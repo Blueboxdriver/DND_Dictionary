@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dnd-reference"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Offline D&D reference application"
 readme = "README.md"
 license = "LicenseRef-Proprietary"
@@ -40,10 +40,13 @@ dev = [
 
 [project.scripts]
 dndref = "dndref.__main__:main"
-dndref-spike = "dndref_spike.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["dndref", "dndref.*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "dndref.__version__"}
 
 [tool.setuptools.package-data]
 dndref = [

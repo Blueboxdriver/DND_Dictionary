@@ -3,7 +3,8 @@ from __future__ import annotations
 import importlib
 import json
 import sqlite3
-from importlib import resources
+import tomllib
+from importlib import metadata, resources
 from pathlib import Path
 
 from dndref import __version__
@@ -22,6 +23,12 @@ EXPECTED = {
 
 def test_release_metadata_and_console_target() -> None:
     assert __version__ == "0.1.0"
+    assert metadata.version("dnd-reference") == __version__
+    with Path("pyproject.toml").open("rb") as project_file:
+        project = tomllib.load(project_file)
+    assert project["project"]["dynamic"] == ["version"]
+    assert project["tool"]["setuptools"]["dynamic"]["version"]["attr"] == "dndref.__version__"
+    assert project["project"]["scripts"] == {"dndref": "dndref.__main__:main"}
     module_name, function_name = "dndref.__main__", "main"
     assert callable(getattr(importlib.import_module(module_name), function_name))
 

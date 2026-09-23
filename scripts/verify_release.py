@@ -1,10 +1,7 @@
-"""Build and smoke-test local 0.1 release artifacts.
+"""Build and inspect release archives, then smoke-test clean wheel installs.
 
-Usage: python scripts/verify_release.py
-
-The script expects the PEP 517 frontend ``build`` to be installed in the
-invoking environment. It creates all test environments outside the repository
-and never publishes artifacts.
+Run with ``.venv/bin/python scripts/verify_release.py``. Artifacts remain in
+``dist/``; test environments and application state are temporary.
 """
 
 from __future__ import annotations
@@ -13,98 +10,112 @@ import argparse
 import os
 import subprocess
 import sys
+import tarfile
 import tempfile
 import venv
 import zipfile
 from pathlib import Path
 
+from dndref import __version__
+
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_DATASETS = {
-    "srd-5.2.1": ("manifest.json", "items.json", "spells.json", "feats.json", "classes.json"),
-    "official-5etools-2024": (
-        "manifest.json",
-        "items.json",
-        "spells.json",
-        "feats.json",
-        "classes.json",
-    ),
-}
+DIST = ROOT / "dist"
+VERSION = __version__
+WHEEL_NAME = f"dnd_reference-{VERSION}-py3-none-any.whl"
+SDIST_NAME = f"dnd_reference-{VERSION}.tar.gz"
+DATA_FILES = ("manifest.json", "items.json", "spells.json", "feats.json", "classes.json")
+DATASETS = ("srd-5.2.1", "official-5etools-2024")
+MIGRATIONS = (
+    "001_initial.sql",
+    "002_content.sql",
+    "003_search_fts.sql",
+    "004_canonical_source_editions.sql",
+)
 
 
-def run(command: list[str], *, cwd: Path = ROOT, env: dict[str, str] | None = None) -> None:
-    print("+", " ".join(command))
+def run(*command: str, cwd: Path = ROOT, env: dict[str, str] | None = None) -> None:
+    print("+", " ".join(command), flush=True)
     subprocess.run(command, cwd=cwd, env=env, check=True)
 
 
-def venv_python(path: Path) -> Path:
-    return path / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
-
-
-def smoke_environment(python: Path, wheel: Path, root: Path, *, images: bool = False) -> None:
-    requirement = f"{wheel}[images]" if images else str(wheel)
-    run([str(python), "-m", "pip", "install", requirement], cwd=ROOT)
-    code = (
-        "import importlib.util; "
-        "from dndref import __version__; "
-        "from dndref.bundled import BUNDLED_DATASET_DIRECTORIES; "
-        "assert __version__ == '0.1.0'; "
-        "assert len(BUNDLED_DATASET_DIRECTORIES) == 2; "
-        f"assert bool(importlib.util.find_spec('PIL')) is {images!r}; "
-        f"assert bool(importlib.util.find_spec('textual_image')) is {images!r}"
-    )
-    env = {key: value for key, value in os.environ.items() if key != "PYTHONPATH"}
-    for name in ("CONFIG", "DATA", "CACHE", "STATE"):
-        env[f"XDG_{name}_HOME"] = str(root / f"xdg-{name.lower()}")
-    run([str(python), "-c", code], cwd=Path(tempfile.gettempdir()), env=env)
-    run([str(python), "-m", "dndref", "--help"], cwd=Path(tempfile.gettempdir()), env=env)
-    run([str(python), "-m", "dndref", "--images", "off"], cwd=Path(tempfile.gettempdir()), env=env)
+def audit_artifacts(wheel: Path, sdist: Path) -> None:
+    expected = {f"dndref/datasets/{pack}/{name}" for pack in DATASETS for name in DATA_FILES}
+    expected.update(f"dndref/storage/migrations/{name}" for name in MIGRATIONS)
+    expected.update(("dndref/__init__.py", "dndref/__main__.py", "dndref/cli.py"))
+    with zipfile.ZipFile(wheel) as archive:
+        wheel_names = set(archive.namelist())
+        metadata = archive.read(f"dnd_reference-{VERSION}.dist-info/METADATA").decode()
+        entrypoints = archive.read(f"dnd_reference-{VERSION}.dist-info/entry_points.txt").decode()
+    with tarfile.open(sdist) as archive:
+        sdist_names = {
+            name.removeprefix(f"dnd_reference-{VERSION}/").removeprefix("src/")
+            for name in archive.getnames()
+        }
+    for label, names in (("wheel", wheel_names), ("sdist", sdist_names)):
+        missing = expected - names
+        if missing:
+            raise RuntimeError(f"{label} missing resources: {sorted(missing)}")
+        if any(
+            "dndref_spike" in name or name.endswith((".pyc", ".db", ".sqlite3")) for name in names
+        ):
+            raise RuntimeError(f"{label} contains unintended runtime files")
+    if not any(name.endswith("/LICENSE") for name in wheel_names) or "LICENSE" not in sdist_names:
+        raise RuntimeError("application license missing from an archive")
+    if "Requires-Python: >=3.12" not in metadata or "Provides-Extra: images" not in metadata:
+        raise RuntimeError("incorrect wheel metadata")
+    if (
+        "pytest" in metadata.split("Provides-Extra: dev")[0]
+        or "ruff" in metadata.split("Provides-Extra: dev")[0]
+    ):
+        raise RuntimeError("development dependency leaked into base runtime")
+    if "dndref = dndref.__main__:main" not in entrypoints or "dndref-spike" in entrypoints:
+        raise RuntimeError("incorrect console scripts")
+    print(f"Inspected wheel ({len(wheel_names)} files) and sdist ({len(sdist_names)} files)")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--keep", action="store_true", help="keep the temporary verification directory"
-    )
+    parser.add_argument("--skip-build", action="store_true", help="verify existing dist artifacts")
     args = parser.parse_args()
-    temp_context = tempfile.TemporaryDirectory(prefix="dndref-release-")
-    try:
-        root = Path(temp_context.name)
-        dist = root / "dist"
-        run([sys.executable, "-m", "build", "--wheel", "--sdist", "--outdir", str(dist)])
-        artifacts = sorted(dist.iterdir())
-        wheels = [path for path in artifacts if path.suffix == ".whl"]
-        sdists = [path for path in artifacts if path.name.endswith(".tar.gz")]
-        if len(wheels) != 1 or len(sdists) != 1:
-            raise RuntimeError(f"expected one wheel and one sdist, found {artifacts}")
-        wheel = wheels[0]
-        with zipfile.ZipFile(wheel) as archive:
-            names = set(archive.namelist())
-        for directory, files in EXPECTED_DATASETS.items():
-            for filename in files:
-                expected = f"dndref/datasets/{directory}/{filename}"
-                if expected not in names:
-                    raise RuntimeError(f"wheel is missing {expected}")
+    DIST.mkdir(exist_ok=True)
+    if not args.skip_build:
+        for artifact in DIST.iterdir():
+            if artifact.is_file():
+                artifact.unlink()
+        run(sys.executable, "-m", "build", "--wheel", "--sdist", "--outdir", str(DIST))
+    wheel = DIST / WHEEL_NAME
+    sdist = DIST / SDIST_NAME
+    if {p.name for p in DIST.iterdir()} != {WHEEL_NAME, SDIST_NAME}:
+        raise RuntimeError(f"unexpected dist contents: {sorted(p.name for p in DIST.iterdir())}")
+    audit_artifacts(wheel, sdist)
 
-        base_env = root / "base"
-        image_env = root / "images"
-        sdist_env = root / "sdist"
-        for environment in (base_env, image_env, sdist_env):
-            venv.EnvBuilder(with_pip=True, clear=True).create(environment)
-        smoke_environment(venv_python(base_env), wheel, base_env)
-        smoke_environment(venv_python(image_env), wheel, image_env, images=True)
-        run([str(venv_python(sdist_env)), "-m", "pip", "install", str(sdists[0])])
-        run(
-            [str(venv_python(sdist_env)), "-m", "dndref", "--version"],
-            cwd=Path(tempfile.gettempdir()),
-        )
-        print(f"Verified {wheel.name} and {sdists[0].name}")
-        return 0
-    finally:
-        if args.keep:
-            print(f"Kept verification directory: {temp_context.name}")
-            temp_context._finalizer.detach()
-        else:
-            temp_context.cleanup()
+    with tempfile.TemporaryDirectory(prefix="dndref-release-") as temporary:
+        root = Path(temporary)
+        for extra in (False, True):
+            label = "images" if extra else "base"
+            environment = root / label
+            venv.EnvBuilder(with_pip=True).create(environment)
+            python = environment / "bin" / "python"
+            requirement = f"{wheel}[images]" if extra else str(wheel)
+            run(str(python), "-m", "pip", "install", requirement)
+            test_env = {key: value for key, value in os.environ.items() if key != "PYTHONPATH"}
+            test_env.update(
+                {
+                    f"XDG_{name}_HOME": str(root / label / name.lower())
+                    for name in ("CONFIG", "DATA", "CACHE", "STATE")
+                }
+            )
+            test_env["TERM"] = "dumb"
+            run(
+                str(python),
+                str(ROOT / "scripts" / "release_smoke.py"),
+                "images" if extra else "base",
+                str(ROOT / "tests" / "fixtures" / "dataset"),
+                cwd=root,
+                env=test_env,
+            )
+    print(f"Verified {wheel.name} and {sdist.name}")
+    return 0
 
 
 if __name__ == "__main__":

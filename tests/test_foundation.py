@@ -159,7 +159,7 @@ def test_fresh_database_initializes_and_enables_foreign_keys(tmp_path: Path) -> 
 
     applied = database.initialize()
 
-    assert applied == (1, 2, 3, 4, 5)
+    assert applied == (1, 2, 3, 4, 5, 6)
     with database.connection() as connection:
         assert connection.execute("PRAGMA foreign_keys").fetchone()[0] == 1
         source_columns = {
@@ -175,6 +175,7 @@ def test_fresh_database_initializes_and_enables_foreign_keys(tmp_path: Path) -> 
             (3, "search_fts"),
             (4, "canonical_source_editions"),
             (5, "monsters"),
+            (6, "personal_organization"),
         ]
 
 
@@ -184,7 +185,7 @@ def test_migrations_are_not_applied_twice(tmp_path: Path) -> None:
 
     assert database.initialize() == ()
     with database.connection() as connection:
-        assert connection.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0] == 5
+        assert connection.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0] == 6
 
 
 def test_failed_migration_is_not_recorded(tmp_path: Path) -> None:
@@ -264,7 +265,7 @@ def test_cli_startup_and_shutdown_with_xdg_overrides(tmp_path: Path) -> None:
     database_path = tmp_path / "xdg-data" / "dndref" / "dndref.sqlite3"
     assert database_path.is_file()
     with sqlite3.connect(database_path) as connection:
-        assert connection.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0] == 5
+        assert connection.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0] == 6
 
 
 @pytest.mark.asyncio

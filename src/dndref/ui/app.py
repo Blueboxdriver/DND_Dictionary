@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from textwrap import shorten
 from typing import Any
 
@@ -19,6 +19,7 @@ from ..crossrefs import CrossReferenceResolver, ReferenceTarget
 from ..images import DecodedImage, ImageAdapter, ImageLoader
 from ..models import display_edition
 from ..navigation import NavigationHistory, NavigationState, RecentlyViewed, ViewedRecord
+from ..personal import PersonalDataService
 from ..search import (
     DetailSection,
     EntryDetail,
@@ -39,10 +40,14 @@ from .monster_detail import render_monster_detail
 from .screens import (
     AboutScreen,
     ChoiceScreen,
+    CollectionChooserScreen,
+    CollectionListScreen,
     FilterScreen,
     HelpScreen,
+    PersonalEntriesScreen,
     RecentlyViewedScreen,
     SourceBrowserScreen,
+    TextEntryScreen,
 )
 from .widgets import ImagePanel, ResultRow
 
@@ -377,6 +382,13 @@ class BrowserApp(App[None]):
         self.config = config or Config()
         self.database = database or Database(self.paths.database_path)
         self.search_service = SearchService(self.database)
+        self.personal_data = PersonalDataService(self.database)
+        self.personal_view: str | None = None
+        self.personal_collection_id: int | None = None
+        self.personal_query = ""
+        self.personal_category_filter: str | None = None
+        self.personal_edition_filter: str | None = None
+        self.personal_tag_filter: str | None = None
         self.category = SearchCategory.SPELLS
         self.mode = SearchMode.NAMES
         self.group_alternate_sources = self.config.content.group_alternate_sources
@@ -450,6 +462,7 @@ class BrowserApp(App[None]):
                         yield Static("", id="detail-variant-hint")
                         yield Markdown("", id="detail-copy")
                         yield ClassDetailView(id="class-detail")
+                        yield Static("", id="personal-status")
                         yield Static("", id="related-heading")
                         yield ListView(id="related-list")
                     yield ImagePanel(id="image-panel")
@@ -547,7 +560,8 @@ class BrowserApp(App[None]):
             elif worker.name.startswith("detail:"):
                 parts = worker.name.split(":", 2)
                 if (
-                    len(parts) == 3 and parts[1].isdigit()
+                    len(parts) == 3
+                    and parts[1].isdigit()
                     and int(parts[1]) == self._detail_request_id
                     and parts[2] == self._selected_variant_id
                 ):
@@ -633,6 +647,30 @@ class BrowserApp(App[None]):
         if event.character == "r":
             event.stop()
             self.action_recently_viewed()
+            return
+        if event.character == "F":
+            event.stop()
+            self.action_favorites()
+            return
+        if event.character == "C":
+            event.stop()
+            self.action_collections()
+            return
+        if event.character == "*" and self._current_detail is not None:
+            event.stop()
+            self.action_toggle_favorite()
+            return
+        if event.character == "n" and self._current_detail is not None:
+            event.stop()
+            self.action_edit_note()
+            return
+        if event.character == "T" and self._current_detail is not None:
+            event.stop()
+            self.action_edit_tags()
+            return
+        if event.character == "m" and self._current_detail is not None:
+            event.stop()
+            self.action_add_to_collection()
             return
         if event.character == "i":
             event.stop()
@@ -777,8 +815,12 @@ class BrowserApp(App[None]):
             return
         self._parent_options = ("All Classes", *parents)
         selected = next(
-            (index for index, name in enumerate(self._parent_options)
-             if name == self.state.parent_class), 0
+            (
+                index
+                for index, name in enumerate(self._parent_options)
+                if name == self.state.parent_class
+            ),
+            0,
         )
         self._clear_image()
         self.push_screen(
@@ -804,13 +846,19 @@ class BrowserApp(App[None]):
             return
         self._monster_filter_kind = kind
         self._monster_filter_values = ("All", *values)
-        current = {"cr": self.state.challenge_rating, "type": self.state.creature_type,
-                   "size": self.state.size}[kind]
+        current = {
+            "cr": self.state.challenge_rating,
+            "type": self.state.creature_type,
+            "size": self.state.size,
+        }[kind]
         selected = self._monster_filter_values.index(current) if current in values else 0
         self._clear_image()
         self.push_screen(
-            ChoiceScreen({"cr": "Challenge rating", "type": "Creature type", "size": "Size"}[kind],
-                         self._monster_filter_values, selected),
+            ChoiceScreen(
+                {"cr": "Challenge rating", "type": "Creature type", "size": "Size"}[kind],
+                self._monster_filter_values,
+                selected,
+            ),
             self._monster_filter_selected,
         )
 
@@ -819,8 +867,13 @@ class BrowserApp(App[None]):
             self._restore_current_image()
             return
         value = self._monster_filter_values[index] if index else None
-        setattr(self.state, {"cr": "challenge_rating", "type": "creature_type",
-                             "size": "size"}[self._monster_filter_kind], value)
+        setattr(
+            self.state,
+            {"cr": "challenge_rating", "type": "creature_type", "size": "size"}[
+                self._monster_filter_kind
+            ],
+            value,
+        )
         self._update_filter_status()
         self._apply_filter_change()
 
@@ -836,8 +889,7 @@ class BrowserApp(App[None]):
             self.state.selected_id = (
                 self._selected_variant_id
                 if any(
-                    variant.identity == self._selected_variant_id
-                    for variant in previous.variants
+                    variant.identity == self._selected_variant_id for variant in previous.variants
                 )
                 else previous.primary.identity
             )
@@ -860,12 +912,14 @@ class BrowserApp(App[None]):
             self.notify("No alternate sources for this entry.", timeout=2)
             return
         variants = selected.variants
-        labels = tuple(
-            f"{variant.source_label} · {variant.dataset_title}" for variant in variants
-        )
+        labels = tuple(f"{variant.source_label} · {variant.dataset_title}" for variant in variants)
         current = next(
-            (index for index, variant in enumerate(variants)
-             if variant.identity == self._selected_variant_id), 0
+            (
+                index
+                for index, variant in enumerate(variants)
+                if variant.identity == self._selected_variant_id
+            ),
+            0,
         )
         self._clear_image()
         self.push_screen(
@@ -902,15 +956,14 @@ class BrowserApp(App[None]):
         self._clear_image()
         self.push_screen(
             ChoiceScreen(
-                "Filter presets", tuple(preset.name for preset in self._presets),
+                "Filter presets",
+                tuple(preset.name for preset in self._presets),
                 previews=previews,
             ),
             self._preset_selected,
         )
 
-    def _preset_preview(
-        self, preset: FilterPreset, all_sources: tuple[SourceOption, ...]
-    ) -> str:
+    def _preset_preview(self, preset: FilterPreset, all_sources: tuple[SourceOption, ...]) -> str:
         lines = ["Editions"]
         if not preset.editions:
             lines.append("  [x] All Editions")
@@ -931,7 +984,8 @@ class BrowserApp(App[None]):
             available = {option.identity for option in all_sources}
             lines.extend(
                 f"  [x] {source} (unavailable)"
-                for source in preset.sources if source not in available
+                for source in preset.sources
+                if source not in available
             )
         return "\n".join(lines)
 
@@ -988,9 +1042,7 @@ class BrowserApp(App[None]):
         if values is None:
             self._restore_current_image()
             return
-        self.state.sources = tuple(
-            value for value in values if isinstance(value, SourceIdentity)
-        )
+        self.state.sources = tuple(value for value in values if isinstance(value, SourceIdentity))
         self._update_filter_status()
         self._apply_filter_change()
 
@@ -1008,9 +1060,7 @@ class BrowserApp(App[None]):
                 self.state.editions = tuple(
                     edition for edition in self.state.editions if edition in available_editions
                 )
-            sources = self.search_service.list_available_sources(
-                self.category, self.state.editions
-            )
+            sources = self.search_service.list_available_sources(self.category, self.state.editions)
             if self.category is SearchCategory.SUBCLASSES and self.state.parent_class:
                 parents = self.search_service.list_subclass_parents(self.state.editions)
                 if self.state.parent_class not in parents:
@@ -1034,8 +1084,11 @@ class BrowserApp(App[None]):
         if self.category is SearchCategory.SUBCLASSES:
             heading = "Subclasses · f Class: " + (self.state.parent_class or "All")
         elif self.category is SearchCategory.MONSTERS:
-            active = [f"CR {self.state.challenge_rating}" if self.state.challenge_rating else "",
-                      self.state.creature_type or "", self.state.size or ""]
+            active = [
+                f"CR {self.state.challenge_rating}" if self.state.challenge_rating else "",
+                self.state.creature_type or "",
+                self.state.size or "",
+            ]
             heading = "Monsters" + (" · " + " / ".join(filter(None, active)) if any(active) else "")
         self._query_widget("#list-heading", Label).update(heading)
         if not self.state.editions:
@@ -1180,9 +1233,7 @@ class BrowserApp(App[None]):
 
     def _search_page(self, query: SearchQuery) -> SearchPage:
         if self.group_alternate_sources:
-            return self.search_service.search_grouped(
-                query, self.config.content.preferred_sources
-            )
+            return self.search_service.search_grouped(query, self.config.content.preferred_sources)
         return self.search_service.search(query)
 
     async def _handle_search_result(self, page: Any) -> None:
@@ -1192,12 +1243,8 @@ class BrowserApp(App[None]):
         if (
             self.state.selected_id is not None
             and self.state.selected_id.startswith("group:")
-            and not any(
-                result.identity == self.state.selected_id for result in self.state.results
-            )
-            and any(
-                result.identity == self._selected_variant_id for result in self.state.results
-            )
+            and not any(result.identity == self.state.selected_id for result in self.state.results)
+            and any(result.identity == self._selected_variant_id for result in self.state.results)
         ):
             self.state.selected_id = self._selected_variant_id
         self.state.total_count = page.total_count
@@ -1235,8 +1282,7 @@ class BrowserApp(App[None]):
                 index,
             )
         await result_list.clear()
-        for summary in self.state.results:
-            await result_list.mount(ResultRow(summary))
+        await result_list.extend(ResultRow(summary) for summary in self.state.results)
         self._query_widget("#result-count", Label).update(
             f"{self.state.total_count} result" + ("s" if self.state.total_count != 1 else "")
         )
@@ -1266,7 +1312,8 @@ class BrowserApp(App[None]):
                 if restored_index is None:
                     restored_index = next(
                         (
-                            index for index, summary in enumerate(self.state.results)
+                            index
+                            for index, summary in enumerate(self.state.results)
                             if summary.identity == self.state.selected_id
                         ),
                         min(self.state.list_index, len(self.state.results) - 1),
@@ -1356,8 +1403,11 @@ class BrowserApp(App[None]):
         self._query_widget("#detail-scroll", VerticalScroll).scroll_home()
         if isinstance(summary, GroupedEntrySummary):
             selected_variant = next(
-                (variant for variant in summary.variants
-                 if variant.identity == self._selected_variant_id),
+                (
+                    variant
+                    for variant in summary.variants
+                    if variant.identity == self._selected_variant_id
+                ),
                 summary.primary,
             )
             self._load_variant(selected_variant)
@@ -1397,10 +1447,14 @@ class BrowserApp(App[None]):
         self._detail_loaded_for = detail.identity
         self._current_detail = detail
         self._related_targets = tuple(references)
-        self.recently_viewed.add(ViewedRecord(
-            detail.identity, detail.category, detail.name,
-            str(detail.fields.get("edition")) if detail.fields.get("edition") else None,
-        ))
+        self.recently_viewed.add(
+            ViewedRecord(
+                detail.identity,
+                detail.category,
+                detail.name,
+                str(detail.fields.get("edition")) if detail.fields.get("edition") else None,
+            )
+        )
         if self.navigation_history.current is None:
             self.navigation_history.restore_history_state(self._navigation_state(detail.identity))
         await self._render_detail(detail)
@@ -1415,7 +1469,8 @@ class BrowserApp(App[None]):
         if detail.category is SearchCategory.FEATS:
             return detail, self.cross_references.explicit_feat_prerequisite_references(
                 str(detail.fields.get("prerequisite"))
-                if detail.fields.get("prerequisite") else None,
+                if detail.fields.get("prerequisite")
+                else None,
                 edition,
             )
         if detail.category is not SearchCategory.MONSTERS:
@@ -1439,10 +1494,7 @@ class BrowserApp(App[None]):
             None,
         )
         hint = self._query_widget("#detail-variant-hint", Static)
-        if (
-            isinstance(selected, GroupedEntrySummary)
-            and selected.alternates
-        ):
+        if isinstance(selected, GroupedEntrySummary) and selected.alternates:
             hint.update(
                 f"Source: {detail.source_label} · "
                 f"{len(selected.alternates)} alternates · v Variants"
@@ -1458,9 +1510,30 @@ class BrowserApp(App[None]):
             class_detail.display = False
             detail_copy.display = True
             detail_copy.update(render_detail(detail))
+        favorite = self.personal_data.is_favorite(detail.identity)
+        collections = self.personal_data.collections_for(detail.identity)
+        tags = self.personal_data.tags_for(detail.identity)
+        note = self.personal_data.note_for(detail.identity)
+        personal = "Personal\n" + ("★ Favorite" if favorite else "☆ Not favorite")
+        personal += "\nCollections: " + (", ".join(collections) if collections else "None")
+        personal += "\nTags: " + (", ".join(tags) if tags else "None")
+        personal += "\nNote: " + ("present" if note else "none")
+        self._query_widget("#personal-status", Static).update(personal)
         await self._render_related_targets(detail)
-        self._query_widget("#detail-scroll", VerticalScroll).scroll_y = self.state.detail_scroll
+        detail_scroll = self.state.detail_scroll
+        self._query_widget("#detail-scroll", VerticalScroll).scroll_y = detail_scroll
+        self.call_after_refresh(self._restore_detail_scroll, detail_scroll)
+        self.set_timer(
+            0.05,
+            lambda scroll=detail_scroll: self._restore_detail_scroll(scroll),
+            name="history-detail-scroll-restore",
+        )
         self._schedule_image(detail)
+
+    def _restore_detail_scroll(self, scroll: int) -> None:
+        if not self.screen_stack:
+            return
+        self._query_widget("#detail-scroll", VerticalScroll).scroll_y = scroll
 
     async def _render_related_targets(self, detail: EntryDetail) -> None:
         related = self._query_widget("#related-list", ListView)
@@ -1470,8 +1543,7 @@ class BrowserApp(App[None]):
         if detail.category is SearchCategory.SUBCLASSES:
             parent_id = detail.fields.get("parent_class_identity")
             target = (
-                self.cross_references.get_by_id(parent_id)
-                if isinstance(parent_id, str) else None
+                self.cross_references.get_by_id(parent_id) if isinstance(parent_id, str) else None
             )
             targets = [target] if target is not None else []
         self._related_targets = tuple(targets)
@@ -1492,10 +1564,14 @@ class BrowserApp(App[None]):
         heading.update(f"Related Content · {title}")
         for target in targets:
             edition = display_edition(target.edition) or "Unknown edition"
-            await related.mount(ListItem(Label(
-                f"↗ {target.name} · {target.category.value.title()} · {edition} · "
-                f"{target.source_label}"
-            )))
+            await related.mount(
+                ListItem(
+                    Label(
+                        f"↗ {target.name} · {target.category.value.title()} · {edition} · "
+                        f"{target.source_label}"
+                    )
+                )
+            )
 
     def _open_highlighted_subclass(self) -> None:
         subclass_list = self._query_widget("#subclass-list", ListView)
@@ -1509,9 +1585,7 @@ class BrowserApp(App[None]):
         index = related.index
         if index is not None and 0 <= index < len(self._related_targets):
             target = self._related_targets[index]
-            options = tuple(
-                item for item in self._related_targets if item.name == target.name
-            )
+            options = tuple(item for item in self._related_targets if item.name == target.name)
             if len(options) == 1:
                 self._navigate_to_identity(target.identity)
             else:
@@ -1572,26 +1646,47 @@ class BrowserApp(App[None]):
         self._queue_search()
         self._load_variant_identity(target.identity)
 
-    def _navigation_state(self, detail_id: str | None = None) -> NavigationState:
+    def _navigation_state(
+        self, detail_id: str | None = None, *, include_current_detail: bool = True
+    ) -> NavigationState:
         state = self.state
         scroll = int(self._query_widget("#detail-scroll", VerticalScroll).scroll_y)
-        identity = detail_id or (
-            self._current_detail.identity if self._current_detail is not None
-            else self._selected_variant_id
-        )
+        identity = detail_id
+        if identity is None and include_current_detail:
+            identity = (
+                self._current_detail.identity
+                if self._current_detail is not None
+                else self._selected_variant_id
+            )
         return NavigationState(
-            category=self.category, query=state.query, mode=self.mode.value,
-            editions=state.editions, sources=state.sources,
-            parent_class=state.parent_class, challenge_rating=state.challenge_rating,
-            creature_type=state.creature_type, size=state.size,
-            selected_id=state.selected_id, variant_id=self._selected_variant_id,
+            category=self.category,
+            query=state.query,
+            mode=self.mode.value,
+            editions=state.editions,
+            sources=state.sources,
+            parent_class=state.parent_class,
+            challenge_rating=state.challenge_rating,
+            creature_type=state.creature_type,
+            size=state.size,
+            selected_id=state.selected_id,
+            variant_id=self._selected_variant_id,
             list_index=state.list_index,
             list_scroll=int(self._query_widget("#result-list", ListView).scroll_y),
-            detail_scroll=scroll, detail_id=identity,
+            detail_scroll=scroll,
+            detail_id=identity,
             narrow_detail_open=self.narrow_detail_open,
+            personal_view=self.personal_view,
+            personal_collection_id=self.personal_collection_id,
+            personal_query=self.personal_query,
+            personal_category_filter=self.personal_category_filter,
+            personal_edition_filter=self.personal_edition_filter,
+            personal_tag_filter=self.personal_tag_filter,
         )
 
     def _commit_current_location(self) -> None:
+        current = self.navigation_history.current
+        if current is not None and current.personal_view and current.detail_id is None:
+            return
         self.navigation_history.navigate_to(self._navigation_state())
 
     def _restore_navigation_state(self, state: NavigationState) -> None:
@@ -1614,6 +1709,12 @@ class BrowserApp(App[None]):
         self._history_restore_detail_id = state.detail_id
         self._restoring_history = True
         self.narrow_detail_open = state.narrow_detail_open
+        self.personal_view = state.personal_view
+        self.personal_collection_id = state.personal_collection_id
+        self.personal_query = state.personal_query
+        self.personal_category_filter = state.personal_category_filter
+        self.personal_edition_filter = state.personal_edition_filter
+        self.personal_tag_filter = state.personal_tag_filter
         self.navigation_history.restore_history_state(state)
         self._update_input_from_state()
         self._update_tab_styles()
@@ -1629,6 +1730,8 @@ class BrowserApp(App[None]):
                 self._show_detail_error("This history entry is no longer available.")
             else:
                 self._load_variant_identity(state.detail_id)
+        elif state.personal_view:
+            self.call_after_refresh(self._show_personal_view)
 
     def action_back(self) -> None:
         while self.navigation_history.can_go_back:
@@ -1658,6 +1761,245 @@ class BrowserApp(App[None]):
             RecentlyViewedScreen(self.recently_viewed.records),
             self._recent_entry_selected,
         )
+
+    def action_toggle_favorite(self) -> None:
+        detail = self._current_detail
+        if detail is None:
+            return
+        present = self.personal_data.is_favorite(detail.identity)
+        self.personal_data.set_favorite(detail, not present)
+        self._refresh_personal_detail(detail)
+
+    def _refresh_personal_detail(self, detail: EntryDetail) -> None:
+        self.run_worker(
+            self._render_detail(detail),
+            name="personal-detail-refresh",
+            group="personal-detail-refresh",
+            exclusive=True,
+            thread=False,
+            exit_on_error=False,
+        )
+
+    def action_edit_note(self) -> None:
+        detail = self._current_detail
+        if detail is None:
+            return
+        self.push_screen(
+            TextEntryScreen(
+                "Edit private note · Ctrl+S to save",
+                self.personal_data.note_for(detail.identity) or "",
+                multiline=True,
+            ),
+            lambda result: self._note_saved(detail, result),
+        )
+
+    def _note_saved(self, detail: EntryDetail, result: tuple[str, str] | None) -> None:
+        if result is not None:
+            self.personal_data.save_note(detail, result[1])
+            self._refresh_personal_detail(detail)
+
+    def action_edit_tags(self) -> None:
+        detail = self._current_detail
+        if detail is None:
+            return
+        tags = self.personal_data.tags_for(detail.identity)
+        self.push_screen(
+            TextEntryScreen(
+                "Edit tags · comma or newline separated · Ctrl+S to save",
+                "\n".join(tags),
+                multiline=True,
+            ),
+            lambda result: self._tags_saved(detail, result),
+        )
+
+    def _tags_saved(self, detail: EntryDetail, result: tuple[str, str] | None) -> None:
+        if result is None:
+            return
+        desired = {tag.strip() for tag in result[1].replace(",", "\n").splitlines() if tag.strip()}
+        current = set(self.personal_data.tags_for(detail.identity))
+        for tag in current - desired:
+            self.personal_data.remove_tag(detail.identity, tag)
+        for tag in desired - current:
+            self.personal_data.add_tag(detail.identity, tag)
+        self._refresh_personal_detail(detail)
+
+    def action_add_to_collection(self) -> None:
+        detail = self._current_detail
+        if detail is None:
+            return
+        collections = self.personal_data.list_collections()
+        current = self.personal_data.collection_ids_for(detail.identity)
+        self.push_screen(
+            CollectionChooserScreen(collections, current),
+            lambda selected: self._collection_membership_saved(detail, selected),
+        )
+
+    def _collection_membership_saved(
+        self, detail: EntryDetail, selected: tuple[int, ...] | None
+    ) -> None:
+        if selected is None:
+            return
+        existing = set(self.personal_data.collection_ids_for(detail.identity))
+        chosen = set(selected)
+        for collection in self.personal_data.list_collections():
+            if (collection.collection_id in chosen) != (collection.collection_id in existing):
+                self.personal_data.set_collection_membership(
+                    collection.collection_id, detail, collection.collection_id in chosen
+                )
+        self._refresh_personal_detail(detail)
+
+    def action_favorites(self) -> None:
+        self._commit_current_location()
+        self.personal_view = "favorites"
+        self.personal_collection_id = None
+        self.personal_query = ""
+        self.personal_category_filter = None
+        self.personal_edition_filter = None
+        self.personal_tag_filter = None
+        self.navigation_history.navigate_to(self._navigation_state(include_current_detail=False))
+        self._show_personal_view()
+
+    def action_collections(self) -> None:
+        self._commit_current_location()
+        self.personal_view = "collections"
+        self.personal_collection_id = None
+        self.personal_query = ""
+        self.personal_category_filter = None
+        self.personal_edition_filter = None
+        self.personal_tag_filter = None
+        self.navigation_history.navigate_to(self._navigation_state(include_current_detail=False))
+        self._show_personal_view()
+
+    def _show_personal_view(self) -> None:
+        if self.personal_view == "favorites":
+            self.push_screen(
+                PersonalEntriesScreen(
+                    "Favorites",
+                    self.personal_data.list_favorites(self.personal_query),
+                    removable=True,
+                    query=self.personal_query,
+                    kind_filter=self.personal_category_filter,
+                    edition_filter=self.personal_edition_filter,
+                    tag_filter=self.personal_tag_filter,
+                ),
+                self._personal_entries_result,
+            )
+        elif self.personal_view == "collection" and self.personal_collection_id is not None:
+            collection = next(
+                (
+                    c
+                    for c in self.personal_data.list_collections()
+                    if c.collection_id == self.personal_collection_id
+                ),
+                None,
+            )
+            title = collection.name if collection else "Missing collection"
+            self.push_screen(
+                PersonalEntriesScreen(
+                    title,
+                    self.personal_data.list_collection_entries(
+                        self.personal_collection_id, query=self.personal_query
+                    ),
+                    removable=True,
+                    query=self.personal_query,
+                    kind_filter=self.personal_category_filter,
+                    edition_filter=self.personal_edition_filter,
+                    tag_filter=self.personal_tag_filter,
+                ),
+                self._personal_entries_result,
+            )
+        elif self.personal_view == "collections":
+            self.push_screen(
+                CollectionListScreen(self.personal_data.list_collections()),
+                self._collections_result,
+            )
+
+    def _personal_entries_result(
+        self,
+        result: tuple[str, str, str, str | None, str | None, str | None] | None,
+    ) -> None:
+        if result is None:
+            return
+        action, identity, query, category_filter, edition_filter, tag_filter = result
+        self.personal_query = query
+        self.personal_category_filter = category_filter
+        self.personal_edition_filter = edition_filter
+        self.personal_tag_filter = tag_filter
+        current = self.navigation_history.current
+        if current is not None and current.personal_view:
+            self.navigation_history.restore_history_state(
+                replace(
+                    current,
+                    personal_query=query,
+                    personal_category_filter=category_filter,
+                    personal_edition_filter=edition_filter,
+                    personal_tag_filter=tag_filter,
+                )
+            )
+        if action == "remove":
+            if self.personal_view == "favorites":
+                self.personal_data.remove_favorite(identity)
+            elif self.personal_collection_id is not None:
+                self.personal_data.remove_collection_identity(self.personal_collection_id, identity)
+            self._show_personal_view()
+            return
+        self._current_detail = None
+        self._navigate_to_identity(identity)
+
+    def _collections_result(self, result: tuple[str, int] | None) -> None:
+        if result is None:
+            return
+        action, collection_id = result
+        if action == "open":
+            self.personal_view = "collection"
+            self.personal_collection_id = collection_id
+            self.personal_query = ""
+            self.personal_category_filter = None
+            self.personal_edition_filter = None
+            self.personal_tag_filter = None
+            self.navigation_history.navigate_to(
+                self._navigation_state(include_current_detail=False)
+            )
+            self._show_personal_view()
+        elif action == "create":
+            self.push_screen(
+                TextEntryScreen("New collection name · Ctrl+S to save"),
+                self._collection_name_result,
+            )
+        elif action == "rename":
+            collection = next(
+                (
+                    c
+                    for c in self.personal_data.list_collections()
+                    if c.collection_id == collection_id
+                ),
+                None,
+            )
+            if collection:
+                self.push_screen(
+                    TextEntryScreen("Rename collection · Ctrl+S to save", collection.name),
+                    lambda value: self._collection_renamed(collection_id, value),
+                )
+        elif action == "delete":
+            self.push_screen(
+                TextEntryScreen("Type DELETE to confirm collection deletion", multiline=False),
+                lambda value: self._collection_deleted(collection_id, value),
+            )
+
+    def _collection_name_result(self, result: tuple[str, str] | None) -> None:
+        if result and result[1].strip():
+            self.personal_data.create_collection(result[1])
+        self._show_personal_view()
+
+    def _collection_renamed(self, collection_id: int, result: tuple[str, str] | None) -> None:
+        if result and result[1].strip():
+            self.personal_data.rename_collection(collection_id, result[1])
+        self._show_personal_view()
+
+    def _collection_deleted(self, collection_id: int, result: tuple[str, str] | None) -> None:
+        if result and result[1] == "DELETE":
+            self.personal_data.delete_collection(collection_id)
+        self._show_personal_view()
 
     def _recent_entry_selected(self, identity: str | None) -> None:
         if identity:
@@ -1689,6 +2031,8 @@ class BrowserApp(App[None]):
         self._commit_current_location()
         self.state.detail_scroll = self._query_widget("#detail-scroll", VerticalScroll).scroll_y
         self._current_detail = None
+        self.personal_view = None
+        self.personal_collection_id = None
         self._clear_image()
         self.category = category
         self._category_transition = True
@@ -1721,8 +2065,10 @@ class BrowserApp(App[None]):
 
     def _image_layout_available(self) -> bool:
         return (
-            self._artwork_visible and self.layout_mode == "split"
-            and self.size.width >= 120 and self.size.height >= 30
+            self._artwork_visible
+            and self.layout_mode == "split"
+            and self.size.width >= 120
+            and self.size.height >= 30
             and self.screen is self.screen_stack[0]
         )
 
@@ -1740,7 +2086,8 @@ class BrowserApp(App[None]):
     def _current_image_request(self, worker_name: str) -> bool:
         parts = worker_name.split(":", 2)
         return (
-            len(parts) == 3 and parts[1].isdigit()
+            len(parts) == 3
+            and parts[1].isdigit()
             and int(parts[1]) == self._image_request_id
             and parts[2] == self._selected_variant_id
         )
@@ -1791,9 +2138,7 @@ class BrowserApp(App[None]):
         ):
             return
         self._image_worker = self.run_worker(
-            lambda: self.image_loader.load(
-                detail.image.path, media_type=detail.image.media_type
-            ),
+            lambda: self.image_loader.load(detail.image.path, media_type=detail.image.media_type),
             name=f"image:{request_id}:{detail.identity}",
             group="image",
             thread=True,
@@ -1939,8 +2284,7 @@ def render_detail(detail: EntryDetail) -> str:
                 _field("Rarity", fields.get("rarity")),
                 _field(
                     "Attunement",
-                    fields.get("attunement_prerequisite")
-                    or fields.get("requires_attunement"),
+                    fields.get("attunement_prerequisite") or fields.get("requires_attunement"),
                 ),
                 _field("Weight", fields.get("weight_display")),
                 _field("Cost", fields.get("cost_display")),

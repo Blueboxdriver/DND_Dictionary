@@ -196,6 +196,7 @@ def main() -> None:
             3,
             4,
             5,
+            6,
         ]
         assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 4036
         assert connection.execute("SELECT COUNT(*) FROM entry_search").fetchone()[0] == 4036
@@ -229,7 +230,7 @@ def main() -> None:
         assert older.initialize() == (1, 2, 3)
         import_dataset(older, load_dataset(fixture_path))
         upgraded = Database(older.path)
-        assert upgraded.initialize() == (4, 5)
+        assert upgraded.initialize() == (4, 5, 6)
         assert upgraded.initialize() == ()
         assert SearchService(upgraded).search(SearchQuery("items", "Rapier")).total_count
         with upgraded.connection() as connection:

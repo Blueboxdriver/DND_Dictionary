@@ -29,9 +29,13 @@ from dndref.ui.class_detail import progression_table
 from dndref.ui.screens import (
     AboutScreen,
     ChoiceScreen,
+    CollectionChooserScreen,
+    CollectionListScreen,
     FilterScreen,
     HelpScreen,
+    PersonalEntriesScreen,
     SourceBrowserScreen,
+    TextEntryScreen,
 )
 
 FIXTURE = Path("tests/fixtures/dataset")
@@ -879,6 +883,99 @@ async def test_result_navigation_detail_and_help(tmp_path: Path) -> None:
         assert "`s` Source filter" in HelpScreen.KEYBOARD_HELP
         await pilot.press("escape")
         assert not isinstance(pilot.app.screen, HelpScreen)
+
+
+@pytest.mark.asyncio
+async def test_favorite_detail_metadata_and_favorites_browser(tmp_path: Path) -> None:
+    database = populated_database(tmp_path)
+    async with BrowserApp(database, config=Config(ui=UIConfig(images="off"))).run_test(
+        size=(80, 24)
+    ) as pilot:
+        await pilot.pause(0.5)
+        detail = pilot.app._current_detail
+        assert detail is not None
+        pilot.app.personal_data.set_favorite(detail, True)
+        pilot.app._refresh_personal_detail(detail)
+        await pilot.pause(0.2)
+        assert "★ Favorite" in pilot.app.query_one("#personal-status", Static).renderable
+        pilot.app.action_favorites()
+        await pilot.pause(0.2)
+        assert isinstance(pilot.app.screen, PersonalEntriesScreen)
+        assert len(pilot.app.screen.entries) == 1
+        assert pilot.app.screen.entries[0].identity == detail.identity
+
+
+@pytest.mark.asyncio
+async def test_favorites_entry_back_restores_scoped_query(tmp_path: Path) -> None:
+    database = populated_database(tmp_path)
+    async with BrowserApp(database, config=Config(ui=UIConfig(images="off"))).run_test(
+        size=(80, 24)
+    ) as pilot:
+        await pilot.pause(0.4)
+        detail = pilot.app._current_detail
+        assert detail is not None
+        pilot.app.personal_data.set_favorite(detail, True)
+        pilot.app.action_favorites()
+        await pilot.pause(0.2)
+        screen = pilot.app.screen
+        assert isinstance(screen, PersonalEntriesScreen)
+        search = screen.query_one("#personal-search")
+        search.value = detail.name[:3]
+        await pilot.pause(0.2)
+        screen.query_one("#personal-list", ListView).focus()
+        await pilot.press("enter")
+        await pilot.pause(0.4)
+        assert pilot.app._current_detail is not None
+        assert pilot.app._current_detail.identity == detail.identity
+        await pilot.press("alt+left")
+        await pilot.pause(0.4)
+        assert isinstance(pilot.app.screen, PersonalEntriesScreen)
+        assert pilot.app.screen.query_one("#personal-search").value == detail.name[:3]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("size", [(140, 40), (100, 30), (80, 24), (60, 20)])
+async def test_personal_overlays_mount_at_supported_sizes(
+    size: tuple[int, int], tmp_path: Path
+) -> None:
+    database = populated_database(tmp_path)
+    async with BrowserApp(database, config=Config(ui=UIConfig(images="off"))).run_test(
+        size=size
+    ) as pilot:
+        await pilot.pause(0.4)
+        app = pilot.app
+        detail = app._current_detail
+        assert detail is not None
+        app.personal_data.set_favorite(detail, True)
+        collection_id = app.personal_data.create_collection("Campaign Collection")
+        app.personal_data.set_collection_membership(collection_id, detail, True)
+        app.personal_data.add_tag(detail.identity, "campaign")
+        app.personal_data.save_note(detail, "private\nnote")
+
+        app.action_favorites()
+        await pilot.pause(0.1)
+        assert isinstance(app.screen, PersonalEntriesScreen)
+        await pilot.press("escape")
+
+        app.action_collections()
+        await pilot.pause(0.1)
+        assert isinstance(app.screen, CollectionListScreen)
+        await pilot.press("escape")
+
+        app.action_add_to_collection()
+        await pilot.pause(0.1)
+        assert isinstance(app.screen, CollectionChooserScreen)
+        await pilot.press("escape")
+
+        app.action_edit_tags()
+        await pilot.pause(0.1)
+        assert isinstance(app.screen, TextEntryScreen)
+        await pilot.press("escape")
+
+        app.action_edit_note()
+        await pilot.pause(0.1)
+        assert isinstance(app.screen, TextEntryScreen)
+        await pilot.press("escape")
 
 
 @pytest.mark.asyncio

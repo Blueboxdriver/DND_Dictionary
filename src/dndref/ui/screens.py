@@ -7,12 +7,13 @@ from textual.app import ComposeResult
 from textual.containers import Container, Vertical
 from textual.css.query import NoMatches
 from textual.screen import ModalScreen
-from textual.widgets import Label, ListItem, ListView, Markdown, Static
+from textual.widgets import Input, Label, ListItem, ListView, Markdown, Static, TextArea
 
 from .. import __version__
 from ..images import ImageCapabilities
 from ..models import display_edition
 from ..navigation import ViewedRecord
+from ..personal import Collection, PersonalEntry
 from ..search import (
     DatasetMetadata,
     EditionOption,
@@ -95,9 +96,7 @@ class FilterScreen(ModalScreen[tuple[object, ...] | None]):
             with ListView(id="filter-options"):
                 yield ListItem(Label(self._all_label), id="filter-option-0")
                 for index, option in enumerate(self.options, start=1):
-                    yield ListItem(
-                        Label(self._option_label(option)), id=f"filter-option-{index}"
-                    )
+                    yield ListItem(Label(self._option_label(option)), id=f"filter-option-{index}")
             if not self.options:
                 empty_label = (
                     "No editions available for this category."
@@ -204,8 +203,13 @@ class ChoiceScreen(ModalScreen[int | None]):
     BINDINGS = [("escape", "cancel", "Cancel")]
 
     def __init__(
-        self, title: str, labels: tuple[str, ...], selected: int = 0,
-        *, previews: tuple[str, ...] = (), mark_selected: bool = False,
+        self,
+        title: str,
+        labels: tuple[str, ...],
+        selected: int = 0,
+        *,
+        previews: tuple[str, ...] = (),
+        mark_selected: bool = False,
     ) -> None:
         self.choice_title = title
         self.labels = labels
@@ -338,8 +342,7 @@ class SourceBrowserScreen(ModalScreen[tuple[SourceIdentity, SearchCategory] | No
         self.query_one("#source-browser-title", Label).update(source.source.title)
         self._replace_rows(
             tuple(
-                f"{category.value.title()}  {count}"
-                for category, count in source.counts.items()
+                f"{category.value.title()}  {count}" for category, count in source.counts.items()
             ),
             0,
         )
@@ -415,9 +418,9 @@ class RecentlyViewedScreen(ModalScreen[str | None]):
             with ListView(id="recent-list"):
                 for record in self.records:
                     edition = record.edition or "Unknown edition"
-                    yield ListItem(Label(
-                        f"{record.name}  ·  {record.category.value.title()}  ·  {edition}"
-                    ))
+                    yield ListItem(
+                        Label(f"{record.name}  ·  {record.category.value.title()}  ·  {edition}")
+                    )
             yield Static("Enter Open   Esc Close   j/k Navigate")
 
     def on_mount(self) -> None:
@@ -457,6 +460,307 @@ class RecentlyViewedScreen(ModalScreen[str | None]):
         self.dismiss(None)
 
 
+class PersonalEntriesScreen(
+    ModalScreen[tuple[str, str, str, str | None, str | None, str | None] | None]
+):
+    """Searchable Favorites or collection contents; result is (action, identity)."""
+
+    DEFAULT_CSS = """
+    PersonalEntriesScreen { align: center middle; background: $background 80%; }
+    #personal-card { width: 82; max-width: 96%; height: 90%; max-height: 94%;
+        padding: 1 2; border: round $accent; background: $surface; }
+    #personal-list { height: 1fr; border: none; }
+    #personal-list > ListItem { height: 2; }
+    #personal-list > ListItem.--highlight { background: #4a3a20; color: #eee7d5; }
+    """
+
+    BINDINGS = [("escape", "cancel", "Cancel")]
+
+    def __init__(
+        self,
+        title: str,
+        entries: tuple[PersonalEntry, ...],
+        *,
+        removable: bool = False,
+        query: str = "",
+        kind_filter: str | None = None,
+        edition_filter: str | None = None,
+        tag_filter: str | None = None,
+    ) -> None:
+        self.heading = title
+        self.entries = entries
+        self.removable = removable
+        self.initial_query = query
+        self.kind_filter = kind_filter
+        self.edition_filter = edition_filter
+        self.tag_filter = tag_filter
+        super().__init__()
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="personal-card"):
+            yield Label(self.heading)
+            yield Input(
+                value=self.initial_query, placeholder="Search this list", id="personal-search"
+            )
+            yield Static("Type: All  ·  Edition: All", id="personal-filter-status")
+            with ListView(id="personal-list"):
+                for record in self.entries:
+                    yield ListItem(Label(record.name))
+            yield Static(
+                "Enter Open   / Search   Tab list   t Type   e Edition   g Tag   Esc Close"
+                + ("   d Remove" if self.removable else "")
+            )
+
+    async def on_mount(self) -> None:
+        self.query_one("#personal-search", Input).focus()
+        await self._refresh_entries(self.initial_query)
+
+    async def on_input_changed(self, event: Input.Changed) -> None:
+        if event.input.id == "personal-search":
+            await self._refresh_entries(event.value)
+
+    async def _refresh_entries(self, query: str = "") -> None:
+        view = self.query_one("#personal-list", ListView)
+        matches = [
+            e
+            for e in self.entries
+            if query.casefold()
+            in " ".join(
+                (e.name, e.category, e.edition or "", e.source or "", *e.tags, e.note)
+            ).casefold()
+            and (self.kind_filter is None or e.category == self.kind_filter)
+            and (self.edition_filter is None or e.edition == self.edition_filter)
+            and (self.tag_filter is None or self.tag_filter in e.tags)
+        ]
+        await view.clear()
+        for entry in matches:
+            edition = entry.edition or "Unknown"
+            category = entry.category.title()
+            label = f"[Missing] {entry.name}" if entry.missing else entry.name
+            tags = f"  ·  {', '.join(entry.tags)}" if entry.tags else ""
+            source = f"  ·  {entry.source}" if entry.source else ""
+            await view.append(
+                ListItem(Label(f"{label}  ·  {category}  ·  {edition}{source}{tags}"))
+            )
+        self._visible = matches
+        view.index = min(view.index or 0, len(matches) - 1) if matches else None
+        self.query_one("#personal-filter-status", Static).update(
+            f"Type: {self.kind_filter.title() if self.kind_filter else 'All'}  ·  "
+            f"Edition: {self.edition_filter or 'All'}  ·  "
+            f"Tag: {self.tag_filter or 'All'}"
+        )
+
+    async def on_key(self, event: events.Key) -> None:
+        view = self.query_one("#personal-list", ListView)
+        if view.has_focus and event.character == "/":
+            event.stop()
+            self.query_one("#personal-search", Input).focus()
+            return
+        if view.has_focus and event.character in {"t", "e", "g"}:
+            event.stop()
+            if event.character == "t":
+                values = sorted({entry.category for entry in self.entries})
+            elif event.character == "e":
+                values = sorted({entry.edition for entry in self.entries if entry.edition})
+            else:
+                values = sorted({tag for entry in self.entries for tag in entry.tags})
+            attribute = {"t": "kind_filter", "e": "edition_filter", "g": "tag_filter"}[
+                event.character
+            ]
+            current = getattr(self, attribute)
+            options = [None, *values]
+            current_index = options.index(current) if current in options else 0
+            setattr(self, attribute, options[(current_index + 1) % len(options)])
+            await self._refresh_entries(self.query_one("#personal-search", Input).value)
+            return
+        if event.key == "enter":
+            event.stop()
+            self.query_one("#personal-search", Input).blur()
+            index = view.index
+            if index is not None and index < len(self._visible):
+                self.dismiss(
+                    (
+                        "open",
+                        self._visible[index].identity,
+                        self.query_one("#personal-search", Input).value,
+                        self.kind_filter,
+                        self.edition_filter,
+                        self.tag_filter,
+                    )
+                )
+        elif event.character == "d" and self.removable and view.has_focus:
+            event.stop()
+            index = view.index
+            if index is not None and index < len(self._visible):
+                self.dismiss(
+                    (
+                        "remove",
+                        self._visible[index].identity,
+                        self.query_one("#personal-search", Input).value,
+                        self.kind_filter,
+                        self.edition_filter,
+                        self.tag_filter,
+                    )
+                )
+        elif event.key == "escape":
+            event.stop()
+            self.dismiss(None)
+
+    def action_cancel(self) -> None:
+        self.dismiss(None)
+
+
+class CollectionListScreen(ModalScreen[tuple[str, int] | None]):
+    """Collection manager. Destructive deletion requires a second explicit key."""
+
+    DEFAULT_CSS = """
+    CollectionListScreen { align: center middle; background: $background 80%; }
+    #collection-card { width: 76; max-width: 94%; height: 85%; max-height: 92%;
+        padding: 1 2; border: round $accent; background: $surface; }
+    #collection-list { height: 1fr; border: none; }
+    #collection-list > ListItem { height: 2; }
+    #collection-list > ListItem.--highlight { background: #4a3a20; color: #eee7d5; }
+    """
+    BINDINGS = [("escape", "cancel", "Cancel")]
+
+    def __init__(self, collections: tuple[Collection, ...]) -> None:
+        self.collections = collections
+        super().__init__()
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="collection-card"):
+            yield Label("Collections")
+            with ListView(id="collection-list"):
+                for collection in self.collections:
+                    yield ListItem(Label(f"{collection.name}  ·  {collection.entry_count} entries"))
+            yield Static("Enter Open   a Add   r Rename   x Delete (confirm)   Esc Close")
+
+    def on_mount(self) -> None:
+        view = self.query_one("#collection-list", ListView)
+        view.index = 0 if self.collections else None
+        view.focus()
+
+    def on_key(self, event: events.Key) -> None:
+        view = self.query_one("#collection-list", ListView)
+        index = view.index
+        if event.key == "enter" and index is not None:
+            event.stop()
+            self.dismiss(("open", self.collections[index].collection_id))
+        elif event.character == "a":
+            event.stop()
+            self.dismiss(("create", 0))
+        elif event.character == "r" and index is not None:
+            event.stop()
+            self.dismiss(("rename", self.collections[index].collection_id))
+        elif event.character == "x" and index is not None:
+            event.stop()
+            self.dismiss(("delete", self.collections[index].collection_id))
+        elif event.key == "escape":
+            event.stop()
+            self.dismiss(None)
+
+    def action_cancel(self) -> None:
+        self.dismiss(None)
+
+
+class CollectionChooserScreen(ModalScreen[tuple[int, ...] | None]):
+    """Toggle current entry membership in the displayed collections."""
+
+    DEFAULT_CSS = """
+    CollectionChooserScreen { align: center middle; background: $background 80%; }
+    #chooser-card { width: 72; max-width: 94%; height: 82%; max-height: 92%;
+        padding: 1 2; border: round $accent; background: $surface; }
+    #chooser-list { height: 1fr; border: none; }
+    #chooser-list > ListItem { height: 2; }
+    #chooser-list > ListItem.--highlight { background: #4a3a20; color: #eee7d5; }
+    """
+    BINDINGS = [("escape", "cancel", "Cancel")]
+
+    def __init__(self, collections: tuple[Collection, ...], selected: tuple[int, ...]) -> None:
+        self.collections = collections
+        self.selected = set(selected)
+        super().__init__()
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="chooser-card"):
+            yield Label("Add to collections")
+            with ListView(id="chooser-list"):
+                for row in self.collections:
+                    yield ListItem(Label(row.name))
+            yield Static("Space Toggle   Enter Save   Esc Cancel")
+
+    def on_mount(self) -> None:
+        self.query_one("#chooser-list", ListView).focus()
+        self._render_choices()
+
+    def _render_choices(self) -> None:
+        for i, item in enumerate(self.query_one("#chooser-list", ListView).children):
+            item.query_one(Label).update(
+                ("[x] " if self.collections[i].collection_id in self.selected else "[ ] ")
+                + self.collections[i].name
+            )
+
+    def on_key(self, event: events.Key) -> None:
+        view = self.query_one("#chooser-list", ListView)
+        if event.key == "space" and view.index is not None:
+            event.stop()
+            cid = self.collections[view.index].collection_id
+            self.selected.symmetric_difference_update({cid})
+            self._render_choices()
+        elif event.key == "enter":
+            event.stop()
+            self.dismiss(tuple(sorted(self.selected)))
+        elif event.key == "escape":
+            event.stop()
+            self.dismiss(None)
+
+    def action_cancel(self) -> None:
+        self.dismiss(None)
+
+
+class TextEntryScreen(ModalScreen[tuple[str, str] | None]):
+    """Small explicit-save editor used for collection names and private notes."""
+
+    DEFAULT_CSS = """
+    TextEntryScreen { align: center middle; background: $background 80%; }
+    #text-entry-card { width: 78; max-width: 96%; height: 80%; max-height: 92%;
+        padding: 1 2; border: round $accent; background: $surface; }
+    #note-input { height: 1fr; }
+    """
+    BINDINGS = [("escape", "cancel", "Cancel")]
+
+    def __init__(self, title: str, value: str = "", *, multiline: bool = False) -> None:
+        self.heading = title
+        self.value = value
+        self.multiline = multiline
+        super().__init__()
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="text-entry-card"):
+            yield Label(self.heading)
+            if self.multiline:
+                yield TextArea(self.value, id="note-input")
+            else:
+                yield Input(value=self.value, id="note-input")
+            yield Static("Ctrl+S Save   Esc Cancel")
+
+    def on_mount(self) -> None:
+        self.query_one("#note-input").focus()
+
+    def on_key(self, event: events.Key) -> None:
+        if event.key == "ctrl+s":
+            event.stop()
+            widget = self.query_one("#note-input")
+            value = widget.text if isinstance(widget, TextArea) else widget.value
+            self.dismiss(("save", value))
+        elif event.key == "escape":
+            event.stop()
+            self.dismiss(None)
+
+    def action_cancel(self) -> None:
+        self.dismiss(None)
+
+
 class HelpScreen(ModalScreen[None]):
     """Compact keyboard reference."""
 
@@ -474,6 +778,8 @@ class HelpScreen(ModalScreen[None]):
 `g` Group alternates on/off · `v` Select source variant
 `i` Toggle artwork when available
 `r` Recently Viewed
+`F` Favorites · `C` Collections
+`*` Toggle favorite · `m` Add to collections · `T` Edit tags · `n` Edit private note
 
 Filter dialogs show `>` for the active row and `[x]` for a selected row.
 Space toggles a filter choice; Enter applies; Escape cancels.
@@ -494,10 +800,19 @@ their stored parent relationship. Arbitrary prose is intentionally not auto-link
 `Alt+Left` Back · `Alt+Right` Forward through visited records and browser states.
 `Escape`  Back, close, or leave search  
 
+Favorites, collections, tags, and notes are stored locally in the application
+database. Personal records use exact entry IDs; missing entries stay marked as
+missing and may resolve again when the same ID returns.
+
 `?` / `F1`  Help  
-`F3`  About / installed dataset data  
-`q`  Quit when not editing  
+`F3`  About / installed dataset data
+`q`  Quit when not editing
 `Ctrl+Q`  Quit globally
+
+In Favorites or a collection, `/` searches names, content type, tags, and note text.
+Tab to the entries list; `t`, `e`, and `g` cycle content type, edition, and tag
+filters. In Collections, `a` creates, `r` renames, and `x` starts deletion;
+deletion requires typing `DELETE`.
 
 **Images**
 

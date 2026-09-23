@@ -67,6 +67,8 @@ main keyboard controls:
 | `i` | Toggle artwork when available |
 | `Alt+Left`, `Alt+Right` | Back / Forward |
 | `r` | Recently Viewed |
+| `F`, `C` | Favorites, Collections |
+| `*`, `m`, `T`, `n` | Toggle favorite, choose collections, edit tags, edit private note |
 | Arrows, `j`/`k`, `Enter`, `Escape` | Navigate, open, and return |
 | `c` | Open the matching edition parent class from a subclass detail |
 | `?`, `F1`; `F3` | Help; About/Data and installed dataset status |
@@ -143,6 +145,23 @@ sources = ["official-5etools-2024:XPHB"]
 Source identities have the form `dataset_id:source_key`. An empty `sources`
 array means All Sources. Application data, cache, and state use the corresponding
 XDG directories; startup never writes to the checkout or current directory.
+The local SQLite database is `${XDG_DATA_HOME:-~/.local/share}/dndref/dndref.sqlite3`.
+It contains imported reference tables and separate `user_*` personal-data tables.
+Favorites, collections, tags, and notes stay on this machine and are not included
+in dataset packs or changed by reference imports. Back up this SQLite file to
+preserve personal metadata.
+
+Use `F` to browse and search Favorites and `C` to create, rename, delete, and
+open Collections. From an entry, `*` toggles its favorite state, `m` opens the
+collection chooser, `T` edits its personal tags, and `n` opens its private note
+editor (`Ctrl+S` saves, Escape cancels). Personal records use exact dataset and
+entry keys, including variant identity. Missing imported entries remain listed
+as missing and are never relinked by name; they resolve again if that exact
+identity returns.
+Within Favorites or a collection, `/` searches names, category, tags, and notes;
+Tab to the entries list and use `t`, `e`, and `g` to cycle category, edition,
+and tag filters. In the Collections list, `a` creates, `r` renames, and `x`
+starts deletion, which requires typing `DELETE`.
 
 ## Data and commands
 

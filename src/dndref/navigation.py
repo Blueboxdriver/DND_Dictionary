@@ -25,15 +25,38 @@ class NavigationState:
     detail_scroll: int
     detail_id: str | None
     narrow_detail_open: bool = False
+    personal_view: str | None = None
+    personal_collection_id: int | None = None
+    personal_query: str = ""
+    personal_category_filter: str | None = None
+    personal_edition_filter: str | None = None
+    personal_tag_filter: str | None = None
 
     @property
     def logical_key(self) -> tuple[object, ...]:
         return (
-            self.category, self.query, self.mode, self.editions, self.sources,
-            self.parent_class, self.challenge_rating, self.creature_type, self.size,
-            self.selected_id, self.variant_id, self.list_index, self.list_scroll,
+            self.category,
+            self.query,
+            self.mode,
+            self.editions,
+            self.sources,
+            self.parent_class,
+            self.challenge_rating,
+            self.creature_type,
+            self.size,
+            self.selected_id,
+            self.variant_id,
+            self.list_index,
+            self.list_scroll,
             self.detail_scroll,
-            self.detail_id, self.narrow_detail_open,
+            self.detail_id,
+            self.narrow_detail_open,
+            self.personal_view,
+            self.personal_collection_id,
+            self.personal_query,
+            self.personal_category_filter,
+            self.personal_edition_filter,
+            self.personal_tag_filter,
         )
 
 
@@ -57,7 +80,7 @@ class NavigationHistory:
             return False
         if self.current is not None:
             self._back.append(self.current)
-            del self._back[:-self.limit]
+            del self._back[: -self.limit]
         self.current = state
         self._forward.clear()
         return True
@@ -67,7 +90,7 @@ class NavigationHistory:
             return None
         if self.current is not None:
             self._forward.append(self.current)
-            del self._forward[:-self.limit]
+            del self._forward[: -self.limit]
         self.current = self._back.pop()
         return self.current
 
@@ -76,7 +99,7 @@ class NavigationHistory:
             return None
         if self.current is not None:
             self._back.append(self.current)
-            del self._back[:-self.limit]
+            del self._back[: -self.limit]
         self.current = self._forward.pop()
         return self.current
 
@@ -105,4 +128,4 @@ class RecentlyViewed:
     def add(self, record: ViewedRecord) -> None:
         self._records = [item for item in self._records if item.identity != record.identity]
         self._records.insert(0, record)
-        del self._records[self.limit:]
+        del self._records[self.limit :]

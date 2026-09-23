@@ -12,6 +12,7 @@ from textual.widgets import Label, ListItem, ListView, Markdown, Static
 from .. import __version__
 from ..images import ImageCapabilities
 from ..models import display_edition
+from ..navigation import ViewedRecord
 from ..search import (
     DatasetMetadata,
     EditionOption,
@@ -390,6 +391,72 @@ class SourceBrowserScreen(ModalScreen[tuple[SourceIdentity, SearchCategory] | No
                     pass
 
 
+class RecentlyViewedScreen(ModalScreen[str | None]):
+    """Select an in-memory recently viewed record by its stable identity."""
+
+    DEFAULT_CSS = """
+    RecentlyViewedScreen { align: center middle; background: $background 80%; }
+    #recent-card { width: 72; max-width: 94%; height: auto; max-height: 90%;
+        padding: 1 2; border: round $accent; background: $surface; }
+    #recent-list { height: auto; max-height: 1fr; border: none; }
+    #recent-list > ListItem { height: 2; }
+    #recent-list > ListItem.--highlight { background: #4a3a20; color: #eee7d5; }
+    """
+
+    BINDINGS = [("escape", "cancel", "Cancel")]
+
+    def __init__(self, records: tuple[ViewedRecord, ...]) -> None:
+        self.records = records
+        super().__init__()
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="recent-card"):
+            yield Label("Recently Viewed")
+            with ListView(id="recent-list"):
+                for record in self.records:
+                    edition = record.edition or "Unknown edition"
+                    yield ListItem(Label(
+                        f"{record.name}  ·  {record.category.value.title()}  ·  {edition}"
+                    ))
+            yield Static("Enter Open   Esc Close   j/k Navigate")
+
+    def on_mount(self) -> None:
+        options = self.query_one("#recent-list", ListView)
+        options.index = 0 if self.records else None
+        self._render_rows()
+        options.focus()
+
+    def on_resize(self, _event: events.Resize) -> None:
+        self._render_rows()
+
+    def _render_rows(self) -> None:
+        options = self.query_one("#recent-list", ListView)
+        name_width = max(8, self.size.width - 34)
+        for item, record in zip(options.children, self.records):
+            name = record.name
+            if len(name) > name_width:
+                name = name[: max(1, name_width - 1)] + "…"
+            category = record.category.value.title()
+            edition = record.edition or "Unknown"
+            item.query_one(Label).update(f"{name}  {category}  {edition}")
+
+    def on_key(self, event: events.Key) -> None:
+        options = self.query_one("#recent-list", ListView)
+        if event.character in {"j", "k"}:
+            event.stop()
+            (options.action_cursor_down if event.character == "j" else options.action_cursor_up)()
+        elif event.key == "enter":
+            event.stop()
+            index = options.index
+            self.dismiss(self.records[index].identity if index is not None else None)
+        elif event.key == "escape":
+            event.stop()
+            self.dismiss(None)
+
+    def action_cancel(self) -> None:
+        self.dismiss(None)
+
+
 class HelpScreen(ModalScreen[None]):
     """Compact keyboard reference."""
 
@@ -406,6 +473,7 @@ class HelpScreen(ModalScreen[None]):
 `p` Filter presets · `b` Browse sources
 `g` Group alternates on/off · `v` Select source variant
 `i` Toggle artwork when available
+`r` Recently Viewed
 
 Filter dialogs show `>` for the active row and `[x]` for a selected row.
 Space toggles a filter choice; Enter applies; Escape cancels.
@@ -420,6 +488,10 @@ Space toggles a filter choice; Enter applies; Escape cancels.
 `Enter`  Open or select  
 On a class page, Tab to Subclasses and Enter to open one.
 On a subclass page, `c` opens its matching edition parent class.
+Monster spell names in structured spellcasting lists open same-edition spells.
+Multiple same-edition source variants show a chooser. Class/subclass links use
+their stored parent relationship. Arbitrary prose is intentionally not auto-linked.
+`Alt+Left` Back · `Alt+Right` Forward through visited records and browser states.
 `Escape`  Back, close, or leave search  
 
 `?` / `F1`  Help  

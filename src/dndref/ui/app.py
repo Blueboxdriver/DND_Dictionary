@@ -11,12 +11,14 @@ from textual.app import App, ComposeResult
 from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen
 from textual.timer import Timer
-from textual.widgets import Button, DataTable, Input, Label, ListView, Markdown, Static
+from textual.widgets import Button, DataTable, Input, Label, ListItem, ListView, Markdown, Static
 from textual.worker import Worker, WorkerState
 
 from ..config import ApplicationPaths, Config, FilterPreset
+from ..crossrefs import CrossReferenceResolver, ReferenceTarget
 from ..images import DecodedImage, ImageAdapter, ImageLoader
 from ..models import display_edition
+from ..navigation import NavigationHistory, NavigationState, RecentlyViewed, ViewedRecord
 from ..search import (
     DetailSection,
     EntryDetail,
@@ -34,7 +36,14 @@ from ..search import (
 from ..storage.database import Database
 from .class_detail import ClassDetailView, render_class_detail, render_subclass_detail
 from .monster_detail import render_monster_detail
-from .screens import AboutScreen, ChoiceScreen, FilterScreen, HelpScreen, SourceBrowserScreen
+from .screens import (
+    AboutScreen,
+    ChoiceScreen,
+    FilterScreen,
+    HelpScreen,
+    RecentlyViewedScreen,
+    SourceBrowserScreen,
+)
 from .widgets import ImagePanel, ResultRow
 
 
@@ -50,6 +59,7 @@ class CategoryState:
     filters_initialized: bool = False
     selected_id: str | None = None
     list_index: int = 0
+    list_scroll: int = 0
     detail_scroll: int = 0
     results: list[EntrySummary | GroupedEntrySummary] = field(default_factory=list)
     total_count: int = 0
@@ -247,6 +257,19 @@ class BrowserApp(App[None]):
         padding: 1 0;
     }
 
+    #related-list {
+        display: none;
+        height: auto;
+        max-height: 10;
+        border: round #6c5530;
+        margin: 1 0;
+    }
+
+    #related-heading { display: none; height: 1; color: #d4aa58; text-style: bold; }
+
+    #related-list > ListItem { height: 2; }
+    #related-list > ListItem.--highlight { background: #4a3a20; color: #d4aa58; }
+
     #detail-copy MarkdownH1, #detail-copy MarkdownH2, #detail-copy MarkdownH3 {
         color: #d4aa58;
     }
@@ -367,7 +390,13 @@ class BrowserApp(App[None]):
         self._detail_loaded_for: str | None = None
         self._selected_variant_id: str | None = None
         self._current_detail: EntryDetail | None = None
-        self._related_history: list[str] = []
+        self.cross_references = CrossReferenceResolver(self.database)
+        self.navigation_history = NavigationHistory(100)
+        self.recently_viewed = RecentlyViewed(30)
+        self._related_targets: tuple[ReferenceTarget, ...] = ()
+        self._history_restore_detail_id: str | None = None
+        self._restoring_history = False
+        self._category_transition = False
         self._updating_input = False
         self._page_loading = False
         self.image_adapter = ImageAdapter(self.config.ui.images)
@@ -421,13 +450,15 @@ class BrowserApp(App[None]):
                         yield Static("", id="detail-variant-hint")
                         yield Markdown("", id="detail-copy")
                         yield ClassDetailView(id="class-detail")
+                        yield Static("", id="related-heading")
+                        yield ListView(id="related-list")
                     yield ImagePanel(id="image-panel")
         yield Static(
             "Terminal too small. Resize to at least 50×16 · ? Help · q Quit",
             id="too-small",
         )
         yield Static(
-            "/ Search   F2 Mode   1–6 Category   Tab Focus   ? Help   q Quit",
+            "/ Search   Alt+← Back   Alt+→ Forward   r Recent   ? Help   q Quit",
             id="footer",
         )
 
@@ -470,7 +501,7 @@ class BrowserApp(App[None]):
             self._query_widget("#result-list", ListView).focus()
 
     def on_list_view_highlighted(self, event: ListView.Highlighted) -> None:
-        if event.list_view.id != "result-list" or event.item is None:
+        if self._restoring_history or event.list_view.id != "result-list" or event.item is None:
             return
         if not isinstance(event.item, ResultRow):
             return
@@ -483,6 +514,9 @@ class BrowserApp(App[None]):
     def on_list_view_selected(self, event: ListView.Selected) -> None:
         if event.list_view.id == "subclass-list":
             self._open_highlighted_subclass()
+            return
+        if event.list_view.id == "related-list":
+            self._open_highlighted_reference()
             return
         if event.list_view.id != "result-list" or not isinstance(event.item, ResultRow):
             return
@@ -533,6 +567,15 @@ class BrowserApp(App[None]):
 
         # Modal screens own all keys while they are active.
         if isinstance(self.screen, ModalScreen):
+            return
+
+        if event.key == "alt+left":
+            event.stop()
+            self.action_back()
+            return
+        if event.key == "alt+right":
+            event.stop()
+            self.action_forward()
             return
 
         if event.character == "q":
@@ -587,6 +630,10 @@ class BrowserApp(App[None]):
             event.stop()
             self.action_browse_sources()
             return
+        if event.character == "r":
+            event.stop()
+            self.action_recently_viewed()
+            return
         if event.character == "i":
             event.stop()
             self.action_toggle_artwork()
@@ -596,16 +643,20 @@ class BrowserApp(App[None]):
                 parent_id = self._current_detail.fields.get("parent_class_identity")
                 if isinstance(parent_id, str):
                     event.stop()
-                    self._open_related_detail(parent_id)
+                    self._navigate_to_identity(parent_id)
                     return
         if event.key == "enter" and isinstance(focus, ListView):
             event.stop()
             if focus.id == "subclass-list":
                 self._open_highlighted_subclass()
                 return
+            if focus.id == "related-list":
+                self._open_highlighted_reference()
+                return
             row = focus.highlighted_child
             if isinstance(row, ResultRow):
                 self._select_summary(row.summary)
+                self._commit_current_location()
                 if self.layout_mode == "stacked":
                     self.narrow_detail_open = True
                     self._update_layout(self.size.width, self.size.height)
@@ -613,9 +664,6 @@ class BrowserApp(App[None]):
             return
         if event.key == "escape":
             event.stop()
-            if self._related_history:
-                self._load_variant_identity(self._related_history.pop())
-                return
             if self.layout_mode == "stacked" and self.narrow_detail_open:
                 self.narrow_detail_open = False
                 self._update_layout(self.size.width, self.size.height)
@@ -1057,7 +1105,7 @@ class BrowserApp(App[None]):
         self._detail_loaded_for = None
         self._selected_variant_id = None
         self._current_detail = None
-        self._related_history.clear()
+        self._related_targets = ()
         self._clear_image()
         self._page_loading = False
         return self._request_id
@@ -1156,6 +1204,12 @@ class BrowserApp(App[None]):
         self._page_loading = False
         await self._populate_results()
         self._restore_selection()
+        if self._restoring_history:
+            self._restoring_history = False
+            self._history_restore_detail_id = None
+        elif self._category_transition:
+            self.navigation_history.restore_history_state(self._navigation_state())
+            self._category_transition = False
 
     async def _handle_page_result(self, page: Any) -> None:
         if not isinstance(page, SearchPage) or page.request_id != self._request_id:
@@ -1205,6 +1259,39 @@ class BrowserApp(App[None]):
             self._mark_selected_row()
 
     def _restore_selection(self) -> None:
+        if self._restoring_history:
+            result_list = self._query_widget("#result-list", ListView)
+            if self.state.results:
+                restored_index = self._history_result_index(self._history_restore_detail_id)
+                if restored_index is None:
+                    restored_index = next(
+                        (
+                            index for index, summary in enumerate(self.state.results)
+                            if summary.identity == self.state.selected_id
+                        ),
+                        min(self.state.list_index, len(self.state.results) - 1),
+                    )
+                self.state.list_index = restored_index
+                summary = self.state.results[restored_index]
+                self.state.selected_id = summary.identity
+                if (
+                    self._history_restore_detail_id
+                    and isinstance(summary, GroupedEntrySummary)
+                    and any(
+                        variant.identity == self._history_restore_detail_id
+                        for variant in summary.variants
+                    )
+                ):
+                    self._selected_variant_id = self._history_restore_detail_id
+                result_list.index = restored_index
+            result_list.scroll_y = self.state.list_scroll
+            self.call_after_refresh(self._restore_list_scroll, self.state.list_scroll)
+            self.set_timer(
+                0.05,
+                lambda scroll=self.state.list_scroll: self._restore_list_scroll(scroll),
+                name="history-list-scroll-restore",
+            )
+            return
         if not self.state.results:
             self._detail_loaded_for = None
             self._detail_requested_for = None
@@ -1217,6 +1304,8 @@ class BrowserApp(App[None]):
             )
             self._query_widget("#detail-copy", Markdown).display = True
             self._query_widget("#class-detail", ClassDetailView).display = False
+            self._query_widget("#related-list", ListView).display = False
+            self._query_widget("#related-heading", Static).display = False
             return
         selected_index = next(
             (
@@ -1231,6 +1320,21 @@ class BrowserApp(App[None]):
         selected = self.state.results[selected_index]
         self._select_summary(selected)
 
+    def _restore_list_scroll(self, scroll: int) -> None:
+        self._query_widget("#result-list", ListView).scroll_y = scroll
+
+    def _history_result_index(self, identity: str | None) -> int | None:
+        if identity is None:
+            return None
+        for index, summary in enumerate(self.state.results):
+            if summary.identity == identity:
+                return index
+            if isinstance(summary, GroupedEntrySummary) and any(
+                variant.identity == identity for variant in summary.variants
+            ):
+                return index
+        return None
+
     def _select_summary(self, summary: EntrySummary | GroupedEntrySummary) -> None:
         if (
             self.state.selected_id == summary.identity
@@ -1239,7 +1343,7 @@ class BrowserApp(App[None]):
             self._mark_selected_row()
             return
         self.state.detail_scroll = 0
-        self._related_history.clear()
+        self._related_targets = ()
         self.state.selected_id = summary.identity
         self._detail_requested_for = summary.identity
         self._detail_loaded_for = None
@@ -1247,9 +1351,18 @@ class BrowserApp(App[None]):
         self._query_widget("#detail-copy", Markdown).update(f"# {summary.name}\n\nLoading details…")
         self._query_widget("#detail-copy", Markdown).display = True
         self._query_widget("#class-detail", ClassDetailView).display = False
+        self._query_widget("#related-list", ListView).display = False
+        self._query_widget("#related-heading", Static).display = False
         self._query_widget("#detail-scroll", VerticalScroll).scroll_home()
-        primary = summary.primary if isinstance(summary, GroupedEntrySummary) else summary
-        self._load_variant(primary)
+        if isinstance(summary, GroupedEntrySummary):
+            selected_variant = next(
+                (variant for variant in summary.variants
+                 if variant.identity == self._selected_variant_id),
+                summary.primary,
+            )
+            self._load_variant(selected_variant)
+        else:
+            self._load_variant(summary)
 
     def _load_variant(self, variant: EntrySummary) -> None:
         self._load_variant_identity(variant.identity)
@@ -1260,7 +1373,7 @@ class BrowserApp(App[None]):
         self._detail_request_id += 1
         detail_request_id = self._detail_request_id
         self.run_worker(
-            lambda: self.search_service.get_entry_detail(identity),
+            lambda: self._load_detail_bundle(identity),
             name=f"detail:{detail_request_id}:{identity}",
             group="detail",
             thread=True,
@@ -1274,14 +1387,51 @@ class BrowserApp(App[None]):
         identity = parts[2]
         if identity != self._selected_variant_id:
             return
+        if not isinstance(detail, tuple) or len(detail) != 2:
+            self._show_detail_error("The selected entry is no longer available.")
+            return
+        detail, references = detail
         if not isinstance(detail, EntryDetail):
             self._show_detail_error("The selected entry is no longer available.")
             return
         self._detail_loaded_for = detail.identity
         self._current_detail = detail
+        self._related_targets = tuple(references)
+        self.recently_viewed.add(ViewedRecord(
+            detail.identity, detail.category, detail.name,
+            str(detail.fields.get("edition")) if detail.fields.get("edition") else None,
+        ))
+        if self.navigation_history.current is None:
+            self.navigation_history.restore_history_state(self._navigation_state(detail.identity))
         await self._render_detail(detail)
 
+    def _load_detail_bundle(
+        self, identity: str
+    ) -> tuple[EntryDetail | None, tuple[ReferenceTarget, ...]]:
+        detail = self.search_service.get_entry_detail(identity)
+        if detail is None:
+            return detail, ()
+        edition = str(detail.fields.get("edition")) if detail.fields.get("edition") else None
+        if detail.category is SearchCategory.FEATS:
+            return detail, self.cross_references.explicit_feat_prerequisite_references(
+                str(detail.fields.get("prerequisite"))
+                if detail.fields.get("prerequisite") else None,
+                edition,
+            )
+        if detail.category is not SearchCategory.MONSTERS:
+            return detail, ()
+        abilities = detail.fields.get("abilities_and_actions") or ()
+        descriptions = tuple(
+            str(ability.get("description", ""))
+            for ability in abilities
+            if ability.get("section") in {"spellcasting", "innate_spellcasting"}
+        )
+        return detail, self.cross_references.monster_spell_references(descriptions, edition)
+
     async def _render_detail(self, detail: EntryDetail) -> None:
+        history_state = self.navigation_history.current
+        if history_state is not None and history_state.detail_id == detail.identity:
+            self.state.detail_scroll = history_state.detail_scroll
         detail_copy = self._query_widget("#detail-copy", Markdown)
         class_detail = self._query_widget("#class-detail", ClassDetailView)
         selected = next(
@@ -1290,8 +1440,7 @@ class BrowserApp(App[None]):
         )
         hint = self._query_widget("#detail-variant-hint", Static)
         if (
-            not self._related_history
-            and isinstance(selected, GroupedEntrySummary)
+            isinstance(selected, GroupedEntrySummary)
             and selected.alternates
         ):
             hint.update(
@@ -1309,31 +1458,217 @@ class BrowserApp(App[None]):
             class_detail.display = False
             detail_copy.display = True
             detail_copy.update(render_detail(detail))
+        await self._render_related_targets(detail)
         self._query_widget("#detail-scroll", VerticalScroll).scroll_y = self.state.detail_scroll
         self._schedule_image(detail)
+
+    async def _render_related_targets(self, detail: EntryDetail) -> None:
+        related = self._query_widget("#related-list", ListView)
+        await related.clear()
+        heading = self._query_widget("#related-heading", Static)
+        targets = list(self._related_targets)
+        if detail.category is SearchCategory.SUBCLASSES:
+            parent_id = detail.fields.get("parent_class_identity")
+            target = (
+                self.cross_references.get_by_id(parent_id)
+                if isinstance(parent_id, str) else None
+            )
+            targets = [target] if target is not None else []
+        self._related_targets = tuple(targets)
+        related.display = bool(targets)
+        heading.display = bool(targets)
+        if not targets:
+            return
+        # The class detail's existing, focused subclass list is already its
+        # Related Content section; do not render a duplicate list here.
+        if detail.category is SearchCategory.CLASSES:
+            related.display = False
+            heading.display = False
+            return
+        title = {
+            SearchCategory.SUBCLASSES: "Parent Class",
+            SearchCategory.FEATS: "Feats",
+        }.get(detail.category, "Spells")
+        heading.update(f"Related Content · {title}")
+        for target in targets:
+            edition = display_edition(target.edition) or "Unknown edition"
+            await related.mount(ListItem(Label(
+                f"↗ {target.name} · {target.category.value.title()} · {edition} · "
+                f"{target.source_label}"
+            )))
 
     def _open_highlighted_subclass(self) -> None:
         subclass_list = self._query_widget("#subclass-list", ListView)
         class_detail = self._query_widget("#class-detail", ClassDetailView)
         index = subclass_list.index
         if index is not None and 0 <= index < len(getattr(class_detail, "subclass_ids", ())):
-            self._open_related_detail(class_detail.subclass_ids[index])
+            self._navigate_to_identity(class_detail.subclass_ids[index])
 
-    def _open_related_detail(self, identity: str) -> None:
-        if self._current_detail is None or identity == self._current_detail.identity:
+    def _open_highlighted_reference(self) -> None:
+        related = self._query_widget("#related-list", ListView)
+        index = related.index
+        if index is not None and 0 <= index < len(self._related_targets):
+            target = self._related_targets[index]
+            options = tuple(
+                item for item in self._related_targets if item.name == target.name
+            )
+            if len(options) == 1:
+                self._navigate_to_identity(target.identity)
+            else:
+                self.push_screen(
+                    ChoiceScreen(
+                        f"Choose {target.name} variant",
+                        tuple(f"{item.source_label} · {item.dataset_id}" for item in options),
+                    ),
+                    lambda choice: self._reference_variant_selected(options, choice),
+                )
+
+    def _reference_variant_selected(
+        self, targets: tuple[ReferenceTarget, ...], index: int | None
+    ) -> None:
+        if index is not None and 0 <= index < len(targets):
+            self._navigate_to_identity(targets[index].identity)
+
+    def _navigate_to_identity(self, identity: str) -> None:
+        target = self.cross_references.get_by_id(identity)
+        if target is None:
+            self.notify("That reference is no longer available.", timeout=3)
             return
-        self._related_history.append(self._current_detail.identity)
-        self.state.detail_scroll = 0
+        if self._current_detail is not None and target.identity == self._current_detail.identity:
+            return
+        self._commit_current_location()
+        state = self.category_states[target.category]
+        state.query = target.name
+        state.editions = (target.edition,) if target.edition else ()
+        state.sources = ()
+        state.parent_class = None
+        state.challenge_rating = None
+        state.creature_type = None
+        state.size = None
+        state.filters_initialized = True
+        state.selected_id = target.identity
+        state.list_index = 0
+        state.list_scroll = 0
+        state.detail_scroll = 0
+        self.category = target.category
+        self.narrow_detail_open = self.layout_mode == "stacked"
+        self._selected_variant_id = target.identity
         self._current_detail = None
+        self._related_targets = ()
+        self._history_restore_detail_id = target.identity
+        self._restoring_history = True
+        self.navigation_history.navigate_to(self._navigation_state(target.identity))
+        self._update_input_from_state()
+        self._refresh_filter_options()
+        self._update_filter_status()
+        self._update_tab_styles()
+        self._query_widget("#related-list", ListView).display = False
+        self._query_widget("#related-heading", Static).display = False
         self._query_widget("#detail-copy", Markdown).display = True
         self._query_widget("#class-detail", ClassDetailView).display = False
         self._query_widget("#detail-copy", Markdown).update("Loading details…")
         self._query_widget("#detail-scroll", VerticalScroll).scroll_home()
-        self._load_variant_identity(identity)
+        self._invalidate_search()
+        self._queue_search()
+        self._load_variant_identity(target.identity)
+
+    def _navigation_state(self, detail_id: str | None = None) -> NavigationState:
+        state = self.state
+        scroll = int(self._query_widget("#detail-scroll", VerticalScroll).scroll_y)
+        identity = detail_id or (
+            self._current_detail.identity if self._current_detail is not None
+            else self._selected_variant_id
+        )
+        return NavigationState(
+            category=self.category, query=state.query, mode=self.mode.value,
+            editions=state.editions, sources=state.sources,
+            parent_class=state.parent_class, challenge_rating=state.challenge_rating,
+            creature_type=state.creature_type, size=state.size,
+            selected_id=state.selected_id, variant_id=self._selected_variant_id,
+            list_index=state.list_index,
+            list_scroll=int(self._query_widget("#result-list", ListView).scroll_y),
+            detail_scroll=scroll, detail_id=identity,
+            narrow_detail_open=self.narrow_detail_open,
+        )
+
+    def _commit_current_location(self) -> None:
+        self.navigation_history.navigate_to(self._navigation_state())
+
+    def _restore_navigation_state(self, state: NavigationState) -> None:
+        self.category = state.category
+        self.mode = SearchMode(state.mode)
+        category_state = self.state
+        category_state.query = state.query
+        category_state.editions = state.editions
+        category_state.sources = state.sources
+        category_state.parent_class = state.parent_class
+        category_state.challenge_rating = state.challenge_rating
+        category_state.creature_type = state.creature_type
+        category_state.size = state.size
+        category_state.selected_id = state.selected_id
+        category_state.list_index = state.list_index
+        category_state.list_scroll = state.list_scroll
+        category_state.detail_scroll = state.detail_scroll
+        self._selected_variant_id = state.variant_id
+        self._current_detail = None
+        self._history_restore_detail_id = state.detail_id
+        self._restoring_history = True
+        self.narrow_detail_open = state.narrow_detail_open
+        self.navigation_history.restore_history_state(state)
+        self._update_input_from_state()
+        self._update_tab_styles()
+        self._refresh_filter_options()
+        self._update_filter_status()
+        self._update_layout(self.size.width, self.size.height)
+        self._invalidate_search()
+        self._queue_search()
+        self._query_widget("#detail-scroll", VerticalScroll).scroll_y = state.detail_scroll
+        self._query_widget("#result-list", ListView).scroll_y = state.list_scroll
+        if state.detail_id:
+            if self.cross_references.get_by_id(state.detail_id) is None:
+                self._show_detail_error("This history entry is no longer available.")
+            else:
+                self._load_variant_identity(state.detail_id)
+
+    def action_back(self) -> None:
+        while self.navigation_history.can_go_back:
+            state = self.navigation_history.go_back()
+            if state is None:
+                break
+            if state.detail_id and self.cross_references.get_by_id(state.detail_id) is None:
+                continue
+            self._restore_navigation_state(state)
+            return
+
+    def action_forward(self) -> None:
+        while self.navigation_history.can_go_forward:
+            state = self.navigation_history.go_forward()
+            if state is None:
+                break
+            if state.detail_id and self.cross_references.get_by_id(state.detail_id) is None:
+                continue
+            self._restore_navigation_state(state)
+            return
+
+    def action_recently_viewed(self) -> None:
+        if not self.recently_viewed.records:
+            self.notify("No recently viewed entries.", timeout=2)
+            return
+        self.push_screen(
+            RecentlyViewedScreen(self.recently_viewed.records),
+            self._recent_entry_selected,
+        )
+
+    def _recent_entry_selected(self, identity: str | None) -> None:
+        if identity:
+            self._navigate_to_identity(identity)
 
     def _show_detail_error(self, message: str) -> None:
         self._current_detail = None
+        self._related_targets = ()
         self._query_widget("#detail-variant-hint", Static).display = False
+        self._query_widget("#related-list", ListView).display = False
+        self._query_widget("#related-heading", Static).display = False
         self._clear_image()
         self._query_widget("#class-detail", ClassDetailView).display = False
         self._query_widget("#detail-copy", Markdown).display = True
@@ -1351,10 +1686,12 @@ class BrowserApp(App[None]):
     def _switch_category(self, category: SearchCategory) -> None:
         if category is self.category:
             return
+        self._commit_current_location()
         self.state.detail_scroll = self._query_widget("#detail-scroll", VerticalScroll).scroll_y
         self._current_detail = None
         self._clear_image()
         self.category = category
+        self._category_transition = True
         self.narrow_detail_open = False
         self._update_input_from_state()
         self._refresh_filter_options()

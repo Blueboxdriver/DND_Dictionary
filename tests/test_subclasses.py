@@ -316,3 +316,47 @@ async def test_class_subclass_parent_navigation_with_source_filter_at_all_sizes(
             assert app._current_detail is not None
             assert app._current_detail.category is SearchCategory.CLASSES
             assert app._current_detail.fields["edition"] == "2024"
+
+
+@pytest.mark.asyncio
+async def test_subclass_parent_back_forward_restores_exact_nonfirst_detail(
+    tmp_path: Path,
+) -> None:
+    database = _database(tmp_path)
+    async with BrowserApp(database).run_test(size=(100, 30)) as pilot:
+        await pilot.pause(0.3)
+        await pilot.press("5")
+        await pilot.pause(0.3)
+        app = pilot.app
+        assert app.state.total_count >= 2
+        origin = app.state.results[1]
+        origin_id = (
+            origin.primary.identity
+            if isinstance(origin, GroupedEntrySummary)
+            else origin.identity
+        )
+        app.query_one("#result-list").index = 1
+        await pilot.pause(0.1)
+        await pilot.press("enter")
+        await pilot.pause(0.25)
+        assert app._current_detail is not None
+        assert app._current_detail.identity == origin_id
+        assert app._current_detail.category is SearchCategory.SUBCLASSES
+        assert app.state.list_index == 1
+        await pilot.press("c")
+        await pilot.pause(0.6)
+        parent = app._current_detail
+        assert parent is not None and parent.category is SearchCategory.CLASSES
+        parent_id = parent.identity
+        await pilot.press("alt+left")
+        await pilot.pause(0.5)
+        assert app._current_detail is not None
+        assert app._current_detail.identity == origin_id
+        assert app._current_detail.category is SearchCategory.SUBCLASSES
+        assert app.state.selected_id == origin.identity
+        assert app.state.list_index == 1
+        assert app.query_one("#result-list").index == 1
+        await pilot.press("alt+right")
+        await pilot.pause(0.5)
+        assert app._current_detail is not None
+        assert app._current_detail.identity == parent_id

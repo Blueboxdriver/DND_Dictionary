@@ -65,6 +65,8 @@ main keyboard controls:
 | `g`, `v` | Toggle alternate-source grouping / choose a variant |
 | `b` | Sourcebook browser |
 | `i` | Toggle artwork when available |
+| `Alt+Left`, `Alt+Right` | Back / Forward |
+| `r` | Recently Viewed |
 | Arrows, `j`/`k`, `Enter`, `Escape` | Navigate, open, and return |
 | `c` | Open the matching edition parent class from a subclass detail |
 | `?`, `F1`; `F3` | Help; About/Data and installed dataset status |
@@ -91,6 +93,20 @@ same-edition subclasses from every installed sourcebook, even when the class
 browser has a source filter. Standalone Subclasses browsing applies its own
 edition, source, and parent class filters. Cross-edition compatibility is not
 assumed.
+
+Monster spellcasting lists link exact spell names found in structured
+spellcasting fields, filtered to the monster's edition. Same-edition source
+variants open through a chooser. Class-to-subclass and subclass-to-parent links
+use stored relationships and stable entry IDs. Feat prerequisites link only
+references explicitly labeled `Feat:` when an exact same-edition feat exists.
+`Alt+Left` and `Alt+Right` move
+through in-memory Back/Forward history; `r` opens the last 30 distinct records
+viewed in this session. Search text, filters, selected variants, list selection,
+and practical detail scroll position are included in history states. History and
+Recently Viewed reset when the application exits. Ambiguous references are
+offered as choices, missing targets remain ordinary text, and arbitrary rules
+prose is intentionally not auto-linked. Item and feat prose is not scanned for
+guessed spell, class, or feat references.
 
 Monsters show source, edition, page, size, type, AC, HP, multiple speeds, six
 ability scores, defenses, senses, languages, CR, and ordered abilities and

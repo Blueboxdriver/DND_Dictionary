@@ -44,7 +44,8 @@ def monster(key: str, name: str, source: str, cr: str, **overrides) -> dict:
             {"section": "legendary_actions", "name": "Tail Attack",
              "description": "The goblin attacks.", "display_order": 0, "cost": 2},
             {"section": "spellcasting", "name": "Spellcasting",
-             "description": "At will: Mage Hand. 1/day: Fireball.", "display_order": 0},
+             "description": "At will: Mage Hand\nAt will: Spark; 1/day: Comet Burst.",
+             "display_order": 0},
         ],
     }
     value.update(overrides)
@@ -262,6 +263,116 @@ async def test_monster_layout_and_keyboard(size: tuple[int, int], tmp_path: Path
         await pilot.press("c")
         assert pilot.app.screen.__class__.__name__ == "ChoiceScreen"
         await pilot.press("escape")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("size", [(140, 40), (100, 30), (80, 24), (60, 20)])
+async def test_monster_spell_reference_and_browser_back_forward(
+    size: tuple[int, int], tmp_path: Path
+) -> None:
+    db = Database(tmp_path / "reference.sqlite3")
+    import_dataset(db, load_dataset(pack(tmp_path)))
+    async with BrowserApp(db).run_test(size=size) as pilot:
+        await pilot.pause(0.25)
+        app = pilot.app
+        await pilot.press("6")
+        await pilot.pause(0.3)
+        await pilot.press("ctrl+f")
+        await pilot.press(*list("Goblin"))
+        await pilot.pause(0.3)
+        await pilot.press("escape")
+        assert app._current_detail is not None
+        assert app._current_detail.category is SearchCategory.MONSTERS
+        assert [target.name for target in app._related_targets] == ["Comet Burst", "Spark"]
+        app.query_one("#related-list").focus()
+        app.query_one("#related-list").index = 0
+        await pilot.press("enter")
+        await pilot.pause(0.3)
+        assert app._current_detail is not None
+        assert app._current_detail.name == "Comet Burst"
+        assert app._current_detail.fields["edition"] == "2024"
+        await pilot.press("alt+left")
+        await pilot.pause(0.3)
+        assert app._current_detail is not None
+        assert app._current_detail.category is SearchCategory.MONSTERS
+        assert app.state.query == "Goblin"
+        assert app.state.editions == ("2024",)
+        await pilot.press("alt+right")
+        await pilot.pause(0.3)
+        assert app._current_detail is not None
+        assert app._current_detail.name == "Comet Burst"
+        assert len(app.recently_viewed.records) >= 2
+
+
+@pytest.mark.asyncio
+async def test_monster_spell_back_forward_restores_exact_nonfirst_detail(
+    tmp_path: Path,
+) -> None:
+    db = Database(tmp_path / "history.sqlite3")
+    root = pack(tmp_path)
+    (root / "monsters.json").write_text(json.dumps([
+        monster(f"monster/new/{letter.lower()}", f"Monster {letter}", "new", "1/4")
+        for letter in "ABCDEFGHIJKL"
+    ]))
+    import_dataset(db, load_dataset(root))
+    async with BrowserApp(db).run_test(size=(100, 30)) as pilot:
+        await pilot.pause(0.25)
+        app = pilot.app
+        await pilot.press("6")
+        await pilot.pause(0.25)
+        await pilot.press("ctrl+f")
+        await pilot.press(*list("Monster"))
+        await pilot.pause(0.25)
+        await pilot.press("escape")
+        assert len(app.state.results) == 12
+        origin = app.state.results[-1]
+        app.query_one("#result-list").index = 11
+        await pilot.pause(0.1)
+        await pilot.press("enter")
+        await pilot.pause(0.25)
+        assert app._current_detail is not None
+        assert app._current_detail.identity == origin.identity
+        assert app.state.list_index == 11
+        app.query_one("#result-list").scroll_y = 4
+        app.query_one("#detail-scroll").scroll_y = 4
+        await pilot.pause(0.1)
+        origin_detail_scroll = app.query_one("#detail-scroll").scroll_y
+        origin_list_scroll = app.query_one("#result-list").scroll_y
+        assert origin_detail_scroll > 0
+        assert origin_list_scroll > 0
+        app.query_one("#related-list").focus()
+        app.query_one("#related-list").index = 0
+        await pilot.press("enter")
+        await pilot.pause(0.6)
+        spell = app._current_detail
+        assert spell is not None and spell.name == "Comet Burst"
+        spell_id = spell.identity
+        saved_origin = app.navigation_history._back[-1]
+        assert saved_origin.detail_id == origin.identity
+        assert saved_origin.detail_scroll == origin_detail_scroll
+        await pilot.press("alt+left")
+        await pilot.pause(0.6)
+        assert app.category is SearchCategory.MONSTERS
+        assert app._current_detail is not None
+        assert app._current_detail.identity == origin.identity
+        assert app._current_detail.category is SearchCategory.MONSTERS
+        assert app.state.selected_id == origin.identity
+        assert app.state.list_index == 11
+        assert app.query_one("#result-list").index == 11
+        assert app.query_one("#result-list").scroll_y == origin_list_scroll
+        for _ in range(15):
+            if app.query_one("#detail-scroll").scroll_y == origin_detail_scroll:
+                break
+            await pilot.pause(0.1)
+        assert app.query_one("#detail-scroll").scroll_y == origin_detail_scroll
+        await pilot.press("alt+right")
+        await pilot.pause(0.6)
+        assert app._current_detail is not None
+        assert app._current_detail.identity == spell_id
+        await pilot.press("r", "enter")
+        await pilot.pause(0.3)
+        assert app._current_detail is not None
+        assert app._current_detail.name == "Comet Burst"
 
 
 @pytest.mark.asyncio

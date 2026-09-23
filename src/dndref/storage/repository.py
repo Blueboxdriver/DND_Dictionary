@@ -1371,7 +1371,7 @@ def get_entry_detail(
         (dataset_id, local_key),
     ).fetchone()[0]
     kind = str(row["kind"])
-    fields: dict[str, object] = {}
+    fields: dict[str, object] = {"edition": row["source_edition"]}
     table = {
         "item": "items", "spell": "spells", "feat": "feats",
         "class": "classes", "monster": "monsters",

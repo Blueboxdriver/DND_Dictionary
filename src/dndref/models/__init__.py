@@ -14,6 +14,7 @@ from .common import (
     AdditionalSection,
     DatasetId,
     EntryBase,
+    EntryReference,
     ImageReference,
     LocalKey,
     SourceKey,
@@ -31,6 +32,7 @@ from .dataset import (
     validate_dataset,
 )
 from .feat import Feat
+from .glossary import GlossaryEntry
 from .item import (
     ArmorDetails,
     Item,
@@ -58,7 +60,9 @@ __all__ = [
     "DatasetPack",
     "DatasetValidationError",
     "EntryBase",
+    "EntryReference",
     "Feat",
+    "GlossaryEntry",
     "HitDie",
     "ImageReference",
     "Item",

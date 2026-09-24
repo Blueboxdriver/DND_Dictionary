@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterator
 
+from ..performance import PerformanceProfiler
+
 
 class DatabaseError(RuntimeError):
     """Base error for database initialization failures."""
@@ -148,9 +150,16 @@ def apply_migrations(
 class Database:
     """Own database connections per operation; no mutable global connection exists."""
 
-    def __init__(self, path: Path, migrations_dir: Path = MIGRATIONS_DIR) -> None:
+    def __init__(
+        self,
+        path: Path,
+        migrations_dir: Path = MIGRATIONS_DIR,
+        *,
+        profiler: PerformanceProfiler | None = None,
+    ) -> None:
         self.path = Path(path)
         self.migrations_dir = Path(migrations_dir)
+        self.profiler = profiler
 
     def connect(self) -> sqlite3.Connection:
         """Open one caller-owned connection with foreign keys enabled."""
@@ -159,6 +168,8 @@ class Database:
             connection.row_factory = sqlite3.Row
             connection.execute("PRAGMA foreign_keys = ON")
             connection.execute("PRAGMA busy_timeout = 5000")
+            if self.profiler is not None:
+                connection.set_trace_callback(lambda _statement: self.profiler.count_statement())
             return connection
         except sqlite3.Error as exc:
             raise DatabaseError(f"cannot open database {self.path}: {exc}") from exc

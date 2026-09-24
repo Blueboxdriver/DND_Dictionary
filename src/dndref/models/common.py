@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from typing import Annotated
+from typing import Annotated, Literal
 
 from pydantic import AfterValidator, BaseModel, ConfigDict, Field, StringConstraints
 
@@ -125,6 +125,13 @@ class AdditionalSection(ContractModel):
     display_order: int = Field(ge=0)
 
 
+class EntryReference(ContractModel):
+    """A same-dataset, source-identified relationship to a glossary entry."""
+
+    content_type: Literal["condition", "rule"]
+    target_key: LocalKey
+
+
 class EntryBase(ContractModel):
     """Metadata shared by every browsable reference entry."""
 
@@ -134,3 +141,4 @@ class EntryBase(ContractModel):
     source: SourceKey
     image: ImageReference | None = None
     sections: list[AdditionalSection] = Field(default_factory=list)
+    references: list[EntryReference] = Field(default_factory=list)

@@ -1,0 +1,152 @@
+[
+  {
+    "conversion_status": "converted",
+    "name": "Blinded",
+    "normalized_sha256": "1686f15cb84c267518dc2033904b8db95eb6dfd57c0e4caf72f0867629d9c812",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/blinded-fbb82224f8",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "blinded|xphb",
+    "upstream_page": 361
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Charmed",
+    "normalized_sha256": "b42c3cdc430e391d10efbea52a50cc37818392102ebdd3df233419bff78858f7",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/charmed-309bc99253",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "charmed|xphb",
+    "upstream_page": 361
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Deafened",
+    "normalized_sha256": "d620593af29fa639a5f88c769c2cb3b7a22c1b03cc089093701184ff9ef29f3f",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/deafened-2a3fcc7911",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "deafened|xphb",
+    "upstream_page": 365
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Exhaustion",
+    "normalized_sha256": "8f0c39fe8ea53634c2f6d39f47b55b05a81f1b5f0c0cb6f95dc7adc02d42a3ae",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/exhaustion-c91f87d7d2",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "exhaustion|xphb",
+    "upstream_page": 365
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Frightened",
+    "normalized_sha256": "c6816c96aef19d6c89455dfc1782e7b45117b5b2f167481a0bde8cf106e3a326",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/frightened-82a9e92bcb",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "frightened|xphb",
+    "upstream_page": 367
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Grappled",
+    "normalized_sha256": "6beebaff0701336bdd4ffdd4c9c4e0ab6f90218eb294df1f032d62559236fed5",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/grappled-a2de75c3b8",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "grappled|xphb",
+    "upstream_page": 367
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Incapacitated",
+    "normalized_sha256": "df82dcac74cf85647cb27c56180bbe7d5f3e36b4136e88717b4a1473727b1c9f",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/incapacitated-e4ac610940",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "incapacitated|xphb",
+    "upstream_page": 369
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Invisible",
+    "normalized_sha256": "606793214a58193493e801ee11386ca213b501099f2e2a8600d2d4a4553f290a",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/invisible-de95ed161b",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "invisible|xphb",
+    "upstream_page": 370
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Paralyzed",
+    "normalized_sha256": "073f887ff32a983eba8cb572d66f005d33499863147f8a52f9545be9036c233b",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/paralyzed-d97e68524b",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "paralyzed|xphb",
+    "upstream_page": 371
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Petrified",
+    "normalized_sha256": "523be1e5a5548c954a6a3cdd5f616f995f12248c76f52fc6ac46ba6c7b509a2c",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/petrified-ae924ccd8e",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "petrified|xphb",
+    "upstream_page": 372
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Poisoned",
+    "normalized_sha256": "f39b90c94b2bc133bec8ce415bcc24c20a8d66a5be916ca055aa506664615186",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/poisoned-f12b2a9c51",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "poisoned|xphb",
+    "upstream_page": 372
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Prone",
+    "normalized_sha256": "0a991aba5476f5d5cea8df2d924673346311a9492a7d92cb981d9e25eff68137",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/prone-663d29391f",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "prone|xphb",
+    "upstream_page": 372
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Restrained",
+    "normalized_sha256": "e4e5d557295f74ad392f90cf1e13d7be4be6a69d7873fc8393fb25e82a994396",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/restrained-693a5a56be",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "restrained|xphb",
+    "upstream_page": 373
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Stunned",
+    "normalized_sha256": "a77e2c6f76ddfb74c2f4e156f652d81cb90d79f7f9712b580fbe25c6ca5848c2",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/stunned-020167009a",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "stunned|xphb",
+    "upstream_page": 376
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Unconscious",
+    "normalized_sha256": "d5febdfa354deb3154ba093c08e6d7e8d842a1ffec88f7a4a27538764b897741",
+    "source": "XPHB",
+    "stable_key": "condition/xphb/unconscious-f859dec6cf",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "unconscious|xphb",
+    "upstream_page": 376
+  }
+]

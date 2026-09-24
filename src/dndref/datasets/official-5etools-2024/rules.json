@@ -1,0 +1,430 @@
+[
+  {
+    "description": "An ability check is a D20 Test that represents using one of the six abilities—or a specific skill associated with an ability—to overcome a challenge.",
+    "image": null,
+    "local_key": "rule/xphb/ability-check-74c0ad63b3",
+    "name": "Ability Check",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      }
+    ],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If you have Advantage on a D20 Test, roll two d20s, and use the higher roll. A roll can't be affected by more than one Advantage, and Advantage and Disadvantage on the same roll cancel each other.",
+    "image": null,
+    "local_key": "rule/xphb/advantage-b00030f675",
+    "name": "Advantage",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "An attack roll is a D20 Test that represents making an attack with a weapon, an Unarmed Strike, or a spell.",
+    "image": null,
+    "local_key": "rule/xphb/attack-roll-239bcc8241",
+    "name": "Attack Roll",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      }
+    ],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "A creature is Bloodied while it has half its Hit Points or fewer remaining.",
+    "image": null,
+    "local_key": "rule/xphb/bloodied-b1e89ef1ce",
+    "name": "Bloodied",
+    "references": [],
+    "section": "Statuses",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If you hit a creature with a melee attack roll using this weapon, you can make a melee attack roll with the weapon against a second creature within 5 feet of the first that is also within your reach. On a hit, the second creature takes the weapon's damage, but don't add your ability modifier to that damage unless that modifier is negative. You can make this extra attack only once per turn.",
+    "image": null,
+    "local_key": "rule/xphb/cleave-07de5e56b4",
+    "name": "Cleave",
+    "references": [],
+    "section": "Weapon Masteries",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "Some spells and other effects require Concentration to remain active, as specified in their descriptions. If the effect's creator loses Concentration, the effect ends. If the effect has a maximum duration, the effect's description specifies how long the creator can concentrate on it: up to 1 minute, 1 hour, or some other duration. The creator can end Concentration at any time (no action required). The following factors break Concentration.\n\n**Another Concentration Effect.** You lose Concentration on an effect the moment you start casting a spell that requires Concentration or activate another effect that requires Concentration.\n\n**Damage.** If you take damage, you must succeed on a Constitution saving throw to maintain Concentration. The DC equals 10 or half the damage taken (round down), whichever number is higher, up to a maximum DC of 30.\n\n**Incapacitated or Dead.** Your Concentration ends if you have the Incapacitated condition or you die.",
+    "image": null,
+    "local_key": "rule/xphb/concentration-74ff75fd61",
+    "name": "Concentration",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/saving-throw-cf5d957059"
+      }
+    ],
+    "section": "Statuses",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "Cover provides a degree of protection to a target behind it. There are three degrees of cover, each of which provides a different benefit to a target: Half Cover (+2 bonus to AC and Dexterity saving throws), Three-Quarters Cover (+5 bonus to AC and Dexterity saving throws), and Total Cover (can't be targeted directly). If behind more than one degree of cover, a target benefits only from the most protective degree.",
+    "image": null,
+    "local_key": "rule/xphb/cover-ec53fb00d2",
+    "name": "Cover",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/saving-throw-cf5d957059"
+      }
+    ],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "D20 Tests encompass the three main d20 rolls of the game: ability checks, attack rolls, and saving throws. If something in the game affects D20 Tests, it affects all three of these rolls. The DM determines whether a D20 Test is warranted in a given circumstance.",
+    "image": null,
+    "local_key": "rule/xphb/d20-test-9a7dd03e89",
+    "name": "D20 Test",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/ability-check-74c0ad63b3"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/attack-roll-239bcc8241"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/saving-throw-cf5d957059"
+      }
+    ],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "When you take the Dash action, you gain extra movement for the current turn. The increase equals your Speed after applying any modifiers. With a Speed of 30 feet, for example, you can move up to 60 feet on your turn if you Dash. If your Speed of 30 feet is reduced to 15 feet, you can move up to 30 feet this turn if you Dash.\n\nIf you have a special speed, such as a Fly Speed or Swim Speed, you can use that speed instead of your Speed when you take this action. You choose which speed to use each time you take it.",
+    "image": null,
+    "local_key": "rule/xphb/dash-1949e6ba15",
+    "name": "Dash",
+    "references": [],
+    "section": "Actions",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "A player character must make a Death Saving Throw (also called a Death Save) if they start their turn with 0 Hit Points.",
+    "image": null,
+    "local_key": "rule/xphb/death-saving-throw-308dfd4f6c",
+    "name": "Death Saving Throw",
+    "references": [],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If a space is Difficult Terrain, every foot of movement in that space costs 1 extra foot. For example, moving 5 feet through Difficult Terrain costs 10 feet of movement. Difficult Terrain isn't cumulative; either a space is Difficult Terrain or it isn't.\n\nA space is Difficult Terrain if the space contains any of the following or something similar:\n\n- A creature that isn't Tiny or your ally\n- Furniture that is sized for creatures of your size or larger\n- Heavy snow, ice, rubble, or undergrowth\n- Liquid that's between shin- and waist-deep\n- A narrow opening sized for a creature one size smaller than you\n- A slope of 20 degrees or more",
+    "image": null,
+    "local_key": "rule/xphb/difficult-terrain-c9234495fd",
+    "name": "Difficult Terrain",
+    "references": [],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If you have Disadvantage on a D20 Test, roll two d20s and use the lower roll. A roll can't be affected by more than one Disadvantage, and Advantage and Disadvantage on the same roll cancel each other.",
+    "image": null,
+    "local_key": "rule/xphb/disadvantage-6d0cac1106",
+    "name": "Disadvantage",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      }
+    ],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If you take the Dodge action, you gain the following benefits: until the start of your next turn, any attack roll made against you has Disadvantage if you can see the attacker, and you make Dexterity saving throws with Advantage.\n\nYou lose these benefits if you have the Incapacitated condition or if your Speed is 0.",
+    "image": null,
+    "local_key": "rule/xphb/dodge-577da598fb",
+    "name": "Dodge",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/saving-throw-cf5d957059"
+      }
+    ],
+    "section": "Actions",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "A creature can grapple another creature. Characters typically grapple by using an Unarmed Strike. Many monsters have special attacks that allow them to quickly grapple prey. However a grapple is initiated, it follows these rules.\n\n**Grappled Condition.** Successfully grappling a creature gives it the Grappled condition.\n\n**One Grapple per Hand.** A creature must have a hand free to grapple another creature. Some stat blocks and game effects allow a creature to grapple using a tentacle, a maw, or another body part. Whatever part a grappler uses, it can grapple only one creature at a time with that part, and the grappler can't use that part to target another creature unless it ends the grapple.\n\n**Ending a Grapple.** A Grappled creature can use its action to make a Strength (Athletics) or Dexterity (Acrobatics) check against the grapple's escape DC, ending the condition on itself on a success. The condition also ends if the grappler has the Incapacitated condition or if the distance between the Grappled target and the grappler exceeds the grapple's range. In addition, the grappler can release the target at any time (no action required).",
+    "image": null,
+    "local_key": "rule/xphb/grappling-5eadf64b82",
+    "name": "Grappling",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If your attack roll with this weapon misses a creature, you can deal damage to that creature equal to the ability modifier you used to make the attack roll. This damage is the same type dealt by the weapon, and the damage can be increased only by increasing the ability modifier.",
+    "image": null,
+    "local_key": "rule/xphb/graze-266d141d53",
+    "name": "Graze",
+    "references": [],
+    "section": "Weapon Masteries",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "When you take the Help action, you do one of the following.\n\n**Assist an Ability Check.** Choose one of your skill or tool proficiencies and one ally who is near enough for you to assist verbally or physically when they make an ability check. That ally has Advantage on the next ability check they make with the chosen skill or tool. This benefit expires if the ally doesn't use it before the start of your next turn. The DM has final say on whether your assistance is possible.\n\n**Assist an Attack Roll.** You momentarily distract an enemy within 5 feet of you, giving Advantage to the next attack roll by one of your allies against that enemy. This benefit expires at the start of your next turn.\n\nAdditionally, the Help action may be used to stabilize a creature.",
+    "image": null,
+    "local_key": "rule/xphb/help-1dba7b0157",
+    "name": "Help",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
+    "section": "Actions",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "With the Hide action, you try to conceal yourself. To do so, you must succeed on a DC 15 Dexterity (Stealth) check while you're Heavily Obscured or behind Three-Quarters Cover or Total Cover, and you must be out of any enemy's line of sight; if you can see a creature, you can discern whether it can see you.\n\nOn a successful check, you have the Invisible condition while hidden. Make note of your check's total, which is the DC for a creature to find you with a Wisdom (Perception) check.\n\nYou stop being hidden immediately after any of the following occurs: you make a sound louder than a whisper, an enemy finds you, you make an attack roll, or you cast a spell with a Verbal component.",
+    "image": null,
+    "local_key": "rule/xphb/hide-1e6e32ea52",
+    "name": "Hide",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
+    "section": "Actions",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "A Long Rest is a period of extended downtime—at least 8 hours—available to any creature. During a Long Rest, you sleep for at least 6 hours and perform no more than 2 hours of light activity, such as reading, talking, eating, or standing watch.\n\nDuring sleep, you have the Unconscious condition. After you finish a Long Rest, you must wait at least 16 hours before starting another one.\n\n**Benefits of the Rest.** To start a Long Rest, you must have at least 1 Hit Point. When you finish the rest, you gain the following benefits:\n\n- **Regain All HP.** You regain all lost Hit Points and all spent Hit Point Dice. If your Hit Point maximum was reduced, it returns to normal.\n- **Ability Scores Restored.** If any of your ability scores were reduced, they return to normal.\n- **Exhaustion Reduced.** If you have the Exhaustion condition, its level decreases by 1.\n- **Special Feature.** Some features are recharged by a Long Rest. If you have such a feature, it recharges in the way specified in its description.\n\n**Interrupting the Rest.** A Long Rest is stopped by the following interruptions:\n\n- Rolling Initiative\n- Casting a spell other than a cantrip\n- Taking any damage.\n- 1 hour of walking or other physical exertion.\n\nIf you rested at least 1 hour before the interruption you gain the benefits of a Short Rest.\n\nYou can resume a Long Rest immediately after an interruption. If you do so, the rest requires 1 additional hour per interruption to finish.",
+    "image": null,
+    "local_key": "rule/xphb/long-rest-49f910ee39",
+    "name": "Long Rest",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "When you make the extra attack of the Light property, you can make it as part of the Attack action instead of as a Bonus Action. You can make this extra attack only once per turn.",
+    "image": null,
+    "local_key": "rule/xphb/nick-c92bca2621",
+    "name": "Nick",
+    "references": [],
+    "section": "Weapon Masteries",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "You can make an Opportunity Attack when a creature that you can see leaves your reach using its action, its Bonus Action, its Reaction, or one of its speeds. To make the Opportunity Attack, take a Reaction to make one melee attack with a weapon or an Unarmed Strike against the provoking creature. The attack occurs right before the creature leaves your reach.",
+    "image": null,
+    "local_key": "rule/xphb/opportunity-attack-7debbc9590",
+    "name": "Opportunity Attack",
+    "references": [],
+    "section": "Actions",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If you hit a creature with this weapon, you can push the creature up to 10 feet straight away from yourself if it is Large or smaller.",
+    "image": null,
+    "local_key": "rule/xphb/push-347a429509",
+    "name": "Push",
+    "references": [],
+    "section": "Weapon Masteries",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "You take the Ready action to wait for a particular circumstance before you act. To do so, you take this action on your turn, which lets you act by taking a Reaction before the start of your next turn.\n\nFirst, you decide what perceivable circumstance will trigger your Reaction. Then, you choose the action you will take in response to that trigger, or you choose to move up to your Speed in response to it. Examples include \"If the cultist steps on the trapdoor, I'll pull the lever that opens it,\" and \"If the zombie steps next to me, I move away.\"\n\nWhen the trigger occurs, you can either take your Reaction right after the trigger finishes or ignore the trigger.\n\nWhen you Ready a spell, you cast it as normal (expending any resources used to cast it) but hold its energy, which you release with your Reaction when the trigger occurs. To be readied, a spell must have a casting time of an action, and holding on to the spell's magic requires Concentration, which you can maintain up to the start of your next turn. If your Concentration is broken, the spell dissipates without taking effect.",
+    "image": null,
+    "local_key": "rule/xphb/ready-573b4f55a9",
+    "name": "Ready",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
+    "section": "Actions",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If you hit a creature with this weapon, that creature has Disadvantage on its next attack roll before the start of your next turn.",
+    "image": null,
+    "local_key": "rule/xphb/sap-6dc8b55f01",
+    "name": "Sap",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
+    "section": "Weapon Masteries",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "A saving throw—also called a save—represents an attempt to avoid or resist a threat. You normally make a saving throw only when a rule requires you to do so, but you can decide to fail the save without rolling. The result of a save is detailed in the effect that allowed it. If a target is forced to make a save and lacks the ability score used by it, the target automatically fails.",
+    "image": null,
+    "local_key": "rule/xphb/saving-throw-cf5d957059",
+    "name": "Saving Throw",
+    "references": [],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "A Short Rest is a 1-hour period of downtime, during which a creature does nothing more strenuous than reading, talking, eating, or standing watch. To start a Short Rest, you must have at least 1 Hit Point.\n\n**Benefits of the Rest.** When you finish the rest, you gain the following benefits:\n\n- **Spend Hit Point Dice.** You can spend one or more of your Hit Point Dice to regain Hit Points. For each Hit Point Die you spend in this way, roll the die and add your Constitution modifier to it. You regain Hit Points equal to the total (minimum of 1 Hit Point). You can decide to spend an additional Hit Point Die after each roll.\n- **Special Feature.** Some features are recharged by a Short Rest. If you have such a feature, it recharges in the way specified in its description.\n\n**Interrupting the Rest.** A Short Rest is stopped by the following interruptions:\n\n- Rolling Initiative\n- Casting a spell other than a cantrip\n- Taking any damage\n\nAn interrupted Short Rest confers no benefits.",
+    "image": null,
+    "local_key": "rule/xphb/short-rest-6f195d8415",
+    "name": "Short Rest",
+    "references": [],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If you hit a creature with this weapon and deal damage to it, you can reduce its Speed by 10 feet until the start of your next turn. If the creature is hit more than once by weapons that have this property, the Speed reduction doesn't exceed 10 feet.",
+    "image": null,
+    "local_key": "rule/xphb/slow-1b2e921966",
+    "name": "Slow",
+    "references": [],
+    "section": "Weapon Masteries",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "A spell is a magical effect that has the characteristics described in chapter 7.",
+    "image": null,
+    "local_key": "rule/xphb/spell-845476efc2",
+    "name": "Spell",
+    "references": [],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "A Spellcasting Focus is an object that certain creatures can use in place of a spell's Material components if those materials aren't consumed by the spell and don't have a cost specified. Some classes allow its members to use certain types of Spellcasting Focuses.",
+    "image": null,
+    "local_key": "rule/xphb/spellcasting-focus-2ffd0f6a85",
+    "name": "Spellcasting Focus",
+    "references": [],
+    "section": "Core Rules",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If you hit a creature with this weapon, you can force the creature to make a Constitution saving throw (DC 8 plus the ability modifier used to make the attack roll and your Proficiency Bonus). On a failed save, the creature has the Prone condition.",
+    "image": null,
+    "local_key": "rule/xphb/topple-cc3a3afc55",
+    "name": "Topple",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
+    "section": "Weapon Masteries",
+    "sections": [],
+    "source": "XPHB"
+  },
+  {
+    "description": "If you hit a creature with this weapon and deal damage to the creature, you have Advantage on your next attack roll against that creature before the end of your next turn.",
+    "image": null,
+    "local_key": "rule/xphb/vex-75bb4ac0b2",
+    "name": "Vex",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
+    "section": "Weapon Masteries",
+    "sections": [],
+    "source": "XPHB"
+  }
+]

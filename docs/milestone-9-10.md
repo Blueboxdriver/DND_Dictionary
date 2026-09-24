@@ -69,8 +69,9 @@ does not establish compatibility. No unreviewed historical options are included;
 future additions require explicit source/compatibility review.
 
 Vehicles and mounts are excluded even when supplied in upstream item files.
-No Monsters, Species, Backgrounds, Conditions, Rules, or other categories are
-added. References to these remain readable names, not imported stat blocks.
+Milestone 19 adds formal Conditions and a deliberately curated Rules glossary
+from the same pinned source. The converter admits only the named glossary
+allowlist in `RULE_GLOSSARY_NAMES`; it does not ingest rulebook chapters.
 
 ## Upstream structure and mappings
 
@@ -83,6 +84,8 @@ added. References to these remain readable names, not imported stat blocks.
 | `data/spells/index.json`, `spells-*.json` | Structured spell fields and entries |
 | `data/generated/gendata-spell-source-lookup.json` | Actual unconditional spell/class references |
 | `data/feats.json` | Categories, prerequisites, ability increases, ordered benefits |
+| `data/conditionsdiseases.json` | Formal Conditions; diseases and statuses remain excluded |
+| `data/variantrules.json`, `data/actions.json` | Selected named Rules and action text |
 | `data/class/index.json`, `class-*.json` | Classes, subclasses, feature UIDs, progression tables |
 | `data/class/fluff-class-*.json` | Class introductions |
 | `data/optionalfeatures.json` | Class-owned choices, embedded in existing class text/sections |
@@ -131,6 +134,7 @@ git clone https://github.com/5etools-mirror-3/5etools-src.git /tmp/dndref-5etool
 git -C /tmp/dndref-5etools-snapshot checkout 3a09c05a3a3be94423cd2b3c33936034eeae02f2
 PYTHONPATH=src .venv/bin/python tools/build_5etools_dataset.py /tmp/dndref-5etools-snapshot
 PYTHONPATH=src .venv/bin/python tools/build_5etools_dataset.py /tmp/dndref-5etools-snapshot --check
+.venv/bin/python tools/build_monsters_dataset.py /tmp/dndref-5etools-snapshot/data/bestiary/bestiary-xmm.json --legendary-groups /tmp/dndref-5etools-snapshot/data/bestiary/legendarygroups.json --check
 .venv/bin/dndref validate src/dndref/datasets/official-5etools-2024
 .venv/bin/dndref import src/dndref/datasets/official-5etools-2024 --dry-run
 .venv/bin/dndref import src/dndref/datasets/official-5etools-2024

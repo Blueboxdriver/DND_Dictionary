@@ -23,7 +23,8 @@ DIST = ROOT / "dist"
 VERSION = __version__
 WHEEL_NAME = f"dnd_reference-{VERSION}-py3-none-any.whl"
 SDIST_NAME = f"dnd_reference-{VERSION}.tar.gz"
-DATA_FILES = ("manifest.json", "items.json", "spells.json", "feats.json", "classes.json")
+BASE_DATA_FILES = ("manifest.json", "items.json", "spells.json", "feats.json", "classes.json")
+GLOSSARY_DATA_FILES = ("conditions.json", "rules.json")
 DATASETS = ("srd-5.2.1", "official-5etools-2024")
 MIGRATIONS = (
     "001_initial.sql",
@@ -33,6 +34,8 @@ MIGRATIONS = (
     "005_monsters.sql",
     "006_personal_organization.sql",
     "007_recent_searches.sql",
+    "008_conditions_rules.sql",
+    "009_dataset_source_hash.sql",
 )
 
 
@@ -42,7 +45,14 @@ def run(*command: str, cwd: Path = ROOT, env: dict[str, str] | None = None) -> N
 
 
 def audit_artifacts(wheel: Path, sdist: Path) -> None:
-    expected = {f"dndref/datasets/{pack}/{name}" for pack in DATASETS for name in DATA_FILES}
+    expected = {
+        f"dndref/datasets/{pack}/{name}"
+        for pack in DATASETS
+        for name in BASE_DATA_FILES
+    }
+    expected.update(
+        f"dndref/datasets/official-5etools-2024/{name}" for name in GLOSSARY_DATA_FILES
+    )
     expected.update(f"dndref/storage/migrations/{name}" for name in MIGRATIONS)
     expected.update(("dndref/__init__.py", "dndref/__main__.py", "dndref/cli.py"))
     with zipfile.ZipFile(wheel) as archive:
@@ -81,11 +91,22 @@ def main() -> int:
     parser.add_argument("--skip-build", action="store_true", help="verify existing dist artifacts")
     args = parser.parse_args()
     DIST.mkdir(exist_ok=True)
+    clean_environment = dict(os.environ)
+    clean_environment.pop("PYTHONPATH", None)
     if not args.skip_build:
         for artifact in DIST.iterdir():
             if artifact.is_file():
                 artifact.unlink()
-        run(sys.executable, "-m", "build", "--wheel", "--sdist", "--outdir", str(DIST))
+        run(
+            sys.executable,
+            "-m",
+            "build",
+            "--wheel",
+            "--sdist",
+            "--outdir",
+            str(DIST),
+            env=clean_environment,
+        )
     wheel = DIST / WHEEL_NAME
     sdist = DIST / SDIST_NAME
     if {p.name for p in DIST.iterdir()} != {WHEEL_NAME, SDIST_NAME}:
@@ -100,8 +121,15 @@ def main() -> int:
             venv.EnvBuilder(with_pip=True).create(environment)
             python = environment / "bin" / "python"
             requirement = f"{wheel}[images]" if extra else str(wheel)
-            run(str(python), "-m", "pip", "install", requirement)
-            test_env = {key: value for key, value in os.environ.items() if key != "PYTHONPATH"}
+            run(
+                str(python),
+                "-m",
+                "pip",
+                "install",
+                requirement,
+                env=clean_environment,
+            )
+            test_env = dict(clean_environment)
             test_env.update(
                 {
                     f"XDG_{name}_HOME": str(root / label / name.lower())

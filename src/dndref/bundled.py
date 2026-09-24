@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from contextlib import ExitStack, contextmanager
 from importlib import resources
 from pathlib import Path
@@ -10,7 +11,9 @@ from typing import Iterator
 from .importer import (
     DatasetError,
     ImportReport,
+    dataset_source_hash,
     import_dataset,
+    legacy_glossaryless_hash,
     legacy_monsterless_hash,
     load_dataset,
 )
@@ -56,20 +59,49 @@ def install_bundled_datasets(database: Database) -> tuple[ImportReport, ...]:
 
     with database.connection() as connection:
         installed = {
-            str(row[0]): str(row[1])
+            str(row[0]): (str(row[1]), str(row[2]) if row[2] is not None else None)
             for row in connection.execute(
-                "SELECT dataset_id, content_hash FROM datasets"
+                "SELECT dataset_id, content_hash, source_hash FROM datasets"
             ).fetchall()
         }
+        asset_paths: dict[str, list[str]] = {}
+        for row in connection.execute(
+            "SELECT dataset_id, relative_path FROM images ORDER BY dataset_id, relative_path"
+        ).fetchall():
+            asset_paths.setdefault(str(row[0]), []).append(str(row[1]))
 
     reports: list[ImportReport] = []
     with bundled_dataset_paths() as paths:
         for path in paths:
+            try:
+                manifest = json.loads((path / "manifest.json").read_text(encoding="utf-8"))
+                dataset_id = str(manifest.get("dataset_id", ""))
+            except (OSError, AttributeError, TypeError, ValueError):
+                dataset_id = ""
+            previous = installed.get(dataset_id)
+            if previous is not None and previous[1] is not None:
+                current_source_hash = dataset_source_hash(
+                    path, tuple(asset_paths.get(dataset_id, ()))
+                )
+                if current_source_hash == previous[1]:
+                    continue
             loaded = load_dataset(path)
-            previous_hash = installed.get(loaded.dataset_id)
+            previous_hash, previous_source_hash = installed.get(
+                loaded.dataset_id, (None, None)
+            )
             if previous_hash is not None:
-                if not loaded.pack.monsters or previous_hash != legacy_monsterless_hash(loaded):
+                known_previous_hashes = {legacy_glossaryless_hash(loaded)}
+                if loaded.pack.monsters:
+                    known_previous_hashes.add(legacy_monsterless_hash(loaded))
+                known_previous_hashes.add(loaded.content_hash)
+                if previous_hash not in known_previous_hashes:
+                    continue
+                if (
+                    previous_hash == loaded.content_hash
+                    and previous_source_hash == loaded.source_hash
+                ):
                     continue
             reports.append(import_dataset(database, loaded))
-            installed[loaded.dataset_id] = loaded.content_hash
+            installed[loaded.dataset_id] = (loaded.content_hash, loaded.source_hash)
+            asset_paths[loaded.dataset_id] = [asset.relative_path for asset in loaded.assets]
     return tuple(reports)

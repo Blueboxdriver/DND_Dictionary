@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
+import time
 from collections.abc import Sequence
 from dataclasses import replace
 from pathlib import Path
@@ -22,6 +24,7 @@ from .importer import (
     load_dataset,
     plan_import,
 )
+from .performance import PerformanceProfiler
 from .storage import Database, DatabaseError
 from .storage.repository import RepositoryError
 
@@ -41,6 +44,11 @@ def build_parser() -> argparse.ArgumentParser:
         choices=("auto", "off", "kitty", "sixel"),
         default=None,
         help="image backend policy for the browser (default: config or auto)",
+    )
+    parser.add_argument(
+        "--profile",
+        action="store_true",
+        help="report development timings for application startup and navigation",
     )
     commands = parser.add_subparsers(dest="command")
 
@@ -64,14 +72,26 @@ def initialize_application(
     paths: ApplicationPaths | None = None,
     *,
     image_mode: str | None = None,
+    profiler: PerformanceProfiler | None = None,
 ) -> Config:
     """Resolve paths, load configuration, create directories, and initialize SQLite."""
     application_paths = paths or ApplicationPaths.default()
-    config = load_config(application_paths)
-    application_paths.ensure_directories()
-    database = Database(application_paths.database_path)
-    database.initialize()
-    install_bundled_datasets(database)
+    if profiler is None:
+        config = load_config(application_paths)
+        application_paths.ensure_directories()
+    else:
+        with profiler.measure("startup.configuration"):
+            config = load_config(application_paths)
+            application_paths.ensure_directories()
+    database = Database(application_paths.database_path, profiler=profiler)
+    if profiler is None:
+        database.initialize()
+        install_bundled_datasets(database)
+    else:
+        with profiler.operation("startup.database_initialize"):
+            database.initialize()
+        with profiler.operation("startup.bundled_datasets"):
+            install_bundled_datasets(database)
     if image_mode is not None:
         if image_mode not in {"auto", "off", "kitty", "sixel"}:
             raise ConfigurationError("image mode must be one of: auto, off, kitty, sixel")
@@ -82,6 +102,8 @@ def initialize_application(
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    profiling = args.profile or os.environ.get("DNDREF_PROFILE") == "1"
+    profiler = PerformanceProfiler() if profiling else None
 
     if args.command in {"image-diagnostics", "image-test"}:
         try:
@@ -127,13 +149,18 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     try:
         paths = ApplicationPaths.default()
-        config = initialize_application(paths, image_mode=args.images)
+        startup_started = time.perf_counter()
+        config = initialize_application(paths, image_mode=args.images, profiler=profiler)
+        if profiler is not None:
+            profiler.record("startup.total", (time.perf_counter() - startup_started) * 1000)
     except (ConfigurationError, DatasetError, DatasetImportError, DatabaseError, OSError) as exc:
         print(f"dndref: error: {exc}", file=sys.stderr)
         return 2
 
     if sys.stdin.isatty() and sys.stdout.isatty():
-        FoundationApp(paths=paths, config=config).run()
+        FoundationApp(paths=paths, config=config, profiler=profiler).run()
     else:
         print("D&D Reference foundation initialized.")
+    if profiler is not None:
+        print(profiler.report(), file=sys.stderr)
     return 0

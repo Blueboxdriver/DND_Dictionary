@@ -5,8 +5,6 @@ from __future__ import annotations
 import re
 from textwrap import shorten
 
-from textual.app import ComposeResult
-from textual.css.query import NoMatches
 from textual.widget import Widget
 from textual.widgets import Label, ListItem, Static
 
@@ -43,32 +41,25 @@ class ResultRow(ListItem):
     ) -> None:
         self.summary = summary
         self._selected = False
-        super().__init__(id=id)
-
-    def compose(self) -> ComposeResult:
         primary = (
             self.summary.primary
             if isinstance(self.summary, GroupedEntrySummary)
             else self.summary
         )
-        yield Label(self.summary.name, classes="result-name")
-        yield Label(primary.subtitle, classes="result-meta")
+        self._name_label = Label("  " + self.summary.name, classes="result-name")
+        meta_label = Label(primary.subtitle, classes="result-meta")
         source = _source_display_label(primary)
         if isinstance(self.summary, GroupedEntrySummary) and self.summary.alternates:
             count = len(self.summary.alternates)
             source += f" · +{count} source" + ("s" if count != 1 else "")
-        yield Label(source, classes="result-source")
+        source_label = Label(source, classes="result-source")
+        super().__init__(self._name_label, meta_label, source_label, id=id)
 
     def set_selected(self, selected: bool) -> None:
         """Show selection with both a marker and styling."""
         self._selected = selected
         self.set_class(selected, "selected")
-        try:
-            self.query_one(".result-name", Label).update(
-                ("> " if selected else "  ") + self.summary.name
-            )
-        except NoMatches:
-            pass
+        self._name_label.update(("> " if selected else "  ") + self.summary.name)
 
     def on_mount(self) -> None:
         self.set_selected(self._selected)

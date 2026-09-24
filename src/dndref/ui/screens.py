@@ -769,10 +769,10 @@ class HelpScreen(ModalScreen[None]):
 **Search**
 
 `/` or `Ctrl+F`  Focus current category search
-`Ctrl+K`  Universal Search across Items, Spells, Feats, Classes, Subclasses, and Monsters
+`Ctrl+K`  Universal Search across all reference categories
 `Ctrl+P`  Command Palette for views, actions, and direct entry lookup
 `F2`  Toggle Names / All text  
-`1`–`6`  Select Items / Spells / Feats / Classes / Subclasses / Monsters
+`1`–`8`  Select Items / Spells / Feats / Classes / Subclasses / Monsters / Conditions / Rules
 `e` Edition filter · `s` Source filter
 `f` Parent class filter in Subclasses
 `c` CR · `t` creature type · `z` size filter in Monsters
@@ -797,6 +797,10 @@ Space toggles a filter choice; Enter applies; Escape cancels.
 On a class page, Tab to Subclasses and Enter to open one.
 On a subclass page, `c` opens its matching edition parent class.
 Monster spell names in structured spellcasting lists open same-edition spells.
+Structured source references open Conditions and selected Rules in the same
+canonical edition; exact condition names followed by “condition” may also link.
+The glossary is curated, not a complete rules-book copy, and links never fall
+back to another edition.
 Multiple same-edition source variants show a chooser. Class/subclass links use
 their stored parent relationship. Arbitrary prose is intentionally not auto-linked.
 `Alt+Left` Back · `Alt+Right` Forward through visited records and browser states.
@@ -807,14 +811,15 @@ database. Personal records use exact entry IDs; missing entries stay marked as
 missing and may resolve again when the same ID returns.
 
 Universal Search recognizes `item:`, `spell:`, `feat:`, `class:`, `subclass:`,
-`monster:`, `edition:`, and `source:` prefixes. Examples: `spell: fireball`,
+`monster:`, `condition:`, `rule:`, `edition:`, and `source:` prefixes. Examples: `spell: fireball`,
 `monster:dragon edition:2024`, and `source:XMM dragon`. Results show category,
 edition, and source. Recent Searches are local, capped at 25, and can be cleared
 with `Ctrl+L` inside Universal Search. Opening an entry records its search in
 Back/Forward history, including its query and selected result.
 
-The Command Palette offers category views, Favorites, Collections, Recently
-Viewed, Sources, Universal Search, Back/Forward, image toggle, Help, image
+The Command Palette offers Open Conditions and Open Rules alongside category
+views, Favorites, Collections, Recently Viewed, Sources, Universal Search,
+Back/Forward, image toggle, Help, image
 instructions, and Quit. Typing a reference name also searches records.
 
 `?` / `F1`  Help  

@@ -409,6 +409,12 @@ def test_production_inventory_reference_integrity_and_hashes(loaded):
     assert all(s.class_references for s in p.spells)
     assert {s.source for s in p.spells} <= converter.BOOKS.keys()
     assert len(p.spells) == 444 and len(p.feats) == 179 and len(p.classes) == 13
+    assert len(p.conditions) == 15
+    assert len(p.rules) == 30
+    assert {entry.name for entry in p.conditions} >= {"Prone", "Frightened", "Grappled"}
+    assert {entry.name for entry in p.rules} >= {
+        "Advantage", "Cover", "Difficult Terrain", "Opportunity Attack", "Grappling"
+    }
     assert len(categories["subclasses"]) == 76
     assert len(categories["class-features"]) == 302
     assert len(categories["subclass-features"]) == 508

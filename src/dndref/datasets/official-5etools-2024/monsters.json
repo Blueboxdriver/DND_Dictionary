@@ -47,6 +47,7 @@
     "name": "Aarakocra Aeromancer",
     "page": 10,
     "passive_perception": 17,
+    "references": [],
     "saving_throws": {
       "dex": "+5",
       "wis": "+5"
@@ -100,6 +101,7 @@
     "name": "Aarakocra Skirmisher",
     "page": 10,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -166,6 +168,20 @@
     "name": "Aberrant Cultist",
     "page": 86,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {
       "int": "+6",
       "wis": "+7"
@@ -280,6 +296,16 @@
     "name": "Aboleth",
     "page": 12,
     "passive_perception": 20,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {
       "con": "+6",
       "dex": "+3",
@@ -361,6 +387,16 @@
     "name": "Abominable Yeti",
     "page": 340,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -462,6 +498,16 @@
     "name": "Adult Black Dragon",
     "page": 39,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "dex": "+7",
       "wis": "+6"
@@ -562,6 +608,7 @@
     "name": "Adult Blue Dragon",
     "page": 49,
     "passive_perception": 22,
+    "references": [],
     "saving_throws": {
       "dex": "+5",
       "wis": "+7"
@@ -668,6 +715,20 @@
     "name": "Adult Brass Dragon",
     "page": 55,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "wis": "+6"
@@ -782,6 +843,20 @@
     "name": "Adult Bronze Dragon",
     "page": 59,
     "passive_perception": 22,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "wis": "+7"
@@ -889,6 +964,16 @@
     "name": "Adult Copper Dragon",
     "page": 79,
     "passive_perception": 22,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "wis": "+7"
@@ -1002,6 +1087,24 @@
     "name": "Adult Gold Dragon",
     "page": 145,
     "passive_perception": 24,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "dex": "+8",
       "wis": "+8"
@@ -1111,6 +1214,7 @@
     "name": "Adult Green Dragon",
     "page": 153,
     "passive_perception": 22,
+    "references": [],
     "saving_throws": {
       "dex": "+6",
       "wis": "+7"
@@ -1213,6 +1317,7 @@
     "name": "Adult Red Dragon",
     "page": 255,
     "passive_perception": 23,
+    "references": [],
     "saving_throws": {
       "dex": "+6",
       "wis": "+7"
@@ -1319,6 +1424,20 @@
     "name": "Adult Silver Dragon",
     "page": 279,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "wis": "+6"
@@ -1419,6 +1538,12 @@
     "name": "Adult White Dragon",
     "page": 329,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "wis": "+6"
@@ -1490,6 +1615,12 @@
     "name": "Air Elemental",
     "page": 13,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -1537,6 +1668,12 @@
     "name": "Allosaurus",
     "page": 348,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -1636,6 +1773,16 @@
     "name": "Ancient Black Dragon",
     "page": 40,
     "passive_perception": 26,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "dex": "+9",
       "wis": "+9"
@@ -1736,6 +1883,7 @@
     "name": "Ancient Blue Dragon",
     "page": 50,
     "passive_perception": 27,
+    "references": [],
     "saving_throws": {
       "dex": "+7",
       "wis": "+10"
@@ -1842,6 +1990,20 @@
     "name": "Ancient Brass Dragon",
     "page": 56,
     "passive_perception": 24,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "wis": "+8"
@@ -1956,6 +2118,20 @@
     "name": "Ancient Bronze Dragon",
     "page": 60,
     "passive_perception": 27,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {
       "dex": "+7",
       "wis": "+10"
@@ -2063,6 +2239,16 @@
     "name": "Ancient Copper Dragon",
     "page": 80,
     "passive_perception": 27,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      }
+    ],
     "saving_throws": {
       "dex": "+8",
       "wis": "+10"
@@ -2176,6 +2362,24 @@
     "name": "Ancient Gold Dragon",
     "page": 146,
     "passive_perception": 27,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "dex": "+9",
       "wis": "+10"
@@ -2285,6 +2489,7 @@
     "name": "Ancient Green Dragon",
     "page": 154,
     "passive_perception": 27,
+    "references": [],
     "saving_throws": {
       "dex": "+8",
       "wis": "+10"
@@ -2387,6 +2592,7 @@
     "name": "Ancient Red Dragon",
     "page": 256,
     "passive_perception": 26,
+    "references": [],
     "saving_throws": {
       "dex": "+7",
       "wis": "+9"
@@ -2493,6 +2699,20 @@
     "name": "Ancient Silver Dragon",
     "page": 280,
     "passive_perception": 26,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {
       "dex": "+7",
       "wis": "+9"
@@ -2593,6 +2813,12 @@
     "name": "Ancient White Dragon",
     "page": 330,
     "passive_perception": 23,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "wis": "+7"
@@ -2711,6 +2937,32 @@
     "name": "Animal Lord",
     "page": 15,
     "passive_perception": 28,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "con": "+11",
       "wis": "+12"
@@ -2768,6 +3020,7 @@
     "name": "Animated Armor",
     "page": 16,
     "passive_perception": 6,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -2815,6 +3068,12 @@
     "name": "Animated Broom",
     "page": 16,
     "passive_perception": 7,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -2857,6 +3116,7 @@
     "name": "Animated Flying Sword",
     "page": 17,
     "passive_perception": 7,
+    "references": [],
     "saving_throws": {
       "dex": "+4"
     },
@@ -2901,6 +3161,20 @@
     "name": "Animated Rug of Smothering",
     "page": 17,
     "passive_perception": 6,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -2952,6 +3226,16 @@
     "name": "Ankheg",
     "page": 18,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft., Tremorsense 60 ft.",
@@ -2999,6 +3283,12 @@
     "name": "Ankylosaurus",
     "page": 348,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "str": "+6"
     },
@@ -3052,6 +3342,7 @@
     "name": "Ape",
     "page": 348,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -3146,6 +3437,24 @@
     "name": "Arcanaloth",
     "page": 19,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "saving_throws": {
       "con": "+6",
       "dex": "+5",
@@ -3274,6 +3583,24 @@
     "name": "Arch-hag",
     "page": 21,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {
       "dex": "+9",
       "wis": "+11"
@@ -3333,6 +3660,7 @@
     "name": "Archelon",
     "page": 349,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -3408,6 +3736,12 @@
     "name": "Archmage",
     "page": 199,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "int": "+9",
       "wis": "+6"
@@ -3479,6 +3813,12 @@
     "name": "Archpriest",
     "page": 248,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      }
+    ],
     "saving_throws": {
       "con": "+7",
       "int": "+6",
@@ -3554,6 +3894,24 @@
     "name": "Assassin",
     "page": 22,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {
       "dex": "+7",
       "int": "+6"
@@ -3602,6 +3960,7 @@
     "name": "Awakened Shrub",
     "page": 23,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -3643,6 +4002,7 @@
     "name": "Awakened Tree",
     "page": 23,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -3681,6 +4041,7 @@
     "name": "Axe Beak",
     "page": 24,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -3752,6 +4113,12 @@
     "name": "Azer Pyromancer",
     "page": 25,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "saving_throws": {
       "con": "+6",
       "wis": "+7"
@@ -3811,6 +4178,12 @@
     "name": "Azer Sentinel",
     "page": 25,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "saving_throws": {
       "con": "+4"
     },
@@ -3857,6 +4230,16 @@
     "name": "Baboon",
     "page": 349,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -3897,6 +4280,7 @@
     "name": "Badger",
     "page": 349,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 30 ft.",
@@ -3985,6 +4369,16 @@
     "name": "Balor",
     "page": 26,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "con": "+12",
       "wis": "+9"
@@ -4051,6 +4445,7 @@
     "name": "Bandit Captain",
     "page": 27,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {
       "dex": "+5",
       "str": "+4",
@@ -4121,6 +4516,16 @@
     "name": "Bandit Crime Lord",
     "page": 28,
     "passive_perception": 20,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "con": "+6",
       "dex": "+9"
@@ -4185,6 +4590,12 @@
     "name": "Bandit Deceiver",
     "page": 28,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "int": "+6"
@@ -4237,6 +4648,7 @@
     "name": "Bandit",
     "page": 27,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -4309,6 +4721,16 @@
     "name": "Banshee",
     "page": 29,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {
       "wis": "+2"
     },
@@ -4391,6 +4813,16 @@
     "name": "Barbed Devil",
     "page": 30,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+5",
       "con": "+7",
@@ -4476,6 +4908,12 @@
     "name": "Barlgura",
     "page": 31,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "con": "+6",
       "dex": "+5"
@@ -4530,6 +4968,16 @@
     "name": "Basilisk",
     "page": 32,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -4569,6 +5017,7 @@
     "name": "Bat",
     "page": 349,
     "passive_perception": 11,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -4631,6 +5080,16 @@
     "name": "Bearded Devil",
     "page": 33,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+4",
       "con": "+4",
@@ -4702,6 +5161,28 @@
     "name": "Behir",
     "page": 34,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 90 ft.",
@@ -4791,6 +5272,40 @@
     "name": "Beholder",
     "page": 36,
     "passive_perception": 22,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "saving_throws": {
       "con": "+9",
       "wis": "+7"
@@ -4858,6 +5373,20 @@
     "name": "Beholder Zombie",
     "page": 347,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {
       "wis": "+2"
     },
@@ -4907,6 +5436,16 @@
     "name": "Berserker",
     "page": 37,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -4971,6 +5510,20 @@
     "name": "Berserker Commander",
     "page": 37,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "con": "+7",
       "str": "+7"
@@ -5021,6 +5574,7 @@
     "name": "Black Bear",
     "page": 349,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -5085,6 +5639,7 @@
     "name": "Black Dragon Wyrmling",
     "page": 38,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {
       "dex": "+4",
       "wis": "+2"
@@ -5159,6 +5714,12 @@
     "name": "Black Pudding",
     "page": 42,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -5206,6 +5767,7 @@
     "name": "Blink Dog",
     "page": 46,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -5306,6 +5868,20 @@
     "name": "Blob of Annihilation",
     "page": 47,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {
       "con": "+16",
       "dex": "+9"
@@ -5355,6 +5931,20 @@
     "name": "Blood Hawk",
     "page": 350,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -5411,6 +6001,7 @@
     "name": "Blue Dragon Wyrmling",
     "page": 48,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {
       "dex": "+2",
       "wis": "+2"
@@ -5478,6 +6069,16 @@
     "name": "Blue Slaad",
     "page": 285,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -5526,6 +6127,20 @@
     "name": "Boar",
     "page": 350,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -5592,6 +6207,16 @@
     "name": "Bone Devil",
     "page": 52,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+7",
       "int": "+5",
@@ -5663,6 +6288,12 @@
     "name": "Bone Naga",
     "page": 53,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -5717,6 +6348,16 @@
     "name": "Brass Dragon Wyrmling",
     "page": 54,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "saving_throws": {
       "dex": "+2",
       "wis": "+2"
@@ -5791,6 +6432,24 @@
     "name": "Brazen Gorgon",
     "page": 149,
     "passive_perception": 20,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -5859,6 +6518,12 @@
     "name": "Bronze Dragon Wyrmling",
     "page": 58,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "dex": "+2",
       "wis": "+2"
@@ -5919,6 +6584,12 @@
     "name": "Brown Bear",
     "page": 350,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -5987,6 +6658,16 @@
     "name": "Bugbear Stalker",
     "page": 62,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "con": "+4",
       "wis": "+3"
@@ -6047,6 +6728,16 @@
     "name": "Bugbear Warrior",
     "page": 62,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -6108,6 +6799,12 @@
     "name": "Bulette",
     "page": 63,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft., Tremorsense 120 ft.",
@@ -6156,6 +6853,7 @@
     "name": "Bulette Pup",
     "page": 63,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 30 ft., Tremorsense 60 ft.",
@@ -6229,6 +6927,7 @@
     "name": "Bullywug Bog Sage",
     "page": 64,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {
       "cha": "+3",
       "con": "+4",
@@ -6294,6 +6993,7 @@
     "name": "Bullywug Warrior",
     "page": 64,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -6356,6 +7056,7 @@
     "name": "Cambion",
     "page": 65,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {
       "cha": "+6",
       "con": "+6",
@@ -6405,6 +7106,7 @@
     "name": "Camel",
     "page": 351,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {
       "con": "+5"
     },
@@ -6464,6 +7166,16 @@
     "name": "Carrion Crawler",
     "page": 66,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -6512,6 +7224,7 @@
     "name": "Cat",
     "page": 351,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {
       "dex": "+4"
     },
@@ -6576,6 +7289,16 @@
     "name": "Centaur Trooper",
     "page": 67,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -6642,6 +7365,20 @@
     "name": "Centaur Warden",
     "page": 67,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "con": "+5",
       "wis": "+7"
@@ -6721,6 +7458,24 @@
     "name": "Chain Devil",
     "page": 68,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "con": "+7",
       "wis": "+4"
@@ -6793,6 +7548,16 @@
     "name": "Chasme",
     "page": 69,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "wis": "+5"
@@ -6865,6 +7630,16 @@
     "name": "Chimera",
     "page": 70,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -6934,6 +7709,20 @@
     "name": "Chuul",
     "page": 71,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -7016,6 +7805,20 @@
     "name": "Clay Golem",
     "page": 72,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -7087,6 +7890,20 @@
     "name": "Cloaker",
     "page": 73,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -7154,6 +7971,12 @@
     "name": "Cloud Giant",
     "page": 74,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "saving_throws": {
       "con": "+10",
       "wis": "+7"
@@ -7200,6 +8023,16 @@
     "name": "Cockatrice",
     "page": 75,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -7265,6 +8098,20 @@
     "name": "Cockatrice Regent",
     "page": 75,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "wis": "+6"
     },
@@ -7366,6 +8213,20 @@
     "name": "Colossus",
     "page": 76,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "dex": "+8",
       "wis": "+8"
@@ -7416,6 +8277,12 @@
     "name": "Commoner",
     "page": 77,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -7460,6 +8327,12 @@
     "name": "Constrictor Snake",
     "page": 351,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft.",
@@ -7518,6 +8391,7 @@
     "name": "Copper Dragon Wyrmling",
     "page": 78,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {
       "dex": "+3",
       "wis": "+2"
@@ -7592,6 +8466,24 @@
     "name": "Couatl",
     "page": 82,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {
       "con": "+5",
       "wis": "+7"
@@ -7642,6 +8534,7 @@
     "name": "Crab",
     "page": 351,
     "passive_perception": 9,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -7687,6 +8580,7 @@
     "name": "Crawling Claw",
     "page": 83,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -7733,6 +8627,16 @@
     "name": "Crocodile",
     "page": 352,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {
       "con": "+3"
     },
@@ -7777,6 +8681,7 @@
     "name": "Cultist",
     "page": 84,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {
       "wis": "+2"
     },
@@ -7833,6 +8738,7 @@
     "name": "Cultist Fanatic",
     "page": 85,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {
       "wis": "+4"
     },
@@ -7896,6 +8802,7 @@
     "name": "Cultist Hierophant",
     "page": 85,
     "passive_perception": 17,
+    "references": [],
     "saving_throws": {
       "cha": "+9",
       "wis": "+7"
@@ -7966,6 +8873,16 @@
     "name": "Cyclops Oracle",
     "page": 88,
     "passive_perception": 22,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "con": "+9",
       "wis": "+8"
@@ -8030,6 +8947,20 @@
     "name": "Cyclops Sentry",
     "page": 88,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -8113,6 +9044,16 @@
     "name": "Dao",
     "page": 89,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "wis": "+5"
@@ -8164,6 +9105,20 @@
     "name": "Darkmantle",
     "page": 90,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -8231,6 +9186,12 @@
     "name": "Death Cultist",
     "page": 86,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "saving_throws": {
       "con": "+7",
       "wis": "+6"
@@ -8283,6 +9244,16 @@
     "name": "Death Dog",
     "page": 91,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -8394,6 +9365,16 @@
     "name": "Death Knight",
     "page": 92,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "wis": "+9"
@@ -8475,6 +9456,16 @@
     "name": "Death Knight Aspirant",
     "page": 93,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+4",
       "wis": "+5"
@@ -8549,6 +9540,28 @@
     "name": "Death Slaad",
     "page": 287,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft., Darkvision 60 ft.",
@@ -8639,6 +9652,40 @@
     "name": "Death Tyrant",
     "page": 95,
     "passive_perception": 22,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "saving_throws": {
       "con": "+7",
       "wis": "+7"
@@ -8691,6 +9738,12 @@
     "name": "Deer",
     "page": 352,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -8784,6 +9837,16 @@
     "name": "Demilich",
     "page": 96,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "saving_throws": {
       "con": "+6",
       "dex": "+11",
@@ -8862,6 +9925,16 @@
     "name": "Deva",
     "page": 97,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {
       "cha": "+9",
       "wis": "+9"
@@ -8916,6 +9989,20 @@
     "name": "Dire Wolf",
     "page": 352,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -8983,6 +10070,20 @@
     "name": "Dire Worg",
     "page": 335,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "wis": "+7"
@@ -9052,6 +10153,20 @@
     "name": "Displacer Beast",
     "page": 98,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -9136,6 +10251,24 @@
     "name": "Djinni",
     "page": 99,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "wis": "+7"
@@ -9206,6 +10339,16 @@
     "name": "Doppelganger",
     "page": 100,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -9318,6 +10461,16 @@
     "name": "Dracolich",
     "page": 102,
     "passive_perception": 24,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "wis": "+8"
@@ -9365,6 +10518,7 @@
     "name": "Draft Horse",
     "page": 352,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -9429,6 +10583,12 @@
     "name": "Dragon Turtle",
     "page": 103,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "con": "+11",
       "wis": "+7"
@@ -9482,6 +10642,12 @@
     "name": "Dretch",
     "page": 103,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -9560,6 +10726,12 @@
     "name": "Drider",
     "page": 105,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -9622,6 +10794,7 @@
     "name": "Druid",
     "page": 106,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -9701,6 +10874,12 @@
     "name": "Dryad",
     "page": 107,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -9765,6 +10944,12 @@
     "name": "Dust Mephit",
     "page": 206,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -9808,6 +10993,7 @@
     "name": "Eagle",
     "page": 353,
     "passive_perception": 16,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -9877,6 +11063,12 @@
     "name": "Earth Elemental",
     "page": 108,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft., Tremorsense 60 ft.",
@@ -9956,6 +11148,12 @@
     "name": "Efreeti",
     "page": 109,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+8",
       "wis": "+6"
@@ -10052,6 +11250,32 @@
     "name": "Elemental Cataclysm",
     "page": 111,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "cha": "+6",
       "con": "+15",
@@ -10125,6 +11349,7 @@
     "name": "Elemental Cultist",
     "page": 87,
     "passive_perception": 17,
+    "references": [],
     "saving_throws": {
       "con": "+6",
       "wis": "+7"
@@ -10182,6 +11407,12 @@
     "name": "Elephant",
     "page": 353,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -10220,6 +11451,12 @@
     "name": "Elk",
     "page": 353,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -10313,6 +11550,24 @@
     "name": "Empyrean",
     "page": 113,
     "passive_perception": 23,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      }
+    ],
     "saving_throws": {
       "str": "+17",
       "wis": "+13"
@@ -10389,6 +11644,16 @@
     "name": "Empyrean Iota",
     "page": 112,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 30 ft.",
@@ -10474,6 +11739,24 @@
     "name": "Erinyes",
     "page": 114,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "saving_throws": {
       "cha": "+8",
       "con": "+8",
@@ -10559,6 +11842,16 @@
     "name": "Ettercap",
     "page": 115,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -10617,6 +11910,16 @@
     "name": "Ettin",
     "page": 116,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -10683,6 +11986,16 @@
     "name": "Faerie Dragon Adult",
     "page": 117,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -10753,6 +12066,16 @@
     "name": "Faerie Dragon Youth",
     "page": 117,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -10817,6 +12140,7 @@
     "name": "Fiend Cultist",
     "page": 87,
     "passive_perception": 17,
+    "references": [],
     "saving_throws": {
       "con": "+6",
       "wis": "+7"
@@ -10896,6 +12220,7 @@
     "name": "Fire Elemental",
     "page": 118,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -10949,6 +12274,12 @@
     "name": "Fire Giant",
     "page": 119,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "cha": "+5",
       "con": "+10",
@@ -11027,6 +12358,12 @@
     "name": "Flameskull",
     "page": 120,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -11098,6 +12435,7 @@
     "name": "Flaming Skeleton",
     "page": 283,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -11176,6 +12514,20 @@
     "name": "Flesh Golem",
     "page": 121,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -11240,6 +12592,28 @@
     "name": "Flumph",
     "page": 122,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -11291,6 +12665,12 @@
     "name": "Flying Snake",
     "page": 353,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft.",
@@ -11345,6 +12725,12 @@
     "name": "Fomorian",
     "page": 123,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -11399,6 +12785,7 @@
     "name": "Frog",
     "page": 354,
     "passive_perception": 11,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 30 ft.",
@@ -11462,6 +12849,12 @@
     "name": "Frost Giant",
     "page": 124,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+4",
       "con": "+8",
@@ -11516,6 +12909,12 @@
     "name": "Galeb Duhr",
     "page": 127,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft., Tremorsense 60 ft.",
@@ -11570,6 +12969,12 @@
     "name": "Gargoyle",
     "page": 128,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -11620,6 +13025,12 @@
     "name": "Gas Spore Fungus",
     "page": 125,
     "passive_perception": 5,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -11680,6 +13091,24 @@
     "name": "Gelatinous Cube",
     "page": 129,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -11735,6 +13164,16 @@
     "name": "Ghast",
     "page": 130,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {
       "wis": "+2"
     },
@@ -11803,6 +13242,20 @@
     "name": "Ghast Gravecaller",
     "page": 130,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {
       "con": "+5",
       "wis": "+5"
@@ -11885,6 +13338,20 @@
     "name": "Ghost",
     "page": 131,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -11940,6 +13407,12 @@
     "name": "Ghoul",
     "page": 132,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -11997,6 +13470,12 @@
     "name": "Giant Ape",
     "page": 354,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -12052,6 +13531,12 @@
     "name": "Giant Axe Beak",
     "page": 24,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -12093,6 +13578,7 @@
     "name": "Giant Badger",
     "page": 354,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -12135,6 +13621,7 @@
     "name": "Giant Bat",
     "page": 355,
     "passive_perception": 11,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 120 ft.",
@@ -12181,6 +13668,20 @@
     "name": "Giant Boar",
     "page": 355,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {
       "str": "+5"
     },
@@ -12221,6 +13722,12 @@
     "name": "Giant Centipede",
     "page": 355,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -12273,6 +13780,12 @@
     "name": "Giant Constrictor Snake",
     "page": 355,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft.",
@@ -12321,6 +13834,12 @@
     "name": "Giant Crab",
     "page": 356,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -12381,6 +13900,20 @@
     "name": "Giant Crocodile",
     "page": 356,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -12430,6 +13963,7 @@
     "name": "Giant Eagle",
     "page": 356,
     "passive_perception": 16,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -12473,6 +14007,12 @@
     "name": "Giant Elk",
     "page": 356,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "str": "+6"
@@ -12524,6 +14064,7 @@
     "name": "Giant Fire Beetle",
     "page": 357,
     "passive_perception": 8,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -12582,6 +14123,28 @@
     "name": "Giant Frog",
     "page": 357,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 30 ft.",
@@ -12625,6 +14188,12 @@
     "name": "Giant Goat",
     "page": 357,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "str": "+5"
     },
@@ -12675,6 +14244,12 @@
     "name": "Giant Hyena",
     "page": 357,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -12722,6 +14297,7 @@
     "name": "Giant Lizard",
     "page": 358,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {
       "dex": "+3"
     },
@@ -12776,6 +14352,16 @@
     "name": "Giant Octopus",
     "page": 358,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -12833,6 +14419,12 @@
     "name": "Giant Owl",
     "page": 358,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "wis": "+4"
     },
@@ -12884,6 +14476,16 @@
     "name": "Giant Rat",
     "page": 358,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+5"
     },
@@ -12940,6 +14542,12 @@
     "name": "Giant Scorpion",
     "page": 359,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -12991,6 +14599,12 @@
     "name": "Giant Seahorse",
     "page": 359,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -13042,6 +14656,12 @@
     "name": "Giant Shark",
     "page": 359,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -13102,6 +14722,12 @@
     "name": "Giant Spider",
     "page": 359,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -13169,6 +14795,12 @@
     "name": "Giant Squid",
     "page": 360,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "str": "+9"
@@ -13232,6 +14864,28 @@
     "name": "Giant Toad",
     "page": 360,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -13272,6 +14926,7 @@
     "name": "Giant Venomous Snake",
     "page": 361,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft.",
@@ -13322,6 +14977,20 @@
     "name": "Giant Vulture",
     "page": 361,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -13370,6 +15039,12 @@
     "name": "Giant Wasp",
     "page": 361,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -13409,6 +15084,7 @@
     "name": "Giant Weasel",
     "page": 361,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -13459,6 +15135,7 @@
     "name": "Giant Wolf Spider",
     "page": 362,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft., Darkvision 60 ft.",
@@ -13521,6 +15198,24 @@
     "name": "Gibbering Mouther",
     "page": 133,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -13586,6 +15281,16 @@
     "name": "Githyanki Dracomancer",
     "page": 135,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "saving_throws": {
       "con": "+9",
       "dex": "+8",
@@ -13654,6 +15359,12 @@
     "name": "Githyanki Knight",
     "page": 135,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "saving_throws": {
       "con": "+5",
       "int": "+5",
@@ -13716,6 +15427,12 @@
     "name": "Githyanki Warrior",
     "page": 134,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "saving_throws": {
       "con": "+3",
       "int": "+3",
@@ -13784,6 +15501,12 @@
     "name": "Githzerai Monk",
     "page": 136,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "saving_throws": {
       "dex": "+4",
       "int": "+3",
@@ -13850,6 +15573,20 @@
     "name": "Githzerai Psion",
     "page": 137,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "dex": "+8",
       "int": "+8",
@@ -13924,6 +15661,12 @@
     "name": "Githzerai Zerth",
     "page": 137,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "saving_throws": {
       "dex": "+7",
       "int": "+6",
@@ -14006,6 +15749,16 @@
     "name": "Glabrezu",
     "page": 138,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+7",
       "con": "+9",
@@ -14074,6 +15827,12 @@
     "name": "Gladiator",
     "page": 139,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "con": "+6",
       "dex": "+5",
@@ -14139,6 +15898,20 @@
     "name": "Gnoll Demoniac",
     "page": 141,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {
       "cha": "+6",
       "con": "+6",
@@ -14204,6 +15977,16 @@
     "name": "Gnoll Fang of Yeenoghu",
     "page": 141,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {
       "cha": "+3",
       "con": "+4",
@@ -14272,6 +16055,12 @@
     "name": "Gnoll Pack Lord",
     "page": 140,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -14324,6 +16113,12 @@
     "name": "Gnoll Warrior",
     "page": 140,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -14363,6 +16158,7 @@
     "name": "Goat",
     "page": 362,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {
       "str": "+2"
     },
@@ -14433,6 +16229,16 @@
     "name": "Goblin Boss",
     "page": 143,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -14495,6 +16301,7 @@
     "name": "Goblin Hexer",
     "page": 143,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -14546,6 +16353,12 @@
     "name": "Goblin Minion",
     "page": 142,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -14602,6 +16415,16 @@
     "name": "Goblin Warrior",
     "page": 142,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -14671,6 +16494,16 @@
     "name": "Gold Dragon Wyrmling",
     "page": 144,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "dex": "+4",
       "wis": "+2"
@@ -14732,6 +16565,20 @@
     "name": "Gorgon",
     "page": 148,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -14814,6 +16661,16 @@
     "name": "Goristro",
     "page": 150,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "con": "+13",
       "dex": "+6",
@@ -14884,6 +16741,16 @@
     "name": "Graveyard Revenant",
     "page": 260,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "saving_throws": {
       "cha": "+7",
       "con": "+8",
@@ -14942,6 +16809,7 @@
     "name": "Gray Ooze",
     "page": 151,
     "passive_perception": 8,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -15016,6 +16884,28 @@
     "name": "Gray Slaad",
     "page": 286,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft., Darkvision 60 ft.",
@@ -15081,6 +16971,7 @@
     "name": "Green Dragon Wyrmling",
     "page": 152,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {
       "dex": "+3",
       "wis": "+2"
@@ -15160,6 +17051,16 @@
     "name": "Green Hag",
     "page": 156,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -15237,6 +17138,28 @@
     "name": "Green Slaad",
     "page": 286,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft., Darkvision 60 ft.",
@@ -15301,6 +17224,20 @@
     "name": "Grell",
     "page": 157,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -15356,6 +17293,12 @@
     "name": "Grick",
     "page": 158,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -15416,6 +17359,16 @@
     "name": "Grick Ancient",
     "page": 158,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -15464,6 +17417,12 @@
     "name": "Griffon",
     "page": 159,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -15506,6 +17465,7 @@
     "name": "Grimlock",
     "page": 160,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -15563,6 +17523,7 @@
     "name": "Guard Captain",
     "page": 162,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -15605,6 +17566,7 @@
     "name": "Guard",
     "page": 162,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -15672,6 +17634,12 @@
     "name": "Guardian Naga",
     "page": 161,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      }
+    ],
     "saving_throws": {
       "cha": "+8",
       "con": "+7",
@@ -15750,6 +17718,20 @@
     "name": "Gulthias Blight",
     "page": 45,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 120 ft.",
@@ -15817,6 +17799,7 @@
     "name": "Half-Dragon",
     "page": 163,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {
       "dex": "+5",
       "wis": "+5"
@@ -15870,6 +17853,24 @@
     "name": "Harpy",
     "page": 164,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -15937,6 +17938,16 @@
     "name": "Haunting Revenant",
     "page": 260,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {
       "con": "+8",
       "wis": "+8"
@@ -15979,6 +17990,7 @@
     "name": "Hawk",
     "page": 362,
     "passive_perception": 16,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Tiny",
@@ -16040,6 +18052,16 @@
     "name": "Hell Hound",
     "page": 165,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -16102,6 +18124,12 @@
     "name": "Helmed Horror",
     "page": 166,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -16178,6 +18206,16 @@
     "name": "Hezrou",
     "page": 167,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "con": "+8",
       "str": "+7",
@@ -16236,6 +18274,16 @@
     "name": "Hill Giant",
     "page": 168,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -16288,6 +18336,12 @@
     "name": "Hippogriff",
     "page": 169,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -16341,6 +18395,7 @@
     "name": "Hippopotamus",
     "page": 362,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {
       "str": "+7"
     },
@@ -16404,6 +18459,16 @@
     "name": "Hobgoblin Captain",
     "page": 171,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -16470,6 +18535,16 @@
     "name": "Hobgoblin Warlord",
     "page": 171,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+5",
       "dex": "+5",
@@ -16529,6 +18604,16 @@
     "name": "Hobgoblin Warrior",
     "page": 170,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -16578,6 +18663,16 @@
     "name": "Homunculus",
     "page": 172,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "saving_throws": {
       "cha": "+0",
       "wis": "+2"
@@ -16628,6 +18723,7 @@
     "name": "Hook Horror",
     "page": 173,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {
       "con": "+4"
     },
@@ -16705,6 +18801,12 @@
     "name": "Horned Devil",
     "page": 174,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+8",
       "dex": "+7",
@@ -16758,6 +18860,12 @@
     "name": "Hunter Shark",
     "page": 363,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -16825,6 +18933,12 @@
     "name": "Hydra",
     "page": 175,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -16873,6 +18987,16 @@
     "name": "Hyena",
     "page": 363,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -16947,6 +19071,12 @@
     "name": "Ice Devil",
     "page": 176,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+9",
       "con": "+9",
@@ -17019,6 +19149,7 @@
     "name": "Ice Mephit",
     "page": 206,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -17085,6 +19216,12 @@
     "name": "Imp",
     "page": 177,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft. (unimpeded by magical Darkness)",
@@ -17156,6 +19293,16 @@
     "name": "Incubus",
     "page": 178,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -17228,6 +19375,20 @@
     "name": "Intellect Devourer",
     "page": 179,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -17299,6 +19460,16 @@
     "name": "Invisible Stalker",
     "page": 180,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -17381,6 +19552,12 @@
     "name": "Iron Golem",
     "page": 181,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -17420,6 +19597,7 @@
     "name": "Jackal",
     "page": 364,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 90 ft.",
@@ -17493,6 +19671,20 @@
     "name": "Jackalwere",
     "page": 182,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 90 ft.",
@@ -17569,6 +19761,16 @@
     "name": "Juvenile Shadow Dragon",
     "page": 275,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {
       "dex": "+4"
     },
@@ -17628,6 +19830,7 @@
     "name": "Kenku",
     "page": 183,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -17677,6 +19880,7 @@
     "name": "Killer Whale",
     "page": 364,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 120 ft.",
@@ -17740,6 +19944,7 @@
     "name": "Knight",
     "page": 184,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {
       "con": "+4",
       "wis": "+2"
@@ -17794,6 +19999,20 @@
     "name": "Kobold Warrior",
     "page": 185,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -17898,6 +20117,32 @@
     "name": "Kraken",
     "page": 187,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {
       "con": "+15",
       "dex": "+7",
@@ -17973,6 +20218,20 @@
     "name": "Kuo-toa",
     "page": 189,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft., Truesight 30 ft.",
@@ -18046,6 +20305,12 @@
     "name": "Kuo-toa Archpriest",
     "page": 191,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft., Truesight 30 ft.",
@@ -18108,6 +20373,16 @@
     "name": "Kuo-toa Monitor",
     "page": 190,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft., Truesight 30 ft.",
@@ -18176,6 +20451,16 @@
     "name": "Kuo-toa Whip",
     "page": 190,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft., Truesight 30 ft.",
@@ -18241,6 +20526,16 @@
     "name": "Lacedon Ghoul",
     "page": 132,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -18306,6 +20601,16 @@
     "name": "Lamia",
     "page": 192,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -18350,6 +20655,7 @@
     "name": "Larva",
     "page": 193,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -18400,6 +20706,7 @@
     "name": "Lemure",
     "page": 194,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft. (unimpeded by magical Darkness)",
@@ -18505,6 +20812,12 @@
     "name": "Lich",
     "page": 196,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "saving_throws": {
       "con": "+10",
       "dex": "+10",
@@ -18579,6 +20892,20 @@
     "name": "Lion",
     "page": 364,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -18627,6 +20954,7 @@
     "name": "Lizard",
     "page": 364,
     "passive_perception": 9,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 30 ft.",
@@ -18686,6 +21014,12 @@
     "name": "Lizardfolk Geomancer",
     "page": 197,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -18750,6 +21084,12 @@
     "name": "Lizardfolk Sovereign",
     "page": 197,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "con": "+4",
       "wis": "+2"
@@ -18804,6 +21144,7 @@
     "name": "Mage Apprentice",
     "page": 198,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {
       "int": "+5",
       "wis": "+3"
@@ -18874,6 +21215,7 @@
     "name": "Mage",
     "page": 199,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {
       "int": "+6",
       "wis": "+4"
@@ -18936,6 +21278,7 @@
     "name": "Magma Mephit",
     "page": 207,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -18992,6 +21335,7 @@
     "name": "Magmin",
     "page": 200,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -19043,6 +21387,12 @@
     "name": "Mammoth",
     "page": 365,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "con": "+8",
       "str": "+10"
@@ -19089,6 +21439,7 @@
     "name": "Manes",
     "page": 201,
     "passive_perception": 9,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -19152,6 +21503,16 @@
     "name": "Manes Vaporspawn",
     "page": 201,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -19205,6 +21566,7 @@
     "name": "Manticore",
     "page": 202,
     "passive_perception": 11,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -19290,6 +21652,12 @@
     "name": "Marid",
     "page": 203,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "cha": "+8",
       "dex": "+5"
@@ -19381,6 +21749,20 @@
     "name": "Marilith",
     "page": 204,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+10",
       "con": "+10",
@@ -19430,6 +21812,12 @@
     "name": "Mastiff",
     "page": 365,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -19496,6 +21884,16 @@
     "name": "Medusa",
     "page": 205,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {
       "wis": "+4"
     },
@@ -19548,6 +21946,7 @@
     "name": "Merfolk Skirmisher",
     "page": 209,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -19613,6 +22012,12 @@
     "name": "Merfolk Wavebender",
     "page": 209,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "cha": "+5",
       "con": "+5",
@@ -19684,6 +22089,12 @@
     "name": "Merrow",
     "page": 210,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -19765,6 +22176,20 @@
     "name": "Mezzoloth",
     "page": 211,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft., Darkvision 60 ft.",
@@ -19828,6 +22253,20 @@
     "name": "Mimic",
     "page": 212,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -19895,6 +22334,20 @@
     "name": "Mind Flayer",
     "page": 214,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+6",
       "dex": "+4",
@@ -19979,6 +22432,20 @@
     "name": "Mind Flayer Arcanist",
     "page": 214,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+7",
       "dex": "+6",
@@ -20037,6 +22504,12 @@
     "name": "Minotaur of Baphomet",
     "page": 215,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -20089,6 +22562,12 @@
     "name": "Minotaur Skeleton",
     "page": 283,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -20142,6 +22621,7 @@
     "name": "Modron Duodrone",
     "page": 217,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 120 ft.",
@@ -20195,6 +22675,7 @@
     "name": "Modron Monodrone",
     "page": 216,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 120 ft.",
@@ -20261,6 +22742,12 @@
     "name": "Modron Pentadrone",
     "page": 218,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 120 ft.",
@@ -20322,6 +22809,7 @@
     "name": "Modron Quadrone",
     "page": 218,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 120 ft.",
@@ -20378,6 +22866,7 @@
     "name": "Modron Tridrone",
     "page": 217,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 120 ft.",
@@ -20432,6 +22921,12 @@
     "name": "Mud Mephit",
     "page": 207,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -20481,6 +22976,7 @@
     "name": "Mule",
     "page": 365,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {
       "str": "+4"
     },
@@ -20537,6 +23033,16 @@
     "name": "Mummy",
     "page": 219,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {
       "wis": "+3"
     },
@@ -20655,6 +23161,24 @@
     "name": "Mummy Lord",
     "page": 221,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {
       "int": "+5",
       "wis": "+9"
@@ -20720,6 +23244,20 @@
     "name": "Myconid Adult",
     "page": 223,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -20790,6 +23328,20 @@
     "name": "Myconid Sovereign",
     "page": 223,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -20832,6 +23384,7 @@
     "name": "Myconid Spore Servant",
     "page": 223,
     "passive_perception": 8,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -20884,6 +23437,16 @@
     "name": "Myconid Sprout",
     "page": 222,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -20964,6 +23527,16 @@
     "name": "Nalfeshnee",
     "page": 224,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+7",
       "con": "+11",
@@ -21019,6 +23592,7 @@
     "name": "Needle Blight",
     "page": 43,
     "passive_perception": 9,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -21103,6 +23677,16 @@
     "name": "Night Hag",
     "page": 225,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -21167,6 +23751,7 @@
     "name": "Nightmare",
     "page": 226,
     "passive_perception": 11,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -21213,6 +23798,7 @@
     "name": "Noble",
     "page": 227,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -21274,6 +23860,12 @@
     "name": "Noble Prodigy",
     "page": 227,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "saving_throws": {
       "cha": "+8",
       "con": "+5",
@@ -21339,6 +23931,7 @@
     "name": "Nothic",
     "page": 228,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 120 ft.",
@@ -21412,6 +24005,16 @@
     "name": "Nycaloth",
     "page": 229,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -21478,6 +24081,12 @@
     "name": "Ochre Jelly",
     "page": 230,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -21536,6 +24145,7 @@
     "name": "Octopus",
     "page": 365,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 30 ft.",
@@ -21586,6 +24196,7 @@
     "name": "Ogre",
     "page": 231,
     "passive_perception": 8,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -21634,6 +24245,7 @@
     "name": "Ogre Zombie",
     "page": 346,
     "passive_perception": 8,
+    "references": [],
     "saving_throws": {
       "wis": "+0"
     },
@@ -21682,6 +24294,7 @@
     "name": "Ogrillon Ogre",
     "page": 231,
     "passive_perception": 9,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -21759,6 +24372,12 @@
     "name": "Oni",
     "page": 232,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "saving_throws": {
       "cha": "+5",
       "con": "+6",
@@ -21826,6 +24445,24 @@
     "name": "Otyugh",
     "page": 233,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {
       "con": "+7"
     },
@@ -21874,6 +24511,12 @@
     "name": "Owl",
     "page": 366,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -21923,6 +24566,7 @@
     "name": "Owlbear",
     "page": 234,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -21971,6 +24615,12 @@
     "name": "Panther",
     "page": 366,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -22015,6 +24665,7 @@
     "name": "Pegasus",
     "page": 235,
     "passive_perception": 16,
+    "references": [],
     "saving_throws": {
       "cha": "+3",
       "con": "+5",
@@ -22068,6 +24719,7 @@
     "name": "Performer",
     "page": 236,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {
       "cha": "+5",
       "dex": "+5"
@@ -22138,6 +24790,16 @@
     "name": "Performer Legend",
     "page": 237,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "saving_throws": {
       "cha": "+9",
       "dex": "+9",
@@ -22206,6 +24868,12 @@
     "name": "Performer Maestro",
     "page": 237,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "saving_throws": {
       "cha": "+7",
       "dex": "+7"
@@ -22272,6 +24940,12 @@
     "name": "Peryton",
     "page": 238,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -22344,6 +25018,16 @@
     "name": "Phase Spider",
     "page": 239,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -22398,6 +25082,7 @@
     "name": "Piercer",
     "page": 240,
     "passive_perception": 8,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft., Darkvision 60 ft.",
@@ -22446,6 +25131,12 @@
     "name": "Piranha",
     "page": 366,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -22499,6 +25190,12 @@
     "name": "Pirate",
     "page": 241,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "saving_throws": {
       "cha": "+4",
       "dex": "+5"
@@ -22565,6 +25262,20 @@
     "name": "Pirate Admiral",
     "page": 242,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+8",
       "dex": "+10",
@@ -22637,6 +25348,16 @@
     "name": "Pirate Captain",
     "page": 242,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+6",
       "dex": "+7",
@@ -22735,6 +25456,24 @@
     "name": "Pit Fiend",
     "page": 243,
     "passive_perception": 20,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+8",
       "wis": "+10"
@@ -22796,6 +25535,20 @@
     "name": "Pixie",
     "page": 244,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Tiny",
@@ -22863,6 +25616,20 @@
     "name": "Pixie Wonderbringer",
     "page": 244,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Tiny",
@@ -22951,6 +25718,12 @@
     "name": "Planetar",
     "page": 245,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+12",
       "con": "+12",
@@ -23007,6 +25780,7 @@
     "name": "Plesiosaurus",
     "page": 366,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -23057,6 +25831,7 @@
     "name": "Polar Bear",
     "page": 367,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -23128,6 +25903,16 @@
     "name": "Poltergeist",
     "page": 246,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -23168,6 +25953,7 @@
     "name": "Pony",
     "page": 367,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {
       "str": "+4"
     },
@@ -23233,6 +26019,7 @@
     "name": "Priest",
     "page": 248,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -23295,6 +26082,7 @@
     "name": "Priest Acolyte",
     "page": 247,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -23355,6 +26143,20 @@
     "name": "Primeval Owlbear",
     "page": 234,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "con": "+7",
       "wis": "+5"
@@ -23420,6 +26222,20 @@
     "name": "Pseudodragon",
     "page": 249,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft., Darkvision 60 ft.",
@@ -23483,6 +26299,12 @@
     "name": "Psychic Gray Ooze",
     "page": 151,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -23532,6 +26354,12 @@
     "name": "Pteranodon",
     "page": 367,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -23598,6 +26426,28 @@
     "name": "Purple Worm",
     "page": 250,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {
       "con": "+11",
       "wis": "+4"
@@ -23656,6 +26506,16 @@
     "name": "Quaggoth",
     "page": 251,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -23725,6 +26585,20 @@
     "name": "Quaggoth Thonot",
     "page": 251,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -23796,6 +26670,20 @@
     "name": "Quasit",
     "page": 252,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -23864,6 +26752,16 @@
     "name": "Questing Knight",
     "page": 184,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "saving_throws": {
       "cha": "+8",
       "con": "+7",
@@ -23944,6 +26842,24 @@
     "name": "Rakshasa",
     "page": 253,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 60 ft.",
@@ -23993,6 +26909,12 @@
     "name": "Rat",
     "page": 367,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 30 ft.",
@@ -24041,6 +26963,7 @@
     "name": "Raven",
     "page": 368,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Tiny",
@@ -24097,6 +27020,7 @@
     "name": "Red Dragon Wyrmling",
     "page": 254,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {
       "dex": "+2",
       "wis": "+2"
@@ -24164,6 +27088,20 @@
     "name": "Red Slaad",
     "page": 285,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -24218,6 +27156,16 @@
     "name": "Reef Shark",
     "page": 368,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -24273,6 +27221,28 @@
     "name": "Remorhaz",
     "page": 258,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft., Tremorsense 60 ft.",
@@ -24347,6 +27317,16 @@
     "name": "Revenant",
     "page": 259,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "saving_throws": {
       "cha": "+7",
       "con": "+7",
@@ -24391,6 +27371,12 @@
     "name": "Rhinoceros",
     "page": 368,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -24429,6 +27415,7 @@
     "name": "Riding Horse",
     "page": 368,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -24485,6 +27472,20 @@
     "name": "Roc",
     "page": 261,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "dex": "+4",
       "wis": "+4"
@@ -24553,6 +27554,16 @@
     "name": "Roper",
     "page": 262,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -24626,6 +27637,7 @@
     "name": "Rust Monster",
     "page": 263,
     "passive_perception": 11,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -24683,6 +27695,12 @@
     "name": "Saber-Toothed Tiger",
     "page": 369,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "str": "+6"
@@ -24760,6 +27778,24 @@
     "name": "Sahuagin Baron",
     "page": 265,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "saving_throws": {
       "con": "+6",
       "dex": "+5",
@@ -24844,6 +27880,12 @@
     "name": "Sahuagin Priest",
     "page": 265,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -24919,6 +27961,12 @@
     "name": "Sahuagin Warrior",
     "page": 264,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -24982,6 +28030,16 @@
     "name": "Salamander",
     "page": 267,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -25031,6 +28089,7 @@
     "name": "Salamander Fire Snake",
     "page": 266,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -25104,6 +28163,20 @@
     "name": "Salamander Inferno Master",
     "page": 267,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "dex": "+8",
       "wis": "+5"
@@ -25160,6 +28233,12 @@
     "name": "Satyr",
     "page": 268,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -25221,6 +28300,24 @@
     "name": "Satyr Revelmaster",
     "page": 268,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+7",
       "wis": "+5"
@@ -25276,6 +28373,16 @@
     "name": "Scarecrow",
     "page": 269,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -25315,6 +28422,7 @@
     "name": "Scorpion",
     "page": 369,
     "passive_perception": 9,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft.",
@@ -25379,6 +28487,12 @@
     "name": "Scout Captain",
     "page": 270,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "int": "+4"
@@ -25438,6 +28552,7 @@
     "name": "Scout",
     "page": 270,
     "passive_perception": 15,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -25512,6 +28627,16 @@
     "name": "Sea Hag",
     "page": 271,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -25558,6 +28683,12 @@
     "name": "Seahorse",
     "page": 369,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Tiny",
@@ -25622,6 +28753,20 @@
     "name": "Shadow",
     "page": 272,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -25692,6 +28837,20 @@
     "name": "Shadow Demon",
     "page": 273,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {
       "cha": "+4",
       "dex": "+5"
@@ -25797,6 +28956,16 @@
     "name": "Shadow Dragon",
     "page": 275,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {
       "dex": "+9",
       "wis": "+6"
@@ -25865,6 +29034,20 @@
     "name": "Shambling Mound",
     "page": 276,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -25940,6 +29123,7 @@
     "name": "Shield Guardian",
     "page": 277,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft., Darkvision 60 ft.",
@@ -25980,6 +29164,7 @@
     "name": "Shrieker Fungus",
     "page": 125,
     "passive_perception": 6,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -26040,6 +29225,16 @@
     "name": "Silver Dragon Wyrmling",
     "page": 278,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "saving_throws": {
       "dex": "+2",
       "wis": "+2"
@@ -26097,6 +29292,7 @@
     "name": "Skeleton",
     "page": 282,
     "passive_perception": 9,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -26144,6 +29340,12 @@
     "name": "Slaad Tadpole",
     "page": 284,
     "passive_perception": 7,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -26201,6 +29403,16 @@
     "name": "Smoke Mephit",
     "page": 208,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -26307,6 +29519,16 @@
     "name": "Solar",
     "page": 288,
     "passive_perception": 24,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 120 ft.",
@@ -26372,6 +29594,16 @@
     "name": "Spectator",
     "page": 289,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -26432,6 +29664,16 @@
     "name": "Specter",
     "page": 290,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -26525,6 +29767,20 @@
     "name": "Sphinx of Lore",
     "page": 293,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 120 ft.",
@@ -26604,6 +29860,16 @@
     "name": "Sphinx of Secrets",
     "page": 292,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 60 ft.",
@@ -26701,6 +29967,32 @@
     "name": "Sphinx of Valor",
     "page": 294,
     "passive_perception": 22,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {
       "con": "+11",
       "dex": "+6",
@@ -26764,6 +30056,12 @@
     "name": "Sphinx of Wonder",
     "page": 291,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -26820,6 +30118,7 @@
     "name": "Spider",
     "page": 369,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 30 ft.",
@@ -26890,6 +30189,16 @@
     "name": "Spined Devil",
     "page": 296,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft. (unimpeded by magical Darkness)",
@@ -26959,6 +30268,7 @@
     "name": "Spirit Naga",
     "page": 297,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {
       "cha": "+6",
       "con": "+5",
@@ -27022,6 +30332,12 @@
     "name": "Sprite",
     "page": 298,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Tiny",
@@ -27077,6 +30393,16 @@
     "name": "Spy",
     "page": 295,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -27148,6 +30474,20 @@
     "name": "Spy Master",
     "page": 295,
     "passive_perception": 21,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {
       "con": "+5",
       "dex": "+9",
@@ -27220,6 +30560,16 @@
     "name": "Steam Mephit",
     "page": 208,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -27262,6 +30612,7 @@
     "name": "Stirge",
     "page": 299,
     "passive_perception": 9,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -27321,6 +30672,12 @@
     "name": "Stone Giant",
     "page": 300,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "con": "+8",
       "dex": "+5",
@@ -27401,6 +30758,12 @@
     "name": "Stone Golem",
     "page": 301,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -27473,6 +30836,16 @@
     "name": "Storm Giant",
     "page": 302,
     "passive_perception": 20,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      }
+    ],
     "saving_throws": {
       "cha": "+9",
       "con": "+10",
@@ -27556,6 +30929,16 @@
     "name": "Succubus",
     "page": 303,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -27611,6 +30994,12 @@
     "name": "Swarm of Bats",
     "page": 370,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -27661,6 +31050,16 @@
     "name": "Swarm of Crawling Claws",
     "page": 83,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -27723,6 +31122,16 @@
     "name": "Swarm of Dretches",
     "page": 104,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -27778,6 +31187,12 @@
     "name": "Swarm of Insects",
     "page": 370,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -27827,6 +31242,12 @@
     "name": "Swarm of Larvae",
     "page": 193,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -27889,6 +31310,12 @@
     "name": "Swarm of Lemures",
     "page": 194,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft. (unimpeded by magical Darkness)",
@@ -27943,6 +31370,16 @@
     "name": "Swarm of Piranhas",
     "page": 370,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -27991,6 +31428,12 @@
     "name": "Swarm of Rats",
     "page": 370,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 30 ft.",
@@ -28045,6 +31488,20 @@
     "name": "Swarm of Ravens",
     "page": 371,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -28094,6 +31551,16 @@
     "name": "Swarm of Stirges",
     "page": 299,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -28142,6 +31609,12 @@
     "name": "Swarm of Venomous Snakes",
     "page": 371,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft.",
@@ -28252,6 +31725,44 @@
     "name": "Tarrasque",
     "page": 305,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "saving_throws": {
       "cha": "+9",
       "dex": "+9",
@@ -28319,6 +31830,7 @@
     "name": "Thri-kreen Marauder",
     "page": 306,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -28376,6 +31888,12 @@
     "name": "Thri-kreen Psion",
     "page": 306,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "saving_throws": {
       "con": "+5",
       "dex": "+5",
@@ -28431,6 +31949,16 @@
     "name": "Tiger",
     "page": 371,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -28486,6 +32014,16 @@
     "name": "Tough",
     "page": 307,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -28543,6 +32081,16 @@
     "name": "Tough Boss",
     "page": 307,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+2",
       "con": "+5",
@@ -28612,6 +32160,7 @@
     "name": "Treant",
     "page": 308,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -28670,6 +32219,12 @@
     "name": "Tree Blight",
     "page": 44,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -28716,6 +32271,12 @@
     "name": "Triceratops",
     "page": 372,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Huge",
@@ -28768,6 +32329,16 @@
     "name": "Troglodyte",
     "page": 309,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -28835,6 +32406,16 @@
     "name": "Troll",
     "page": 310,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -28888,6 +32469,7 @@
     "name": "Troll Limb",
     "page": 310,
     "passive_perception": 9,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -28936,6 +32518,16 @@
     "name": "Twig Blight",
     "page": 43,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -28990,6 +32582,20 @@
     "name": "Tyrannosaurus Rex",
     "page": 372,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {
       "str": "+10",
       "wis": "+4"
@@ -29075,6 +32681,16 @@
     "name": "Ultroloth",
     "page": 311,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Truesight 120 ft.",
@@ -29140,6 +32756,7 @@
     "name": "Umber Hulk",
     "page": 312,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft., Tremorsense 60 ft.",
@@ -29237,6 +32854,16 @@
     "name": "Unicorn",
     "page": 313,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -29346,6 +32973,32 @@
     "name": "Vampire",
     "page": 317,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "cha": "+9",
       "con": "+9",
@@ -29415,6 +33068,20 @@
     "name": "Vampire Familiar",
     "page": 314,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      }
+    ],
     "saving_throws": {
       "dex": "+5",
       "wis": "+2"
@@ -29489,6 +33156,16 @@
     "name": "Vampire Nightbringer",
     "page": 316,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "saving_throws": {
       "dex": "+7",
       "wis": "+5"
@@ -29567,6 +33244,28 @@
     "name": "Vampire Spawn",
     "page": 315,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "wis": "+3"
@@ -29676,6 +33375,24 @@
     "name": "Vampire Umbral Lord",
     "page": 318,
     "passive_perception": 23,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "cha": "+10",
       "dex": "+9",
@@ -29726,6 +33443,7 @@
     "name": "Venomous Snake",
     "page": 372,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 10 ft.",
@@ -29774,6 +33492,12 @@
     "name": "Vine Blight",
     "page": 44,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -29822,6 +33546,7 @@
     "name": "Violet Fungus",
     "page": 126,
     "passive_perception": 6,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -29881,6 +33606,20 @@
     "name": "Violet Fungus Necrohulk",
     "page": 126,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 60 ft.",
@@ -29954,6 +33693,20 @@
     "name": "Vrock",
     "page": 319,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+2",
       "dex": "+5",
@@ -30006,6 +33759,16 @@
     "name": "Vulture",
     "page": 372,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Medium",
@@ -30047,6 +33810,12 @@
     "name": "Warhorse",
     "page": 373,
     "passive_perception": 11,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "wis": "+3"
     },
@@ -30090,6 +33859,12 @@
     "name": "Warhorse Skeleton",
     "page": 282,
     "passive_perception": 9,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -30154,6 +33929,16 @@
     "name": "Warrior Commander",
     "page": 321,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {
       "con": "+8",
       "dex": "+9",
@@ -30208,6 +33993,16 @@
     "name": "Warrior Infantry",
     "page": 320,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -30265,6 +34060,7 @@
     "name": "Warrior Veteran",
     "page": 320,
     "passive_perception": 12,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -30334,6 +34130,20 @@
     "name": "Water Elemental",
     "page": 322,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -30390,6 +34200,20 @@
     "name": "Water Weird",
     "page": 323,
     "passive_perception": 10,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Blindsight 30 ft.",
@@ -30430,6 +34254,7 @@
     "name": "Weasel",
     "page": 372,
     "passive_perception": 13,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -30500,6 +34325,7 @@
     "name": "Werebear",
     "page": 324,
     "passive_perception": 17,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -30570,6 +34396,12 @@
     "name": "Wereboar",
     "page": 325,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Small",
@@ -30638,6 +34470,7 @@
     "name": "Wererat",
     "page": 325,
     "passive_perception": 14,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -30714,6 +34547,16 @@
     "name": "Weretiger",
     "page": 326,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -30790,6 +34633,16 @@
     "name": "Werewolf",
     "page": 327,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -30855,6 +34708,12 @@
     "name": "White Dragon Wyrmling",
     "page": 328,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {
       "dex": "+2",
       "wis": "+2"
@@ -30932,6 +34791,12 @@
     "name": "Wight",
     "page": 332,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -31008,6 +34873,20 @@
     "name": "Will-o'-Wisp",
     "page": 333,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -31067,6 +34946,20 @@
     "name": "Winged Kobold",
     "page": 185,
     "passive_perception": 8,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -31121,6 +35014,20 @@
     "name": "Winter Wolf",
     "page": 334,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "size": "Large",
@@ -31168,6 +35075,20 @@
     "name": "Wolf",
     "page": 373,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -31211,6 +35132,12 @@
     "name": "Worg",
     "page": 335,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -31274,6 +35201,16 @@
     "name": "Wraith",
     "page": 336,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -31326,6 +35263,12 @@
     "name": "Wyvern",
     "page": 337,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 120 ft.",
@@ -31401,6 +35344,7 @@
     "name": "Xorn",
     "page": 338,
     "passive_perception": 16,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft., Tremorsense 60 ft.",
@@ -31470,6 +35414,16 @@
     "name": "Yeti",
     "page": 339,
     "passive_perception": 15,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -31566,6 +35520,20 @@
     "name": "Yochlol",
     "page": 341,
     "passive_perception": 12,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {
       "cha": "+7",
       "dex": "+8",
@@ -31636,6 +35604,7 @@
     "name": "Young Black Dragon",
     "page": 38,
     "passive_perception": 16,
+    "references": [],
     "saving_throws": {
       "dex": "+5",
       "wis": "+3"
@@ -31699,6 +35668,7 @@
     "name": "Young Blue Dragon",
     "page": 48,
     "passive_perception": 19,
+    "references": [],
     "saving_throws": {
       "dex": "+4",
       "wis": "+5"
@@ -31768,6 +35738,16 @@
     "name": "Young Brass Dragon",
     "page": 54,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "saving_throws": {
       "dex": "+3",
       "wis": "+3"
@@ -31844,6 +35824,12 @@
     "name": "Young Bronze Dragon",
     "page": 58,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "saving_throws": {
       "dex": "+3",
       "wis": "+4"
@@ -31914,6 +35900,7 @@
     "name": "Young Copper Dragon",
     "page": 78,
     "passive_perception": 17,
+    "references": [],
     "saving_throws": {
       "dex": "+4",
       "wis": "+4"
@@ -31990,6 +35977,16 @@
     "name": "Young Gold Dragon",
     "page": 144,
     "passive_perception": 19,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "saving_throws": {
       "dex": "+6",
       "wis": "+5"
@@ -32062,6 +36059,7 @@
     "name": "Young Green Dragon",
     "page": 152,
     "passive_perception": 17,
+    "references": [],
     "saving_throws": {
       "dex": "+4",
       "wis": "+4"
@@ -32126,6 +36124,7 @@
     "name": "Young Red Dragon",
     "page": 254,
     "passive_perception": 18,
+    "references": [],
     "saving_throws": {
       "dex": "+4",
       "wis": "+4"
@@ -32181,6 +36180,7 @@
     "name": "Young Remorhaz",
     "page": 258,
     "passive_perception": 10,
+    "references": [],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft., Tremorsense 60 ft.",
@@ -32242,6 +36242,16 @@
     "name": "Young Silver Dragon",
     "page": 278,
     "passive_perception": 18,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "saving_throws": {
       "dex": "+4",
       "wis": "+4"
@@ -32311,6 +36321,12 @@
     "name": "Young White Dragon",
     "page": 328,
     "passive_perception": 16,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "saving_throws": {
       "dex": "+3",
       "wis": "+3"
@@ -32399,6 +36415,28 @@
     "name": "Yuan-ti Abomination",
     "page": 345,
     "passive_perception": 17,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -32469,6 +36507,12 @@
     "name": "Yuan-ti Infiltrator",
     "page": 342,
     "passive_perception": 14,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -32545,6 +36589,12 @@
     "name": "Yuan-ti Malison (Type 1)",
     "page": 343,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -32614,6 +36664,12 @@
     "name": "Yuan-ti Malison (Type 2)",
     "page": 343,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -32689,6 +36745,20 @@
     "name": "Yuan-ti Malison (Type 3)",
     "page": 344,
     "passive_perception": 13,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "saving_throws": {},
     "sections": [],
     "senses": "Darkvision 60 ft.",
@@ -32740,6 +36810,7 @@
     "name": "Zombie",
     "page": 346,
     "passive_perception": 8,
+    "references": [],
     "saving_throws": {
       "wis": "+0"
     },

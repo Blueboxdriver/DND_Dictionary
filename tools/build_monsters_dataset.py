@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 import re
+import unicodedata
 from pathlib import Path
 
 from dndref.models import Monster
@@ -16,8 +17,25 @@ ALIGNMENT = {
     "E": "Evil", "U": "Unaligned", "A": "Any",
 }
 TAG = re.compile(r"\{@([A-Za-z][A-Za-z0-9]*)\s*([^{}]*)}")
+CONDITION_TAG = re.compile(r"\{@condition ([^|{}]+)\|([^|{}]+)(?:\|[^{}]*)?}")
+RULE_TAG = re.compile(
+    r"\{@(?:variantrule|action|status|itemMastery) "
+    r"([^|{}]+)\|([^|{}]+)(?:\|[^{}]*)?}"
+)
 XMM_SHA256 = "213c51a0ecb333cabb2e0ccd97af9b2bd661794cf5a89b6b5e0acafd4f6552f3"
 GROUPS_SHA256 = "3c944fb66c2f094123e9109d16b133e474a2bacd0b7388a80a98e9c060a01d98"
+
+
+def local_glossary_key(content_type, name, source):
+    identity = f"{name}|{source}".lower()
+    source_value = unicodedata.normalize("NFKD", source).encode("ascii", "ignore").decode()
+    name_value = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode()
+    source_slug = re.sub(r"[^a-z0-9]+", "-", source_value.lower()).strip("-")
+    name_slug = re.sub(r"[^a-z0-9]+", "-", name_value.lower().replace("'", "")).strip("-")
+    return (
+        f"{content_type}/{source_slug}/{name_slug[:100]}-"
+        f"{hashlib.sha256(identity.encode()).hexdigest()[:10]}"
+    )
 
 
 def display(value):
@@ -112,7 +130,7 @@ def spellcasting(record):
     return "\n\n".join(filter(None, parts))
 
 
-def convert(record, legendary_groups=None):
+def convert(record, legendary_groups=None, rule_targets=None):
     if record.get("source") != "XMM" or "_copy" in record:
         raise ValueError(f"unreviewed monster source or copy: {record.get('name')}")
     kind = record["type"]
@@ -202,7 +220,32 @@ def convert(record, legendary_groups=None):
             "legendary actions." if record.get("legendaryActionsLair") else None
         ),
         "abilities_and_actions": actions,
+        "references": [
+            {
+                "content_type": "condition",
+                "target_key": local_glossary_key("condition", name, source),
+            }
+            for name, source in sorted(
+                {
+                    (name, source)
+                    for name, source in CONDITION_TAG.findall(
+                        json.dumps(record, ensure_ascii=False)
+                    )
+                    if source == "XPHB"
+                }
+            )
+        ],
     }
+    for name, source in set(RULE_TAG.findall(json.dumps(record, ensure_ascii=False))):
+        target = (source.casefold(), name.casefold())
+        if rule_targets and target in rule_targets:
+            data["references"].append(
+                {"content_type": "rule", "target_key": rule_targets[target]}
+            )
+    data["references"] = sorted(
+        { (ref["content_type"], ref["target_key"]): ref for ref in data["references"] }.values(),
+        key=lambda ref: (ref["content_type"], ref["target_key"]),
+    )
     return Monster.model_validate(data).model_dump(mode="json", exclude_none=True)
 
 
@@ -225,8 +268,14 @@ def main():
     records = json.loads(source_bytes)["monster"]
     source_groups = json.loads(groups_bytes)["legendaryGroup"]
     groups = {(group["name"], group["source"]): group for group in source_groups}
+    rules_path = args.output.parent / "rules.json"
+    rule_targets = {
+        (entry["source"].casefold(), entry["name"].casefold()): entry["local_key"]
+        for entry in json.loads(rules_path.read_text(encoding="utf-8"))
+    }
     converted = sorted(
-        (convert(record, groups) for record in records), key=lambda item: item["local_key"]
+        (convert(record, groups, rule_targets) for record in records),
+        key=lambda item: item["local_key"],
     )
     content = json.dumps(converted, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if args.check:

@@ -95,6 +95,22 @@ OUT_OF_SCOPE_ITEM_TYPES = {"AIR", "SHP", "VEH", "MNT"}
 # These two XPHB foci still use a pre-migration sourceless property UID.
 # Explicit, reviewed repairs; never globally reinterpret legacy property sources.
 PROPERTY_OVERRIDES = {("staff|xphb", "V"): "V|XPHB", ("wooden staff|xphb", "V"): "V|XPHB"}
+RULE_GLOSSARY_NAMES = {
+    "Ability Check", "Advantage", "Attack Roll", "Cover", "D20 Test",
+    "Death Saving Throw", "Difficult Terrain", "Disadvantage", "Grappling",
+    "Long Rest", "Saving Throw", "Short Rest", "Spell", "Spellcasting Focus",
+    "Dash", "Dodge", "Help", "Hide", "Opportunity Attack", "Ready", "Shove",
+}
+STATUS_GLOSSARY_NAMES = {"Bloodied", "Concentration"}
+MASTERY_GLOSSARY_NAMES = {
+    "Cleave", "Graze", "Nick", "Push", "Sap", "Slow", "Topple", "Vex",
+}
+RULE_TYPE_LABELS = {
+    "C": "Core Rules",
+    "V": "Variant Rules",
+    "O": "Optional Rules",
+    "VO": "Optional Variant Rules",
+}
 
 
 def source_editions(codes):
@@ -211,6 +227,9 @@ class Snapshot:
             "data/magicvariants.json",
             "data/feats.json",
             "data/optionalfeatures.json",
+            "data/conditionsdiseases.json",
+            "data/variantrules.json",
+            "data/actions.json",
         ]
         for directory in ("class", "spells"):
             index = self.read(f"data/{directory}/index.json")
@@ -220,6 +239,10 @@ class Snapshot:
             for p in sorted((self.root / "data/class").glob("fluff-class-*.json"))
         ]
         for path in sorted(set(paths)):
+            if path in {
+                "data/conditionsdiseases.json", "data/variantrules.json", "data/actions.json"
+            } and not (self.root / path).is_file():
+                continue
             for category, records in self.read(path).items():
                 if not isinstance(records, list):
                     continue
@@ -450,6 +473,41 @@ def inline(value):
 class Text:
     def __init__(self, snapshot):
         self.snapshot = snapshot
+        self.reference_targets = {}
+
+    def references(self, record):
+        """Retain exact 5etools condition/rule/action tags as stable local links."""
+        values = []
+
+        def collect(value):
+            if isinstance(value, str):
+                values.append(value)
+            elif isinstance(value, list):
+                for child in value:
+                    collect(child)
+            elif isinstance(value, dict):
+                for child in value.values():
+                    collect(child)
+
+        collect(record)
+        found = {}
+        pattern = re.compile(
+            r"\{@(condition|variantrule|action|status|itemMastery) ([^{}]+)}"
+        )
+        for value in values:
+            for tag, payload in pattern.findall(value):
+                parts = payload.split("|")
+                source = parts[1] if len(parts) > 1 else ""
+                target = self.reference_targets.get((tag, source.casefold(), parts[0].casefold()))
+                if target is not None:
+                    content_type, target_key = target
+                    if tag in {"status", "itemMastery"}:
+                        content_type = "rule"
+                    found[(content_type, target_key)] = {
+                        "content_type": content_type,
+                        "target_key": target_key,
+                    }
+        return [found[key] for key in sorted(found)]
 
     def render(self, value, context=None, stack=()):
         if value is None:
@@ -647,6 +705,7 @@ def base_entry(category, r, text):
         "name": r["name"],
         "source": r["source"],
         "description": text.render(r.get("entries", []), r),
+        "references": text.references(r),
     }
 
 
@@ -1086,6 +1145,17 @@ def convert_item(r, text, property_map):
         mastery = mastery["uid"] if isinstance(mastery, dict) else mastery
         master = text.snapshot.resolve("itemMastery", mastery)
         entry["description"] += "\n\n" + text.render(master.get("entries"), r)
+        mastery_name = master["name"]
+        if (
+            mastery_name in MASTERY_GLOSSARY_NAMES
+            and master["source"] in text.snapshot.source_editions
+        ):
+            entry.setdefault("references", []).append(
+                {
+                    "content_type": "rule",
+                    "target_key": local_key("rule", master),
+                }
+            )
     if not entry["description"].strip():
         entry["description"] = type_info["name"] + (
             f" ({r['weaponCategory']})" if r.get("weaponCategory") else ""
@@ -1166,6 +1236,30 @@ def variant_items(variants, bases, snapshot):
 def build(root, revision):
     snapshot = Snapshot(root)
     text = Text(snapshot)
+    for r in snapshot.records["condition"]:
+        if r["source"] in BOOKS and not exclusion(r):
+            text.reference_targets[("condition", r["source"].casefold(), r["name"].casefold())] = (
+                "condition", local_key("condition", r)
+            )
+    for category in ("variantrule", "action"):
+        for r in snapshot.records[category]:
+            if (
+                r["name"] in RULE_GLOSSARY_NAMES
+                and r["source"] in snapshot.source_editions
+                and not exclusion(r)
+            ):
+                text.reference_targets[(category, r["source"].casefold(), r["name"].casefold())] = (
+                    "rule", local_key("rule", r)
+                )
+    for category, allowed_names in (
+        ("status", STATUS_GLOSSARY_NAMES),
+        ("itemMastery", MASTERY_GLOSSARY_NAMES),
+    ):
+        for r in snapshot.records[category]:
+            if r["name"] in allowed_names and r["source"] in snapshot.source_editions:
+                text.reference_targets[(category, r["source"].casefold(), r["name"].casefold())] = (
+                    "rule", local_key("rule", r)
+                )
     classes = snapshot.select("class")
     class_keys = {(r["source"].lower(), r["name"].lower()): local_key("class", r) for r in classes}
     subclasses = defaultdict(list)
@@ -1175,7 +1269,7 @@ def build(root, revision):
             snapshot.reject("subclass", r, "owner-not-selected-2024-class")
         else:
             subclasses[parent].append(r)
-    output = {"classes": [], "spells": [], "feats": []}
+    output = {"classes": [], "spells": [], "feats": [], "conditions": [], "rules": []}
     for r in classes:
         owner = (r["source"].lower(), r["name"].lower())
         converted = convert_class(r, subclasses[owner], text)
@@ -1189,6 +1283,44 @@ def build(root, revision):
             converted = convert(r)
             output[category + "s"].append(converted)
             snapshot.track(category, r, converted["local_key"])
+    for r in snapshot.records["condition"]:
+        if r["source"] not in BOOKS or r["source"] not in snapshot.source_editions:
+            snapshot.reject("condition", r, exclusion(r) or "source-not-allowlisted")
+            continue
+        if exclusion(r):
+            snapshot.reject("condition", r, exclusion(r))
+            continue
+        converted = base_entry("condition", r, text)
+        output["conditions"].append(converted)
+        snapshot.track("condition", r, converted["local_key"])
+    for category in ("variantrule", "action"):
+        for r in snapshot.records[category]:
+            if r["name"] not in RULE_GLOSSARY_NAMES or r["source"] not in snapshot.source_editions:
+                continue
+            if exclusion(r):
+                snapshot.reject("rules", r, exclusion(r))
+                continue
+            converted = base_entry("rule", r, text)
+            converted["section"] = (
+                RULE_TYPE_LABELS.get(r.get("ruleType"))
+                if category == "variantrule" else "Actions"
+            )
+            output["rules"].append(converted)
+            snapshot.track("rule", r, converted["local_key"])
+    for category, allowed_names, section in (
+        ("status", STATUS_GLOSSARY_NAMES, "Statuses"),
+        ("itemMastery", MASTERY_GLOSSARY_NAMES, "Weapon Masteries"),
+    ):
+        for r in snapshot.records[category]:
+            if r["name"] not in allowed_names or r["source"] not in snapshot.source_editions:
+                continue
+            if exclusion(r):
+                snapshot.reject("rules", r, exclusion(r))
+                continue
+            converted = base_entry("rule", r, text)
+            converted["section"] = section
+            output["rules"].append(converted)
+            snapshot.track("rule", r, converted["local_key"])
     property_map = {}
     for r in snapshot.select("itemProperty"):
         name = r.get("name") or r["entries"][0]["name"]
@@ -1264,7 +1396,7 @@ def build(root, revision):
         "properties": sorted(property_map.values(), key=lambda v: v["key"]),
         "items": sorted(catalog, key=lambda v: v["local_key"]),
     }
-    for category in ("classes", "spells", "feats"):
+    for category in ("classes", "spells", "feats", "conditions", "rules"):
         output[category].sort(key=lambda v: v["local_key"])
     output["manifest"] = {
         "schema_version": "1.0",
@@ -1314,6 +1446,8 @@ def reconcile(pack, snapshot):
         ("spell", pack.spells),
         ("feat", pack.feats),
         ("class", pack.classes),
+        ("condition", pack.conditions),
+        ("rule", pack.rules),
     ):
         expected[category] = [(r.local_key, r.name, r.source, None) for r in records]
     expected["itemProperty"] = [(r.key, r.name, r.source, None) for r in pack.items.properties]
@@ -1357,6 +1491,9 @@ def json_bytes(value):
 def artifacts(pack, snapshot, revision):
     raw = pack.model_dump(mode="json")
     files = {f"{k}.json": json_bytes(v) for k, v in raw.items()}
+    # Monster Manual records are built by build_monsters_dataset.py from the
+    # separately pinned bestiary inputs. Keep that artifact outside this write set.
+    files.pop("monsters.json", None)
     filenames = {
         "item": "items",
         "itemProperty": "properties",
@@ -1366,6 +1503,8 @@ def artifacts(pack, snapshot, revision):
         "subclass": "subclasses",
         "classFeature": "class-features",
         "subclassFeature": "subclass-features",
+        "condition": "conditions",
+        "rule": "rules",
     }
     for category, rows in snapshot.inventory.items():
         files[f"inventory/{filenames.get(category, category)}.json"] = json_bytes(

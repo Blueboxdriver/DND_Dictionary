@@ -16,8 +16,8 @@ from dndref.search import SearchQuery, SearchService
 from dndref.storage.database import Database
 
 EXPECTED = {
-    "srd-5.2.1": ("srd-5-2-1", 0, 339, 17, 0),
-    "official-5etools-2024": ("official-5etools-2024", 2541, 444, 179, 13),
+    "srd-5.2.1": ("srd-5-2-1", 0, 339, 17, 0, 0, 0),
+    "official-5etools-2024": ("official-5etools-2024", 2541, 444, 179, 13, 15, 30),
 }
 
 
@@ -38,13 +38,15 @@ def test_bundled_resources_include_runtime_files_and_inventories() -> None:
         assert {path.name for path in paths} == set(BUNDLED_DATASET_DIRECTORIES)
         for path in paths:
             manifest = json.loads((path / "manifest.json").read_text(encoding="utf-8"))
-            dataset_id, items, spells, feats, classes = EXPECTED[path.name]
+            dataset_id, items, spells, feats, classes, conditions, rules = EXPECTED[path.name]
             loaded = load_dataset(path)
             assert manifest["dataset_id"] == dataset_id
             assert len(loaded.pack.items.items) == items
             assert len(loaded.pack.spells) == spells
             assert len(loaded.pack.feats) == feats
             assert len(loaded.pack.classes) == classes
+            assert len(loaded.pack.conditions) == conditions
+            assert len(loaded.pack.rules) == rules
 
 
 def test_first_run_installs_bundled_data_and_second_run_is_idempotent(tmp_path: Path) -> None:
@@ -55,12 +57,12 @@ def test_first_run_installs_bundled_data_and_second_run_is_idempotent(tmp_path: 
         counts = connection.execute(
             "SELECT dataset_id, COUNT(*) FROM entries GROUP BY dataset_id ORDER BY dataset_id"
         ).fetchall()
-    assert counts == [("official-5etools-2024", 3680), ("srd-5-2-1", 356)]
+    assert counts == [("official-5etools-2024", 3725), ("srd-5-2-1", 356)]
 
     initialize_application(paths, image_mode="off")
     with sqlite3.connect(paths.database_path) as connection:
         assert connection.execute("SELECT COUNT(*) FROM datasets").fetchone()[0] == 2
-        assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 4036
+        assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 4081
 
     service = SearchService(Database(paths.database_path))
     results = service.search(SearchQuery("items", "Longsword"))

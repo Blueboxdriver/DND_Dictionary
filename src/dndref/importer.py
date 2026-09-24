@@ -60,6 +60,7 @@ class LoadedDataset:
     pack: DatasetPack
     assets: tuple[AssetRecord, ...]
     content_hash: str
+    source_hash: str
     entry_hashes: dict[str, str]
 
     @property
@@ -141,6 +142,8 @@ def _all_entries(pack: DatasetPack) -> tuple[tuple[str, Any], ...]:
         + [("feat", feat) for feat in pack.feats]
         + [("class", character_class) for character_class in pack.classes]
         + [("monster", monster) for monster in pack.monsters]
+        + [("condition", entry) for entry in pack.conditions]
+        + [("rule", entry) for entry in pack.rules]
     )
 
 
@@ -162,6 +165,8 @@ def _validate_storage_invariants(pack: DatasetPack) -> None:
         ("feats.json", pack.feats),
         ("classes.json", pack.classes),
         ("monsters.json", pack.monsters),
+        ("conditions.json", pack.conditions),
+        ("rules.json", pack.rules),
     ):
         for entry in entries:
             sections = list(entry.sections)
@@ -188,6 +193,44 @@ def _hash_file(path: Path) -> str:
                 digest.update(chunk)
     except OSError as exc:
         raise AssetValidationError(f"Cannot read image asset {path}: {exc}") from exc
+    return digest.hexdigest()
+
+
+def dataset_source_hash(
+    root: Path | str,
+    asset_paths: tuple[str, ...] | list[str] = (),
+    *,
+    known_asset_hashes: dict[str, str] | None = None,
+) -> str | None:
+    """Hash loader inputs for safe bundled-pack reuse without parsing every JSON file."""
+    root_path = Path(root).resolve()
+    names = {
+        name
+        for name in (*REQUIRED_FILES, "monsters.json", "conditions.json", "rules.json")
+        if (root_path / name).is_file()
+    }
+    names.update(asset_paths)
+    known_hashes = known_asset_hashes or {}
+    digest = hashlib.sha256()
+    for name in sorted(names):
+        path = (root_path / name).resolve()
+        try:
+            path.relative_to(root_path)
+        except ValueError:
+            return None
+        digest.update(b"\0file\0")
+        digest.update(name.encode("utf-8"))
+        digest.update(b"\0")
+        known_hash = known_hashes.get(name)
+        if known_hash is not None:
+            digest.update(known_hash.encode("ascii"))
+            continue
+        try:
+            with path.open("rb") as source:
+                for chunk in iter(lambda: source.read(1024 * 1024), b""):
+                    digest.update(chunk)
+        except OSError:
+            return None
     return digest.hexdigest()
 
 
@@ -238,13 +281,14 @@ def _content_hash(
 ) -> str:
     raw = pack.model_dump(mode="json")
     if not include_monsters:
-        raw.pop("monsters")
+        for category in ("monsters", "conditions", "rules"):
+            raw.pop(category, None)
     raw["items"]["properties"] = sorted(
         raw["items"]["properties"], key=lambda item: item["key"]
     )
     raw["items"]["items"] = sorted(raw["items"]["items"], key=lambda item: item["local_key"])
-    for category in (("spells", "feats", "classes", "monsters") if include_monsters
-                     else ("spells", "feats", "classes")):
+    categories = ("spells", "feats", "classes", "monsters", "conditions", "rules")
+    for category in (categories if include_monsters else categories[:-3]):
         raw[category] = sorted(raw[category], key=lambda item: item["local_key"])
     digest = hashlib.sha256(_canonical(raw).encode())
     for asset in assets:
@@ -257,7 +301,45 @@ def _content_hash(
 
 def legacy_monsterless_hash(loaded: LoadedDataset) -> str:
     """Hash the pre-Milestone-15 shape to identify an unmodified bundled pack."""
-    return _content_hash(loaded.pack, loaded.assets, include_monsters=False)
+    raw = loaded.pack.model_dump(mode="json")
+    for category in ("monsters", "conditions", "rules"):
+        raw.pop(category, None)
+    return _hash_pack_shape(raw, loaded.assets)
+
+
+def legacy_glossaryless_hash(loaded: LoadedDataset) -> str:
+    """Hash the Milestone 18 shape to safely identify the prior bundled snapshot."""
+    raw = loaded.pack.model_dump(mode="json")
+    raw.pop("conditions", None)
+    raw.pop("rules", None)
+    return _hash_pack_shape(raw, loaded.assets)
+
+
+def _hash_pack_shape(raw: dict[str, Any], assets: tuple[AssetRecord, ...]) -> str:
+    def remove_references(value: Any) -> Any:
+        if isinstance(value, dict):
+            return {
+                key: remove_references(child)
+                for key, child in value.items()
+                if key != "references"
+            }
+        if isinstance(value, list):
+            return [remove_references(child) for child in value]
+        return value
+
+    raw = remove_references(raw)
+    raw["items"]["properties"] = sorted(raw["items"]["properties"], key=lambda item: item["key"])
+    raw["items"]["items"] = sorted(raw["items"]["items"], key=lambda item: item["local_key"])
+    for category in ("spells", "feats", "classes", "monsters", "conditions", "rules"):
+        if category in raw:
+            raw[category] = sorted(raw[category], key=lambda item: item["local_key"])
+    digest = hashlib.sha256(_canonical(raw).encode())
+    for asset in assets:
+        digest.update(b"\0asset\0")
+        digest.update(asset.relative_path.encode())
+        digest.update(b"\0")
+        digest.update(asset.content_hash.encode())
+    return digest.hexdigest()
 
 
 def load_dataset(path: Path | str) -> LoadedDataset:
@@ -270,7 +352,15 @@ def load_dataset(path: Path | str) -> LoadedDataset:
         if not file_path.is_file():
             raise DatasetLoadError(f"Missing required file: {name}")
 
-    from .models import CharacterClass, DatasetManifest, Feat, ItemCatalog, Monster, Spell
+    from .models import (
+        CharacterClass,
+        DatasetManifest,
+        Feat,
+        GlossaryEntry,
+        ItemCatalog,
+        Monster,
+        Spell,
+    )
 
     manifest = _validate_model("manifest.json", DatasetManifest, _read_json(files["manifest.json"]))
     items = _validate_model("items.json", ItemCatalog, _read_json(files["items.json"]))
@@ -287,6 +377,13 @@ def load_dataset(path: Path | str) -> LoadedDataset:
         "monsters.json", TypeAdapter(list[Monster]),
         _read_json(root / "monsters.json") if (root / "monsters.json").is_file() else [],
     )
+    glossary = {}
+    for name in ("conditions", "rules"):
+        path = root / f"{name}.json"
+        glossary[name] = _validate_model(
+            f"{name}.json", TypeAdapter(list[GlossaryEntry]),
+            _read_json(path) if path.is_file() else [],
+        )
     pack = DatasetPack(
         manifest=manifest,
         items=items,
@@ -294,6 +391,8 @@ def load_dataset(path: Path | str) -> LoadedDataset:
         feats=feats,
         classes=classes,
         monsters=monsters,
+        conditions=glossary["conditions"],
+        rules=glossary["rules"],
     )
     try:
         validate_dataset(pack)
@@ -301,6 +400,13 @@ def load_dataset(path: Path | str) -> LoadedDataset:
     except DatasetValidationError as exc:
         raise DatasetLoadError(str(exc)) from exc
     assets = _validate_assets(root, pack)
+    source_hash = dataset_source_hash(
+        root,
+        tuple(asset.relative_path for asset in assets),
+        known_asset_hashes={asset.relative_path: asset.content_hash for asset in assets},
+    )
+    if source_hash is None:
+        raise DatasetLoadError("Cannot hash all dataset files safely")
     entry_hashes = {
         str(entry.local_key): _entry_hash(kind, entry)
         for kind, entry in _all_entries(pack)
@@ -310,6 +416,7 @@ def load_dataset(path: Path | str) -> LoadedDataset:
         pack=pack,
         assets=assets,
         content_hash=_content_hash(pack, assets),
+        source_hash=source_hash,
         entry_hashes=entry_hashes,
     )
 
@@ -405,11 +512,23 @@ def import_dataset(
 
     database.initialize()
     with database.connection() as connection:
-        report = _report(
-            loaded,
-            get_installed_dataset(connection, loaded.dataset_id),
-        )
+        installed = get_installed_dataset(connection, loaded.dataset_id)
+        report = _report(loaded, installed)
     if report.is_noop:
+        if installed is not None and installed.source_hash != loaded.source_hash:
+            with database.connection() as connection:
+                has_source_hash = any(
+                    str(column[1]) == "source_hash"
+                    for column in connection.execute(
+                        "PRAGMA table_info(datasets)"
+                    ).fetchall()
+                )
+                if has_source_hash:
+                    connection.execute(
+                        "UPDATE datasets SET source_hash = ? WHERE dataset_id = ?",
+                        (loaded.source_hash, loaded.dataset_id),
+                    )
+                    connection.commit()
         return report
 
     store = asset_store or AssetStore(database.path.parent / "assets")

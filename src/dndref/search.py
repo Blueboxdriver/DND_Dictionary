@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
+from contextlib import nullcontext
 from dataclasses import dataclass, replace
 from enum import StrEnum
 from pathlib import Path
@@ -29,6 +30,8 @@ class SearchCategory(StrEnum):
     CLASSES = "classes"
     SUBCLASSES = "subclasses"
     MONSTERS = "monsters"
+    CONDITIONS = "conditions"
+    RULES = "rules"
 
     @property
     def storage_kind(self) -> str:
@@ -36,6 +39,10 @@ class SearchCategory(StrEnum):
             return "class"
         if self is SearchCategory.SUBCLASSES:
             return "subclass"
+        if self is SearchCategory.CONDITIONS:
+            return "condition"
+        if self is SearchCategory.RULES:
+            return "rule"
         return self.value[:-1]
 
 
@@ -46,9 +53,11 @@ _UNIVERSAL_CATEGORIES = {
     "class": SearchCategory.CLASSES,
     "subclass": SearchCategory.SUBCLASSES,
     "monster": SearchCategory.MONSTERS,
+    "condition": SearchCategory.CONDITIONS,
+    "rule": SearchCategory.RULES,
 }
 _UNIVERSAL_PREFIX = re.compile(
-    r"(?i)(?:^|\s)(item|spell|feat|class|subclass|monster|edition|source):\s*"
+    r"(?i)(?:^|\s)(item|spell|feat|class|subclass|monster|condition|rule|edition|source):\s*"
 )
 
 
@@ -139,6 +148,8 @@ def _coerce_category(value: SearchCategory | str) -> SearchCategory:
         "class": SearchCategory.CLASSES,
         "subclass": SearchCategory.SUBCLASSES,
         "monster": SearchCategory.MONSTERS,
+        "condition": SearchCategory.CONDITIONS,
+        "rule": SearchCategory.RULES,
     }
     if isinstance(value, SearchCategory):
         return value
@@ -241,6 +252,7 @@ class SearchQuery:
     challenge_ratings: tuple[str, ...] = ()
     creature_types: tuple[str, ...] = ()
     sizes: tuple[str, ...] = ()
+    rule_sections: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "category", _coerce_category(self.category))
@@ -253,6 +265,10 @@ class SearchQuery:
 
             for cr in self.challenge_ratings:
                 cr_value(cr)
+        if self.rule_sections:
+            if self.category is not SearchCategory.RULES:
+                raise ValueError("rule section filters require the Rules category")
+            object.__setattr__(self, "rule_sections", tuple(dict.fromkeys(self.rule_sections)))
         source_values: list[SourceIdentity] = []
         for source in self.sources:
             if not isinstance(source, SourceIdentity):
@@ -407,6 +423,7 @@ class SearchService:
 
     def __init__(self, database: Database) -> None:
         self.database = database
+        self.profiler = database.profiler
 
     def list_monster_facets(self) -> dict[str, tuple[str, ...]]:
         from .storage.repository import list_monster_facets
@@ -418,10 +435,15 @@ class SearchService:
         from .storage.repository import search_entries, search_subclasses
 
         try:
-            with self.database.connection() as connection:
+            profile = (
+                self.profiler.operation(f"category_query.{query.category.value}")
+                if self.profiler is not None
+                else nullcontext()
+            )
+            with profile, self.database.connection() as connection:
                 if query.category is SearchCategory.SUBCLASSES:
-                    return search_subclasses(connection, query)
-                return search_entries(connection, query)
+                    return search_subclasses(connection, query, profiler=self.profiler)
+                return search_entries(connection, query, profiler=self.profiler)
         except SearchError:
             raise
         except Exception as exc:
@@ -437,7 +459,12 @@ class SearchService:
         parsed = parse_universal_query(text)
         categories = (parsed.category,) if parsed.category else tuple(SearchCategory)
         try:
-            with self.database.connection() as connection:
+            profile = (
+                self.profiler.operation("universal_search")
+                if self.profiler is not None
+                else nullcontext()
+            )
+            with profile, self.database.connection() as connection:
                 editions: tuple[str, ...] = ()
                 sources: tuple[SourceIdentity, ...] = ()
                 if parsed.edition:
@@ -477,11 +504,17 @@ class SearchService:
                         editions=editions,
                         sources=sources,
                     )
-                    page = (
-                        search_subclasses(connection, query)
-                        if category is SearchCategory.SUBCLASSES
-                        else search_entries(connection, query)
+                    category_profile = (
+                        self.profiler.operation(f"universal_search.{category.value}")
+                        if self.profiler is not None
+                        else nullcontext()
                     )
+                    with category_profile:
+                        page = (
+                            search_subclasses(connection, query, profiler=self.profiler)
+                            if category is SearchCategory.SUBCLASSES
+                            else search_entries(connection, query, profiler=self.profiler)
+                        )
                     total += page.total_count
                     candidates.extend(
                         item for item in page.results if isinstance(item, EntrySummary)
@@ -526,10 +559,19 @@ class SearchService:
         from .storage.repository import search_grouped_entries, search_grouped_subclasses
 
         try:
-            with self.database.connection() as connection:
+            profile = (
+                self.profiler.operation(f"category_query.{query.category.value}")
+                if self.profiler is not None
+                else nullcontext()
+            )
+            with profile, self.database.connection() as connection:
                 if query.category is SearchCategory.SUBCLASSES:
-                    return search_grouped_subclasses(connection, query, preferred_sources)
-                return search_grouped_entries(connection, query, preferred_sources)
+                    return search_grouped_subclasses(
+                        connection, query, preferred_sources, profiler=self.profiler
+                    )
+                return search_grouped_entries(
+                    connection, query, preferred_sources, profiler=self.profiler
+                )
         except SearchError:
             raise
         except Exception as exc:
@@ -539,7 +581,12 @@ class SearchService:
         from .storage.repository import get_entry_detail
 
         try:
-            with self.database.connection() as connection:
+            profile = (
+                self.profiler.operation("detail_query")
+                if self.profiler is not None
+                else nullcontext()
+            )
+            with profile, self.database.connection() as connection:
                 return get_entry_detail(connection, identity, self.database.path.parent / "assets")
         except SearchError:
             raise
@@ -592,7 +639,12 @@ class SearchService:
         from .storage.repository import list_source_contents
 
         try:
-            with self.database.connection() as connection:
+            profile = (
+                self.profiler.operation("source_browser")
+                if self.profiler is not None
+                else nullcontext()
+            )
+            with profile, self.database.connection() as connection:
                 return list_source_contents(connection)
         except Exception as exc:
             raise SearchError(f"source browser lookup failed: {exc}") from exc
@@ -616,6 +668,27 @@ class SearchService:
                 return list_subclass_parents(connection, _edition_values(editions))
         except Exception as exc:
             raise SearchError(f"subclass parent lookup failed: {exc}") from exc
+
+    def dataset_generation(self) -> tuple[object, ...]:
+        """Return a small reference-data token for safe in-session result reuse."""
+        try:
+            profile = (
+                self.profiler.operation("reference_generation")
+                if self.profiler is not None
+                else nullcontext()
+            )
+            with profile, self.database.connection() as connection:
+                schema_version = int(connection.execute("PRAGMA schema_version").fetchone()[0])
+                rows = connection.execute(
+                    "SELECT dataset_id, version, content_hash FROM datasets "
+                    "ORDER BY dataset_id"
+                ).fetchall()
+            return (
+                schema_version,
+                tuple((str(row[0]), str(row[1]), str(row[2])) for row in rows),
+            )
+        except Exception as exc:
+            raise SearchError(f"reference generation lookup failed: {exc}") from exc
 
 
 SearchRepository = SearchService

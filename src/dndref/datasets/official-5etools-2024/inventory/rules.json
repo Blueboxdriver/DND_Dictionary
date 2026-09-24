@@ -1,0 +1,302 @@
+[
+  {
+    "conversion_status": "converted",
+    "name": "Ability Check",
+    "normalized_sha256": "c3700d651673f668a72541710b7c549cf33957329396f96d7873888a28a96f7e",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/ability-check-74c0ad63b3",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "ability check|xphb",
+    "upstream_page": 360
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Advantage",
+    "normalized_sha256": "064d813a16d5e6588380c6da4f19927c041676682b925aeb1152bff531f6c813",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/advantage-b00030f675",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "advantage|xphb",
+    "upstream_page": 360
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Attack Roll",
+    "normalized_sha256": "d93b68812908f580c048f3b2a1ef2ff263d0df4c024ec6ea30f997304ab9a931",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/attack-roll-239bcc8241",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "attack roll|xphb",
+    "upstream_page": 361
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Bloodied",
+    "normalized_sha256": "849e509695afbfdfbcead845c7494b70b794350d6812ada1fdba1e32a8b8f3bc",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/bloodied-b1e89ef1ce",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "bloodied|xphb",
+    "upstream_page": 362
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cleave",
+    "normalized_sha256": "3cfcd1b7b88a87a9cd516bff83dd1a9fb1d82e2df30a2fa7b388a756b6d97978",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/cleave-07de5e56b4",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "cleave|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Concentration",
+    "normalized_sha256": "be5b2601e1c4b4464bdf2ffcf825626788e928f80252afdb6fb35e704df02bef",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/concentration-74ff75fd61",
+    "upstream_file": "data/conditionsdiseases.json",
+    "upstream_identity": "concentration|xphb",
+    "upstream_page": 363
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cover",
+    "normalized_sha256": "69fb343f3cbe8b9a11ad350f819a44d7b0691576789dbc3792bf498f59e0c89b",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/cover-ec53fb00d2",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "cover|xphb",
+    "upstream_page": 364
+  },
+  {
+    "conversion_status": "converted",
+    "name": "D20 Test",
+    "normalized_sha256": "9094333a94c1b56b8851be676128612eeb7a11e37d583d31c11d246ee6e1f45b",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/d20-test-9a7dd03e89",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "d20 test|xphb",
+    "upstream_page": 364
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dash",
+    "normalized_sha256": "321afcc200fc43d7d384dd2ee23279f2219f86f762988cfa129e0732c6696afc",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/dash-1949e6ba15",
+    "upstream_file": "data/actions.json",
+    "upstream_identity": "dash|xphb",
+    "upstream_page": 365
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Death Saving Throw",
+    "normalized_sha256": "96ad215af82efc0897e5126ee5fa0929955979e5156a266ade6438ccbb76cc55",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/death-saving-throw-308dfd4f6c",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "death saving throw|xphb",
+    "upstream_page": 365
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Difficult Terrain",
+    "normalized_sha256": "db82f92442e925d4bd535dfa9836d85adb2710e5c1575d6bfbdee9b886349f8b",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/difficult-terrain-c9234495fd",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "difficult terrain|xphb",
+    "upstream_page": 366
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Disadvantage",
+    "normalized_sha256": "7265e7540ebf2c594a002bb68b57ce0511799598022bddd4a706e8641dea8678",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/disadvantage-6d0cac1106",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "disadvantage|xphb",
+    "upstream_page": 366
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dodge",
+    "normalized_sha256": "8b0c3b292a50a688d348145d5b0c4a335161d13a987b27083ad462eaafef1cf6",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/dodge-577da598fb",
+    "upstream_file": "data/actions.json",
+    "upstream_identity": "dodge|xphb",
+    "upstream_page": 366
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Grappling",
+    "normalized_sha256": "9d79cd468d7eb8a69cf04450e4948e0211f73c473f53b3c51115076780f085e4",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/grappling-5eadf64b82",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "grappling|xphb",
+    "upstream_page": 367
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Graze",
+    "normalized_sha256": "3857e945c6138ce56f317e2fd6ce60a5d5a107cad85cc159b459566fcd677d4e",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/graze-266d141d53",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "graze|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Help",
+    "normalized_sha256": "de4ece3fff7adf4f0b08a4ee6f16168d3c563c1344c17e76ca622567e82e5c88",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/help-1dba7b0157",
+    "upstream_file": "data/actions.json",
+    "upstream_identity": "help|xphb",
+    "upstream_page": 368
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hide",
+    "normalized_sha256": "23b43a20ca75af8a05f263a63d1926d3ae0db8abc3d740a5c3d932ecec55493b",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/hide-1e6e32ea52",
+    "upstream_file": "data/actions.json",
+    "upstream_identity": "hide|xphb",
+    "upstream_page": 368
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Long Rest",
+    "normalized_sha256": "8e4401307279c9fdaa94916ce964a32b34a8b4008edcd7ea3f6ac96fb2a85052",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/long-rest-49f910ee39",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "long rest|xphb",
+    "upstream_page": 370
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Nick",
+    "normalized_sha256": "b4536f3180e0b9d13b29d15e0a271cf902c6693f2bf62280e46cc744c37c452a",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/nick-c92bca2621",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "nick|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Opportunity Attack",
+    "normalized_sha256": "2e490de5b304852461cf0ab174a5a86ca6266ba89953840e098c067905b01204",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/opportunity-attack-7debbc9590",
+    "upstream_file": "data/actions.json",
+    "upstream_identity": "opportunity attack|xphb",
+    "upstream_page": 371
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Push",
+    "normalized_sha256": "ff31c7fa883e4b6f5dfdf80108871e7b894ff5af6e5c1b8f7474bdfbe3978d6b",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/push-347a429509",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "push|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ready",
+    "normalized_sha256": "8beef263b6f98fd9a0b84afd7de9193906a41a10e8d6b8baf5404802390af040",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/ready-573b4f55a9",
+    "upstream_file": "data/actions.json",
+    "upstream_identity": "ready|xphb",
+    "upstream_page": 372
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sap",
+    "normalized_sha256": "d014dcdf74d8a75a1abbd1feb8bf746e491db2885b4bff784bbf6584ec8a2c3c",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/sap-6dc8b55f01",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "sap|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Saving Throw",
+    "normalized_sha256": "42dad22251e01985d0063e6df3e0d3febbc97df19c304fca5ecad7a57775d900",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/saving-throw-cf5d957059",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "saving throw|xphb",
+    "upstream_page": 373
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Short Rest",
+    "normalized_sha256": "3d5bd4a9cef1c5f5969b0678efc54ee84ec456d4865da3eb2b0a764ea4a824cd",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/short-rest-6f195d8415",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "short rest|xphb",
+    "upstream_page": 373
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Slow",
+    "normalized_sha256": "8384e3b58f94b701b50353dedd0c4137561a2f626f61af12cb0d305d3ad6814f",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/slow-1b2e921966",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "slow|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spell",
+    "normalized_sha256": "648679f2d496b44bbcdf285c4c9bdd9dabbd34c1c503d33767119b7e3a16ccb4",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/spell-845476efc2",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "spell|xphb",
+    "upstream_page": 374
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spellcasting Focus",
+    "normalized_sha256": "f0137b1df34992dac3ae6dac44ffc90c2ee12b759b745a954dc2a0c44c2d2696",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/spellcasting-focus-2ffd0f6a85",
+    "upstream_file": "data/variantrules.json",
+    "upstream_identity": "spellcasting focus|xphb",
+    "upstream_page": 374
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Topple",
+    "normalized_sha256": "b037ab236d77d1e9a720f127ada457dae20c4d4d451fc7877dfe0ea089a2e095",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/topple-cc3a3afc55",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "topple|xphb",
+    "upstream_page": 214
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Vex",
+    "normalized_sha256": "31ab6ea18a6b4cd4c098f45776671dee2a3243142860951c64c11ebc1b4c0272",
+    "source": "XPHB",
+    "stable_key": "rule/xphb/vex-75bb4ac0b2",
+    "upstream_file": "data/items-base.json",
+    "upstream_identity": "vex|xphb",
+    "upstream_page": 214
+  }
+]

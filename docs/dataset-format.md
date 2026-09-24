@@ -10,6 +10,8 @@ dataset/
 ├── feats.json
 ├── classes.json
 ├── monsters.json (optional for older packs)
+├── conditions.json (optional)
+├── rules.json (optional)
 └── images/
 ```
 
@@ -43,12 +45,12 @@ Example: `official-5etools-2024` is the dataset/provider; its manifest ruleset
 is `D&D 5.5e / 2024 rules`; a source can carry edition `2024` and title
 `Player's Handbook (2024)`.
 
-The five category models cover structured spell components, item weapon/armor
-details, feat benefits, and class features, subclasses, and presentation-only
-progression columns and values. Monsters add core statistics and ordered
-trait/action sections; their source must have a canonical edition.
-Prerequisites and rules text remain display
-content; the models do not implement a rules engine.
+The category models cover structured spell components, item weapon/armor
+details, feat benefits, class features, subclasses, monsters, conditions, and
+concise Rules glossary records. Rules are curated named concepts, not a complete
+reproduction of a rulebook. Monsters, Conditions, and Rules require canonical
+editions. Prerequisites and rules text remain display content; the models do not
+implement a rules engine.
 
 ## Import and storage
 

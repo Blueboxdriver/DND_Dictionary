@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from contextlib import nullcontext
 from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING, Mapping
@@ -30,6 +31,10 @@ class RepositoryError(RuntimeError):
     """Raised when a validated dataset cannot be persisted."""
 
 
+def _profile(profiler, name: str):
+    return profiler.measure(name) if profiler is not None else nullcontext()
+
+
 @dataclass(frozen=True)
 class InstalledDataset:
     dataset_id: str
@@ -37,6 +42,7 @@ class InstalledDataset:
     version: str
     content_hash: str
     entry_hashes: dict[str, str]
+    source_hash: str | None = None
 
 
 def _category_for_kind(kind: str):
@@ -49,6 +55,8 @@ def _category_for_kind(kind: str):
         "class": SearchCategory.CLASSES,
         "monster": SearchCategory.MONSTERS,
         "subclass": SearchCategory.SUBCLASSES,
+        "condition": SearchCategory.CONDITIONS,
+        "rule": SearchCategory.RULES,
     }[kind]
 
 
@@ -64,6 +72,8 @@ def _entry_search_body(connection: sqlite3.Connection, entry: sqlite3.Row) -> st
     entry_id = int(entry["id"])
     kind = str(entry["kind"])
     parts: list[str] = [str(entry["name"]), str(entry["description"])]
+    if entry["kind"] == "rule" and entry["rule_section"]:
+        parts.append(str(entry["rule_section"]))
     parts.extend(
         _search_text(row["heading"], row["body"])
         for row in connection.execute(
@@ -235,9 +245,15 @@ def get_installed_dataset(
 ) -> InstalledDataset | None:
     """Return one installed dataset and its entry hashes, if its schema exists."""
     try:
+        has_source_hash = any(
+            str(column[1]) == "source_hash"
+            for column in connection.execute("PRAGMA table_info(datasets)").fetchall()
+        )
+        columns = "dataset_id, title, version, content_hash"
+        if has_source_hash:
+            columns += ", source_hash"
         row = connection.execute(
-            "SELECT dataset_id, title, version, content_hash FROM datasets WHERE dataset_id = ?",
-            (dataset_id,),
+            f"SELECT {columns} FROM datasets WHERE dataset_id = ?", (dataset_id,)
         ).fetchone()
     except sqlite3.OperationalError as exc:
         if "no such table" in str(exc).lower():
@@ -256,14 +272,22 @@ def get_installed_dataset(
         version=str(row[2]),
         content_hash=str(row[3]),
         entry_hashes={str(entry[0]): str(entry[1]) for entry in rows},
+        source_hash=(str(row[4]) if row[4] is not None else None) if has_source_hash else None,
     )
 
 
 def list_installed_datasets(connection: sqlite3.Connection) -> tuple[InstalledDataset, ...]:
     """Return installed dataset metadata in stable order."""
     try:
+        has_source_hash = any(
+            str(column[1]) == "source_hash"
+            for column in connection.execute("PRAGMA table_info(datasets)").fetchall()
+        )
+        columns = "dataset_id, title, version, content_hash"
+        if has_source_hash:
+            columns += ", source_hash"
         rows = connection.execute(
-            "SELECT dataset_id, title, version, content_hash FROM datasets ORDER BY dataset_id"
+            f"SELECT {columns} FROM datasets ORDER BY dataset_id"
         ).fetchall()
     except sqlite3.OperationalError as exc:
         if "no such table" in str(exc).lower():
@@ -286,6 +310,9 @@ def list_installed_datasets(connection: sqlite3.Connection) -> tuple[InstalledDa
                         (row[0],),
                     ).fetchall()
                 },
+                source_hash=(str(row[4]) if row[4] is not None else None)
+                if has_source_hash
+                else None,
             )
         )
     return tuple(result)
@@ -387,21 +414,31 @@ def apply_dataset(
 
     try:
         connection.execute("DELETE FROM datasets WHERE dataset_id = ?", (dataset_id,))
+        dataset_columns = {
+            str(column[1])
+            for column in connection.execute("PRAGMA table_info(datasets)").fetchall()
+        }
+        source_hash_column = ", source_hash" if "source_hash" in dataset_columns else ""
+        source_hash_value = ", ?" if source_hash_column else ""
+        values = (
+            dataset_id,
+            manifest.title,
+            manifest.version,
+            manifest.ruleset,
+            manifest.language,
+            manifest.license_identifier,
+            manifest.attribution,
+            str(manifest.origin_url) if manifest.origin_url is not None else None,
+            loaded.content_hash,
+        )
+        if source_hash_column:
+            values += (loaded.source_hash,)
         connection.execute(
             "INSERT INTO datasets "
             "(dataset_id, title, version, ruleset, language, license_identifier, "
-            "attribution, origin_url, content_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (
-                dataset_id,
-                manifest.title,
-                manifest.version,
-                manifest.ruleset,
-                manifest.language,
-                manifest.license_identifier,
-                manifest.attribution,
-                str(manifest.origin_url) if manifest.origin_url is not None else None,
-                loaded.content_hash,
-            ),
+            "attribution, origin_url, content_hash" + source_hash_column + ") "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?" + source_hash_value + ")",
+            values,
         )
         connection.executemany(
             "INSERT INTO dataset_dependencies "
@@ -445,13 +482,22 @@ def apply_dataset(
             ("class", character_class) for character_class in pack.classes
         ] + [
             ("monster", monster) for monster in pack.monsters
+        ] + [
+            ("condition", item) for item in pack.conditions
+        ] + [
+            ("rule", item) for item in pack.rules
         ]
+        has_rule_section = any(
+            str(column["name"]) == "rule_section"
+            for column in connection.execute("PRAGMA table_info(entries)").fetchall()
+        )
         for kind, entry in sorted(entries, key=lambda item: item[1].local_key):
-            cursor = connection.execute(
-                "INSERT INTO entries "
-                "(dataset_id, local_key, kind, name, normalized_name, description, source_id, "
-                "image_id, content_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                (
+            columns = (
+                "dataset_id, local_key, kind, name, normalized_name, description, source_id, "
+                "image_id, content_hash"
+                + (", rule_section" if has_rule_section else "")
+            )
+            values = (
                     dataset_id,
                     entry.local_key,
                     kind,
@@ -461,13 +507,34 @@ def apply_dataset(
                     source_ids[entry.source],
                     image_ids.get(entry.image),
                     loaded.entry_hashes[entry.local_key],
-                ),
+            ) + ((entry.section if kind == "rule" else None,) if has_rule_section else ())
+            cursor = connection.execute(
+                f"INSERT INTO entries ({columns}) VALUES ({', '.join('?' for _ in values)})",
+                values,
             )
             entry_ids[str(entry.local_key)] = int(cursor.lastrowid)
             sections = list(entry.sections)
             if kind == "feat":
                 sections.extend(entry.benefits)
             _insert_sections(connection, int(cursor.lastrowid), sections)
+
+        has_entry_references = connection.execute(
+            "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'entry_references'"
+        ).fetchone()
+        if has_entry_references:
+            connection.executemany(
+                "INSERT INTO entry_references "
+                "(source_entry_id, target_entry_id, content_type) VALUES (?, ?, ?)",
+                [
+                    (
+                        entry_ids[entry.local_key],
+                        entry_ids[reference.target_key],
+                        reference.content_type,
+                    )
+                    for _, entry in entries
+                    for reference in entry.references
+                ],
+            )
 
         for property_definition in sorted(pack.items.properties, key=lambda item: item.key):
             cursor = connection.execute(
@@ -798,12 +865,14 @@ SELECT
         WHEN 'feat' THEN f.category
         WHEN 'class' THEN 'd' || c.hit_die || ' Hit Die'
         WHEN 'monster' THEN 'CR ' || m.challenge_rating || ' · ' || m.size || ' ' || m.creature_type
+        WHEN 'condition' THEN 'Condition'
+        WHEN 'rule' THEN COALESCE(e.rule_section, 'Rule')
     END AS subtitle
 """
 
 
 def _search_clauses(query: "SearchQuery") -> tuple[str, list[object], str, list[object]]:
-    from ..search import SearchMode
+    from ..search import SearchCategory, SearchMode
 
     category_kind = query.category.storage_kind
     tokens = query.tokens
@@ -828,11 +897,18 @@ def _search_clauses(query: "SearchQuery") -> tuple[str, list[object], str, list[
     if query.sizes:
         where.append(f"m.size IN ({', '.join('?' for _ in query.sizes)})")
         where_params.extend(query.sizes)
-    from ..search import SearchCategory
-
+    if getattr(query, "rule_sections", ()):
+        if query.category is not SearchCategory.RULES:
+            raise ValueError("rule section filters require the Rules category")
+        where.append(f"e.rule_section IN ({', '.join('?' for _ in query.rule_sections)})")
+        where_params.extend(query.rule_sections)
     monster = query.category is SearchCategory.MONSTERS
     name_match = _name_match_sql(tokens, monster=monster)
     match_params = [part for token in tokens for part in ((token, token) if monster else (token,))]
+    if query.category is SearchCategory.RULES and tokens:
+        section_match = " AND ".join("lower(e.rule_section) LIKE ?" for _ in tokens)
+        name_match = f"(({name_match}) OR ({section_match}))"
+        match_params.extend(f"%{token}%" for token in tokens)
     if tokens:
         where.append(f"({name_match})")
         where_params.extend(match_params)
@@ -880,18 +956,41 @@ def _summary_from_row(row: sqlite3.Row) -> "EntrySummary":
 
 
 _SUBCLASS_SELECT = """
-SELECT s.dataset_id, s.subclass_key, s.name, s.introduction,
+SELECT s.dataset_id, s.subclass_key, s.name,
        parent.name AS parent_name, parent.normalized_name AS parent_key,
        parent.local_key AS parent_local_key,
        src.title AS source_label, src.dataset_id AS source_dataset_id,
-       src.source_key, src.edition AS source_edition, d.title AS dataset_title,
-       (SELECT GROUP_CONCAT(sf.title || ' ' || sf.description, ' ')
-        FROM subclass_features AS sf WHERE sf.subclass_id = s.id) AS feature_text
+       src.source_key, src.edition AS source_edition, d.title AS dataset_title
 FROM subclasses AS s
 JOIN entries AS parent ON parent.id = s.class_id
 JOIN sources AS parent_src ON parent_src.id = parent.source_id
 JOIN sources AS src ON src.id = s.source_id
 JOIN datasets AS d ON d.dataset_id = s.dataset_id
+WHERE src.edition IS NOT NULL AND src.edition = parent_src.edition
+"""
+
+_SUBCLASS_DETAIL_SELECT = _SUBCLASS_SELECT.replace(
+    "SELECT s.dataset_id, s.subclass_key, s.name,\n",
+    "SELECT s.dataset_id, s.subclass_key, s.name, s.introduction,\n",
+    1,
+)
+
+_SUBCLASS_TEXT_SELECT = """
+SELECT s.dataset_id, s.subclass_key, s.name, s.introduction,
+       parent.name AS parent_name, parent.normalized_name AS parent_key,
+       parent.local_key AS parent_local_key,
+       src.title AS source_label, src.dataset_id AS source_dataset_id,
+       src.source_key, src.edition AS source_edition, d.title AS dataset_title,
+       COALESCE(feature_text.feature_text, '') AS feature_text
+FROM subclasses AS s
+JOIN entries AS parent ON parent.id = s.class_id
+JOIN sources AS parent_src ON parent_src.id = parent.source_id
+JOIN sources AS src ON src.id = s.source_id
+JOIN datasets AS d ON d.dataset_id = s.dataset_id
+LEFT JOIN (
+    SELECT subclass_id, GROUP_CONCAT(title || ' ' || description, ' ') AS feature_text
+    FROM subclass_features GROUP BY subclass_id
+) AS feature_text ON feature_text.subclass_id = s.id
 WHERE src.edition IS NOT NULL AND src.edition = parent_src.edition
 """
 
@@ -943,7 +1042,9 @@ def _matching_subclass_rows(
     if query.parent_class:
         clauses.append("parent.normalized_name = ?")
         parameters.append(normalize_name(query.parent_class))
-    sql = _SUBCLASS_SELECT + (" AND " + " AND ".join(clauses) if clauses else "")
+    all_text = query.mode is SearchMode.ALL_TEXT and bool(query.tokens)
+    base_sql = _SUBCLASS_TEXT_SELECT if all_text else _SUBCLASS_SELECT
+    sql = base_sql + (" AND " + " AND ".join(clauses) if clauses else "")
     try:
         rows = connection.execute(sql, parameters).fetchall()
     except sqlite3.Error as exc:
@@ -976,50 +1077,61 @@ def _matching_subclass_rows(
     return rows
 
 
-def search_subclasses(connection: sqlite3.Connection, query: "SearchQuery") -> "SearchPage":
+def search_subclasses(
+    connection: sqlite3.Connection,
+    query: "SearchQuery",
+    *,
+    profiler=None,
+) -> "SearchPage":
     from ..search import SearchPage
 
-    rows = _matching_subclass_rows(connection, query)
-    page = rows[query.offset : query.offset + query.limit]
-    return SearchPage(
-        tuple(_subclass_summary(row) for row in page),
-        len(rows), query.offset, query.limit, query.request_id,
-    )
+    with _profile(profiler, f"category_sql.{query.category.value}"):
+        rows = _matching_subclass_rows(connection, query)
+    with _profile(profiler, f"category_transform.{query.category.value}"):
+        page = rows[query.offset : query.offset + query.limit]
+        results = tuple(_subclass_summary(row) for row in page)
+    return SearchPage(results, len(rows), query.offset, query.limit, query.request_id)
 
 
 def search_grouped_subclasses(
     connection: sqlite3.Connection,
     query: "SearchQuery",
     preferred_sources: tuple["SourceIdentity", ...] = (),
+    *,
+    profiler=None,
 ) -> "SearchPage":
     from ..search import GroupedEntrySummary, SearchPage
 
-    rows = _matching_subclass_rows(connection, query)
-    groups: dict[tuple[str, str, str], list["EntrySummary"]] = {}
-    for row in rows:
-        summary = _subclass_summary(row)
-        key = (str(row["parent_key"]), str(row["source_edition"]), normalize_name(summary.name))
-        groups.setdefault(key, []).append(summary)
-    preference = {source: index for index, source in enumerate(preferred_sources)}
-    results: list["EntrySummary | GroupedEntrySummary"] = []
-    for members in groups.values():
-        counts: dict["SourceIdentity", int] = {}
-        for member in members:
-            counts[member.source_identity] = counts.get(member.source_identity, 0) + 1
-        if any(count > 1 for count in counts.values()):
-            results.extend(members)
-            continue
-        members.sort(key=lambda member: (
-            preference.get(member.source_identity, len(preference)),
-            member.source_label.casefold(), member.dataset_id, member.local_key,
-        ))
-        results.append(
-            GroupedEntrySummary(
-                query.category, normalize_name(members[0].name),
-                members[0], tuple(members[1:]),
-                group_key=members[0].group_key,
-            ) if len(members) > 1 else members[0]
-        )
+    with _profile(profiler, f"category_sql.{query.category.value}"):
+        rows = _matching_subclass_rows(connection, query)
+    with _profile(profiler, f"category_group.{query.category.value}"):
+        groups: dict[tuple[str, str, str], list["EntrySummary"]] = {}
+        for row in rows:
+            summary = _subclass_summary(row)
+            key = (
+                str(row["parent_key"]), str(row["source_edition"]), normalize_name(summary.name)
+            )
+            groups.setdefault(key, []).append(summary)
+        preference = {source: index for index, source in enumerate(preferred_sources)}
+        results: list["EntrySummary | GroupedEntrySummary"] = []
+        for members in groups.values():
+            counts: dict["SourceIdentity", int] = {}
+            for member in members:
+                counts[member.source_identity] = counts.get(member.source_identity, 0) + 1
+            if any(count > 1 for count in counts.values()):
+                results.extend(members)
+                continue
+            members.sort(key=lambda member: (
+                preference.get(member.source_identity, len(preference)),
+                member.source_label.casefold(), member.dataset_id, member.local_key,
+            ))
+            results.append(
+                GroupedEntrySummary(
+                    query.category, normalize_name(members[0].name),
+                    members[0], tuple(members[1:]),
+                    group_key=members[0].group_key,
+                ) if len(members) > 1 else members[0]
+            )
     return SearchPage(
         tuple(results[query.offset : query.offset + query.limit]),
         len(results), query.offset, query.limit, query.request_id,
@@ -1068,23 +1180,30 @@ def list_subclass_parents(
     return tuple(dict.fromkeys(str(row["name"]) for row in rows))
 
 
-def search_entries(connection: sqlite3.Connection, query: "SearchQuery") -> "SearchPage":
+def search_entries(
+    connection: sqlite3.Connection,
+    query: "SearchQuery",
+    *,
+    profiler=None,
+) -> "SearchPage":
     """Run a paged, category-scoped search using the caller's connection."""
 
     from ..search import SearchPage
 
-    where_sql, where_params, order_sql, order_params = _search_clauses(query)
+    with _profile(profiler, f"category_filter_plan.{query.category.value}"):
+        where_sql, where_params, order_sql, order_params = _search_clauses(query)
     try:
-        total_count = int(
-            connection.execute(
-                f"SELECT COUNT(*) {_SUMMARY_FROM} WHERE {where_sql}", where_params
-            ).fetchone()[0]
-        )
-        rows = connection.execute(
-            f"{_SUMMARY_SELECT} {_SUMMARY_FROM} WHERE {where_sql} "
-            f"ORDER BY {order_sql} LIMIT ? OFFSET ?",
-            [*where_params, *order_params, query.limit, query.offset],
-        ).fetchall()
+        with _profile(profiler, f"category_sql.{query.category.value}"):
+            total_count = int(
+                connection.execute(
+                    f"SELECT COUNT(*) {_SUMMARY_FROM} WHERE {where_sql}", where_params
+                ).fetchone()[0]
+            )
+            rows = connection.execute(
+                f"{_SUMMARY_SELECT} {_SUMMARY_FROM} WHERE {where_sql} "
+                f"ORDER BY {order_sql} LIMIT ? OFFSET ?",
+                [*where_params, *order_params, query.limit, query.offset],
+            ).fetchall()
     except sqlite3.Error as exc:
         if "entry_search" in str(exc):
             raise RuntimeError(
@@ -1092,7 +1211,8 @@ def search_entries(connection: sqlite3.Connection, query: "SearchQuery") -> "Sea
             ) from exc
         raise RepositoryError(f"cannot execute search: {exc}") from exc
 
-    results = tuple(_summary_from_row(row) for row in rows)
+    with _profile(profiler, f"category_transform.{query.category.value}"):
+        results = tuple(_summary_from_row(row) for row in rows)
     return SearchPage(results, total_count, query.offset, query.limit, query.request_id)
 
 
@@ -1100,6 +1220,8 @@ def search_grouped_entries(
     connection: sqlite3.Connection,
     query: "SearchQuery",
     preferred_sources: tuple["SourceIdentity", ...] = (),
+    *,
+    profiler=None,
 ) -> "SearchPage":
     """Page matching name groups before fetching their matching member records."""
 
@@ -1107,51 +1229,69 @@ def search_grouped_entries(
 
     if query.category is SearchCategory.MONSTERS:
         # Equal names can denote different stat blocks even within one source.
-        return search_entries(connection, query)
+        return search_entries(connection, query, profiler=profiler)
 
-    where_sql, where_params, order_sql, order_params = _search_clauses(query)
+    with _profile(profiler, f"category_filter_plan.{query.category.value}"):
+        where_sql, where_params, order_sql, order_params = _search_clauses(query)
     rank_sql = order_sql.split(", e.normalized_name", 1)[0] if order_params else "0"
+    edition_scoped = query.category in {SearchCategory.CONDITIONS, SearchCategory.RULES}
+    matched_edition = ", src.edition AS edition" if edition_scoped else ""
+    collision_group = (
+        "normalized_name, edition, source_id"
+        if edition_scoped else "normalized_name, source_id"
+    )
+    collides = (
+        "EXISTS (SELECT 1 FROM colliding c WHERE c.normalized_name=m.normalized_name "
+        "AND c.edition IS m.edition)"
+        if edition_scoped
+        else "m.normalized_name IN (SELECT normalized_name FROM colliding)"
+    )
+    group_name = (
+        "'name:' || m.normalized_name || ':' || COALESCE(m.edition, '')"
+        if edition_scoped else "'name:' || m.normalized_name"
+    )
     cte = (
         "WITH matched AS ("
         "SELECT e.id, e.normalized_name, e.dataset_id, e.local_key, "
-        f"src.id AS source_id, {rank_sql} AS rank "
+        f"src.id AS source_id{matched_edition}, {rank_sql} AS rank "
         f"{_SUMMARY_FROM} WHERE {where_sql}"
         "), colliding AS ("
-        "SELECT normalized_name FROM matched "
-        "GROUP BY normalized_name, source_id HAVING COUNT(*) > 1"
+        f"SELECT {collision_group} FROM matched "
+        f"GROUP BY {collision_group} HAVING COUNT(*) > 1"
         "), candidates AS ("
-        "SELECT id, normalized_name, rank, "
-        "CASE WHEN normalized_name IN (SELECT normalized_name FROM colliding) "
-        "THEN 'entry:' || dataset_id || ':' || local_key "
-        "ELSE 'name:' || normalized_name END AS group_key FROM matched"
+        "SELECT m.id, m.normalized_name, m.rank, "
+        f"CASE WHEN {collides} "
+        "THEN 'entry:' || m.dataset_id || ':' || m.local_key "
+        f"ELSE {group_name} END AS group_key FROM matched m"
         ") "
     )
     cte_params = [*order_params, *where_params]
     try:
-        total_count = int(
-            connection.execute(
-                cte + "SELECT COUNT(DISTINCT group_key) FROM candidates", cte_params
-            ).fetchone()[0]
-        )
-        keys = [
-            str(row[0])
-            for row in connection.execute(
-                cte + "SELECT group_key FROM candidates GROUP BY group_key "
-                "ORDER BY MIN(rank), MIN(normalized_name), group_key LIMIT ? OFFSET ?",
-                [*cte_params, query.limit, query.offset],
+        with _profile(profiler, f"category_sql.{query.category.value}"):
+            total_count = int(
+                connection.execute(
+                    cte + "SELECT COUNT(DISTINCT group_key) FROM candidates", cte_params
+                ).fetchone()[0]
+            )
+            keys = [
+                str(row[0])
+                for row in connection.execute(
+                    cte + "SELECT group_key FROM candidates GROUP BY group_key "
+                    "ORDER BY MIN(rank), MIN(normalized_name), group_key LIMIT ? OFFSET ?",
+                    [*cte_params, query.limit, query.offset],
+                ).fetchall()
+            ]
+            if not keys:
+                return SearchPage((), total_count, query.offset, query.limit, query.request_id)
+            key_sql = ", ".join("?" for _ in keys)
+            rows = connection.execute(
+                cte + _SUMMARY_SELECT.rstrip() + ", candidates.group_key AS group_key "
+                + _SUMMARY_FROM
+                + " JOIN candidates ON candidates.id = e.id "
+                + f"WHERE candidates.group_key IN ({key_sql}) "
+                + "ORDER BY candidates.rank, e.normalized_name, e.dataset_id, e.local_key",
+                [*cte_params, *keys],
             ).fetchall()
-        ]
-        if not keys:
-            return SearchPage((), total_count, query.offset, query.limit, query.request_id)
-        key_sql = ", ".join("?" for _ in keys)
-        rows = connection.execute(
-            cte + _SUMMARY_SELECT.rstrip() + ", candidates.group_key AS group_key "
-            + _SUMMARY_FROM
-            + " JOIN candidates ON candidates.id = e.id "
-            + f"WHERE candidates.group_key IN ({key_sql}) "
-            + "ORDER BY candidates.rank, e.normalized_name, e.dataset_id, e.local_key",
-            [*cte_params, *keys],
-        ).fetchall()
     except sqlite3.Error as exc:
         if "entry_search" in str(exc):
             raise RuntimeError(
@@ -1159,30 +1299,39 @@ def search_grouped_entries(
             ) from exc
         raise RepositoryError(f"cannot execute grouped search: {exc}") from exc
 
-    by_key: dict[str, list["EntrySummary"]] = {key: [] for key in keys}
-    for row in rows:
-        by_key[str(row["group_key"])].append(_summary_from_row(row))
-    preference = {identity: index for index, identity in enumerate(preferred_sources)}
-    groups = []
-    for key in keys:
-        members = by_key[key]
-        members.sort(
-            key=lambda member: (
-                preference.get(member.source_identity, len(preference)),
-                member.source_edition or "",
-                member.source_label.casefold(),
-                member.dataset_id,
-                member.source_identity.source_key,
-                member.local_key,
+    with _profile(profiler, f"category_transform.{query.category.value}"):
+        by_key: dict[str, list["EntrySummary"]] = {key: [] for key in keys}
+        for row in rows:
+            by_key[str(row["group_key"])].append(_summary_from_row(row))
+    with _profile(profiler, f"category_group.{query.category.value}"):
+        preference = {identity: index for index, identity in enumerate(preferred_sources)}
+        groups = []
+        for key in keys:
+            members = by_key[key]
+            members.sort(
+                key=lambda member: (
+                    preference.get(member.source_identity, len(preference)),
+                    member.source_edition or "",
+                    member.source_label.casefold(),
+                    member.dataset_id,
+                    member.source_identity.source_key,
+                    member.local_key,
+                )
             )
-        )
-        groups.append(
-            GroupedEntrySummary(
-                query.category, normalize_name(members[0].name), members[0], tuple(members[1:])
+            edition_key = (
+                f":{members[0].source_edition or ''}" if edition_scoped else ""
             )
-            if len(members) > 1
-            else members[0]
-        )
+            group_identity = (
+                f"group:{query.category.value}:{normalize_name(members[0].name)}{edition_key}"
+            )
+            groups.append(
+                GroupedEntrySummary(
+                    query.category, normalize_name(members[0].name), members[0],
+                    tuple(members[1:]), group_identity,
+                )
+                if len(members) > 1
+                else members[0]
+            )
     return SearchPage(tuple(groups), total_count, query.offset, query.limit, query.request_id)
 
 
@@ -1375,12 +1524,18 @@ def get_entry_detail(
     table = {
         "item": "items", "spell": "spells", "feat": "feats",
         "class": "classes", "monster": "monsters",
+        "condition": None, "rule": None,
     }[kind]
-    category_row = connection.execute(
-        f"SELECT * FROM {table} WHERE entry_id = ?", (entry_id,)
-    ).fetchone()
+    category_row = (
+        connection.execute(f"SELECT * FROM {table} WHERE entry_id = ?", (entry_id,)).fetchone()
+        if table is not None else None
+    )
     if category_row is not None:
         fields.update({key: category_row[key] for key in category_row.keys() if key != "entry_id"})
+    if kind in {"condition", "rule"}:
+        fields["section"] = connection.execute(
+            "SELECT rule_section FROM entries WHERE id = ?", (entry_id,)
+        ).fetchone()[0]
     if kind == "monster":
         for key in ("speed_json", "abilities_json", "saving_throws_json", "skills_json"):
             fields[key.removesuffix("_json")] = json.loads(str(fields.pop(key)))
@@ -1541,7 +1696,7 @@ def _get_subclass_detail(
     from ..search import EntryDetail, SearchCategory
 
     row = connection.execute(
-        _SUBCLASS_SELECT
+        _SUBCLASS_DETAIL_SELECT
         + " AND s.dataset_id = ? AND parent.local_key = ? AND s.subclass_key = ?",
         (dataset_id, parent_local_key, subclass_key),
     ).fetchone()

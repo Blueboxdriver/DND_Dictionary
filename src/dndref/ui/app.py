@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import time
+from contextlib import nullcontext
 from dataclasses import dataclass, field, replace
 from textwrap import shorten
 from typing import Any
@@ -20,6 +22,7 @@ from ..crossrefs import CrossReferenceResolver, ReferenceTarget
 from ..images import DecodedImage, ImageAdapter, ImageLoader
 from ..models import display_edition
 from ..navigation import NavigationHistory, NavigationState, RecentlyViewed, ViewedRecord
+from ..performance import PerformanceProfiler
 from ..personal import PersonalDataService
 from ..search import (
     DetailSection,
@@ -65,11 +68,13 @@ class CategoryState:
     size: str | None = None
     filters_initialized: bool = False
     selected_id: str | None = None
+    variant_id: str | None = None
     list_index: int = 0
     list_scroll: int = 0
     detail_scroll: int = 0
     results: list[EntrySummary | GroupedEntrySummary] = field(default_factory=list)
     total_count: int = 0
+    loaded_key: tuple[object, ...] | None = None
 
 
 class BrowserApp(App[None]):
@@ -81,6 +86,7 @@ class BrowserApp(App[None]):
 
     TITLE = "D&D Reference"
     SUB_TITLE = "Offline reference browser"
+    PAGE_SIZE = 20
 
     CSS = """
     Screen {
@@ -89,7 +95,7 @@ class BrowserApp(App[None]):
     }
 
     #topbar {
-        height: 3;
+        height: 5;
         background: #2a261f;
         padding: 1 1 0 2;
     }
@@ -107,7 +113,11 @@ class BrowserApp(App[None]):
 
     #tabs {
         width: 1fr;
-        height: 2;
+        height: 4;
+        layout: grid;
+        grid-size: 4;
+        grid-rows: 2;
+        grid-gutter: 0 0;
     }
 
     .category-tab {
@@ -365,6 +375,8 @@ class BrowserApp(App[None]):
         SearchCategory.CLASSES,
         SearchCategory.SUBCLASSES,
         SearchCategory.MONSTERS,
+        SearchCategory.CONDITIONS,
+        SearchCategory.RULES,
     )
     CATEGORY_LABELS = {
         SearchCategory.ITEMS: "Items",
@@ -373,6 +385,8 @@ class BrowserApp(App[None]):
         SearchCategory.CLASSES: "Classes",
         SearchCategory.SUBCLASSES: "Subclasses",
         SearchCategory.MONSTERS: "Monsters",
+        SearchCategory.CONDITIONS: "Conditions",
+        SearchCategory.RULES: "Rules",
     }
 
     def __init__(
@@ -381,10 +395,14 @@ class BrowserApp(App[None]):
         *,
         paths: ApplicationPaths | None = None,
         config: Config | None = None,
+        profiler: PerformanceProfiler | None = None,
     ) -> None:
         self.paths = paths or ApplicationPaths.default()
         self.config = config or Config()
-        self.database = database or Database(self.paths.database_path)
+        self.profiler = profiler or (database.profiler if database is not None else None)
+        self.database = database or Database(self.paths.database_path, profiler=self.profiler)
+        if self.profiler is not None:
+            self.database.profiler = self.profiler
         self.search_service = SearchService(self.database)
         self.personal_data = PersonalDataService(self.database)
         self.commands = CommandRegistry()
@@ -414,6 +432,9 @@ class BrowserApp(App[None]):
         self._history_restore_detail_id: str | None = None
         self._restoring_history = False
         self._category_transition = False
+        self._category_profile_started: tuple[int, SearchCategory, float] | None = None
+        self._reference_generation: tuple[object, ...] | None = None
+        self._pending_search_cache_key: tuple[int, tuple[object, ...]] | None = None
         self._updating_input = False
         self._page_loading = False
         self.image_adapter = ImageAdapter(self.config.ui.images)
@@ -515,6 +536,7 @@ class BrowserApp(App[None]):
         )
 
     def on_mount(self) -> None:
+        self._category_profile_started = (self._request_id, self.category, time.perf_counter())
         self._update_tab_styles()
         self._update_group_status()
         self._update_layout(self.size.width, self.size.height)
@@ -544,6 +566,7 @@ class BrowserApp(App[None]):
             return
         self.state.query = event.value
         self.state.selected_id = None
+        self.state.variant_id = None
         self.state.list_index = 0
         self._invalidate_search()
         self._queue_search()
@@ -658,7 +681,7 @@ class BrowserApp(App[None]):
             event.stop()
             self.action_show_about()
             return
-        if event.character in {"1", "2", "3", "4", "5", "6"}:
+        if event.character in {"1", "2", "3", "4", "5", "6", "7", "8"}:
             event.stop()
             self._switch_category(self.CATEGORIES[int(event.character) - 1])
             return
@@ -1152,7 +1175,7 @@ class BrowserApp(App[None]):
             self._restore_current_image()
             return
         source, category = selection
-        self._switch_category(category)
+        self._switch_category(category, start_search=False)
         self.state.query = ""
         self.state.editions = ()
         self.state.sources = (source,)
@@ -1180,7 +1203,17 @@ class BrowserApp(App[None]):
         self._apply_filter_change()
 
     def _refresh_filter_options(self) -> bool:
+        profile = (
+            self.profiler.operation(f"category_filter.{self.category.value}")
+            if self.profiler is not None
+            else nullcontext()
+        )
+        with profile:
+            return self._refresh_filter_options_impl()
+
+    def _refresh_filter_options_impl(self) -> bool:
         try:
+            self._ensure_reference_generation()
             editions = self.search_service.list_available_editions(self.category)
             available_editions = {option.value for option in editions}
             if not self.state.filters_initialized:
@@ -1250,7 +1283,9 @@ class BrowserApp(App[None]):
 
     def _apply_filter_change(self) -> None:
         self.state.selected_id = None
+        self.state.variant_id = None
         self.state.list_index = 0
+        self._category_profile_started = (self._request_id + 1, self.category, time.perf_counter())
         request_id = self._invalidate_search()
         if self._search_timer is not None:
             self._search_timer.stop()
@@ -1300,6 +1335,9 @@ class BrowserApp(App[None]):
         if self._search_timer is not None:
             self._search_timer.stop()
         request_id = self._request_id
+        started = self._category_profile_started
+        if started is None or started[0] != request_id or started[1] is not self.category:
+            self._category_profile_started = (request_id, self.category, time.perf_counter())
         self._search_timer = self.set_timer(
             0.1,
             lambda: self._start_search(request_id),
@@ -1309,8 +1347,27 @@ class BrowserApp(App[None]):
     def _start_search(self, request_id: int) -> None:
         if request_id != self._request_id:
             return
+        cache_key = self._search_cache_key(self.category, self.state)
+        if self.state.loaded_key == cache_key:
+            cached_page = SearchPage(
+                tuple(self.state.results),
+                self.state.total_count,
+                0,
+                self.PAGE_SIZE,
+                request_id,
+            )
+            self._pending_search_cache_key = (request_id, cache_key)
+            self.run_worker(
+                lambda: cached_page,
+                name=f"search:{request_id}",
+                group="search",
+                thread=True,
+                exit_on_error=False,
+            )
+            return
         self.state.results.clear()
         self.state.total_count = 0
+        self.state.loaded_key = None
         self.state.list_index = 0
         self._detail_requested_for = None
         self._page_loading = False
@@ -1320,7 +1377,7 @@ class BrowserApp(App[None]):
             self.state.query,
             self.mode,
             offset=0,
-            limit=50,
+            limit=self.PAGE_SIZE,
             request_id=request_id,
             editions=self.state.editions,
             sources=self.state.sources,
@@ -1329,6 +1386,7 @@ class BrowserApp(App[None]):
             creature_types=(self.state.creature_type,) if self.state.creature_type else (),
             sizes=(self.state.size,) if self.state.size else (),
         )
+        self._pending_search_cache_key = (request_id, cache_key)
         self.run_worker(
             lambda: self._search_page(query),
             name=f"search:{request_id}",
@@ -1347,7 +1405,7 @@ class BrowserApp(App[None]):
             self.state.query,
             self.mode,
             offset=len(self.state.results),
-            limit=50,
+            limit=self.PAGE_SIZE,
             request_id=request_id,
             editions=self.state.editions,
             sources=self.state.sources,
@@ -1369,10 +1427,45 @@ class BrowserApp(App[None]):
             return self.search_service.search_grouped(query, self.config.content.preferred_sources)
         return self.search_service.search(query)
 
+    def _ensure_reference_generation(self) -> bool:
+        generation = self.search_service.dataset_generation()
+        if generation == self._reference_generation:
+            return False
+        changed = self._reference_generation is not None
+        self._reference_generation = generation
+        if changed:
+            for category_state in self.category_states.values():
+                category_state.loaded_key = None
+        return changed
+
+    def _search_cache_key(
+        self, category: SearchCategory, state: CategoryState
+    ) -> tuple[object, ...]:
+        return (
+            category,
+            state.query,
+            self.mode,
+            state.editions,
+            state.sources,
+            state.parent_class,
+            state.challenge_rating,
+            state.creature_type,
+            state.size,
+            self.group_alternate_sources,
+            self.config.content.preferred_sources,
+            self.PAGE_SIZE,
+            self._reference_generation,
+        )
+
     async def _handle_search_result(self, page: Any) -> None:
         if not isinstance(page, SearchPage) or page.request_id != self._request_id:
             return
         self.state.results = list(page.results)
+        pending_cache_key = self._pending_search_cache_key
+        if pending_cache_key is not None and pending_cache_key[0] == page.request_id:
+            self.state.loaded_key = pending_cache_key[1]
+            self._pending_search_cache_key = None
+        self._selected_variant_id = self.state.variant_id
         if (
             self.state.selected_id is not None
             and self.state.selected_id.startswith("group:")
@@ -1390,19 +1483,50 @@ class BrowserApp(App[None]):
         elif self._category_transition:
             self.navigation_history.restore_history_state(self._navigation_state())
             self._category_transition = False
+        started = self._category_profile_started
+        if (
+            self.profiler is not None
+            and started is not None
+            and started[0] == page.request_id
+        ):
+            self.profiler.record(
+                f"category_total.{started[1].value}",
+                (time.perf_counter() - started[2]) * 1000,
+            )
+            self._category_profile_started = None
 
     async def _handle_page_result(self, page: Any) -> None:
         if not isinstance(page, SearchPage) or page.request_id != self._request_id:
             return
         existing = {summary.identity for summary in self.state.results}
-        self.state.results.extend(
+        new_results = tuple(
             summary for summary in page.results if summary.identity not in existing
         )
+        self.state.results.extend(new_results)
         self.state.total_count = page.total_count
         self._page_loading = False
-        await self._populate_results(preserve_index=True)
+        result_list = self._query_widget("#result-list", ListView)
+        started = time.perf_counter()
+        rows = [ResultRow(summary) for summary in new_results]
+        if self.profiler is not None:
+            self.profiler.record(
+                f"category_widget_create.{self.category.value}",
+                (time.perf_counter() - started) * 1000,
+            )
+        started = time.perf_counter()
+        await result_list.extend(rows)
+        if self.profiler is not None:
+            self.profiler.record(
+                f"category_mount_render.{self.category.value}",
+                (time.perf_counter() - started) * 1000,
+            )
+        self._query_widget("#result-count", Label).update(
+            f"{self.state.total_count} result" + ("s" if self.state.total_count != 1 else "")
+        )
 
     async def _populate_results(self, *, preserve_index: bool = False) -> None:
+        category = self.category
+        started_total = time.perf_counter()
         result_list = self._query_widget("#result-list", ListView)
         index = self.state.list_index if preserve_index else 0
         if not preserve_index and self.state.selected_id is not None:
@@ -1415,7 +1539,20 @@ class BrowserApp(App[None]):
                 index,
             )
         await result_list.clear()
-        await result_list.extend(ResultRow(summary) for summary in self.state.results)
+        started = time.perf_counter()
+        rows = [ResultRow(summary) for summary in self.state.results]
+        if self.profiler is not None:
+            self.profiler.record(
+                f"category_widget_create.{category.value}",
+                (time.perf_counter() - started) * 1000,
+            )
+        started = time.perf_counter()
+        await result_list.extend(rows)
+        if self.profiler is not None:
+            self.profiler.record(
+                f"category_mount_render.{category.value}",
+                (time.perf_counter() - started) * 1000,
+            )
         self._query_widget("#result-count", Label).update(
             f"{self.state.total_count} result" + ("s" if self.state.total_count != 1 else "")
         )
@@ -1436,6 +1573,11 @@ class BrowserApp(App[None]):
         if self.state.results:
             result_list.index = min(index, len(self.state.results) - 1)
             self._mark_selected_row()
+        if self.profiler is not None:
+            self.profiler.record(
+                f"category_render.{category.value}",
+                (time.perf_counter() - started_total) * 1000,
+            )
 
     def _restore_selection(self) -> None:
         if self._restoring_history:
@@ -1552,6 +1694,7 @@ class BrowserApp(App[None]):
 
     def _load_variant_identity(self, identity: str) -> None:
         self._selected_variant_id = identity
+        self.state.variant_id = identity
         self._clear_image()
         self._detail_request_id += 1
         detail_request_id = self._detail_request_id
@@ -1595,26 +1738,71 @@ class BrowserApp(App[None]):
     def _load_detail_bundle(
         self, identity: str
     ) -> tuple[EntryDetail | None, tuple[ReferenceTarget, ...]]:
+        profile = (
+            self.profiler.operation("detail_bundle")
+            if self.profiler is not None
+            else nullcontext()
+        )
+        with profile:
+            return self._load_detail_bundle_impl(identity)
+
+    def _load_detail_bundle_impl(
+        self, identity: str
+    ) -> tuple[EntryDetail | None, tuple[ReferenceTarget, ...]]:
         detail = self.search_service.get_entry_detail(identity)
         if detail is None:
             return detail, ()
         edition = str(detail.fields.get("edition")) if detail.fields.get("edition") else None
+        references: list[ReferenceTarget] = list(
+            self.cross_references.structured_references(identity)
+        )
         if detail.category is SearchCategory.FEATS:
-            return detail, self.cross_references.explicit_feat_prerequisite_references(
+            references.extend(self.cross_references.explicit_feat_prerequisite_references(
                 str(detail.fields.get("prerequisite"))
                 if detail.fields.get("prerequisite")
                 else None,
                 edition,
+            ))
+        if detail.category in {
+            SearchCategory.ITEMS, SearchCategory.SPELLS, SearchCategory.FEATS,
+            SearchCategory.CLASSES, SearchCategory.SUBCLASSES, SearchCategory.MONSTERS,
+        }:
+            texts = [detail.description]
+            texts.extend(section.body for section in detail.sections)
+            texts.extend(
+                str(feature.get("description", ""))
+                for feature in detail.fields.get("features") or ()
             )
-        if detail.category is not SearchCategory.MONSTERS:
-            return detail, ()
-        abilities = detail.fields.get("abilities_and_actions") or ()
-        descriptions = tuple(
-            str(ability.get("description", ""))
-            for ability in abilities
-            if ability.get("section") in {"spellcasting", "innate_spellcasting"}
+            for subclass in detail.fields.get("subclasses") or ():
+                texts.append(str(subclass.get("introduction", "")))
+                texts.extend(
+                    str(feature.get("description", ""))
+                    for feature in subclass.get("features") or ()
+                )
+            texts.extend(
+                str(ability.get("description", ""))
+                for ability in detail.fields.get("abilities_and_actions") or ()
+            )
+            references.extend(self.cross_references.explicit_condition_references(
+                "\n".join(texts), edition
+            ))
+            references.extend(self.cross_references.explicit_rule_references(
+                "\n".join(texts), edition
+            ))
+        if detail.category is SearchCategory.MONSTERS:
+            abilities = detail.fields.get("abilities_and_actions") or ()
+            descriptions = tuple(
+                str(ability.get("description", ""))
+                for ability in abilities
+                if ability.get("section") in {"spellcasting", "innate_spellcasting"}
+            )
+            references.extend(
+                self.cross_references.monster_spell_references(descriptions, edition)
+            )
+        unique = {reference.identity: reference for reference in references}
+        return detail, tuple(
+            sorted(unique.values(), key=lambda ref: (ref.category.value, ref.name.casefold()))
         )
-        return detail, self.cross_references.monster_spell_references(descriptions, edition)
 
     async def _render_detail(self, detail: EntryDetail) -> None:
         history_state = self.navigation_history.current
@@ -1643,10 +1831,16 @@ class BrowserApp(App[None]):
             class_detail.display = False
             detail_copy.display = True
             detail_copy.update(render_detail(detail))
-        favorite = self.personal_data.is_favorite(detail.identity)
-        collections = self.personal_data.collections_for(detail.identity)
-        tags = self.personal_data.tags_for(detail.identity)
-        note = self.personal_data.note_for(detail.identity)
+        profile = (
+            self.profiler.operation("personal_metadata")
+            if self.profiler is not None
+            else nullcontext()
+        )
+        with profile:
+            favorite = self.personal_data.is_favorite(detail.identity)
+            collections = self.personal_data.collections_for(detail.identity)
+            tags = self.personal_data.tags_for(detail.identity)
+            note = self.personal_data.note_for(detail.identity)
         personal = "Personal\n" + ("★ Favorite" if favorite else "☆ Not favorite")
         personal += "\nCollections: " + (", ".join(collections) if collections else "None")
         personal += "\nTags: " + (", ".join(tags) if tags else "None")
@@ -1694,6 +1888,19 @@ class BrowserApp(App[None]):
             SearchCategory.SUBCLASSES: "Parent Class",
             SearchCategory.FEATS: "Feats",
         }.get(detail.category, "Spells")
+        if self._related_targets and all(
+            target.category is SearchCategory.CONDITIONS for target in self._related_targets
+        ):
+            title = "Conditions"
+        elif self._related_targets and all(
+            target.category is SearchCategory.RULES for target in self._related_targets
+        ):
+            title = "Rules"
+        elif self._related_targets and any(
+            target.category in {SearchCategory.CONDITIONS, SearchCategory.RULES}
+            for target in self._related_targets
+        ):
+            title = "Conditions and Rules"
         heading.update(f"Related Content · {title}")
         for target in targets:
             edition = display_edition(target.edition) or "Unknown edition"
@@ -1765,6 +1972,9 @@ class BrowserApp(App[None]):
         self._history_restore_detail_id = target.identity
         self._restoring_history = True
         self.navigation_history.navigate_to(self._navigation_state(target.identity))
+        self._category_profile_started = (
+            self._request_id + 1, self.category, time.perf_counter()
+        )
         self._update_input_from_state()
         self._refresh_filter_options()
         self._update_filter_status()
@@ -1776,7 +1986,7 @@ class BrowserApp(App[None]):
         self._query_widget("#detail-copy", Markdown).update("Loading details…")
         self._query_widget("#detail-scroll", VerticalScroll).scroll_home()
         self._invalidate_search()
-        self._queue_search()
+        self._start_search(self._request_id)
         self._load_variant_identity(target.identity)
 
     def _navigation_state(
@@ -1825,6 +2035,9 @@ class BrowserApp(App[None]):
         self.navigation_history.navigate_to(self._navigation_state())
 
     def _restore_navigation_state(self, state: NavigationState) -> None:
+        self._category_profile_started = (
+            self._request_id + 1, state.category, time.perf_counter()
+        )
         self.category = state.category
         self.mode = SearchMode(state.mode)
         category_state = self.state
@@ -1836,6 +2049,7 @@ class BrowserApp(App[None]):
         category_state.creature_type = state.creature_type
         category_state.size = state.size
         category_state.selected_id = state.selected_id
+        category_state.variant_id = state.variant_id
         category_state.list_index = state.list_index
         category_state.list_scroll = state.list_scroll
         category_state.detail_scroll = state.detail_scroll
@@ -1857,7 +2071,8 @@ class BrowserApp(App[None]):
         self._update_filter_status()
         self._update_layout(self.size.width, self.size.height)
         self._invalidate_search()
-        self._queue_search()
+        self._selected_variant_id = category_state.variant_id
+        self._start_search(self._request_id)
         self._query_widget("#detail-scroll", VerticalScroll).scroll_y = state.detail_scroll
         self._query_widget("#result-list", ListView).scroll_y = state.list_scroll
         if state.detail_id:
@@ -2174,23 +2389,30 @@ class BrowserApp(App[None]):
             self._updating_input = False
         self._query_widget("#mode-label", Label).update(self._mode_label())
 
-    def _switch_category(self, category: SearchCategory) -> None:
+    def _switch_category(
+        self, category: SearchCategory, *, start_search: bool = True
+    ) -> None:
         if category is self.category:
             return
         self._commit_current_location()
+        self.state.variant_id = self._selected_variant_id
         self.state.detail_scroll = self._query_widget("#detail-scroll", VerticalScroll).scroll_y
         self._current_detail = None
         self.personal_view = None
         self.personal_collection_id = None
         self._clear_image()
         self.category = category
+        self._selected_variant_id = self.state.variant_id
+        self._category_profile_started = (self._request_id + 1, category, time.perf_counter())
         self._category_transition = True
         self.narrow_detail_open = False
         self._update_input_from_state()
         self._refresh_filter_options()
         self._update_tab_styles()
         self._invalidate_search()
-        self._queue_search()
+        self._selected_variant_id = self.state.variant_id
+        if start_search:
+            self._start_search(self._request_id)
 
     def _update_tab_styles(self) -> None:
         for category in self.CATEGORIES:
@@ -2385,9 +2607,14 @@ def render_detail(detail: EntryDetail) -> str:
         return render_subclass_detail(detail)
     if detail.category is SearchCategory.MONSTERS:
         return render_monster_detail(detail)
+    detail_type = {
+        SearchCategory.CONDITIONS: "Condition",
+        SearchCategory.RULES: "Rule",
+    }.get(detail.category, detail.category.value.title())
     output = [
         f"# {detail.name}",
-        f"*{detail.category.value.title()} · {detail.dataset_title} · {detail.source_label}*\n",
+        f"*{detail_type} · "
+        f"{fields.get('edition') or 'Unknown edition'} · {detail.source_label}*\n",
     ]
     if detail.category is SearchCategory.SPELLS:
         components = [
@@ -2480,6 +2707,9 @@ def render_detail(detail: EntryDetail) -> str:
                 f"\n{detail.description}\n",
             ]
         )
+    elif detail.category in {SearchCategory.CONDITIONS, SearchCategory.RULES}:
+        output.append(_field("Section", fields.get("section")))
+        output.append(f"\n{detail.description}\n")
     for section in detail.sections:
         output.append(_section_markdown(section))
     output.append(f"\n**Source:** {detail.source_label} · {detail.dataset_title}\n")

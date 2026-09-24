@@ -28,6 +28,7 @@
     "minimum_level": 4,
     "name": "Abjuration Adept",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -55,6 +56,12 @@
     "minimum_level": null,
     "name": "Arcane Artist",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -82,6 +89,7 @@
     "minimum_level": null,
     "name": "Arcane Eloquence",
     "prerequisite": null,
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -109,6 +117,16 @@
     "minimum_level": null,
     "name": "Arcane Infiltrator",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -136,6 +154,12 @@
     "minimum_level": null,
     "name": "Arcane Omens",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -163,6 +187,12 @@
     "minimum_level": null,
     "name": "Arcane Overload",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -190,6 +220,16 @@
     "minimum_level": null,
     "name": "Arcane Safeguard",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/help-1dba7b0157"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -223,6 +263,16 @@
     "minimum_level": null,
     "name": "Arcane Undertaker",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/help-1dba7b0157"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -237,6 +287,7 @@
     "minimum_level": null,
     "name": "Arcane Warrior",
     "prerequisite": "Feature: Fighting Style",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -264,6 +315,20 @@
     "minimum_level": 19,
     "name": "Boon of Erupting Spellpower",
     "prerequisite": "Level 19+; Spellcasting or Pact Magic feature",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -297,6 +362,12 @@
     "minimum_level": 19,
     "name": "Boon of Magic School Mastery",
     "prerequisite": "Level 19+; Spellcasting or Pact Magic feature",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": true,
     "sections": [],
     "source": "AU"
@@ -324,6 +395,20 @@
     "minimum_level": 19,
     "name": "Boon of the Iron Mind",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -357,6 +442,12 @@
     "minimum_level": 4,
     "name": "Conjuration Adept",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -390,6 +481,24 @@
     "minimum_level": 4,
     "name": "Divination Adept",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -429,6 +538,12 @@
     "minimum_level": 4,
     "name": "Elemental Familiar",
     "prerequisite": "Level 4+; Feat: familiar friend",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -462,6 +577,7 @@
     "minimum_level": 4,
     "name": "Enchantment Adept",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -495,6 +611,7 @@
     "minimum_level": 4,
     "name": "Evocation Adept",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -528,6 +645,16 @@
     "minimum_level": null,
     "name": "Familiar Friend",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -561,6 +688,12 @@
     "minimum_level": 4,
     "name": "Illusion Adept",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -594,6 +727,12 @@
     "minimum_level": 4,
     "name": "Magic Connoisseur",
     "prerequisite": "Level 4+; Feat: magic initiate",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -627,6 +766,7 @@
     "minimum_level": 4,
     "name": "Necromancy Adept",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -666,6 +806,12 @@
     "minimum_level": 4,
     "name": "Otherworldly Familiar",
     "prerequisite": "Level 4+; Feat: familiar friend",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -693,6 +839,12 @@
     "minimum_level": null,
     "name": "Portal Jumper",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -720,6 +872,7 @@
     "minimum_level": 4,
     "name": "Soothing Familiar",
     "prerequisite": "Level 4+; Feat: familiar friend",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -753,6 +906,12 @@
     "minimum_level": 4,
     "name": "Spell Resistant",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -786,6 +945,28 @@
     "minimum_level": 4,
     "name": "Spell Subterfuge",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -819,6 +1000,7 @@
     "minimum_level": 4,
     "name": "Transmutation Adept",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -846,6 +1028,16 @@
     "minimum_level": null,
     "name": "Transmuted Anatomy",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -879,6 +1071,12 @@
     "minimum_level": 4,
     "name": "Warlike Familiar",
     "prerequisite": "Level 4+; Feat: familiar friend",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "AU"
@@ -912,6 +1110,16 @@
     "minimum_level": null,
     "name": "Aberrant Dragonmark",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -939,6 +1147,16 @@
     "minimum_level": 19,
     "name": "Boon of Siberys",
     "prerequisite": "Level 19+; Campaign: Eberron",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -972,6 +1190,16 @@
     "minimum_level": 4,
     "name": "Greater Aberrant Mark",
     "prerequisite": "Level 4+; Feat: aberrant dragonmark",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1005,6 +1233,7 @@
     "minimum_level": 4,
     "name": "Greater Mark of Detection",
     "prerequisite": "Level 4+; Feat: mark of detection",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1038,6 +1267,12 @@
     "minimum_level": 4,
     "name": "Greater Mark of Finding",
     "prerequisite": "Level 4+; Feat: mark of finding",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1077,6 +1312,16 @@
     "minimum_level": 4,
     "name": "Greater Mark of Handling",
     "prerequisite": "Level 4+; Feat: mark of handling",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1110,6 +1355,12 @@
     "minimum_level": 4,
     "name": "Greater Mark of Healing",
     "prerequisite": "Level 4+; Feat: mark of healing",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1143,6 +1394,16 @@
     "minimum_level": 4,
     "name": "Greater Mark of Hospitality",
     "prerequisite": "Level 4+; Feat: mark of hospitality",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1176,6 +1437,7 @@
     "minimum_level": 4,
     "name": "Greater Mark of Making",
     "prerequisite": "Level 4+; Feat: mark of making",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1209,6 +1471,7 @@
     "minimum_level": 4,
     "name": "Greater Mark of Passage",
     "prerequisite": "Level 4+; Feat: mark of passage",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1242,6 +1505,12 @@
     "minimum_level": 4,
     "name": "Greater Mark of Scribing",
     "prerequisite": "Level 4+; Feat: mark of scribing",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1275,6 +1544,7 @@
     "minimum_level": 4,
     "name": "Greater Mark of Sentinel",
     "prerequisite": "Level 4+; Feat: mark of sentinel",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1308,6 +1578,7 @@
     "minimum_level": 4,
     "name": "Greater Mark of Shadow",
     "prerequisite": "Level 4+; Feat: mark of shadow",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1341,6 +1612,7 @@
     "minimum_level": 4,
     "name": "Greater Mark of Storm",
     "prerequisite": "Level 4+; Feat: mark of storm",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1374,6 +1646,16 @@
     "minimum_level": 4,
     "name": "Greater Mark of Warding",
     "prerequisite": "Level 4+; Feat: mark of warding",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1407,6 +1689,12 @@
     "minimum_level": null,
     "name": "Mark of Detection",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1440,6 +1728,12 @@
     "minimum_level": null,
     "name": "Mark of Finding",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1479,6 +1773,12 @@
     "minimum_level": null,
     "name": "Mark of Handling",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1512,6 +1812,12 @@
     "minimum_level": null,
     "name": "Mark of Healing",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1545,6 +1851,12 @@
     "minimum_level": null,
     "name": "Mark of Hospitality",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1578,6 +1890,12 @@
     "minimum_level": null,
     "name": "Mark of Making",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1617,6 +1935,12 @@
     "minimum_level": null,
     "name": "Mark of Passage",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1650,6 +1974,12 @@
     "minimum_level": null,
     "name": "Mark of Scribing",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1689,6 +2019,12 @@
     "minimum_level": null,
     "name": "Mark of Sentinel",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1722,6 +2058,12 @@
     "minimum_level": null,
     "name": "Mark of Shadow",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1761,6 +2103,12 @@
     "minimum_level": null,
     "name": "Mark of Storm",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1794,6 +2142,12 @@
     "minimum_level": null,
     "name": "Mark of Warding",
     "prerequisite": "Campaign: Eberron; No other Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1827,6 +2181,16 @@
     "minimum_level": 4,
     "name": "Potent Dragonmark",
     "prerequisite": "Level 4+; Has a Dragonmark feat",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "EFA"
@@ -1860,6 +2224,16 @@
     "minimum_level": 19,
     "name": "Boon of Bloodshed",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -1893,6 +2267,7 @@
     "minimum_level": 19,
     "name": "Boon of Bountiful Health",
     "prerequisite": "Level 19+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -1932,6 +2307,12 @@
     "minimum_level": 19,
     "name": "Boon of Communication",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -1959,6 +2340,12 @@
     "minimum_level": 19,
     "name": "Boon of Desperate Resilience",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -1992,6 +2379,12 @@
     "minimum_level": 19,
     "name": "Boon of Exquisite Radiance",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2025,6 +2418,12 @@
     "minimum_level": 19,
     "name": "Boon of Fluid Forms",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2052,6 +2451,7 @@
     "minimum_level": 19,
     "name": "Boon of Fortune's Favor",
     "prerequisite": "Level 19+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2085,6 +2485,12 @@
     "minimum_level": 19,
     "name": "Boon of Poison Mastery",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2118,6 +2524,20 @@
     "minimum_level": 19,
     "name": "Boon of Revelry",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2157,6 +2577,24 @@
     "minimum_level": 19,
     "name": "Boon of Terror",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2190,6 +2628,12 @@
     "minimum_level": 19,
     "name": "Boon of the Bright Sun",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2223,6 +2667,16 @@
     "minimum_level": 19,
     "name": "Boon of the Furious Storm",
     "prerequisite": "Level 19+; Spellcasting or Pact Magic feature",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2256,6 +2710,16 @@
     "minimum_level": 19,
     "name": "Boon of the Soul Drinker",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2289,6 +2753,7 @@
     "minimum_level": 4,
     "name": "Cold Caster",
     "prerequisite": "Level 4+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2322,6 +2787,20 @@
     "minimum_level": null,
     "name": "Cult of the Dragon Initiate",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2355,6 +2834,7 @@
     "minimum_level": 4,
     "name": "Dragonscarred",
     "prerequisite": "Level 4+; Feat: cult of the dragon initiate",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2382,6 +2862,20 @@
     "minimum_level": null,
     "name": "Emerald Enclave Fledgling",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/help-1dba7b0157"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2415,6 +2909,20 @@
     "minimum_level": 4,
     "name": "Enclave Magic",
     "prerequisite": "Level 4+; Feat: emerald enclave fledgling",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2448,6 +2956,20 @@
     "minimum_level": 4,
     "name": "Fairy Trickster",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2475,6 +2997,12 @@
     "minimum_level": 4,
     "name": "Genie Magic",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2508,6 +3036,12 @@
     "minimum_level": null,
     "name": "Harper Agent",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/help-1dba7b0157"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2541,6 +3075,24 @@
     "minimum_level": 4,
     "name": "Harper Teamwork",
     "prerequisite": "Level 4+; Feat: harper agent",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/help-1dba7b0157"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2568,6 +3120,32 @@
     "minimum_level": 4,
     "name": "Lordly Resolve",
     "prerequisite": "Level 4+; Feat: lords' alliance agent",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2595,6 +3173,12 @@
     "minimum_level": null,
     "name": "Lords' Alliance Agent",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2622,6 +3206,16 @@
     "minimum_level": 4,
     "name": "Mythal Touched",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2655,6 +3249,20 @@
     "minimum_level": 4,
     "name": "Order's Resilience",
     "prerequisite": "Level 4+; Feat: tyro of the gauntlet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2688,6 +3296,20 @@
     "minimum_level": 4,
     "name": "Purple Dragon Commandant",
     "prerequisite": "(Level 4+; Feat: purple dragon rook) OR (Proficiency: weaponGroup: martial)",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/bloodied-b1e89ef1ce"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2715,6 +3337,16 @@
     "minimum_level": null,
     "name": "Purple Dragon Rook",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2748,6 +3380,7 @@
     "minimum_level": 4,
     "name": "Spellfire Adept",
     "prerequisite": "(Level 4+; Feat: spellfire spark) OR (Feature: Spellcasting or Pact Magic)",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2775,6 +3408,16 @@
     "minimum_level": null,
     "name": "Spellfire Spark",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2814,6 +3457,20 @@
     "minimum_level": 4,
     "name": "Street Justice",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2841,6 +3498,20 @@
     "minimum_level": null,
     "name": "Tyro of the Gauntlet",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/ready-573b4f55a9"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2868,6 +3539,16 @@
     "minimum_level": null,
     "name": "Zhentarim Ruffian",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2901,6 +3582,16 @@
     "minimum_level": 4,
     "name": "Zhentarim Tactics",
     "prerequisite": "Level 4+; Feat: zhentarim ruffian",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "FRHoF"
@@ -2934,6 +3625,16 @@
     "minimum_level": null,
     "name": "Aberrant Anatomy",
     "prerequisite": "Campaign: Ravenloft",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -2967,6 +3668,20 @@
     "minimum_level": null,
     "name": "Echoing Soul",
     "prerequisite": "Campaign: Ravenloft",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3000,6 +3715,24 @@
     "minimum_level": null,
     "name": "Gathered Whispers",
     "prerequisite": "Campaign: Ravenloft",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3033,6 +3766,24 @@
     "minimum_level": null,
     "name": "Living Shadow",
     "prerequisite": "Campaign: Ravenloft",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3066,6 +3817,24 @@
     "minimum_level": null,
     "name": "Mist Walker",
     "prerequisite": "Campaign: Ravenloft",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3093,6 +3862,20 @@
     "minimum_level": null,
     "name": "Second Skin",
     "prerequisite": "Campaign: Ravenloft",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3107,6 +3890,16 @@
     "minimum_level": null,
     "name": "Sharp Eye",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3134,6 +3927,20 @@
     "minimum_level": null,
     "name": "Survivor",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3173,6 +3980,20 @@
     "minimum_level": null,
     "name": "Symbiotic Being",
     "prerequisite": "Campaign: Ravenloft",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3200,6 +4021,16 @@
     "minimum_level": null,
     "name": "Touch of Death",
     "prerequisite": "Campaign: Ravenloft",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/death-saving-throw-308dfd4f6c"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3233,6 +4064,20 @@
     "minimum_level": null,
     "name": "Watchers",
     "prerequisite": "Campaign: Ravenloft",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "RHW"
@@ -3260,6 +4105,7 @@
     "minimum_level": 4,
     "name": "Ability Score Improvement",
     "prerequisite": "Level 4+",
+    "references": [],
     "repeatable": true,
     "sections": [],
     "source": "XPHB"
@@ -3293,6 +4139,12 @@
     "minimum_level": 4,
     "name": "Actor",
     "prerequisite": "Level 4+; Charisma 13+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3320,6 +4172,12 @@
     "minimum_level": null,
     "name": "Alert",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3334,6 +4192,7 @@
     "minimum_level": null,
     "name": "Archery",
     "prerequisite": "Feature: Fighting Style",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3373,6 +4232,12 @@
     "minimum_level": 4,
     "name": "Athlete",
     "prerequisite": "(Level 4+; Strength 13+) OR (Level 4+; Dexterity 13+)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3387,6 +4252,7 @@
     "minimum_level": null,
     "name": "Blessed Warrior",
     "prerequisite": "When Gaining the Level 2 Paladin \"Fighting Style\" Feature",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3401,6 +4267,7 @@
     "minimum_level": null,
     "name": "Blind Fighting",
     "prerequisite": "Feature: Fighting Style",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3428,6 +4295,7 @@
     "minimum_level": 19,
     "name": "Boon of Combat Prowess",
     "prerequisite": "Level 19+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3455,6 +4323,7 @@
     "minimum_level": 19,
     "name": "Boon of Dimensional Travel",
     "prerequisite": "Level 19+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3488,6 +4357,16 @@
     "minimum_level": 19,
     "name": "Boon of Energy Resistance",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3515,6 +4394,20 @@
     "minimum_level": 19,
     "name": "Boon of Fate",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3542,6 +4435,7 @@
     "minimum_level": 19,
     "name": "Boon of Fortitude",
     "prerequisite": "Level 19+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3575,6 +4469,7 @@
     "minimum_level": 19,
     "name": "Boon of Irresistible Offense",
     "prerequisite": "Level 19+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3608,6 +4503,12 @@
     "minimum_level": 19,
     "name": "Boon of Recovery",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3641,6 +4542,7 @@
     "minimum_level": 19,
     "name": "Boon of Skill",
     "prerequisite": "Level 19+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3674,6 +4576,12 @@
     "minimum_level": 19,
     "name": "Boon of Speed",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3701,6 +4609,7 @@
     "minimum_level": 19,
     "name": "Boon of Spell Recall",
     "prerequisite": "Level 19+; Spellcasting or Pact Magic feature",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3734,6 +4643,12 @@
     "minimum_level": 19,
     "name": "Boon of the Night Spirit",
     "prerequisite": "Level 19+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3761,6 +4676,7 @@
     "minimum_level": 19,
     "name": "Boon of Truesight",
     "prerequisite": "Level 19+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3794,6 +4710,12 @@
     "minimum_level": 4,
     "name": "Charger",
     "prerequisite": "(Level 4+; Strength 13+) OR (Level 4+; Dexterity 13+)",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3833,6 +4755,16 @@
     "minimum_level": 4,
     "name": "Chef",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3866,6 +4798,12 @@
     "minimum_level": null,
     "name": "Crafter",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3905,6 +4843,12 @@
     "minimum_level": 4,
     "name": "Crossbow Expert",
     "prerequisite": "Level 4+; Dexterity 13+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3938,6 +4882,12 @@
     "minimum_level": 4,
     "name": "Crusher",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3952,6 +4902,7 @@
     "minimum_level": null,
     "name": "Defense",
     "prerequisite": "Feature: Fighting Style",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3979,6 +4930,7 @@
     "minimum_level": 4,
     "name": "Defensive Duelist",
     "prerequisite": "Level 4+; Dexterity 13+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -3993,6 +4945,7 @@
     "minimum_level": null,
     "name": "Druidic Warrior",
     "prerequisite": "When Gaining the Level 2 Ranger \"Fighting Style\" Feature",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4026,6 +4979,7 @@
     "minimum_level": 4,
     "name": "Dual Wielder",
     "prerequisite": "(Level 4+; Strength 13+) OR (Level 4+; Dexterity 13+)",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4040,6 +4994,7 @@
     "minimum_level": null,
     "name": "Dueling",
     "prerequisite": "Feature: Fighting Style",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4073,6 +5028,16 @@
     "minimum_level": 4,
     "name": "Durable",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/death-saving-throw-308dfd4f6c"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4106,6 +5071,7 @@
     "minimum_level": 4,
     "name": "Elemental Adept",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [],
     "repeatable": true,
     "sections": [],
     "source": "XPHB"
@@ -4133,6 +5099,12 @@
     "minimum_level": 4,
     "name": "Fey-Touched",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4172,6 +5144,16 @@
     "minimum_level": 4,
     "name": "Grappler",
     "prerequisite": "(Level 4+; Strength 13+) OR (Level 4+; Dexterity 13+)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4186,6 +5168,7 @@
     "minimum_level": null,
     "name": "Great Weapon Fighting",
     "prerequisite": "Feature: Fighting Style",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4219,6 +5202,7 @@
     "minimum_level": 4,
     "name": "Great Weapon Master",
     "prerequisite": "Level 4+; Strength 13+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4246,6 +5230,7 @@
     "minimum_level": null,
     "name": "Healer",
     "prerequisite": null,
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4273,6 +5258,7 @@
     "minimum_level": 4,
     "name": "Heavily Armored",
     "prerequisite": "Level 4+; Proficiency: armor: medium",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4300,6 +5286,7 @@
     "minimum_level": 4,
     "name": "Heavy Armor Master",
     "prerequisite": "Level 4+; Proficiency: armor: heavy",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4327,6 +5314,16 @@
     "minimum_level": 4,
     "name": "Inspiring Leader",
     "prerequisite": "(Level 4+; Wisdom 13+) OR (Level 4+; Charisma 13+)",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4341,6 +5338,7 @@
     "minimum_level": null,
     "name": "Interception",
     "prerequisite": "Feature: Fighting Style",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4374,6 +5372,7 @@
     "minimum_level": 4,
     "name": "Keen Mind",
     "prerequisite": "Level 4+; Intelligence 13+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4401,6 +5400,7 @@
     "minimum_level": 4,
     "name": "Lightly Armored",
     "prerequisite": "Level 4+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4434,6 +5434,24 @@
     "minimum_level": null,
     "name": "Lucky",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4467,6 +5485,24 @@
     "minimum_level": 4,
     "name": "Mage Slayer",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4506,6 +5542,12 @@
     "minimum_level": null,
     "name": "Magic Initiate",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": true,
     "sections": [],
     "source": "XPHB"
@@ -4533,6 +5575,7 @@
     "minimum_level": 4,
     "name": "Martial Weapon Training",
     "prerequisite": "Level 4+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4560,6 +5603,7 @@
     "minimum_level": 4,
     "name": "Medium Armor Master",
     "prerequisite": "Level 4+; Proficiency: armor: medium",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4587,6 +5631,7 @@
     "minimum_level": 4,
     "name": "Moderately Armored",
     "prerequisite": "Level 4+; Proficiency: armor: light",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4626,6 +5671,16 @@
     "minimum_level": 4,
     "name": "Mounted Combatant",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4653,6 +5708,16 @@
     "minimum_level": null,
     "name": "Musician",
     "prerequisite": null,
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4686,6 +5751,7 @@
     "minimum_level": 4,
     "name": "Observant",
     "prerequisite": "(Level 4+; Intelligence 13+) OR (Level 4+; Wisdom 13+)",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4719,6 +5785,7 @@
     "minimum_level": 4,
     "name": "Piercer",
     "prerequisite": "Level 4+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4752,6 +5819,12 @@
     "minimum_level": 4,
     "name": "Poisoner",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4785,6 +5858,7 @@
     "minimum_level": 4,
     "name": "Polearm Master",
     "prerequisite": "(Level 4+; Strength 13+) OR (Level 4+; Dexterity 13+)",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4799,6 +5873,12 @@
     "minimum_level": null,
     "name": "Protection",
     "prerequisite": "Feature: Fighting Style",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4826,6 +5906,7 @@
     "minimum_level": 4,
     "name": "Resilient",
     "prerequisite": "Level 4+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4859,6 +5940,12 @@
     "minimum_level": 4,
     "name": "Ritual Caster",
     "prerequisite": "(Level 4+; Intelligence 13+) OR (Level 4+; Wisdom 13+) OR (Level 4+; Charisma 13+)",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4873,6 +5960,7 @@
     "minimum_level": null,
     "name": "Savage Attacker",
     "prerequisite": null,
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4906,6 +5994,12 @@
     "minimum_level": 4,
     "name": "Sentinel",
     "prerequisite": "(Level 4+; Strength 13+) OR (Level 4+; Dexterity 13+)",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4933,6 +6027,12 @@
     "minimum_level": 4,
     "name": "Shadow-Touched",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -4972,6 +6072,16 @@
     "minimum_level": 4,
     "name": "Sharpshooter",
     "prerequisite": "Level 4+; Dexterity 13+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5005,6 +6115,12 @@
     "minimum_level": 4,
     "name": "Shield Master",
     "prerequisite": "Level 4+; Proficiency: armor: shield",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5038,6 +6154,7 @@
     "minimum_level": 4,
     "name": "Skill Expert",
     "prerequisite": "Level 4+",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5059,6 +6176,7 @@
     "minimum_level": null,
     "name": "Skilled",
     "prerequisite": null,
+    "references": [],
     "repeatable": true,
     "sections": [],
     "source": "XPHB"
@@ -5098,6 +6216,16 @@
     "minimum_level": 4,
     "name": "Skulker",
     "prerequisite": "Level 4+; Dexterity 13+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5131,6 +6259,12 @@
     "minimum_level": 4,
     "name": "Slasher",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5170,6 +6304,24 @@
     "minimum_level": 4,
     "name": "Speedy",
     "prerequisite": "(Level 4+; Dexterity 13+) OR (Level 4+; Constitution 13+)",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5209,6 +6361,16 @@
     "minimum_level": 4,
     "name": "Spell Sniper",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5248,6 +6410,7 @@
     "minimum_level": null,
     "name": "Tavern Brawler",
     "prerequisite": null,
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5281,6 +6444,12 @@
     "minimum_level": 4,
     "name": "Telekinetic",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5314,6 +6483,12 @@
     "minimum_level": 4,
     "name": "Telepathic",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5328,6 +6503,7 @@
     "minimum_level": null,
     "name": "Thrown Weapon Fighting",
     "prerequisite": "Feature: Fighting Style",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5342,6 +6518,7 @@
     "minimum_level": null,
     "name": "Tough",
     "prerequisite": null,
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5356,6 +6533,7 @@
     "minimum_level": null,
     "name": "Two-Weapon Fighting",
     "prerequisite": "Feature: Fighting Style",
+    "references": [],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5370,6 +6548,12 @@
     "minimum_level": null,
     "name": "Unarmed Fighting",
     "prerequisite": "Feature: Fighting Style",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5409,6 +6593,20 @@
     "minimum_level": 4,
     "name": "War Caster",
     "prerequisite": "Level 4+; Spellcasting or Pact Magic feature",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"
@@ -5436,6 +6634,12 @@
     "minimum_level": 4,
     "name": "Weapon Master",
     "prerequisite": "Level 4+",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "repeatable": false,
     "sections": [],
     "source": "XPHB"

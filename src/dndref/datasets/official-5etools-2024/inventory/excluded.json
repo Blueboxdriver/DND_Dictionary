@@ -4128,6 +4128,126 @@
     "upstream_identity": "wild shape|druid|phb|2|phb"
   },
   {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Blinded",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "blinded|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Charmed",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "charmed|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Deafened",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "deafened|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Exhaustion",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "exhaustion|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Frightened",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "frightened|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Grappled",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "grappled|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Incapacitated",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "incapacitated|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Invisible",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "invisible|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Paralyzed",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "paralyzed|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Petrified",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "petrified|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Poisoned",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "poisoned|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Prone",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "prone|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Restrained",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "restrained|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Stunned",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "stunned|phb"
+  },
+  {
+    "category": "condition",
+    "conversion_status": "excluded",
+    "name": "Unconscious",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "unconscious|phb"
+  },
+  {
     "category": "feat",
     "conversion_status": "excluded",
     "name": "Aberrant Dragonmark",

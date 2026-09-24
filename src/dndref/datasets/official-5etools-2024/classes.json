@@ -518,6 +518,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Constitution, Intelligence",
     "sections": [],
     "skill_choices": "Choose 2: arcana, history, investigation, medicine, nature, perception, sleight of hand",
@@ -1394,6 +1395,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Strength, Constitution",
     "sections": [],
     "skill_choices": "Choose 2: animal handling, athletics, intimidation, nature, perception, survival",
@@ -2199,6 +2201,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Dexterity, Charisma",
     "sections": [],
     "skill_choices": "Choose any 3 skills",
@@ -3148,6 +3151,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Wisdom, Charisma",
     "sections": [],
     "skill_choices": "Choose 2: history, insight, medicine, persuasion, religion",
@@ -4193,6 +4197,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Intelligence, Wisdom",
     "sections": [],
     "skill_choices": "Choose 2: arcana, animal handling, insight, medicine, nature, perception, religion, survival",
@@ -4860,6 +4865,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Strength, Constitution",
     "sections": [],
     "skill_choices": "Choose 2: acrobatics, animal handling, athletics, history, insight, intimidation, persuasion, perception, survival",
@@ -5800,6 +5806,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Strength, Dexterity",
     "sections": [],
     "skill_choices": "Choose 2: acrobatics, athletics, history, insight, religion, stealth",
@@ -6616,6 +6623,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Wisdom, Charisma",
     "sections": [],
     "skill_choices": "Choose 2: athletics, insight, intimidation, medicine, persuasion, religion",
@@ -7456,6 +7464,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Strength, Dexterity",
     "sections": [],
     "skill_choices": "Choose 3: animal handling, athletics, insight, investigation, nature, perception, stealth, survival",
@@ -8242,6 +8251,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Dexterity, Intelligence",
     "sections": [],
     "skill_choices": "Choose 4: acrobatics, athletics, deception, insight, intimidation, investigation, perception, persuasion, sleight of hand, stealth",
@@ -9223,6 +9233,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Constitution, Charisma",
     "sections": [
       {
@@ -10020,6 +10031,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Wisdom, Charisma",
     "sections": [
       {
@@ -10935,6 +10947,7 @@
         }
       ]
     },
+    "references": [],
     "saving_throw_proficiencies": "Intelligence, Wisdom",
     "sections": [],
     "skill_choices": "Choose 2: arcana, history, insight, investigation, medicine, nature, religion",

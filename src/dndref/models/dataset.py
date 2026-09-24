@@ -7,6 +7,7 @@ from typing import Literal
 from pydantic import AnyHttpUrl, Field, model_validator
 
 from .common import ContractModel, DatasetId, SourceMetadata, split_reference
+from .glossary import GlossaryEntry
 
 DATASET_SCHEMA_VERSION = "1.0"
 
@@ -55,6 +56,8 @@ class DatasetPack(ContractModel):
     feats: list["Feat"] = Field(default_factory=list)
     classes: list["CharacterClass"] = Field(default_factory=list)
     monsters: list["Monster"] = Field(default_factory=list)
+    conditions: list[GlossaryEntry] = Field(default_factory=list)
+    rules: list[GlossaryEntry] = Field(default_factory=list)
 
 
 class DatasetValidationError(ValueError):
@@ -87,6 +90,8 @@ def validate_dataset(pack: DatasetPack) -> DatasetPack:
         "feats.json": pack.feats,
         "classes.json": pack.classes,
         "monsters.json": pack.monsters,
+        "conditions.json": pack.conditions,
+        "rules.json": pack.rules,
     }
     all_keys: dict[str, str] = {}
     category_keys: dict[str, set[str]] = {}
@@ -119,6 +124,49 @@ def validate_dataset(pack: DatasetPack) -> DatasetPack:
             errors.append(
                 f"monsters.json[{index}].source: monster source requires a canonical edition"
             )
+
+    for filename, entries in (("conditions.json", pack.conditions), ("rules.json", pack.rules)):
+        for index, entry in enumerate(entries):
+            edition = source_editions.get(entry.source)
+            if edition not in {"2014", "2024"}:
+                errors.append(
+                    f"{filename}[{index}].source: "
+                    f"{filename[:-5]} source requires a canonical edition"
+                )
+
+    glossary_keys = {
+        "condition": {entry.local_key: entry for entry in pack.conditions},
+        "rule": {entry.local_key: entry for entry in pack.rules},
+    }
+    for filename, entries in (
+        ("items.json", pack.items.items),
+        ("spells.json", pack.spells),
+        ("feats.json", pack.feats),
+        ("classes.json", pack.classes),
+        ("monsters.json", pack.monsters),
+        ("conditions.json", pack.conditions),
+        ("rules.json", pack.rules),
+    ):
+        for index, entry in enumerate(entries):
+            seen_references: set[tuple[str, str]] = set()
+            for reference_index, reference in enumerate(entry.references):
+                token = (reference.content_type, reference.target_key)
+                if token in seen_references:
+                    errors.append(
+                        f"{filename}[{index}].references[{reference_index}]: duplicate reference"
+                    )
+                seen_references.add(token)
+                target = glossary_keys[reference.content_type].get(reference.target_key)
+                if target is None:
+                    errors.append(
+                        f"{filename}[{index}].references[{reference_index}]: "
+                        f"unknown {reference.content_type} target '{reference.target_key}'"
+                    )
+                elif source_editions.get(entry.source) != source_editions.get(target.source):
+                    errors.append(
+                        f"{filename}[{index}].references[{reference_index}]: "
+                        "target must have the same canonical edition"
+                    )
 
     property_keys = {property_definition.key for property_definition in pack.items.properties}
     for index, item in enumerate(pack.items.items):

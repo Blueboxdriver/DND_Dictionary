@@ -59,7 +59,7 @@ main keyboard controls:
 | `Ctrl+K` | Universal Search across reference categories |
 | `Ctrl+P` | Command Palette for commands and direct record lookup |
 | `F2` | Toggle Names / All text search |
-| `1`–`6` | Items / Spells / Feats / Classes / Subclasses / Monsters |
+| `1`–`8` | Items / Spells / Feats / Classes / Subclasses / Monsters / Conditions / Rules |
 | `e`, `s` | Edition / source filter |
 | `f` | Parent class filter while browsing Subclasses |
 | `c`, `t`, `z` | CR / creature type / size filter while browsing Monsters |
@@ -91,8 +91,8 @@ shown variant. The sourcebook browser (`b`) shows installed books and their
 category counts.
 
 Universal Search (`Ctrl+K`) keeps category browsing intact and searches Items,
-Spells, Feats, Classes, Subclasses, and Monsters together. It supports `item:`,
-`spell:`, `feat:`, `class:`, `subclass:`, `monster:`, `edition:`, and `source:`
+Spells, Feats, Classes, Subclasses, Monsters, Conditions, and Rules together. It supports `item:`,
+`spell:`, `feat:`, `class:`, `subclass:`, `monster:`, `condition:`, `rule:`, `edition:`, and `source:`
 prefixes. For example:
 
 ```text
@@ -100,6 +100,8 @@ fireball
 spell:fireball
 monster:dragon edition:2024
 source:XMM dragon
+condition:prone
+rule:cover
 ```
 
 Results include category, edition, and source and retain separate records for
@@ -108,8 +110,8 @@ user-owned SQLite database, capped at 25, and cleared with `Ctrl+L` from
 Universal Search. Opening a result puts Universal Search into ordinary
 Back/Forward history with its query and selected result.
 
-The Command Palette (`Ctrl+P`) exposes the existing category browsers,
-Favorites, Collections, Recently Viewed, Sources, Universal Search, Back,
+The Command Palette (`Ctrl+P`) exposes the existing category browsers, including
+Open Conditions and Open Rules, Favorites, Collections, Recently Viewed, Sources, Universal Search, Back,
 Forward, Toggle Images, Help, image instructions, and Quit. It also searches
 reference record names and opens the selected stable entry ID through normal
 navigation.
@@ -127,6 +129,14 @@ spellcasting fields, filtered to the monster's edition. Same-edition source
 variants open through a chooser. Class-to-subclass and subclass-to-parent links
 use stored relationships and stable entry IDs. Feat prerequisites link only
 references explicitly labeled `Feat:` when an exact same-edition feat exists.
+Conditions and Rules come from typed 5etools source references where available;
+condition fallback matching requires the exact condition name followed by
+“condition.” Rules links use a short allowlist of named mechanics. Both resolve
+only within the same canonical edition. The Rules list is a curated glossary,
+not a complete reproduction of either handbook. The bundled 2024 source
+provides 15 formal Conditions and 30 selected Rules, statuses, actions, and
+weapon mastery terms.
+
 `Alt+Left` and `Alt+Right` move
 through in-memory Back/Forward history; `r` opens the last 30 distinct records
 viewed in this session. Search text, filters, selected variants, list selection,

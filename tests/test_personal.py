@@ -37,14 +37,14 @@ def test_migration_005_upgrade_and_fresh_schema(tmp_path: Path) -> None:
     with old_database.connection() as db:
         before = db.execute("SELECT COUNT(*) FROM entries").fetchone()[0]
     database = Database(database_path)
-    assert database.initialize() == (6, 7)
+    assert database.initialize() == (6, 7, 8, 9)
     with database.connection() as db:
         assert db.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == before
         assert (
             db.execute(
                 "SELECT version FROM schema_migrations ORDER BY version DESC LIMIT 1"
             ).fetchone()[0]
-            == 7
+            == 9
         )
         assert db.execute("PRAGMA foreign_key_check").fetchall() == []
         tables = {row[0] for row in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}

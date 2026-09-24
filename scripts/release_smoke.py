@@ -198,14 +198,20 @@ def main() -> None:
             5,
             6,
             7,
+            8,
+            9,
         ]
-        assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 4036
-        assert connection.execute("SELECT COUNT(*) FROM entry_search").fetchone()[0] == 4036
+        assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 4081
+        assert connection.execute("SELECT COUNT(*) FROM entry_search").fetchone()[0] == 4081
         assert not connection.execute("PRAGMA foreign_key_check").fetchall()
     service = SearchService(database)
     assert service.search(SearchQuery("items", "Longsword")).total_count
     assert service.search(SearchQuery("spells", "Fireball")).total_count
+    assert service.search(SearchQuery("conditions")).total_count == 15
+    assert service.search(SearchQuery("rules")).total_count == 30
     assert service.search_all("spell:fireball").total_count
+    assert service.search_all("condition:prone").total_count == 1
+    assert service.search_all("rule:cover").total_count == 1
 
     for pack in ("srd-5.2.1", "official-5etools-2024"):
         with resources.as_file(resources.files("dndref").joinpath("datasets", pack)) as path:
@@ -232,7 +238,7 @@ def main() -> None:
         assert older.initialize() == (1, 2, 3)
         import_dataset(older, load_dataset(fixture_path))
         upgraded = Database(older.path)
-        assert upgraded.initialize() == (4, 5, 6, 7)
+        assert upgraded.initialize() == (4, 5, 6, 7, 8, 9)
         assert upgraded.initialize() == ()
         assert SearchService(upgraded).search(SearchQuery("items", "Rapier")).total_count
         with upgraded.connection() as connection:

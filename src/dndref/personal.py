@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import sqlite3
+from contextlib import nullcontext
 from dataclasses import dataclass
 
 from .search import EntryDetail
@@ -133,7 +134,12 @@ class PersonalDataService:
     def list_favorites(
         self, query: str = "", category: str | None = None, edition: str | None = None
     ) -> tuple[PersonalEntry, ...]:
-        with self.database.connection() as db:
+        profile = (
+            self.database.profiler.operation("personal.favorites")
+            if self.database.profiler is not None
+            else nullcontext()
+        )
+        with profile, self.database.connection() as db:
             rows = db.execute(
                 "SELECT entry_identity,kind,edition,entry_name,source_label FROM user_favorites "
                 "ORDER BY entry_name COLLATE NOCASE,entry_identity"
@@ -171,7 +177,12 @@ class PersonalDataService:
             db.commit()
 
     def list_collections(self) -> tuple[Collection, ...]:
-        with self.database.connection() as db:
+        profile = (
+            self.database.profiler.operation("personal.collections")
+            if self.database.profiler is not None
+            else nullcontext()
+        )
+        with profile, self.database.connection() as db:
             rows = db.execute(
                 "SELECT c.collection_id,c.name,c.description,COUNT(e.entry_identity) AS n "
                 "FROM user_collections c LEFT JOIN user_collection_entries e USING(collection_id) "
@@ -218,7 +229,12 @@ class PersonalDataService:
         edition: str | None = None,
         tag: str | None = None,
     ) -> tuple[PersonalEntry, ...]:
-        with self.database.connection() as db:
+        profile = (
+            self.database.profiler.operation("personal.collection_entries")
+            if self.database.profiler is not None
+            else nullcontext()
+        )
+        with profile, self.database.connection() as db:
             rows = db.execute(
                 "SELECT entry_identity,kind,edition,entry_name,source_label "
                 "FROM user_collection_entries "
@@ -316,27 +332,28 @@ class PersonalDataService:
         category: str | None,
         edition: str | None,
     ) -> tuple[PersonalEntry, ...]:
-        active = _active_entries(db)
-        identities = [str(row[0]) for row in rows]
-        if not identities:
+        if not rows:
             return ()
-        placeholders = ",".join("?" for _ in identities)
-        tag_rows = db.execute(
-            "SELECT et.entry_identity,t.display_name FROM user_entry_tags et "
-            "JOIN user_tags t USING(tag_id) "
-            f"WHERE et.entry_identity IN ({placeholders}) "
-            "ORDER BY t.normalized_name",
-            identities,
-        ).fetchall()
+        identities = [str(row[0]) for row in rows]
         tags_by_entry: dict[str, list[str]] = {}
-        for tag_row in tag_rows:
-            tags_by_entry.setdefault(str(tag_row[0]), []).append(str(tag_row[1]))
-        note_rows = db.execute(
-            "SELECT entry_identity,note_text FROM user_notes "
-            f"WHERE entry_identity IN ({placeholders})",
-            identities,
-        ).fetchall()
-        notes_by_entry = {str(note[0]): str(note[1]) for note in note_rows}
+        notes_by_entry: dict[str, str] = {}
+        for batch in _chunks(identities, 400):
+            placeholders = ",".join("?" for _ in batch)
+            for tag_row in db.execute(
+                "SELECT et.entry_identity,t.display_name FROM user_entry_tags et "
+                "JOIN user_tags t USING(tag_id) "
+                f"WHERE et.entry_identity IN ({placeholders}) "
+                "ORDER BY t.normalized_name",
+                batch,
+            ):
+                tags_by_entry.setdefault(str(tag_row[0]), []).append(str(tag_row[1]))
+            note_rows = db.execute(
+                "SELECT entry_identity,note_text FROM user_notes "
+                f"WHERE entry_identity IN ({placeholders})",
+                batch,
+            ).fetchall()
+            notes_by_entry.update({str(note[0]): str(note[1]) for note in note_rows})
+        active = _active_entries(db, identities)
         results = []
         for row in rows:
             identity = str(row[0])
@@ -386,37 +403,82 @@ def _note_text(db: sqlite3.Connection, identity: str) -> str:
     return str(row[0]) if row else ""
 
 
-def _active_entries(db: sqlite3.Connection) -> dict[str, tuple[str, str, str | None, str | None]]:
-    rows = db.execute(
-        "SELECT e.dataset_id||':'||e.local_key,e.name,e.kind,src.edition,src.title "
-        "FROM entries e JOIN sources src ON src.id=e.source_id"
-    ).fetchall()
+def _chunks(values: list[str], size: int):
+    for offset in range(0, len(values), size):
+        yield values[offset : offset + size]
+
+
+def _active_entries(
+    db: sqlite3.Connection, identities: list[str]
+) -> dict[str, tuple[str, str, str | None, str | None]]:
     category_names = {
         "item": "items",
         "spell": "spells",
         "feat": "feats",
         "class": "classes",
         "monster": "monsters",
+        "condition": "conditions",
+        "rule": "rules",
     }
-    result = {
-        str(r[0]): (
-            str(r[1]),
-            category_names.get(str(r[2]), str(r[2])),
-            str(r[3]) if r[3] else None,
-            str(r[4]),
+    direct: list[tuple[str, str]] = []
+    subclasses: list[tuple[str, str, str]] = []
+    for identity in identities:
+        dataset_id, separator, local_key = identity.partition(":")
+        if not separator:
+            continue
+        if ":subclass:" in identity:
+            parent_key, found_separator, subclass_key = local_key.removeprefix(
+                "subclass:"
+            ).partition(":")
+            if found_separator:
+                subclasses.append((dataset_id, parent_key, subclass_key))
+        else:
+            direct.append((dataset_id, local_key))
+
+    result: dict[str, tuple[str, str, str | None, str | None]] = {}
+    for offset in range(0, len(direct), 200):
+        pairs = direct[offset : offset + 200]
+        terms = " OR ".join("(e.dataset_id=? AND e.local_key=?)" for _ in pairs)
+        parameters = [part for pair in pairs for part in pair[:2]]
+        rows = db.execute(
+            "SELECT e.dataset_id||':'||e.local_key,e.name,e.kind,src.edition,src.title "
+            "FROM entries e JOIN sources src ON src.id=e.source_id WHERE " + terms,
+            parameters,
+        ).fetchall()
+        result.update(
+            {
+                str(row[0]): (
+                    str(row[1]),
+                    category_names.get(str(row[2]), str(row[2])),
+                    str(row[3]) if row[3] else None,
+                    str(row[4]),
+                )
+                for row in rows
+            }
         )
-        for r in rows
-    }
-    rows = db.execute(
-        "SELECT s.dataset_id||':subclass:'||parent.local_key||':'||s.subclass_key,"
-        "s.name,src.edition,src.title "
-        "FROM subclasses s JOIN entries parent ON parent.id=s.class_id "
-        "JOIN sources src ON src.id=s.source_id "
-        "JOIN sources ps ON ps.id=parent.source_id WHERE src.edition=ps.edition"
-    ).fetchall()
-    result.update(
-        {str(r[0]): (str(r[1]), "subclasses", str(r[2]) if r[2] else None, str(r[3])) for r in rows}
-    )
+    for offset in range(0, len(subclasses), 200):
+        batch = subclasses[offset : offset + 200]
+        terms = " OR ".join(
+            "(s.dataset_id=? AND parent.local_key=? AND s.subclass_key=?)" for _ in batch
+        )
+        parameters = [part for item in batch for part in item]
+        rows = db.execute(
+            "SELECT s.dataset_id||':subclass:'||parent.local_key||':'||s.subclass_key,"
+            "s.name,src.edition,src.title "
+            "FROM subclasses s JOIN entries parent ON parent.id=s.class_id "
+            "JOIN sources src ON src.id=s.source_id "
+            "JOIN sources ps ON ps.id=parent.source_id "
+            "WHERE src.edition=ps.edition AND (" + terms + ")",
+            parameters,
+        ).fetchall()
+        result.update(
+            {
+                str(row[0]): (
+                    str(row[1]), "subclasses", str(row[2]) if row[2] else None, str(row[3])
+                )
+                for row in rows
+            }
+        )
     return result
 
 

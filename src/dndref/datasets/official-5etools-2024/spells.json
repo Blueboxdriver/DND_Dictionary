@@ -21,6 +21,16 @@
     "local_key": "spell/au/aura-of-evasion-d9c24c5cec",
     "name": "Aura of Evasion",
     "range": "Self (30 feet emanation)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -48,6 +58,7 @@
     "local_key": "spell/au/battle-familiar-471a9786a6",
     "name": "Battle Familiar",
     "range": "10 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -76,6 +87,20 @@
     "local_key": "spell/au/catnap-d1fd8f5db0",
     "name": "Catnap",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -103,6 +128,12 @@
     "local_key": "spell/au/detonate-d65a6b7afc",
     "name": "Detonate",
     "range": "500 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -130,6 +161,16 @@
     "local_key": "spell/au/disruptive-tune-4c076535b6",
     "name": "Disruptive Tune",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -158,6 +199,12 @@
     "local_key": "spell/au/distorted-distance-68fc671f7c",
     "name": "Distorted Distance",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -191,6 +238,12 @@
     "local_key": "spell/au/dueling-ground-fc25fe1319",
     "name": "Dueling Ground",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "ritual": true,
     "school": "abjuration",
     "sections": [],
@@ -218,6 +271,12 @@
     "local_key": "spell/au/enervation-c959d55714",
     "name": "Enervation",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -246,6 +305,12 @@
     "local_key": "spell/au/entrancing-mirrors-132e91b568",
     "name": "Entrancing Mirrors",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -274,6 +339,12 @@
     "local_key": "spell/au/festering-blast-70ea03e6ee",
     "name": "Festering Blast",
     "range": "Self (60 feet line)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -302,6 +373,16 @@
     "local_key": "spell/au/fractured-awareness-dc668aa133",
     "name": "Fractured Awareness",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -329,6 +410,12 @@
     "local_key": "spell/au/grave-ground-927c1c8f02",
     "name": "Grave Ground",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -354,6 +441,7 @@
     "local_key": "spell/au/hindsight-7dc37600d1",
     "name": "Hindsight",
     "range": "500 feet",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -379,6 +467,16 @@
     "local_key": "spell/au/illusory-dragon-229b2366cf",
     "name": "Illusory Dragon",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -407,6 +505,16 @@
     "local_key": "spell/au/inflict-doubt-75871ec235",
     "name": "Inflict Doubt",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -432,6 +540,7 @@
     "local_key": "spell/au/invulnerability-52adad481b",
     "name": "Invulnerability",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -459,6 +568,24 @@
     "local_key": "spell/au/iron-body-c69cbf8d07",
     "name": "Iron Body",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -487,6 +614,12 @@
     "local_key": "spell/au/lightning-ring-3f8e6592a5",
     "name": "Lightning Ring",
     "range": "Self (10 feet emanation)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -512,6 +645,12 @@
     "local_key": "spell/au/moment-of-prescience-7ddf7f3772",
     "name": "Moment of Prescience",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -537,6 +676,7 @@
     "local_key": "spell/au/mordenkainens-lucubration-17f44ea2ba",
     "name": "Mordenkainen's Lucubration",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -563,6 +703,7 @@
     "local_key": "spell/au/negative-energy-flood-8cbd3aa25d",
     "name": "Negative Energy Flood",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -591,6 +732,20 @@
     "local_key": "spell/au/power-word-pain-c65f9ae3e7",
     "name": "Power Word Pain",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -619,6 +774,16 @@
     "local_key": "spell/au/reweave-fate-97d6e40e05",
     "name": "Reweave Fate",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -647,6 +812,12 @@
     "local_key": "spell/au/spirit-lantern-93e09ebbc0",
     "name": "Spirit Lantern",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -672,6 +843,12 @@
     "local_key": "spell/au/summon-dinosaur-bec2826311",
     "name": "Summon Dinosaur",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -698,6 +875,12 @@
     "local_key": "spell/au/summon-plant-741fa123bc",
     "name": "Summon Plant",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -725,6 +908,20 @@
     "local_key": "spell/au/transfix-72c5c9ec11",
     "name": "Transfix",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -753,6 +950,12 @@
     "local_key": "spell/au/uncertain-footing-8623d16c0e",
     "name": "Uncertain Footing",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -781,6 +984,16 @@
     "local_key": "spell/au/vision-of-elapsing-eons-a5ec2df962",
     "name": "Vision of Elapsing Eons",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -808,6 +1021,12 @@
     "local_key": "spell/au/wail-of-the-banshee-83515ed8dd",
     "name": "Wail of the Banshee",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -835,6 +1054,12 @@
     "local_key": "spell/au/waves-of-exhaustion-148731d9e8",
     "name": "Waves of Exhaustion",
     "range": "Self (60 feet cone)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -862,6 +1087,7 @@
     "local_key": "spell/au/wither-and-bloom-1f6d46fe88",
     "name": "Wither and Bloom",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -888,6 +1114,7 @@
     "local_key": "spell/au/zone-of-amicability-bd70b7b190",
     "name": "Zone of Amicability",
     "range": "Self (60 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -913,6 +1140,12 @@
     "local_key": "spell/efa/homunculus-servant-52f3778806",
     "name": "Homunculus Servant",
     "range": "10 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": true,
     "school": "conjuration",
     "sections": [],
@@ -941,6 +1174,24 @@
     "local_key": "spell/frhof/alustriels-mooncloak-1d0309653d",
     "name": "Alustriel's Mooncloak",
     "range": "Self (20 feet emanation)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -969,6 +1220,7 @@
     "local_key": "spell/frhof/backlash-74741421c9",
     "name": "Backlash",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -996,6 +1248,7 @@
     "local_key": "spell/frhof/blade-of-disaster-6ce10c3d31",
     "name": "Blade of Disaster",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -1023,6 +1276,16 @@
     "local_key": "spell/frhof/cacophonic-shield-5530fc2c05",
     "name": "Cacophonic Shield",
     "range": "Self (10 feet emanation)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -1048,6 +1311,7 @@
     "local_key": "spell/frhof/conjure-constructs-95329492f4",
     "name": "Conjure Constructs",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -1074,6 +1338,16 @@
     "local_key": "spell/frhof/death-armor-91e60901e8",
     "name": "Death Armor",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/death-saving-throw-308dfd4f6c"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -1100,6 +1374,7 @@
     "local_key": "spell/frhof/deryans-helpful-homunculi-a34b2d0317",
     "name": "Deryan's Helpful Homunculi",
     "range": "Self",
+    "references": [],
     "ritual": true,
     "school": "conjuration",
     "sections": [],
@@ -1126,6 +1401,24 @@
     "local_key": "spell/frhof/dirge-1dda925792",
     "name": "Dirge",
     "range": "Self (60 feet emanation)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -1153,6 +1446,12 @@
     "local_key": "spell/frhof/doomtide-050367270f",
     "name": "Doomtide",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -1180,6 +1479,7 @@
     "local_key": "spell/frhof/elminsters-effulgent-spheres-ecc6548cce",
     "name": "Elminster's Effulgent Spheres",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -1205,6 +1505,12 @@
     "local_key": "spell/frhof/elminsters-elusion-8de5a98180",
     "name": "Elminster's Elusion",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -1231,6 +1537,12 @@
     "local_key": "spell/frhof/holy-star-of-mystra-4f640b2cd7",
     "name": "Holy Star of Mystra",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -1258,6 +1570,12 @@
     "local_key": "spell/frhof/laerals-silver-lance-f4032972fb",
     "name": "Laeral's Silver Lance",
     "range": "Self (120 feet line)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -1284,6 +1602,7 @@
     "local_key": "spell/frhof/simbuls-synostodweomer-12315153dc",
     "name": "Simbul's Synostodweomer",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -1311,6 +1630,16 @@
     "local_key": "spell/frhof/songals-elemental-suffusion-0f30f8cebd",
     "name": "Songal's Elemental Suffusion",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -1337,6 +1666,12 @@
     "local_key": "spell/frhof/spellfire-flare-cf1432500f",
     "name": "Spellfire Flare",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -1363,6 +1698,12 @@
     "local_key": "spell/frhof/spellfire-storm-2449966949",
     "name": "Spellfire Storm",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -1389,6 +1730,16 @@
     "local_key": "spell/frhof/sylunes-viper-0b210f31a7",
     "name": "Syluné's Viper",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -1417,6 +1768,7 @@
     "local_key": "spell/frhof/wardaway-cec9c4ee5a",
     "name": "Wardaway",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -1444,6 +1796,7 @@
     "local_key": "spell/xphb/acid-splash-17183674d7",
     "name": "Acid Splash",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -1474,6 +1827,7 @@
     "local_key": "spell/xphb/aid-abeb1278d3",
     "name": "Aid",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -1501,6 +1855,7 @@
     "local_key": "spell/xphb/alarm-31cc100eb2",
     "name": "Alarm",
     "range": "30 feet",
+    "references": [],
     "ritual": true,
     "school": "abjuration",
     "sections": [],
@@ -1528,6 +1883,7 @@
     "local_key": "spell/xphb/alter-self-cb84087b7c",
     "name": "Alter Self",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -1555,6 +1911,12 @@
     "local_key": "spell/xphb/animal-friendship-4ff44a192d",
     "name": "Animal Friendship",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -1582,6 +1944,7 @@
     "local_key": "spell/xphb/animal-messenger-2a7039c075",
     "name": "Animal Messenger",
     "range": "30 feet",
+    "references": [],
     "ritual": true,
     "school": "enchantment",
     "sections": [],
@@ -1607,6 +1970,7 @@
     "local_key": "spell/xphb/animal-shapes-89dec6cf49",
     "name": "Animal Shapes",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -1633,6 +1997,12 @@
     "local_key": "spell/xphb/animate-dead-135f900c1d",
     "name": "Animate Dead",
     "range": "10 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -1661,6 +2031,12 @@
     "local_key": "spell/xphb/animate-objects-62e4a3f50e",
     "name": "Animate Objects",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -1686,6 +2062,7 @@
     "local_key": "spell/xphb/antilife-shell-93e6935945",
     "name": "Antilife Shell",
     "range": "Self (10 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -1712,6 +2089,7 @@
     "local_key": "spell/xphb/antimagic-field-54c738858e",
     "name": "Antimagic Field",
     "range": "Self (10 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -1739,6 +2117,16 @@
     "local_key": "spell/xphb/antipathy-sympathy-0a5b55327d",
     "name": "Antipathy/Sympathy",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -1765,6 +2153,12 @@
     "local_key": "spell/xphb/arcane-eye-6c2c32ba1a",
     "name": "Arcane Eye",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -1792,6 +2186,7 @@
     "local_key": "spell/xphb/arcane-gate-9476942b80",
     "name": "Arcane Gate",
     "range": "500 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -1818,6 +2213,7 @@
     "local_key": "spell/xphb/arcane-lock-30988e45d5",
     "name": "Arcane Lock",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -1845,6 +2241,7 @@
     "local_key": "spell/xphb/arcane-vigor-412810e6c7",
     "name": "Arcane Vigor",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -1870,6 +2267,7 @@
     "local_key": "spell/xphb/armor-of-agathys-c007b0e3a7",
     "name": "Armor of Agathys",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -1895,6 +2293,7 @@
     "local_key": "spell/xphb/arms-of-hadar-117417dc5a",
     "name": "Arms of Hadar",
     "range": "Self (10 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -1922,6 +2321,12 @@
     "local_key": "spell/xphb/astral-projection-a962b60833",
     "name": "Astral Projection",
     "range": "10 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -1949,6 +2354,12 @@
     "local_key": "spell/xphb/augury-d16b1023b2",
     "name": "Augury",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -1975,6 +2386,7 @@
     "local_key": "spell/xphb/aura-of-life-c3c21660c2",
     "name": "Aura of Life",
     "range": "Self (30 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -2001,6 +2413,40 @@
     "local_key": "spell/xphb/aura-of-purity-299dc5c5c0",
     "name": "Aura of Purity",
     "range": "Self (30 feet emanation)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -2028,6 +2474,7 @@
     "local_key": "spell/xphb/aura-of-vitality-47aaad72d4",
     "name": "Aura of Vitality",
     "range": "Self (30 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -2054,6 +2501,12 @@
     "local_key": "spell/xphb/awaken-7e51d85e52",
     "name": "Awaken",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -2081,6 +2534,7 @@
     "local_key": "spell/xphb/bane-f4a0b19905",
     "name": "Bane",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -2106,6 +2560,12 @@
     "local_key": "spell/xphb/banishing-smite-aa98d63253",
     "name": "Banishing Smite",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -2135,6 +2595,12 @@
     "local_key": "spell/xphb/banishment-73943aa4f3",
     "name": "Banishment",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -2161,6 +2627,7 @@
     "local_key": "spell/xphb/barkskin-53b93e6f2b",
     "name": "Barkskin",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -2186,6 +2653,16 @@
     "local_key": "spell/xphb/beacon-of-hope-936a285388",
     "name": "Beacon of Hope",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/death-saving-throw-308dfd4f6c"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -2212,6 +2689,7 @@
     "local_key": "spell/xphb/beast-sense-4ed3f329b9",
     "name": "Beast Sense",
     "range": "Touch",
+    "references": [],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -2240,6 +2718,7 @@
     "local_key": "spell/xphb/befuddlement-26c6aeb7d5",
     "name": "Befuddlement",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -2267,6 +2746,20 @@
     "local_key": "spell/xphb/bestow-curse-3bdf8af56c",
     "name": "Bestow Curse",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -2294,6 +2787,20 @@
     "local_key": "spell/xphb/bigbys-hand-eb1eda0f23",
     "name": "Bigby's Hand",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -2319,6 +2826,16 @@
     "local_key": "spell/xphb/blade-barrier-9db117606f",
     "name": "Blade Barrier",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -2347,6 +2864,7 @@
     "local_key": "spell/xphb/blade-ward-4a21ab8f0f",
     "name": "Blade Ward",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -2373,6 +2891,7 @@
     "local_key": "spell/xphb/bless-94641ef620",
     "name": "Bless",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -2401,6 +2920,7 @@
     "local_key": "spell/xphb/blight-d33f0264b0",
     "name": "Blight",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -2426,6 +2946,12 @@
     "local_key": "spell/xphb/blinding-smite-ad1b8c7699",
     "name": "Blinding Smite",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -2454,6 +2980,16 @@
     "local_key": "spell/xphb/blindness-deafness-dbffd007ae",
     "name": "Blindness/Deafness",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -2481,6 +3017,7 @@
     "local_key": "spell/xphb/blink-6ea01cd17c",
     "name": "Blink",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -2508,6 +3045,12 @@
     "local_key": "spell/xphb/blur-b07d2eb245",
     "name": "Blur",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -2534,6 +3077,7 @@
     "local_key": "spell/xphb/burning-hands-450d4175d9",
     "name": "Burning Hands",
     "range": "Self (15 feet cone)",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -2559,6 +3103,7 @@
     "local_key": "spell/xphb/call-lightning-61b9705e2c",
     "name": "Call Lightning",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -2585,6 +3130,16 @@
     "local_key": "spell/xphb/calm-emotions-17c7788d29",
     "name": "Calm Emotions",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -2611,6 +3166,7 @@
     "local_key": "spell/xphb/chain-lightning-40d7d3fa1f",
     "name": "Chain Lightning",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -2640,6 +3196,16 @@
     "local_key": "spell/xphb/charm-monster-e56cca014a",
     "name": "Charm Monster",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -2669,6 +3235,16 @@
     "local_key": "spell/xphb/charm-person-8045ad729e",
     "name": "Charm Person",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -2696,6 +3272,7 @@
     "local_key": "spell/xphb/chill-touch-6f7357dfc6",
     "name": "Chill Touch",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -2722,6 +3299,7 @@
     "local_key": "spell/xphb/chromatic-orb-23fa12af2a",
     "name": "Chromatic Orb",
     "range": "90 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -2749,6 +3327,7 @@
     "local_key": "spell/xphb/circle-of-death-31b0494628",
     "name": "Circle of Death",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -2777,6 +3356,12 @@
     "local_key": "spell/xphb/circle-of-power-2516378ce4",
     "name": "Circle of Power",
     "range": "Self (30 feet emanation)",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -2805,6 +3390,12 @@
     "local_key": "spell/xphb/clairvoyance-a5077ab320",
     "name": "Clairvoyance",
     "range": "1 miles",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -2830,6 +3421,7 @@
     "local_key": "spell/xphb/clone-89a96436d6",
     "name": "Clone",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -2858,6 +3450,7 @@
     "local_key": "spell/xphb/cloud-of-daggers-9c75d5167b",
     "name": "Cloud of Daggers",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -2884,6 +3477,7 @@
     "local_key": "spell/xphb/cloudkill-9344b71c74",
     "name": "Cloudkill",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -2911,6 +3505,12 @@
     "local_key": "spell/xphb/color-spray-d3781b6a71",
     "name": "Color Spray",
     "range": "Self (15 feet cone)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -2938,6 +3538,12 @@
     "local_key": "spell/xphb/command-0d20060ac5",
     "name": "Command",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -2963,6 +3569,12 @@
     "local_key": "spell/xphb/commune-30aaacd3bb",
     "name": "Commune",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -2989,6 +3601,7 @@
     "local_key": "spell/xphb/commune-with-nature-91ba1d9eb4",
     "name": "Commune with Nature",
     "range": "Self",
+    "references": [],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -3014,6 +3627,12 @@
     "local_key": "spell/xphb/compelled-duel-b930c360c9",
     "name": "Compelled Duel",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -3042,6 +3661,7 @@
     "local_key": "spell/xphb/comprehend-languages-e7d1e937d4",
     "name": "Comprehend Languages",
     "range": "Self",
+    "references": [],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -3067,6 +3687,12 @@
     "local_key": "spell/xphb/compulsion-5ec30fc230",
     "name": "Compulsion",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -3094,6 +3720,7 @@
     "local_key": "spell/xphb/cone-of-cold-f5f354c1c5",
     "name": "Cone of Cold",
     "range": "Self (60 feet cone)",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -3122,6 +3749,7 @@
     "local_key": "spell/xphb/confusion-c86d0c2c02",
     "name": "Confusion",
     "range": "90 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -3148,6 +3776,12 @@
     "local_key": "spell/xphb/conjure-animals-1e660e825b",
     "name": "Conjure Animals",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3173,6 +3807,7 @@
     "local_key": "spell/xphb/conjure-barrage-40f074cdfe",
     "name": "Conjure Barrage",
     "range": "Self (60 feet cone)",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3198,6 +3833,7 @@
     "local_key": "spell/xphb/conjure-celestial-bb2c103464",
     "name": "Conjure Celestial",
     "range": "90 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3224,6 +3860,12 @@
     "local_key": "spell/xphb/conjure-elemental-52d5c06ab2",
     "name": "Conjure Elemental",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3249,6 +3891,12 @@
     "local_key": "spell/xphb/conjure-fey-ca60655934",
     "name": "Conjure Fey",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3275,6 +3923,12 @@
     "local_key": "spell/xphb/conjure-minor-elementals-bc78e8450b",
     "name": "Conjure Minor Elementals",
     "range": "Self (15 feet emanation)",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3300,6 +3954,7 @@
     "local_key": "spell/xphb/conjure-volley-4d94cd516d",
     "name": "Conjure Volley",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3326,6 +3981,7 @@
     "local_key": "spell/xphb/conjure-woodland-beings-0cb9a28c8d",
     "name": "Conjure Woodland Beings",
     "range": "Self (10 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3352,6 +4008,16 @@
     "local_key": "spell/xphb/contact-other-plane-228c3b9b6c",
     "name": "Contact Other Plane",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -3378,6 +4044,16 @@
     "local_key": "spell/xphb/contagion-f1bc5bd86e",
     "name": "Contagion",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -3403,6 +4079,7 @@
     "local_key": "spell/xphb/contingency-aace3bf462",
     "name": "Contingency",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -3431,6 +4108,7 @@
     "local_key": "spell/xphb/continual-flame-ea4ca994ef",
     "name": "Continual Flame",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -3458,6 +4136,7 @@
     "local_key": "spell/xphb/control-water-369cdecfaf",
     "name": "Control Water",
     "range": "300 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -3485,6 +4164,7 @@
     "local_key": "spell/xphb/control-weather-aab1e7db78",
     "name": "Control Weather",
     "range": "Self (5 miles sphere)",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -3510,6 +4190,7 @@
     "local_key": "spell/xphb/cordon-of-arrows-0a0f8ce53f",
     "name": "Cordon of Arrows",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -3537,6 +4218,7 @@
     "local_key": "spell/xphb/counterspell-45901f37f0",
     "name": "Counterspell",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -3564,6 +4246,7 @@
     "local_key": "spell/xphb/create-food-and-water-bb97465786",
     "name": "Create Food and Water",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3590,6 +4273,7 @@
     "local_key": "spell/xphb/create-or-destroy-water-a95c015581",
     "name": "Create or Destroy Water",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -3617,6 +4301,12 @@
     "local_key": "spell/xphb/create-undead-b24950e361",
     "name": "Create Undead",
     "range": "10 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -3644,6 +4334,7 @@
     "local_key": "spell/xphb/creation-d9c17ada0e",
     "name": "Creation",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -3672,6 +4363,12 @@
     "local_key": "spell/xphb/crown-of-madness-b790c07703",
     "name": "Crown of Madness",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -3697,6 +4394,7 @@
     "local_key": "spell/xphb/crusaders-mantle-f9ac803136",
     "name": "Crusader's Mantle",
     "range": "Self (30 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -3727,6 +4425,7 @@
     "local_key": "spell/xphb/cure-wounds-cfb410db7b",
     "name": "Cure Wounds",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -3755,6 +4454,7 @@
     "local_key": "spell/xphb/dancing-lights-9376b61da2",
     "name": "Dancing Lights",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -3782,6 +4482,7 @@
     "local_key": "spell/xphb/darkness-edbf99beb2",
     "name": "Darkness",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -3811,6 +4512,7 @@
     "local_key": "spell/xphb/darkvision-8def54c9b7",
     "name": "Darkvision",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -3840,6 +4542,7 @@
     "local_key": "spell/xphb/daylight-dd84af52a4",
     "name": "Daylight",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -3866,6 +4569,7 @@
     "local_key": "spell/xphb/death-ward-959f417e0f",
     "name": "Death Ward",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -3892,6 +4596,7 @@
     "local_key": "spell/xphb/delayed-blast-fireball-4f31aa1ceb",
     "name": "Delayed Blast Fireball",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -3919,6 +4624,12 @@
     "local_key": "spell/xphb/demiplane-2ed979f7ad",
     "name": "Demiplane",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -3944,6 +4655,12 @@
     "local_key": "spell/xphb/destructive-wave-a587e2f49b",
     "name": "Destructive Wave",
     "range": "Self (30 feet emanation)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -3970,6 +4687,7 @@
     "local_key": "spell/xphb/detect-evil-and-good-ab05de1520",
     "name": "Detect Evil and Good",
     "range": "Self (30 feet sphere)",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -4003,6 +4721,7 @@
     "local_key": "spell/xphb/detect-magic-5e8addbd8b",
     "name": "Detect Magic",
     "range": "Self (30 feet sphere)",
+    "references": [],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -4031,6 +4750,7 @@
     "local_key": "spell/xphb/detect-poison-and-disease-a64f4d7b87",
     "name": "Detect Poison and Disease",
     "range": "Self (30 feet sphere)",
+    "references": [],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -4058,6 +4778,7 @@
     "local_key": "spell/xphb/detect-thoughts-f13a9f132c",
     "name": "Detect Thoughts",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -4086,6 +4807,7 @@
     "local_key": "spell/xphb/dimension-door-3bfaa7e0d9",
     "name": "Dimension Door",
     "range": "500 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -4114,6 +4836,7 @@
     "local_key": "spell/xphb/disguise-self-9b17fbd699",
     "name": "Disguise Self",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -4140,6 +4863,7 @@
     "local_key": "spell/xphb/disintegrate-18718246aa",
     "name": "Disintegrate",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4166,6 +4890,20 @@
     "local_key": "spell/xphb/dispel-evil-and-good-b4728d6592",
     "name": "Dispel Evil and Good",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -4199,6 +4937,7 @@
     "local_key": "spell/xphb/dispel-magic-c64c9c46e2",
     "name": "Dispel Magic",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -4224,6 +4963,7 @@
     "local_key": "spell/xphb/dissonant-whispers-207d72b819",
     "name": "Dissonant Whispers",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -4251,6 +4991,12 @@
     "local_key": "spell/xphb/divination-e06bf9b577",
     "name": "Divination",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -4276,6 +5022,7 @@
     "local_key": "spell/xphb/divine-favor-8aeedf7cdd",
     "name": "Divine Favor",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4301,6 +5048,7 @@
     "local_key": "spell/xphb/divine-smite-9aea206ee3",
     "name": "Divine Smite",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -4326,6 +5074,20 @@
     "local_key": "spell/xphb/divine-word-89c7d7f44e",
     "name": "Divine Word",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -4353,6 +5115,20 @@
     "local_key": "spell/xphb/dominate-beast-00d115abcd",
     "name": "Dominate Beast",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -4381,6 +5157,20 @@
     "local_key": "spell/xphb/dominate-monster-a94ed7bb5c",
     "name": "Dominate Monster",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -4408,6 +5198,20 @@
     "local_key": "spell/xphb/dominate-person-bc9dc5f838",
     "name": "Dominate Person",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -4435,6 +5239,7 @@
     "local_key": "spell/xphb/dragons-breath-28e1ee1cae",
     "name": "Dragon's Breath",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4460,6 +5265,12 @@
     "local_key": "spell/xphb/drawmijs-instant-summons-2cbc0fe543",
     "name": "Drawmij's Instant Summons",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": true,
     "school": "conjuration",
     "sections": [],
@@ -4487,6 +5298,12 @@
     "local_key": "spell/xphb/dream-6f7e4ae669",
     "name": "Dream",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -4512,6 +5329,7 @@
     "local_key": "spell/xphb/druidcraft-64d8aeb0f0",
     "name": "Druidcraft",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4539,6 +5357,20 @@
     "local_key": "spell/xphb/earthquake-6f0555c493",
     "name": "Earthquake",
     "range": "500 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4564,6 +5396,7 @@
     "local_key": "spell/xphb/eldritch-blast-59fa9b9c4c",
     "name": "Eldritch Blast",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -4592,6 +5425,7 @@
     "local_key": "spell/xphb/elemental-weapon-9e6384136b",
     "name": "Elemental Weapon",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4620,6 +5454,7 @@
     "local_key": "spell/xphb/elementalism-fb3acee15f",
     "name": "Elementalism",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4651,6 +5486,12 @@
     "local_key": "spell/xphb/enhance-ability-bcfbd39fb0",
     "name": "Enhance Ability",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4680,6 +5521,16 @@
     "local_key": "spell/xphb/enlarge-reduce-a27853b523",
     "name": "Enlarge/Reduce",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4705,6 +5556,16 @@
     "local_key": "spell/xphb/ensnaring-strike-37398aa0d3",
     "name": "Ensnaring Strike",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -4731,6 +5592,16 @@
     "local_key": "spell/xphb/entangle-bd060c5353",
     "name": "Entangle",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -4757,6 +5628,7 @@
     "local_key": "spell/xphb/enthrall-ae65bda638",
     "name": "Enthrall",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -4786,6 +5658,7 @@
     "local_key": "spell/xphb/etherealness-0763c499d4",
     "name": "Etherealness",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -4811,6 +5684,16 @@
     "local_key": "spell/xphb/evards-black-tentacles-970bb3b9d3",
     "name": "Evard's Black Tentacles",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -4839,6 +5722,12 @@
     "local_key": "spell/xphb/expeditious-retreat-50897e3a58",
     "name": "Expeditious Retreat",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4867,6 +5756,24 @@
     "local_key": "spell/xphb/eyebite-abb47145e3",
     "name": "Eyebite",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -4893,6 +5800,7 @@
     "local_key": "spell/xphb/fabricate-e85f38e79d",
     "name": "Fabricate",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -4920,6 +5828,16 @@
     "local_key": "spell/xphb/faerie-fire-65cb79e9ca",
     "name": "Faerie Fire",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -4947,6 +5865,7 @@
     "local_key": "spell/xphb/false-life-b81d44b212",
     "name": "False Life",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -4975,6 +5894,16 @@
     "local_key": "spell/xphb/fear-f3b4170e61",
     "name": "Fear",
     "range": "Self (30 feet cone)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -5003,6 +5932,7 @@
     "local_key": "spell/xphb/feather-fall-a51a1d7ad0",
     "name": "Feather Fall",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -5031,6 +5961,20 @@
     "local_key": "spell/xphb/feign-death-68da793713",
     "name": "Feign Death",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": true,
     "school": "necromancy",
     "sections": [],
@@ -5056,6 +6000,7 @@
     "local_key": "spell/xphb/find-familiar-2e1ffffc75",
     "name": "Find Familiar",
     "range": "10 feet",
+    "references": [],
     "ritual": true,
     "school": "conjuration",
     "sections": [],
@@ -5081,6 +6026,12 @@
     "local_key": "spell/xphb/find-steed-5d986e4ad5",
     "name": "Find Steed",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -5108,6 +6059,7 @@
     "local_key": "spell/xphb/find-the-path-4cdc5d14e9",
     "name": "Find the Path",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -5135,6 +6087,7 @@
     "local_key": "spell/xphb/find-traps-694b933f9d",
     "name": "Find Traps",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -5162,6 +6115,7 @@
     "local_key": "spell/xphb/finger-of-death-cae04789a5",
     "name": "Finger of Death",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -5189,6 +6143,7 @@
     "local_key": "spell/xphb/fire-bolt-29135d6ea1",
     "name": "Fire Bolt",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -5216,6 +6171,7 @@
     "local_key": "spell/xphb/fire-shield-b1ce2003d9",
     "name": "Fire Shield",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -5243,6 +6199,7 @@
     "local_key": "spell/xphb/fire-storm-8c79f8af60",
     "name": "Fire Storm",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -5269,6 +6226,7 @@
     "local_key": "spell/xphb/fireball-aba7cc939b",
     "name": "Fireball",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -5295,6 +6253,7 @@
     "local_key": "spell/xphb/flame-blade-942ec5904f",
     "name": "Flame Blade",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -5320,6 +6279,7 @@
     "local_key": "spell/xphb/flame-strike-8fee9d2e7c",
     "name": "Flame Strike",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -5347,6 +6307,7 @@
     "local_key": "spell/xphb/flaming-sphere-57049f9061",
     "name": "Flaming Sphere",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -5374,6 +6335,20 @@
     "local_key": "spell/xphb/flesh-to-stone-c77695bc34",
     "name": "Flesh to Stone",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -5402,6 +6377,7 @@
     "local_key": "spell/xphb/fly-f8719ec562",
     "name": "Fly",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -5430,6 +6406,7 @@
     "local_key": "spell/xphb/fog-cloud-46034a4ed3",
     "name": "Fog Cloud",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -5455,6 +6432,7 @@
     "local_key": "spell/xphb/forbiddance-f096db907e",
     "name": "Forbiddance",
     "range": "Touch",
+    "references": [],
     "ritual": true,
     "school": "abjuration",
     "sections": [],
@@ -5482,6 +6460,12 @@
     "local_key": "spell/xphb/forcecage-267dba112c",
     "name": "Forcecage",
     "range": "100 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -5510,6 +6494,20 @@
     "local_key": "spell/xphb/foresight-43b4efd6c7",
     "name": "Foresight",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -5536,6 +6534,12 @@
     "local_key": "spell/xphb/fount-of-moonlight-13c0dbb5df",
     "name": "Fount of Moonlight",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -5565,6 +6569,24 @@
     "local_key": "spell/xphb/freedom-of-movement-fd86a557a7",
     "name": "Freedom of Movement",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -5593,6 +6615,12 @@
     "local_key": "spell/xphb/friends-31c54e6eb6",
     "name": "Friends",
     "range": "10 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -5620,6 +6648,16 @@
     "local_key": "spell/xphb/gaseous-form-7c3210a7f9",
     "name": "Gaseous Form",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -5648,6 +6686,7 @@
     "local_key": "spell/xphb/gate-48d3192882",
     "name": "Gate",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -5677,6 +6716,12 @@
     "local_key": "spell/xphb/geas-cf83e8c4cd",
     "name": "Geas",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -5704,6 +6749,7 @@
     "local_key": "spell/xphb/gentle-repose-f37eee65ad",
     "name": "Gentle Repose",
     "range": "Touch",
+    "references": [],
     "ritual": true,
     "school": "necromancy",
     "sections": [],
@@ -5729,6 +6775,12 @@
     "local_key": "spell/xphb/giant-insect-4520d7d99a",
     "name": "Giant Insect",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -5755,6 +6807,7 @@
     "local_key": "spell/xphb/glibness-c1350b92f1",
     "name": "Glibness",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -5781,6 +6834,7 @@
     "local_key": "spell/xphb/globe-of-invulnerability-1fae1d2269",
     "name": "Globe of Invulnerability",
     "range": "Self (10 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -5809,6 +6863,12 @@
     "local_key": "spell/xphb/glyph-of-warding-a74ffd03e1",
     "name": "Glyph of Warding",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -5835,6 +6895,7 @@
     "local_key": "spell/xphb/goodberry-39d81f3fc4",
     "name": "Goodberry",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -5861,6 +6922,12 @@
     "local_key": "spell/xphb/grasping-vine-ad8cf34b9d",
     "name": "Grasping Vine",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/grappled-a2de75c3b8"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -5888,6 +6955,16 @@
     "local_key": "spell/xphb/grease-3d95c8025d",
     "name": "Grease",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -5915,6 +6992,12 @@
     "local_key": "spell/xphb/greater-invisibility-44fd3f3ffa",
     "name": "Greater Invisibility",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -5945,6 +7028,20 @@
     "local_key": "spell/xphb/greater-restoration-b9f4ad5d52",
     "name": "Greater Restoration",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -5970,6 +7067,7 @@
     "local_key": "spell/xphb/guardian-of-faith-c44e5113fd",
     "name": "Guardian of Faith",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -5996,6 +7094,7 @@
     "local_key": "spell/xphb/guards-and-wards-b6efc8200f",
     "name": "Guards and Wards",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -6023,6 +7122,7 @@
     "local_key": "spell/xphb/guidance-6bfcce56fe",
     "name": "Guidance",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -6048,6 +7148,12 @@
     "local_key": "spell/xphb/guiding-bolt-1644116076",
     "name": "Guiding Bolt",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -6076,6 +7182,7 @@
     "local_key": "spell/xphb/gust-of-wind-cf7e32fb19",
     "name": "Gust of Wind",
     "range": "Self (60 feet line)",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -6101,6 +7208,7 @@
     "local_key": "spell/xphb/hail-of-thorns-c7c2968981",
     "name": "Hail of Thorns",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -6126,6 +7234,16 @@
     "local_key": "spell/xphb/hallow-ca20f8453a",
     "name": "Hallow",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -6154,6 +7272,7 @@
     "local_key": "spell/xphb/hallucinatory-terrain-58e970e1a5",
     "name": "Hallucinatory Terrain",
     "range": "300 feet",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -6179,6 +7298,7 @@
     "local_key": "spell/xphb/harm-d11af909d6",
     "name": "Harm",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -6206,6 +7326,24 @@
     "local_key": "spell/xphb/haste-e0a2e8e1e7",
     "name": "Haste",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/hide-1e6e32ea52"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -6232,6 +7370,20 @@
     "local_key": "spell/xphb/heal-219dc066cc",
     "name": "Heal",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -6259,6 +7411,7 @@
     "local_key": "spell/xphb/healing-word-c301d4775d",
     "name": "Healing Word",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -6286,6 +7439,12 @@
     "local_key": "spell/xphb/heat-metal-159a04ed6a",
     "name": "Heat Metal",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -6311,6 +7470,7 @@
     "local_key": "spell/xphb/hellish-rebuke-f325b0b727",
     "name": "Hellish Rebuke",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -6338,6 +7498,16 @@
     "local_key": "spell/xphb/heroes-feast-66db71fd33",
     "name": "Heroes' Feast",
     "range": "Self (10 feet cube)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -6364,6 +7534,12 @@
     "local_key": "spell/xphb/heroism-aa06461262",
     "name": "Heroism",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -6389,6 +7565,16 @@
     "local_key": "spell/xphb/hex-527ace809e",
     "name": "Hex",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -6417,6 +7603,12 @@
     "local_key": "spell/xphb/hold-monster-96033a6d15",
     "name": "Hold Monster",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -6447,6 +7639,12 @@
     "local_key": "spell/xphb/hold-person-9138a5bbba",
     "name": "Hold Person",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -6472,6 +7670,20 @@
     "local_key": "spell/xphb/holy-aura-18ad2329e8",
     "name": "Holy Aura",
     "range": "Self (30 feet emanation)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -6497,6 +7709,16 @@
     "local_key": "spell/xphb/hunger-of-hadar-262a8a89ac",
     "name": "Hunger of Hadar",
     "range": "150 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -6522,6 +7744,16 @@
     "local_key": "spell/xphb/hunters-mark-10fccfbf5f",
     "name": "Hunter's Mark",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -6550,6 +7782,16 @@
     "local_key": "spell/xphb/hypnotic-pattern-cb4052c124",
     "name": "Hypnotic Pattern",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -6577,6 +7819,7 @@
     "local_key": "spell/xphb/ice-knife-ae3c9366b0",
     "name": "Ice Knife",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -6604,6 +7847,12 @@
     "local_key": "spell/xphb/ice-storm-b90df12ff8",
     "name": "Ice Storm",
     "range": "300 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -6631,6 +7880,7 @@
     "local_key": "spell/xphb/identify-4caffdc6b4",
     "name": "Identify",
     "range": "Touch",
+    "references": [],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -6658,6 +7908,7 @@
     "local_key": "spell/xphb/illusory-script-c4bd282894",
     "name": "Illusory Script",
     "range": "Touch",
+    "references": [],
     "ritual": true,
     "school": "illusion",
     "sections": [],
@@ -6684,6 +7935,16 @@
     "local_key": "spell/xphb/imprisonment-a5d449d903",
     "name": "Imprisonment",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -6711,6 +7972,7 @@
     "local_key": "spell/xphb/incendiary-cloud-d83b010fda",
     "name": "Incendiary Cloud",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -6736,6 +7998,7 @@
     "local_key": "spell/xphb/inflict-wounds-859de9d365",
     "name": "Inflict Wounds",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -6763,6 +8026,12 @@
     "local_key": "spell/xphb/insect-plague-4c96d98c5d",
     "name": "Insect Plague",
     "range": "300 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -6792,6 +8061,12 @@
     "local_key": "spell/xphb/invisibility-216bf57066",
     "name": "Invisibility",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -6818,6 +8093,16 @@
     "local_key": "spell/xphb/jallarzis-storm-of-radiance-d8911c3e25",
     "name": "Jallarzi's Storm of Radiance",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -6847,6 +8132,7 @@
     "local_key": "spell/xphb/jump-4eefd99603",
     "name": "Jump",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -6874,6 +8160,7 @@
     "local_key": "spell/xphb/knock-4c39c56378",
     "name": "Knock",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -6901,6 +8188,7 @@
     "local_key": "spell/xphb/legend-lore-57319c840b",
     "name": "Legend Lore",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -6927,6 +8215,7 @@
     "local_key": "spell/xphb/leomunds-secret-chest-74a13d5d74",
     "name": "Leomund's Secret Chest",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -6953,6 +8242,7 @@
     "local_key": "spell/xphb/leomunds-tiny-hut-07c1bc4e8c",
     "name": "Leomund's Tiny Hut",
     "range": "Self (10 feet emanation)",
+    "references": [],
     "ritual": true,
     "school": "evocation",
     "sections": [],
@@ -6983,6 +8273,24 @@
     "local_key": "spell/xphb/lesser-restoration-bf017985c2",
     "name": "Lesser Restoration",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -7010,6 +8318,7 @@
     "local_key": "spell/xphb/levitate-904952091d",
     "name": "Levitate",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -7039,6 +8348,7 @@
     "local_key": "spell/xphb/light-5dde61742e",
     "name": "Light",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -7064,6 +8374,7 @@
     "local_key": "spell/xphb/lightning-arrow-ed876e875a",
     "name": "Lightning Arrow",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -7090,6 +8401,7 @@
     "local_key": "spell/xphb/lightning-bolt-84d255e49b",
     "name": "Lightning Bolt",
     "range": "Self (100 feet line)",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -7117,6 +8429,7 @@
     "local_key": "spell/xphb/locate-animals-or-plants-894b7c2921",
     "name": "Locate Animals or Plants",
     "range": "Self",
+    "references": [],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -7147,6 +8460,7 @@
     "local_key": "spell/xphb/locate-creature-0e7c92cad5",
     "name": "Locate Creature",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -7177,6 +8491,7 @@
     "local_key": "spell/xphb/locate-object-88718f5a67",
     "name": "Locate Object",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -7206,6 +8521,7 @@
     "local_key": "spell/xphb/longstrider-17fb467d04",
     "name": "Longstrider",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -7232,6 +8548,7 @@
     "local_key": "spell/xphb/mage-armor-addf67567e",
     "name": "Mage Armor",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -7261,6 +8578,7 @@
     "local_key": "spell/xphb/mage-hand-f0797100d3",
     "name": "Mage Hand",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -7289,6 +8607,20 @@
     "local_key": "spell/xphb/magic-circle-889c0b9992",
     "name": "Magic Circle",
     "range": "10 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -7314,6 +8646,12 @@
     "local_key": "spell/xphb/magic-jar-b8d93a5fcf",
     "name": "Magic Jar",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -7340,6 +8678,7 @@
     "local_key": "spell/xphb/magic-missile-7b70c43497",
     "name": "Magic Missile",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -7367,6 +8706,7 @@
     "local_key": "spell/xphb/magic-mouth-de5ed886a7",
     "name": "Magic Mouth",
     "range": "30 feet",
+    "references": [],
     "ritual": true,
     "school": "illusion",
     "sections": [],
@@ -7396,6 +8736,7 @@
     "local_key": "spell/xphb/magic-weapon-9a57ece12b",
     "name": "Magic Weapon",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -7424,6 +8765,12 @@
     "local_key": "spell/xphb/major-image-3452252170",
     "name": "Major Image",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -7451,6 +8798,7 @@
     "local_key": "spell/xphb/mass-cure-wounds-c883214f43",
     "name": "Mass Cure Wounds",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -7476,6 +8824,20 @@
     "local_key": "spell/xphb/mass-heal-b51237fec9",
     "name": "Mass Heal",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -7502,6 +8864,7 @@
     "local_key": "spell/xphb/mass-healing-word-aea19eb842",
     "name": "Mass Healing Word",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -7529,6 +8892,12 @@
     "local_key": "spell/xphb/mass-suggestion-5cd4e84121",
     "name": "Mass Suggestion",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -7554,6 +8923,7 @@
     "local_key": "spell/xphb/maze-fbec9360d7",
     "name": "Maze",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -7581,6 +8951,16 @@
     "local_key": "spell/xphb/meld-into-stone-4a600c700c",
     "name": "Meld into Stone",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": true,
     "school": "transmutation",
     "sections": [],
@@ -7606,6 +8986,7 @@
     "local_key": "spell/xphb/melfs-acid-arrow-46f0b09db5",
     "name": "Melf's Acid Arrow",
     "range": "90 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -7635,6 +9016,7 @@
     "local_key": "spell/xphb/mending-50bd69b477",
     "name": "Mending",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -7664,6 +9046,7 @@
     "local_key": "spell/xphb/message-bc130b56a8",
     "name": "Message",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -7690,6 +9073,7 @@
     "local_key": "spell/xphb/meteor-swarm-a68f0737e9",
     "name": "Meteor Swarm",
     "range": "1 miles",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -7716,6 +9100,12 @@
     "local_key": "spell/xphb/mind-blank-871b874d94",
     "name": "Mind Blank",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -7743,6 +9133,7 @@
     "local_key": "spell/xphb/mind-sliver-a3dd254bf9",
     "name": "Mind Sliver",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -7770,6 +9161,12 @@
     "local_key": "spell/xphb/mind-spike-aaceac5715",
     "name": "Mind Spike",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -7798,6 +9195,7 @@
     "local_key": "spell/xphb/minor-illusion-302931443a",
     "name": "Minor Illusion",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -7825,6 +9223,12 @@
     "local_key": "spell/xphb/mirage-arcane-51364914b2",
     "name": "Mirage Arcane",
     "range": "Sight",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -7853,6 +9257,12 @@
     "local_key": "spell/xphb/mirror-image-1c3aed800e",
     "name": "Mirror Image",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -7880,6 +9290,12 @@
     "local_key": "spell/xphb/mislead-4aecaf8e3f",
     "name": "Mislead",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -7907,6 +9323,7 @@
     "local_key": "spell/xphb/misty-step-a743f0d535",
     "name": "Misty Step",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -7933,6 +9350,20 @@
     "local_key": "spell/xphb/modify-memory-7e72e39861",
     "name": "Modify Memory",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -7958,6 +9389,7 @@
     "local_key": "spell/xphb/moonbeam-121af37ec2",
     "name": "Moonbeam",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -7984,6 +9416,7 @@
     "local_key": "spell/xphb/mordenkainens-faithful-hound-fb7ce52a65",
     "name": "Mordenkainen's Faithful Hound",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -8010,6 +9443,7 @@
     "local_key": "spell/xphb/mordenkainens-magnificent-mansion-b8e960ffb4",
     "name": "Mordenkainen's Magnificent Mansion",
     "range": "300 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -8036,6 +9470,7 @@
     "local_key": "spell/xphb/mordenkainens-private-sanctum-44d72d43a8",
     "name": "Mordenkainen's Private Sanctum",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8062,6 +9497,7 @@
     "local_key": "spell/xphb/mordenkainens-sword-16d9153612",
     "name": "Mordenkainen's Sword",
     "range": "90 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -8089,6 +9525,12 @@
     "local_key": "spell/xphb/move-earth-2426129ced",
     "name": "Move Earth",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -8116,6 +9558,7 @@
     "local_key": "spell/xphb/nondetection-7ad0f21477",
     "name": "Nondetection",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8141,6 +9584,7 @@
     "local_key": "spell/xphb/nystuls-magic-aura-f6aad9b12a",
     "name": "Nystul's Magic Aura",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -8167,6 +9611,12 @@
     "local_key": "spell/xphb/otilukes-freezing-sphere-a28644f802",
     "name": "Otiluke's Freezing Sphere",
     "range": "300 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -8193,6 +9643,7 @@
     "local_key": "spell/xphb/otilukes-resilient-sphere-73ae8ddb42",
     "name": "Otiluke's Resilient Sphere",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8219,6 +9670,20 @@
     "local_key": "spell/xphb/ottos-irresistible-dance-f91d9b0a2a",
     "name": "Otto's Irresistible Dance",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -8245,6 +9710,7 @@
     "local_key": "spell/xphb/pass-without-trace-5fe9348d57",
     "name": "Pass without Trace",
     "range": "Self (30 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8270,6 +9736,7 @@
     "local_key": "spell/xphb/passwall-815b6551af",
     "name": "Passwall",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -8297,6 +9764,7 @@
     "local_key": "spell/xphb/phantasmal-force-edbaa12939",
     "name": "Phantasmal Force",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -8323,6 +9791,12 @@
     "local_key": "spell/xphb/phantasmal-killer-8d11c9a38d",
     "name": "Phantasmal Killer",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -8348,6 +9822,7 @@
     "local_key": "spell/xphb/phantom-steed-8297205379",
     "name": "Phantom Steed",
     "range": "30 feet",
+    "references": [],
     "ritual": true,
     "school": "illusion",
     "sections": [],
@@ -8373,6 +9848,7 @@
     "local_key": "spell/xphb/planar-ally-19574531a6",
     "name": "Planar Ally",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -8402,6 +9878,7 @@
     "local_key": "spell/xphb/planar-binding-f7bf237994",
     "name": "Planar Binding",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8431,6 +9908,7 @@
     "local_key": "spell/xphb/plane-shift-0994837c65",
     "name": "Plane Shift",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -8458,6 +9936,7 @@
     "local_key": "spell/xphb/plant-growth-59fe5193f5",
     "name": "Plant Growth",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -8487,6 +9966,7 @@
     "local_key": "spell/xphb/poison-spray-23a2ffb197",
     "name": "Poison Spray",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -8515,6 +9995,7 @@
     "local_key": "spell/xphb/polymorph-ed51010a36",
     "name": "Polymorph",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -8541,6 +10022,7 @@
     "local_key": "spell/xphb/power-word-fortify-f398382cc9",
     "name": "Power Word Fortify",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -8567,6 +10049,32 @@
     "local_key": "spell/xphb/power-word-heal-20659260eb",
     "name": "Power Word Heal",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/paralyzed-d97e68524b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -8595,6 +10103,7 @@
     "local_key": "spell/xphb/power-word-kill-7b1b11aeb8",
     "name": "Power Word Kill",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -8623,6 +10132,12 @@
     "local_key": "spell/xphb/power-word-stun-47ead7ec25",
     "name": "Power Word Stun",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -8649,6 +10164,16 @@
     "local_key": "spell/xphb/prayer-of-healing-811d46bd2d",
     "name": "Prayer of Healing",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/short-rest-6f195d8415"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8678,6 +10203,7 @@
     "local_key": "spell/xphb/prestidigitation-926b295d48",
     "name": "Prestidigitation",
     "range": "10 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -8705,6 +10231,20 @@
     "local_key": "spell/xphb/prismatic-spray-2bfc498581",
     "name": "Prismatic Spray",
     "range": "Self (60 feet cone)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -8731,6 +10271,20 @@
     "local_key": "spell/xphb/prismatic-wall-1306b0bf42",
     "name": "Prismatic Wall",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/petrified-ae924ccd8e"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8756,6 +10310,7 @@
     "local_key": "spell/xphb/produce-flame-54200d8c3a",
     "name": "Produce Flame",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -8782,6 +10337,7 @@
     "local_key": "spell/xphb/programmed-illusion-61cf76c45a",
     "name": "Programmed Illusion",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -8808,6 +10364,7 @@
     "local_key": "spell/xphb/project-image-44a18abc64",
     "name": "Project Image",
     "range": "500 miles",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -8838,6 +10395,7 @@
     "local_key": "spell/xphb/protection-from-energy-f1653e0c85",
     "name": "Protection from Energy",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8867,6 +10425,24 @@
     "local_key": "spell/xphb/protection-from-evil-and-good-28b2e02c8d",
     "name": "Protection from Evil and Good",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8896,6 +10472,16 @@
     "local_key": "spell/xphb/protection-from-poison-b20505f6e3",
     "name": "Protection from Poison",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -8924,6 +10510,7 @@
     "local_key": "spell/xphb/purify-food-and-drink-d101ee7e8f",
     "name": "Purify Food and Drink",
     "range": "10 feet",
+    "references": [],
     "ritual": true,
     "school": "transmutation",
     "sections": [],
@@ -8951,6 +10538,16 @@
     "local_key": "spell/xphb/raise-dead-ccfe055684",
     "name": "Raise Dead",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -8977,6 +10574,7 @@
     "local_key": "spell/xphb/rarys-telepathic-bond-01ed8f331f",
     "name": "Rary's Telepathic Bond",
     "range": "30 feet",
+    "references": [],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -9003,6 +10601,16 @@
     "local_key": "spell/xphb/ray-of-enfeeblement-dac9d841b6",
     "name": "Ray of Enfeeblement",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -9030,6 +10638,7 @@
     "local_key": "spell/xphb/ray-of-frost-df5c00546f",
     "name": "Ray of Frost",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -9056,6 +10665,12 @@
     "local_key": "spell/xphb/ray-of-sickness-02aabbb720",
     "name": "Ray of Sickness",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -9083,6 +10698,7 @@
     "local_key": "spell/xphb/regenerate-dab4297249",
     "name": "Regenerate",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -9108,6 +10724,7 @@
     "local_key": "spell/xphb/reincarnate-136dd3e85d",
     "name": "Reincarnate",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -9136,6 +10753,7 @@
     "local_key": "spell/xphb/remove-curse-ad4296a00d",
     "name": "Remove Curse",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -9163,6 +10781,7 @@
     "local_key": "spell/xphb/resistance-b6c089b20e",
     "name": "Resistance",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -9189,6 +10808,20 @@
     "local_key": "spell/xphb/resurrection-a104397346",
     "name": "Resurrection",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/d20-test-9a7dd03e89"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -9216,6 +10849,7 @@
     "local_key": "spell/xphb/reverse-gravity-6b81aa5adf",
     "name": "Reverse Gravity",
     "range": "100 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -9245,6 +10879,7 @@
     "local_key": "spell/xphb/revivify-99aabebf98",
     "name": "Revivify",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -9271,6 +10906,12 @@
     "local_key": "spell/xphb/rope-trick-9a2526dfb2",
     "name": "Rope Trick",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -9296,6 +10937,12 @@
     "local_key": "spell/xphb/sacred-flame-1012dbea17",
     "name": "Sacred Flame",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -9322,6 +10969,7 @@
     "local_key": "spell/xphb/sanctuary-e8cc5902e0",
     "name": "Sanctuary",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -9348,6 +10996,7 @@
     "local_key": "spell/xphb/scorching-ray-e4baf324cf",
     "name": "Scorching Ray",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -9377,6 +11026,12 @@
     "local_key": "spell/xphb/scrying-e18cbd57e7",
     "name": "Scrying",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -9402,6 +11057,7 @@
     "local_key": "spell/xphb/searing-smite-49678b9bea",
     "name": "Searing Smite",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -9430,6 +11086,12 @@
     "local_key": "spell/xphb/see-invisibility-c71b05b243",
     "name": "See Invisibility",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -9457,6 +11119,7 @@
     "local_key": "spell/xphb/seeming-f672f2f720",
     "name": "Seeming",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -9484,6 +11147,7 @@
     "local_key": "spell/xphb/sending-d19febb19d",
     "name": "Sending",
     "range": "Unlimited",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -9509,6 +11173,16 @@
     "local_key": "spell/xphb/sequester-6de745c511",
     "name": "Sequester",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -9535,6 +11209,7 @@
     "local_key": "spell/xphb/shapechange-0d3fc8faa7",
     "name": "Shapechange",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -9562,6 +11237,12 @@
     "local_key": "spell/xphb/shatter-5d030efec1",
     "name": "Shatter",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -9588,6 +11269,7 @@
     "local_key": "spell/xphb/shield-4b31a425d3",
     "name": "Shield",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -9614,6 +11296,7 @@
     "local_key": "spell/xphb/shield-of-faith-aef8f21972",
     "name": "Shield of Faith",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -9639,6 +11322,7 @@
     "local_key": "spell/xphb/shillelagh-b04320c994",
     "name": "Shillelagh",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -9664,6 +11348,16 @@
     "local_key": "spell/xphb/shining-smite-e1d70ddba2",
     "name": "Shining Smite",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -9691,6 +11385,12 @@
     "local_key": "spell/xphb/shocking-grasp-3d63446f3b",
     "name": "Shocking Grasp",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/opportunity-attack-7debbc9590"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -9718,6 +11418,12 @@
     "local_key": "spell/xphb/silence-1597236e17",
     "name": "Silence",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      }
+    ],
     "ritual": true,
     "school": "illusion",
     "sections": [],
@@ -9745,6 +11451,7 @@
     "local_key": "spell/xphb/silent-image-a5382abfb4",
     "name": "Silent Image",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -9770,6 +11477,12 @@
     "local_key": "spell/xphb/simulacrum-afcf61b631",
     "name": "Simulacrum",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -9797,6 +11510,20 @@
     "local_key": "spell/xphb/sleep-1002bda1bd",
     "name": "Sleep",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/exhaustion-c91f87d7d2"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -9824,6 +11551,20 @@
     "local_key": "spell/xphb/sleet-storm-76db439d2e",
     "name": "Sleet Storm",
     "range": "150 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -9851,6 +11592,7 @@
     "local_key": "spell/xphb/slow-1b2e921966",
     "name": "Slow",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -9876,6 +11618,7 @@
     "local_key": "spell/xphb/sorcerous-burst-242b9d73af",
     "name": "Sorcerous Burst",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -9903,6 +11646,7 @@
     "local_key": "spell/xphb/spare-the-dying-82f037ce78",
     "name": "Spare the Dying",
     "range": "15 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -9931,6 +11675,7 @@
     "local_key": "spell/xphb/speak-with-animals-12b5273446",
     "name": "Speak with Animals",
     "range": "Self",
+    "references": [],
     "ritual": true,
     "school": "divination",
     "sections": [],
@@ -9958,6 +11703,7 @@
     "local_key": "spell/xphb/speak-with-dead-2d50dcb660",
     "name": "Speak with Dead",
     "range": "10 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -9985,6 +11731,12 @@
     "local_key": "spell/xphb/speak-with-plants-0d6065900a",
     "name": "Speak with Plants",
     "range": "Self (30 feet emanation)",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -10013,6 +11765,7 @@
     "local_key": "spell/xphb/spider-climb-2f19557636",
     "name": "Spider Climb",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -10039,6 +11792,12 @@
     "local_key": "spell/xphb/spike-growth-18a3cab397",
     "name": "Spike Growth",
     "range": "150 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -10064,6 +11823,7 @@
     "local_key": "spell/xphb/spirit-guardians-8e8d7ee4f6",
     "name": "Spirit Guardians",
     "range": "Self (15 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10089,6 +11849,7 @@
     "local_key": "spell/xphb/spiritual-weapon-d16bc7f6a4",
     "name": "Spiritual Weapon",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -10114,6 +11875,12 @@
     "local_key": "spell/xphb/staggering-smite-c271dd7a0c",
     "name": "Staggering Smite",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -10140,6 +11907,12 @@
     "local_key": "spell/xphb/starry-wisp-21bca3853e",
     "name": "Starry Wisp",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -10166,6 +11939,7 @@
     "local_key": "spell/xphb/steel-wind-strike-6f54677294",
     "name": "Steel Wind Strike",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10193,6 +11967,12 @@
     "local_key": "spell/xphb/stinking-cloud-7c43094f05",
     "name": "Stinking Cloud",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/poisoned-f12b2a9c51"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10221,6 +12001,7 @@
     "local_key": "spell/xphb/stone-shape-1c5dab14be",
     "name": "Stone Shape",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -10250,6 +12031,7 @@
     "local_key": "spell/xphb/stoneskin-2c49726758",
     "name": "Stoneskin",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -10275,6 +12057,16 @@
     "local_key": "spell/xphb/storm-of-vengeance-67db75d2a3",
     "name": "Storm of Vengeance",
     "range": "1 miles",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/deafened-2a3fcc7911"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10303,6 +12095,12 @@
     "local_key": "spell/xphb/suggestion-dd283ba45e",
     "name": "Suggestion",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/charmed-309bc99253"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -10329,6 +12127,12 @@
     "local_key": "spell/xphb/summon-aberration-184c51e093",
     "name": "Summon Aberration",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10355,6 +12159,12 @@
     "local_key": "spell/xphb/summon-beast-58f54ff5f1",
     "name": "Summon Beast",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10381,6 +12191,12 @@
     "local_key": "spell/xphb/summon-celestial-22047c6624",
     "name": "Summon Celestial",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10407,6 +12223,12 @@
     "local_key": "spell/xphb/summon-construct-60b9f62446",
     "name": "Summon Construct",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10432,6 +12254,12 @@
     "local_key": "spell/xphb/summon-dragon-187a8291c3",
     "name": "Summon Dragon",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10459,6 +12287,12 @@
     "local_key": "spell/xphb/summon-elemental-15b58e5b03",
     "name": "Summon Elemental",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10487,6 +12321,12 @@
     "local_key": "spell/xphb/summon-fey-5887a3d028",
     "name": "Summon Fey",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10513,6 +12353,12 @@
     "local_key": "spell/xphb/summon-fiend-33658bdb5a",
     "name": "Summon Fiend",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10539,6 +12385,12 @@
     "local_key": "spell/xphb/summon-undead-f6def98189",
     "name": "Summon Undead",
     "range": "90 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dodge-577da598fb"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -10567,6 +12419,12 @@
     "local_key": "spell/xphb/sunbeam-8b1726e34f",
     "name": "Sunbeam",
     "range": "Self (60 feet line)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -10595,6 +12453,12 @@
     "local_key": "spell/xphb/sunburst-6b854e36fe",
     "name": "Sunburst",
     "range": "150 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/blinded-fbb82224f8"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -10620,6 +12484,7 @@
     "local_key": "spell/xphb/swift-quiver-f05a26ab90",
     "name": "Swift Quiver",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -10648,6 +12513,28 @@
     "local_key": "spell/xphb/symbol-d665f4ec30",
     "name": "Symbol",
     "range": "Touch",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/unconscious-f859dec6cf"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -10676,6 +12563,12 @@
     "local_key": "spell/xphb/synaptic-static-088ee9c370",
     "name": "Synaptic Static",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -10702,6 +12595,7 @@
     "local_key": "spell/xphb/tashas-bubbling-cauldron-bbab86abbb",
     "name": "Tasha's Bubbling Cauldron",
     "range": "5 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10729,6 +12623,20 @@
     "local_key": "spell/xphb/tashas-hideous-laughter-fc6bdfeb6b",
     "name": "Tasha's Hideous Laughter",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/incapacitated-e4ac610940"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -10755,6 +12663,12 @@
     "local_key": "spell/xphb/telekinesis-8e51ab5dd4",
     "name": "Telekinesis",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -10780,6 +12694,7 @@
     "local_key": "spell/xphb/telepathy-6f9197e403",
     "name": "Telepathy",
     "range": "Unlimited",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -10807,6 +12722,7 @@
     "local_key": "spell/xphb/teleport-8feffa3b69",
     "name": "Teleport",
     "range": "10 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10835,6 +12751,7 @@
     "local_key": "spell/xphb/teleportation-circle-10300d59f3",
     "name": "Teleportation Circle",
     "range": "10 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -10860,6 +12777,7 @@
     "local_key": "spell/xphb/tensers-floating-disk-83951311b3",
     "name": "Tenser's Floating Disk",
     "range": "30 feet",
+    "references": [],
     "ritual": true,
     "school": "conjuration",
     "sections": [],
@@ -10885,6 +12803,12 @@
     "local_key": "spell/xphb/thaumaturgy-c6da89497f",
     "name": "Thaumaturgy",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -10911,6 +12835,7 @@
     "local_key": "spell/xphb/thorn-whip-ad3274c1a1",
     "name": "Thorn Whip",
     "range": "30 feet",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -10941,6 +12866,7 @@
     "local_key": "spell/xphb/thunderclap-9d70e55084",
     "name": "Thunderclap",
     "range": "Self (5 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -10966,6 +12892,12 @@
     "local_key": "spell/xphb/thunderous-smite-59d6d4ba37",
     "name": "Thunderous Smite",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -10994,6 +12926,7 @@
     "local_key": "spell/xphb/thunderwave-bc91e4ea8b",
     "name": "Thunderwave",
     "range": "Self (15 feet cube)",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -11020,6 +12953,7 @@
     "local_key": "spell/xphb/time-stop-83d2e42212",
     "name": "Time Stop",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -11047,6 +12981,7 @@
     "local_key": "spell/xphb/toll-the-dead-a28ae4d8f3",
     "name": "Toll the Dead",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -11076,6 +13011,7 @@
     "local_key": "spell/xphb/tongues-09b1cc14f3",
     "name": "Tongues",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -11101,6 +13037,7 @@
     "local_key": "spell/xphb/transport-via-plants-61eea2deaa",
     "name": "Transport via Plants",
     "range": "10 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -11127,6 +13064,7 @@
     "local_key": "spell/xphb/tree-stride-5f6c2563ba",
     "name": "Tree Stride",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -11154,6 +13092,12 @@
     "local_key": "spell/xphb/true-polymorph-af4fb0e0cb",
     "name": "True Polymorph",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -11180,6 +13124,7 @@
     "local_key": "spell/xphb/true-resurrection-de84524bba",
     "name": "True Resurrection",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -11209,6 +13154,7 @@
     "local_key": "spell/xphb/true-seeing-277e65c057",
     "name": "True Seeing",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -11238,6 +13184,7 @@
     "local_key": "spell/xphb/true-strike-0367008dec",
     "name": "True Strike",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "divination",
     "sections": [],
@@ -11263,6 +13210,7 @@
     "local_key": "spell/xphb/tsunami-51c26bdf68",
     "name": "Tsunami",
     "range": "1 miles",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -11290,6 +13238,12 @@
     "local_key": "spell/xphb/unseen-servant-be7fad0928",
     "name": "Unseen Servant",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": true,
     "school": "conjuration",
     "sections": [],
@@ -11317,6 +13271,7 @@
     "local_key": "spell/xphb/vampiric-touch-9d125cfbb7",
     "name": "Vampiric Touch",
     "range": "Self",
+    "references": [],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -11342,6 +13297,12 @@
     "local_key": "spell/xphb/vicious-mockery-998b81e404",
     "name": "Vicious Mockery",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -11368,6 +13329,7 @@
     "local_key": "spell/xphb/vitriolic-sphere-cecbdde792",
     "name": "Vitriolic Sphere",
     "range": "150 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -11395,6 +13357,7 @@
     "local_key": "spell/xphb/wall-of-fire-7f13e39ca8",
     "name": "Wall of Fire",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -11420,6 +13383,12 @@
     "local_key": "spell/xphb/wall-of-force-34f270b844",
     "name": "Wall of Force",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/invisible-de95ed161b"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -11445,6 +13414,7 @@
     "local_key": "spell/xphb/wall-of-ice-10a7d717b5",
     "name": "Wall of Ice",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -11473,6 +13443,12 @@
     "local_key": "spell/xphb/wall-of-stone-24d7b03f4a",
     "name": "Wall of Stone",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/concentration-74ff75fd61"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -11498,6 +13474,7 @@
     "local_key": "spell/xphb/wall-of-thorns-ec519174b0",
     "name": "Wall of Thorns",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -11524,6 +13501,7 @@
     "local_key": "spell/xphb/warding-bond-2e377f5532",
     "name": "Warding Bond",
     "range": "Touch",
+    "references": [],
     "ritual": false,
     "school": "abjuration",
     "sections": [],
@@ -11553,6 +13531,7 @@
     "local_key": "spell/xphb/water-breathing-29d08d7866",
     "name": "Water Breathing",
     "range": "30 feet",
+    "references": [],
     "ritual": true,
     "school": "transmutation",
     "sections": [],
@@ -11582,6 +13561,7 @@
     "local_key": "spell/xphb/water-walk-ade50ec13c",
     "name": "Water Walk",
     "range": "30 feet",
+    "references": [],
     "ritual": true,
     "school": "transmutation",
     "sections": [],
@@ -11609,6 +13589,16 @@
     "local_key": "spell/xphb/web-13d008dfc5",
     "name": "Web",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/restrained-693a5a56be"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/difficult-terrain-c9234495fd"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -11635,6 +13625,12 @@
     "local_key": "spell/xphb/weird-329469495d",
     "name": "Weird",
     "range": "120 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "ritual": false,
     "school": "illusion",
     "sections": [],
@@ -11660,6 +13656,20 @@
     "local_key": "spell/xphb/wind-walk-ae1648f38f",
     "name": "Wind Walk",
     "range": "30 feet",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      },
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/stunned-020167009a"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/dash-1949e6ba15"
+      }
+    ],
     "ritual": false,
     "school": "transmutation",
     "sections": [],
@@ -11686,6 +13696,7 @@
     "local_key": "spell/xphb/wind-wall-791264feb1",
     "name": "Wind Wall",
     "range": "120 feet",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -11712,6 +13723,20 @@
     "local_key": "spell/xphb/wish-84eb7e4bb1",
     "name": "Wish",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/advantage-b00030f675"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/disadvantage-6d0cac1106"
+      },
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/long-rest-49f910ee39"
+      }
+    ],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -11739,6 +13764,12 @@
     "local_key": "spell/xphb/witch-bolt-83d0e888d0",
     "name": "Witch Bolt",
     "range": "60 feet",
+    "references": [
+      {
+        "content_type": "rule",
+        "target_key": "rule/xphb/cover-ec53fb00d2"
+      }
+    ],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -11764,6 +13795,7 @@
     "local_key": "spell/xphb/word-of-radiance-04d4e9a205",
     "name": "Word of Radiance",
     "range": "Self (5 feet emanation)",
+    "references": [],
     "ritual": false,
     "school": "evocation",
     "sections": [],
@@ -11789,6 +13821,7 @@
     "local_key": "spell/xphb/word-of-recall-673588559e",
     "name": "Word of Recall",
     "range": "5 feet",
+    "references": [],
     "ritual": false,
     "school": "conjuration",
     "sections": [],
@@ -11814,6 +13847,12 @@
     "local_key": "spell/xphb/wrathful-smite-df2d59ffc1",
     "name": "Wrathful Smite",
     "range": "Self",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/frightened-82a9e92bcb"
+      }
+    ],
     "ritual": false,
     "school": "necromancy",
     "sections": [],
@@ -11840,6 +13879,12 @@
     "local_key": "spell/xphb/yolandes-regal-presence-1b0bc211e9",
     "name": "Yolande's Regal Presence",
     "range": "Self (10 feet emanation)",
+    "references": [
+      {
+        "content_type": "condition",
+        "target_key": "condition/xphb/prone-663d29391f"
+      }
+    ],
     "ritual": false,
     "school": "enchantment",
     "sections": [],
@@ -11867,6 +13912,7 @@
     "local_key": "spell/xphb/zone-of-truth-4a3a8392af",
     "name": "Zone of Truth",
     "range": "60 feet",
+    "references": [],
     "ritual": false,
     "school": "enchantment",
     "sections": [],

@@ -53,6 +53,7 @@ class CrossReferenceResolver:
             "item": SearchCategory.ITEMS, "spell": SearchCategory.SPELLS,
             "feat": SearchCategory.FEATS, "class": SearchCategory.CLASSES,
             "subclass": SearchCategory.SUBCLASSES, "monster": SearchCategory.MONSTERS,
+            "condition": SearchCategory.CONDITIONS, "rule": SearchCategory.RULES,
         }
         category = aliases.get(str(content_type), None)
         if category is None:
@@ -73,6 +74,8 @@ class CrossReferenceResolver:
             SearchCategory.CLASSES: "class",
             SearchCategory.SUBCLASSES: "subclass",
             SearchCategory.MONSTERS: "monster",
+            SearchCategory.CONDITIONS: "condition",
+            SearchCategory.RULES: "rule",
         }[category]
         with self.database.connection() as connection:
             if kind == "subclass":
@@ -136,6 +139,8 @@ class CrossReferenceResolver:
                     "item": SearchCategory.ITEMS, "spell": SearchCategory.SPELLS,
                     "feat": SearchCategory.FEATS, "class": SearchCategory.CLASSES,
                     "monster": SearchCategory.MONSTERS,
+                    "condition": SearchCategory.CONDITIONS,
+                    "rule": SearchCategory.RULES,
                 }.get(str(row["kind"]))
                 if category is None:
                     return None
@@ -145,6 +150,36 @@ class CrossReferenceResolver:
             identity=str(row["identity"]), category=category, name=str(row["name"]),
             edition=str(row["edition"]) if row["edition"] is not None else None,
             source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+        )
+
+    def structured_references(self, stable_id: str) -> tuple[ReferenceTarget, ...]:
+        """Read same-edition glossary relationships recorded during conversion."""
+        if not stable_id or ":" not in stable_id:
+            return ()
+        dataset_id, local_key = stable_id.split(":", 1)
+        with self.database.connection() as connection:
+            rows = connection.execute(
+                "SELECT target.dataset_id || ':' || target.local_key AS identity, target.kind, "
+                "target.name, target_src.edition, target_src.title AS source_label, "
+                "target.dataset_id FROM entries source "
+                "JOIN entry_references rel ON rel.source_entry_id=source.id "
+                "JOIN entries target ON target.id=rel.target_entry_id "
+                "JOIN sources source_src ON source_src.id=source.source_id "
+                "JOIN sources target_src ON target_src.id=target.source_id "
+                "WHERE source.dataset_id=? AND source.local_key=? "
+                "AND source_src.edition=target_src.edition "
+                "ORDER BY rel.content_type, target.normalized_name, target.dataset_id, "
+                "target.local_key",
+                (dataset_id, local_key),
+            ).fetchall()
+        category_map = {"condition": SearchCategory.CONDITIONS, "rule": SearchCategory.RULES}
+        return tuple(
+            ReferenceTarget(
+                identity=str(row["identity"]), category=category_map[str(row["kind"])],
+                name=str(row["name"]), edition=str(row["edition"]),
+                source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+            )
+            for row in rows
         )
 
     def monster_spell_references(
@@ -202,6 +237,70 @@ class CrossReferenceResolver:
         return tuple(sorted(
             found.values(), key=lambda target: (target.name.casefold(), target.identity)
         ))
+
+    def explicit_condition_references(
+        self, text: str, edition: str | None
+    ) -> tuple[ReferenceTarget, ...]:
+        """Link only exact condition names explicitly followed by the word condition."""
+        if not text or not edition:
+            return ()
+        with self.database.connection() as connection:
+            rows = connection.execute(
+                "SELECT e.dataset_id || ':' || e.local_key AS identity, e.name, src.edition, "
+                "src.title AS source_label, e.dataset_id FROM entries e "
+                "JOIN sources src ON src.id=e.source_id "
+                "WHERE e.kind='condition' AND src.edition=? "
+                "ORDER BY length(e.name) DESC, e.name, e.dataset_id, e.local_key",
+                (edition,),
+            ).fetchall()
+        found: dict[str, ReferenceTarget] = {}
+        for row in rows:
+            name = str(row["name"])
+            pattern = rf"(?<![\w]){re.escape(name)}\s+condition(?![\w])"
+            if re.search(pattern, text, re.IGNORECASE):
+                target = ReferenceTarget(
+                    identity=str(row["identity"]), category=SearchCategory.CONDITIONS,
+                    name=name, edition=str(row["edition"]),
+                    source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+                )
+                found[target.identity] = target
+        return tuple(sorted(found.values(), key=lambda item: (item.name.casefold(), item.identity)))
+
+    def explicit_rule_references(
+        self, text: str, edition: str | None
+    ) -> tuple[ReferenceTarget, ...]:
+        """Link only exact, named mechanical phrases; leave generic words alone."""
+        if not text or not edition:
+            return ()
+        safe_terms = {
+            "Concentration", "Opportunity Attack", "Difficult Terrain",
+            "Death Saving Throw", "Saving Throw", "Attack Roll", "Grappling",
+            "Advantage", "Disadvantage", "Cover",
+        }
+        with self.database.connection() as connection:
+            rows = connection.execute(
+                "SELECT e.dataset_id || ':' || e.local_key AS identity, e.name, src.edition, "
+                "src.title AS source_label, e.dataset_id FROM entries e "
+                "JOIN sources src ON src.id=e.source_id "
+                "WHERE e.kind='rule' AND src.edition=? "
+                "ORDER BY length(e.name) DESC, e.name, e.dataset_id, e.local_key",
+                (edition,),
+            ).fetchall()
+        found: dict[str, ReferenceTarget] = {}
+        for row in rows:
+            name = str(row["name"])
+            if name not in safe_terms:
+                continue
+            # Case-sensitive title form matches the source's named-rule spelling.
+            if not re.search(rf"(?<![\w]){re.escape(name)}(?![\w])", text):
+                continue
+            target = ReferenceTarget(
+                identity=str(row["identity"]), category=SearchCategory.RULES,
+                name=name, edition=str(row["edition"]),
+                source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+            )
+            found[target.identity] = target
+        return tuple(sorted(found.values(), key=lambda item: (item.name.casefold(), item.identity)))
 
     def explicit_feat_prerequisite_references(
         self, prerequisite: str | None, edition: str | None

@@ -86,7 +86,7 @@ def test_monster_import_idempotency_foreign_keys_and_migration(tmp_path: Path) -
     assert db.initialize() == (1, 2, 3, 4)
     assert import_dataset(db, load_dataset(FIXTURE)).added == 8
     db = Database(db.path)
-    assert db.initialize() == (5, 6, 7)
+    assert db.initialize() == (5, 6, 7, 8, 9)
     assert import_dataset(db, load_dataset(root)).added == 6
     assert import_dataset(db, load_dataset(root)).is_noop
     with db.connection() as connection:
@@ -154,6 +154,24 @@ async def test_startup_upgrades_previous_bundled_monsters_after_migration_005(
     old_pack = tmp_path / "old-official"
     shutil.copytree(PRODUCTION, old_pack)
     (old_pack / "monsters.json").unlink()
+    (old_pack / "conditions.json").unlink()
+    (old_pack / "rules.json").unlink()
+    for filename in ("items.json", "spells.json", "feats.json", "classes.json"):
+        path = old_pack / filename
+        payload = json.loads(path.read_text())
+
+        def strip_references(value):
+            if isinstance(value, dict):
+                return {
+                    key: strip_references(item)
+                    for key, item in value.items()
+                    if key != "references"
+                }
+            if isinstance(value, list):
+                return [strip_references(item) for item in value]
+            return value
+
+        path.write_text(json.dumps(strip_references(payload)))
     db = Database(paths.database_path, old_migrations)
     assert db.initialize() == (1, 2, 3, 4)
     previous = load_dataset(old_pack)
@@ -183,7 +201,7 @@ async def test_startup_upgrades_previous_bundled_monsters_after_migration_005(
         assert pilot.app.category is SearchCategory.MONSTERS
         assert pilot.app.state.total_count == 503
         assert pilot.app.state.results[0].name == "Aarakocra Aeromancer"
-        assert len(pilot.app.query_one("#result-list").children) == 50
+        assert len(pilot.app.query_one("#result-list").children) == BrowserApp.PAGE_SIZE
 
 
 def test_monster_replacement_refreshes_fts_and_children(tmp_path: Path) -> None:

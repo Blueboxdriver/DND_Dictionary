@@ -8,7 +8,7 @@ from pathlib import Path
 from types import ModuleType, SimpleNamespace
 
 import pytest
-from textual.widgets import Input, Label, ListView, Static
+from textual.widgets import Input, Label, ListView, Static, TextArea
 
 from dndref.config import Config, ContentConfig, FilterPreset, UIConfig
 from dndref.images import DecodedImage, ImageAdapter
@@ -26,7 +26,7 @@ from dndref.search import (
 from dndref.storage.database import Database
 from dndref.ui.app import BrowserApp, render_detail
 from dndref.ui.class_detail import progression_table
-from dndref.ui.launchers import CommandPaletteScreen, UniversalSearchScreen
+from dndref.ui.launchers import CommandPaletteScreen, LaunchRow, UniversalSearchScreen
 from dndref.ui.screens import (
     AboutScreen,
     ChoiceScreen,
@@ -52,12 +52,13 @@ async def test_search_launchers_fit_and_isolate_typed_shortcut_letters(
         await pilot.pause(0.3)
         original_category = pilot.app.category
         original_detail = pilot.app._detail_loaded_for
+        shortcut_letters = list("qjk1234?estcpbri")
         await pilot.press("ctrl+k")
         await pilot.pause(0.1)
         assert isinstance(pilot.app.screen, UniversalSearchScreen)
         search_input = pilot.app.screen.query_one("#universal-input", Input)
         assert search_input.region.width > 0 and search_input.region.height > 0
-        await pilot.press("r", "i", "f", "n")
+        await pilot.press(*shortcut_letters)
         await pilot.pause(0.3)
         assert pilot.app.category is original_category
         assert pilot.app._detail_loaded_for == original_detail
@@ -69,12 +70,266 @@ async def test_search_launchers_fit_and_isolate_typed_shortcut_letters(
         assert isinstance(pilot.app.screen, CommandPaletteScreen)
         palette_input = pilot.app.screen.query_one("#palette-input", Input)
         assert palette_input.region.width > 0 and palette_input.region.height > 0
-        await pilot.press("r", "i", "f", "n")
+        await pilot.press(*shortcut_letters)
         await pilot.pause(0.3)
         assert pilot.app.category is original_category
         assert pilot.app._detail_loaded_for == original_detail
         await pilot.press("escape")
         assert pilot.app.screen is pilot.app.screen_stack[0]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("size", [(140, 40), (100, 30), (80, 24), (60, 20)])
+async def test_help_and_footer_fit_supported_terminal_sizes(
+    tmp_path: Path, size: tuple[int, int]
+) -> None:
+    async with BrowserApp(populated_database(tmp_path)).run_test(size=size) as pilot:
+        await pilot.pause(0.4)
+        root = pilot.app.screen_stack[0]
+        footer = root.query_one("#footer", Static)
+        footer_lines = str(footer.renderable).splitlines()
+        assert any(
+            hint in str(footer.renderable) for hint in ("Ctrl+K", "Esc Back", "Type to search")
+        )
+        assert "Ctrl+P" in str(footer.renderable)
+        assert all(len(line) <= size[0] - 4 for line in footer_lines)
+
+        current_detail = pilot.app._current_detail.identity
+        root.query_one("#search-input", Input).focus()
+        await pilot.pause()
+        search_footer = str(footer.renderable)
+        assert "Type to search" in search_footer
+        assert "Esc Close" in search_footer
+        assert all(len(line) <= size[0] - 4 for line in search_footer.splitlines())
+        await pilot.press("escape")
+
+        if size[0] < 80:
+            await pilot.press("enter")
+            await pilot.pause()
+        else:
+            root.query_one("#detail-scroll").focus()
+            await pilot.pause()
+        detail_footer = str(footer.renderable)
+        assert "Esc Back" in detail_footer
+        assert "Ctrl+P" in detail_footer
+        assert all(len(line) <= size[0] - 4 for line in detail_footer.splitlines())
+        await pilot.press("escape")
+
+        await pilot.press("?")
+        await pilot.pause(0.1)
+        screen = pilot.app.screen
+        assert isinstance(screen, HelpScreen)
+        assert screen.query_one("#help-copy").region.width > 0
+        assert screen.query_one("#help-copy").region.height > 0
+        title = screen.query_one("#help-title").region
+        copy = screen.query_one("#help-copy").region
+        help_footer = screen.query_one("#help-footer").region
+        assert title.bottom <= copy.y
+        assert copy.bottom <= help_footer.y
+        assert help_footer.bottom <= size[1]
+        assert "## Getting Started" in HelpScreen.KEYBOARD_HELP
+        assert "## Advanced" in HelpScreen.KEYBOARD_HELP
+        await pilot.press("escape")
+        assert pilot.app.screen is root
+        assert pilot.app._current_detail.identity == current_detail
+
+
+@pytest.mark.asyncio
+async def test_commands_show_common_actions_first_and_select_category_and_filters(
+    tmp_path: Path,
+) -> None:
+    async with BrowserApp(populated_database(tmp_path)).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.4)
+        await pilot.press("ctrl+p")
+        await pilot.pause(0.1)
+        palette = pilot.app.screen
+        assert isinstance(palette, CommandPaletteScreen)
+        rows = palette.query_one("#palette-list", ListView).children
+        commands = [row.option.payload for row in rows if isinstance(row, LaunchRow)]
+        assert commands[:9] == [
+            "universal-search",
+            "favorites",
+            "collections",
+            "recent",
+            "sources",
+            "images",
+            "change-category",
+            "filters",
+            "image-diagnostics",
+        ]
+        assert "favorite-entry" in commands
+
+        palette.query_one("#palette-list", ListView).index = commands.index("change-category")
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        assert isinstance(pilot.app.screen, ChoiceScreen)
+        categories = pilot.app.screen.query_one("#choice-list", ListView)
+        categories.index = 5  # Monsters
+        await pilot.press("enter")
+        await pilot.pause(0.25)
+        assert pilot.app.category is SearchCategory.MONSTERS
+
+        await pilot.press("ctrl+p")
+        await pilot.pause(0.1)
+        palette = pilot.app.screen
+        assert isinstance(palette, CommandPaletteScreen)
+        rows = palette.query_one("#palette-list", ListView).children
+        filter_index = next(
+            index
+            for index, row in enumerate(rows)
+            if isinstance(row, LaunchRow) and row.option.payload == "filters"
+        )
+        palette.query_one("#palette-list", ListView).index = filter_index
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        assert isinstance(pilot.app.screen, ChoiceScreen)
+        options = pilot.app.screen.query_one("#choice-list", ListView)
+        assert len(options.children) == 6
+        options.index = 1  # Source
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        assert isinstance(pilot.app.screen, FilterScreen)
+        assert pilot.app.screen.kind == "source"
+        await pilot.press("escape")
+
+
+@pytest.mark.asyncio
+async def test_personal_actions_are_in_commands_and_text_fields_are_safe(
+    tmp_path: Path,
+) -> None:
+    async with BrowserApp(populated_database(tmp_path)).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.4)
+        app = pilot.app
+        detail = app._current_detail
+        assert detail is not None
+        app.personal_data.create_collection("Campaign")
+
+        await pilot.press("ctrl+p")
+        await pilot.pause(0.1)
+        palette = app.screen
+        assert isinstance(palette, CommandPaletteScreen)
+        rows = palette.query_one("#palette-list", ListView).children
+        membership_index = next(
+            index
+            for index, row in enumerate(rows)
+            if isinstance(row, LaunchRow) and row.option.payload == "entry-collection"
+        )
+        palette.query_one("#palette-list", ListView).index = membership_index
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        assert isinstance(app.screen, CollectionChooserScreen)
+        await pilot.press("space", "enter")
+        await pilot.pause(0.2)
+        assert app.personal_data.collection_ids_for(detail.identity)
+
+        await pilot.press("ctrl+p")
+        await pilot.pause(0.1)
+        palette = app.screen
+        assert isinstance(palette, CommandPaletteScreen)
+        rows = palette.query_one("#palette-list", ListView).children
+        tags_index = next(
+            index
+            for index, row in enumerate(rows)
+            if isinstance(row, LaunchRow) and row.option.payload == "edit-tags"
+        )
+        palette.query_one("#palette-list", ListView).index = tags_index
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        assert isinstance(app.screen, TextEntryScreen)
+        assert isinstance(app.screen.query_one("#note-input"), TextArea)
+        await pilot.press(*list("qjkestcpbri"))
+        await pilot.press("ctrl+s")
+        await pilot.pause(0.2)
+        assert "qjkestcpbri" in app.personal_data.tags_for(detail.identity)
+        assert app.screen is app.screen_stack[0]
+
+        await pilot.press("ctrl+p")
+        await pilot.pause(0.1)
+        palette = app.screen
+        assert isinstance(palette, CommandPaletteScreen)
+        rows = palette.query_one("#palette-list", ListView).children
+        note_index = next(
+            index
+            for index, row in enumerate(rows)
+            if isinstance(row, LaunchRow) and row.option.payload == "edit-note"
+        )
+        palette.query_one("#palette-list", ListView).index = note_index
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        assert isinstance(app.screen, TextEntryScreen)
+        await pilot.press("q", "j", "k", "escape")
+        assert app.screen is app.screen_stack[0]
+        assert app.personal_data.note_for(detail.identity) is None
+
+
+@pytest.mark.asyncio
+async def test_collection_names_use_enter_and_do_not_run_application_shortcuts(
+    tmp_path: Path,
+) -> None:
+    async with BrowserApp(populated_database(tmp_path)).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.4)
+        pilot.app.action_collections()
+        await pilot.pause(0.1)
+        assert isinstance(pilot.app.screen, CollectionListScreen)
+        await pilot.press("a")
+        await pilot.pause(0.1)
+        assert isinstance(pilot.app.screen, TextEntryScreen)
+        name_input = pilot.app.screen.query_one("#note-input", Input)
+        await pilot.press("q", "j", "k")
+        assert name_input.value == "qjk"
+        assert isinstance(pilot.app.screen, TextEntryScreen)
+        await pilot.press("enter")
+        await pilot.pause(0.15)
+        assert any(
+            collection.name == "qjk" for collection in pilot.app.personal_data.list_collections()
+        )
+
+
+@pytest.mark.asyncio
+async def test_escape_from_detail_returns_to_results_and_top_level_escape_is_safe(
+    tmp_path: Path,
+) -> None:
+    async with BrowserApp(populated_database(tmp_path)).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.4)
+        root = pilot.app.screen_stack[0]
+        root.query_one("#detail-scroll").focus()
+        await pilot.pause()
+        await pilot.press("escape")
+        assert root.focused.id == "result-list"
+        await pilot.press("escape")
+        assert pilot.app.screen is root
+        assert pilot.app.is_running
+
+
+@pytest.mark.asyncio
+async def test_escape_from_detail_uses_back_history_when_available(tmp_path: Path) -> None:
+    async with BrowserApp(populated_database(tmp_path)).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.4)
+        app = pilot.app
+        first_id = app.state.selected_id
+        await pilot.press("enter")
+        await pilot.press("down", "enter")
+        await pilot.pause(0.3)
+        assert app.navigation_history.can_go_back
+
+        app.screen_stack[0].query_one("#detail-scroll").focus()
+        await pilot.press("escape")
+        await pilot.pause(0.4)
+        assert app.state.selected_id == first_id
+
+
+@pytest.mark.asyncio
+async def test_q_quits_and_escape_or_ctrl_q_in_search_do_not_quit(tmp_path: Path) -> None:
+    async with BrowserApp(populated_database(tmp_path)).run_test(size=(80, 24)) as pilot:
+        await pilot.pause(0.3)
+        await pilot.press("escape")
+        pilot.app.screen_stack[0].query_one("#search-input", Input).focus()
+        await pilot.press("ctrl+q")
+        assert pilot.app.is_running
+        await pilot.press("escape")
+        await pilot.press("q")
+        await pilot.pause(0.05)
+        assert not pilot.app.is_running
 
 
 @pytest.mark.asyncio
@@ -1048,8 +1303,9 @@ async def test_result_navigation_detail_and_help(tmp_path: Path) -> None:
         await pilot.press("?")
         await pilot.pause()
         assert isinstance(pilot.app.screen, HelpScreen)
-        assert "`e` Edition filter" in HelpScreen.KEYBOARD_HELP
-        assert "`s` Source filter" in HelpScreen.KEYBOARD_HELP
+        assert HelpScreen.KEYBOARD_HELP.startswith("## Getting Started")
+        assert "`e / s / p` —" in HelpScreen.KEYBOARD_HELP
+        assert "## Advanced" in HelpScreen.KEYBOARD_HELP
         await pilot.press("escape")
         assert not isinstance(pilot.app.screen, HelpScreen)
 

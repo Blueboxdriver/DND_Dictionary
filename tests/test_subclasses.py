@@ -281,7 +281,7 @@ async def test_standalone_subclass_category_and_parent_filter(tmp_path: Path) ->
         await pilot.pause(0.3)
         assert app.state.parent_class == "Fighter"
         assert app.state.total_count == 2
-        assert "Class: Fighter" in str(app.query_one("#list-heading").render())
+        assert "Parent class: Fighter" in str(app.query_one("#list-heading").render())
 
 
 @pytest.mark.asyncio

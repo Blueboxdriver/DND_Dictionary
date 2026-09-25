@@ -22,6 +22,7 @@ from ..search import (
     SourceIdentity,
     SourceOption,
 )
+from .controls import render_help_markdown
 
 
 class FilterScreen(ModalScreen[tuple[object, ...] | None]):
@@ -742,103 +743,39 @@ class TextEntryScreen(ModalScreen[tuple[str, str] | None]):
                 yield TextArea(self.value, id="note-input")
             else:
                 yield Input(value=self.value, id="note-input")
-            yield Static("Ctrl+S Save   Esc Cancel")
+            yield Static(
+                "Ctrl+S Save   Esc Cancel" if self.multiline else "Enter Save   Esc Cancel"
+            )
 
     def on_mount(self) -> None:
         self.query_one("#note-input").focus()
 
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        if event.input.id == "note-input" and isinstance(event.input, Input):
+            event.stop()
+            self._save()
+
     def on_key(self, event: events.Key) -> None:
         if event.key == "ctrl+s":
             event.stop()
-            widget = self.query_one("#note-input")
-            value = widget.text if isinstance(widget, TextArea) else widget.value
-            self.dismiss(("save", value))
+            self._save()
         elif event.key == "escape":
             event.stop()
             self.dismiss(None)
+
+    def _save(self) -> None:
+        widget = self.query_one("#note-input")
+        value = widget.text if isinstance(widget, TextArea) else widget.value
+        self.dismiss(("save", value))
 
     def action_cancel(self) -> None:
         self.dismiss(None)
 
 
 class HelpScreen(ModalScreen[None]):
-    """Compact keyboard reference."""
+    """Short guide with the everyday controls first and details below."""
 
-    KEYBOARD_HELP = """# D&D Reference — Help
-
-**Search**
-
-`/` or `Ctrl+F`  Focus current category search
-`Ctrl+K`  Universal Search across all reference categories
-`Ctrl+P`  Command Palette for views, actions, and direct entry lookup
-`F2`  Toggle Names / All text  
-`1`–`8`  Select Items / Spells / Feats / Classes / Subclasses / Monsters / Conditions / Rules
-`e` Edition filter · `s` Source filter
-`f` Parent class filter in Subclasses
-`c` CR · `t` creature type · `z` size filter in Monsters
-`p` Filter presets · `b` Browse sources
-`g` Group alternates on/off · `v` Select source variant
-`i` Toggle artwork when available
-`r` Recently Viewed
-`F` Favorites · `C` Collections
-`*` Toggle favorite · `m` Add to collections · `T` Edit tags · `n` Edit private note
-
-Filter dialogs show `>` for the active row and `[x]` for a selected row.
-Space toggles a filter choice; Enter applies; Escape cancels.
-
-**Navigation**
-
-`Tab` / `Shift+Tab`  Change focus  
-`Up`/`Down` or `j`/`k`  Navigate or scroll  
-`PageUp`/`PageDown`  Page through the focused pane  
-`Left`/`Right` or `h`/`l`  Scroll a focused class progression table horizontally  
-`Home`/`End`  Start or end  
-`Enter`  Open or select  
-On a class page, Tab to Subclasses and Enter to open one.
-On a subclass page, `c` opens its matching edition parent class.
-Monster spell names in structured spellcasting lists open same-edition spells.
-Structured source references open Conditions and selected Rules in the same
-canonical edition; exact condition names followed by “condition” may also link.
-The glossary is curated, not a complete rules-book copy, and links never fall
-back to another edition.
-Multiple same-edition source variants show a chooser. Class/subclass links use
-their stored parent relationship. Arbitrary prose is intentionally not auto-linked.
-`Alt+Left` Back · `Alt+Right` Forward through visited records and browser states.
-`Escape`  Back, close, or leave search  
-
-Favorites, collections, tags, and notes are stored locally in the application
-database. Personal records use exact entry IDs; missing entries stay marked as
-missing and may resolve again when the same ID returns.
-
-Universal Search recognizes `item:`, `spell:`, `feat:`, `class:`, `subclass:`,
-`monster:`, `condition:`, `rule:`, `edition:`, and `source:` prefixes. Examples: `spell: fireball`,
-`monster:dragon edition:2024`, and `source:XMM dragon`. Results show category,
-edition, and source. Recent Searches are local, capped at 25, and can be cleared
-with `Ctrl+L` inside Universal Search. Opening an entry records its search in
-Back/Forward history, including its query and selected result.
-
-The Command Palette offers Open Conditions and Open Rules alongside category
-views, Favorites, Collections, Recently Viewed, Sources, Universal Search,
-Back/Forward, image toggle, Help, image
-instructions, and Quit. Typing a reference name also searches records.
-
-`?` / `F1`  Help  
-`F3`  About / installed dataset data
-`q`  Quit when not editing
-`Ctrl+Q`  Quit globally
-
-In Favorites or a collection, `/` searches names, content type, tags, and note text.
-Tab to the entries list; `t`, `e`, and `g` cycle content type, edition, and tag
-filters. In Collections, `a` creates, `r` renames, and `x` starts deletion;
-deletion requires typing `DELETE`.
-
-**Images**
-
-Set `[ui].images` in `config.toml` to `auto`, `off`, `kitty`, or `sixel`.
-`dndref --images MODE` overrides that setting for the current session. Images
-are local imported assets; missing dependencies, unsupported terminals, and
-image failures collapse the artwork panel while text browsing continues.
-"""
+    KEYBOARD_HELP = render_help_markdown()
 
     DEFAULT_CSS = """
     HelpScreen {
@@ -847,19 +784,29 @@ image failures collapse the artwork panel while text browsing continues.
     }
 
     #help-card {
-        width: 64;
-        max-width: 90%;
-        height: auto;
-        max-height: 90%;
+        width: 78;
+        max-width: 92%;
+        height: 90%;
+        max-height: 94%;
         padding: 1 2;
         border: round $accent;
         background: $surface;
     }
 
+    #help-title {
+        height: 1;
+        text-style: bold;
+        color: $accent;
+    }
+
     #help-copy {
-        height: auto;
-        max-height: 1fr;
+        height: 1fr;
         overflow-y: auto;
+    }
+
+    #help-footer {
+        height: 1;
+        color: $text-muted;
     }
     """
 
@@ -869,8 +816,10 @@ image failures collapse the artwork panel while text browsing continues.
     ]
 
     def compose(self) -> ComposeResult:
-        with Container(id="help-card"):
+        with Vertical(id="help-card"):
+            yield Label("Help", id="help-title")
             yield Markdown(self.KEYBOARD_HELP, id="help-copy")
+            yield Static("↑↓ Scroll   Esc Close", id="help-footer")
 
 
 class AboutScreen(ModalScreen[None]):

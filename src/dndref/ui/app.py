@@ -40,6 +40,7 @@ from ..search import (
 )
 from ..storage.database import Database
 from .class_detail import ClassDetailView, render_class_detail, render_subclass_detail
+from .controls import footer_control
 from .launchers import CommandPaletteScreen, UniversalSearchScreen
 from .monster_detail import render_monster_detail
 from .screens import (
@@ -87,6 +88,7 @@ class BrowserApp(App[None]):
     TITLE = "D&D Reference"
     SUB_TITLE = "Offline reference browser"
     PAGE_SIZE = 20
+    BINDINGS = [("f1", "show_help", "Help")]
 
     CSS = """
     Screen {
@@ -358,16 +360,6 @@ class BrowserApp(App[None]):
     }
     """
 
-    BINDINGS = [
-        ("ctrl+q", "quit", "Quit"),
-        ("ctrl+f", "focus_search", "Search"),
-        ("ctrl+k", "universal_search", "Universal Search"),
-        ("ctrl+p", "command_palette", "Command Palette"),
-        ("f2", "toggle_mode", "Mode"),
-        ("f1", "show_help", "Help"),
-        ("f3", "show_about", "About/Data"),
-    ]
-
     CATEGORIES = (
         SearchCategory.ITEMS,
         SearchCategory.SPELLS,
@@ -437,6 +429,7 @@ class BrowserApp(App[None]):
         self._pending_search_cache_key: tuple[int, tuple[object, ...]] | None = None
         self._updating_input = False
         self._page_loading = False
+        self._initial_results_loaded = False
         self.image_adapter = ImageAdapter(self.config.ui.images)
         self.image_loader = ImageLoader()
         self._image_timer: Timer | None = None
@@ -452,6 +445,82 @@ class BrowserApp(App[None]):
         super().__init__()
 
     def _register_commands(self) -> None:
+        actions = (
+            (
+                "universal-search",
+                "Search All",
+                ("search", "universal search"),
+                self.action_universal_search,
+            ),
+            ("favorites", "Favorites", ("fav", "favourites"), self.action_favorites),
+            ("collections", "Collections", ("collection",), self.action_collections),
+            ("recent", "Recently Viewed", ("recent",), self.action_recently_viewed),
+            ("sources", "Browse Sources", ("source browser",), self.action_browse_sources),
+            ("images", "Toggle Images", ("artwork",), self.action_toggle_artwork),
+            ("change-category", "Change Category", ("categories",), self.action_choose_category),
+            ("filters", "Filters", ("filter",), self.action_filters),
+            (
+                "image-diagnostics",
+                "Image and Data Info",
+                ("diagnostics", "about", "image diagnostics"),
+                self.action_show_about,
+            ),
+            (
+                "favorite-entry",
+                "Toggle Favorite",
+                ("favorite", "unfavorite"),
+                self.action_toggle_favorite,
+            ),
+            (
+                "entry-collection",
+                "Add to Collection",
+                ("collection membership",),
+                self.action_add_to_collection,
+            ),
+            ("edit-tags", "Edit Tags", ("tags",), self.action_edit_tags),
+            ("edit-note", "Edit Note", ("note",), self.action_edit_note),
+            (
+                "grouping",
+                "Group Source Versions",
+                ("grouping", "alternates"),
+                self.action_toggle_grouping,
+            ),
+            ("variants", "Choose Version", ("variants", "version"), self.action_variants),
+            ("presets", "Filter Presets", ("presets",), self.action_presets),
+            ("edition-filter", "Filter by Edition", ("edition filter",), self.action_editions),
+            ("source-filter", "Filter by Source", ("source filter",), self.action_sources),
+            (
+                "parent-class-filter",
+                "Filter by Parent Class",
+                ("parent class",),
+                self.action_parent_class,
+            ),
+            (
+                "monster-cr-filter",
+                "Filter by Challenge Rating",
+                ("challenge rating",),
+                lambda: self.action_monster_filter("cr"),
+            ),
+            (
+                "monster-type-filter",
+                "Filter by Creature Type",
+                ("creature type",),
+                lambda: self.action_monster_filter("type"),
+            ),
+            (
+                "monster-size-filter",
+                "Filter by Size",
+                ("monster size",),
+                lambda: self.action_monster_filter("size"),
+            ),
+            ("back", "Back", ("previous",), self.action_back),
+            ("forward", "Forward", ("next",), self.action_forward),
+            ("help", "Help", ("?",), self.action_show_help),
+            ("quit", "Quit", ("exit",), self.exit),
+        )
+        for command_id, name, aliases, handler in actions:
+            self.commands.register(Command(command_id, name, aliases), handler)
+
         for category in self.CATEGORIES:
             aliases = {
                 SearchCategory.MONSTERS: ("monsters", "creatures", "mons"),
@@ -463,26 +532,6 @@ class BrowserApp(App[None]):
                 ),
                 lambda category=category: self._switch_category(category),
             )
-        actions = (
-            ("favorites", "Open Favorites", ("fav", "favourites"), self.action_favorites),
-            ("collections", "Open Collections", ("collection",), self.action_collections),
-            ("recent", "Open Recently Viewed", ("recent",), self.action_recently_viewed),
-            ("sources", "Open Sources", ("source browser",), self.action_browse_sources),
-            ("universal-search", "Universal Search", ("search",), self.action_universal_search),
-            ("back", "Back", ("previous",), self.action_back),
-            ("forward", "Forward", ("next",), self.action_forward),
-            ("images", "Toggle Images", ("artwork",), self.action_toggle_artwork),
-            ("help", "Help", ("?",), self.action_show_help),
-            (
-                "image-diagnostics",
-                "Image Diagnostics / Instructions",
-                ("diagnostics",),
-                self.action_show_about,
-            ),
-            ("quit", "Quit", ("exit",), self.exit),
-        )
-        for command_id, name, aliases, handler in actions:
-            self.commands.register(Command(command_id, name, aliases), handler)
 
     @property
     def state(self) -> CategoryState:
@@ -531,14 +580,14 @@ class BrowserApp(App[None]):
             id="too-small",
         )
         yield Static(
-            "/ Search   Alt+← Back   Alt+→ Forward   r Recent   ? Help   q Quit",
+            "",
             id="footer",
         )
 
     def on_mount(self) -> None:
         self._category_profile_started = (self._request_id, self.category, time.perf_counter())
         self._update_tab_styles()
-        self._update_group_status()
+        self._update_footer()
         self._update_layout(self.size.width, self.size.height)
         self._query_widget("#result-list", ListView).focus()
         self._update_input_from_state()
@@ -551,6 +600,7 @@ class BrowserApp(App[None]):
         # that owned them. Invalidate in-flight loads before moving the pane.
         self._clear_image()
         self._update_layout(event.size.width, event.size.height)
+        self._update_footer()
 
     def on_unmount(self) -> None:
         self._clear_image()
@@ -560,6 +610,10 @@ class BrowserApp(App[None]):
         button_id = event.button.id or ""
         if button_id.startswith("tab-"):
             self._switch_category(SearchCategory(button_id.removeprefix("tab-")))
+
+    def on_descendant_focus(self, _event: events.DescendantFocus) -> None:
+        if self.is_mounted and self.screen_stack and self.screen is self.screen_stack[0]:
+            self._update_footer()
 
     def on_input_changed(self, event: Input.Changed) -> None:
         if event.input.id != "search-input" or self._updating_input:
@@ -635,21 +689,32 @@ class BrowserApp(App[None]):
 
     def on_key(self, event: events.Key) -> None:
         focus = self.screen.focused
-        if not isinstance(self.screen, ModalScreen) and event.key in {"ctrl+k", "ctrl+p"}:
-            event.stop()
-            if event.key == "ctrl+k":
-                self.action_universal_search()
-            else:
-                self.action_command_palette()
+        if not isinstance(self.screen, ModalScreen):
+            if event.key == "ctrl+q" and not isinstance(focus, Input):
+                event.stop()
+                self.exit()
+                return
+            global_actions = {
+                "ctrl+k": self.action_universal_search,
+                "ctrl+p": self.action_command_palette,
+                "ctrl+f": self.action_focus_search,
+                "f2": self.action_toggle_mode,
+                "f3": self.action_show_about,
+            }
+            handler = global_actions.get(event.key)
+            if handler is not None:
+                event.stop()
+                handler()
+                return
+
+        # Modal screens own all keys while active, including their text fields.
+        if isinstance(self.screen, ModalScreen):
             return
+
         if isinstance(focus, Input):
             if event.key == "escape":
                 event.stop()
                 self._query_widget("#result-list", ListView).focus()
-            return
-
-        # Modal screens own all keys while they are active.
-        if isinstance(self.screen, ModalScreen):
             return
 
         if event.key == "alt+left":
@@ -660,15 +725,6 @@ class BrowserApp(App[None]):
             event.stop()
             self.action_forward()
             return
-        if event.key == "ctrl+k":
-            event.stop()
-            self.action_universal_search()
-            return
-        if event.key == "ctrl+p":
-            event.stop()
-            self.action_command_palette()
-            return
-
         if event.character == "q":
             event.stop()
             self.exit()
@@ -676,10 +732,6 @@ class BrowserApp(App[None]):
         if event.character == "?":
             event.stop()
             self.action_show_help()
-            return
-        if event.key == "f3":
-            event.stop()
-            self.action_show_about()
             return
         if event.character in {"1", "2", "3", "4", "5", "6", "7", "8"}:
             event.stop()
@@ -783,8 +835,17 @@ class BrowserApp(App[None]):
                 self.narrow_detail_open = False
                 self._update_layout(self.size.width, self.size.height)
                 self._query_widget("#result-list", ListView).focus()
-            elif isinstance(focus, VerticalScroll):
-                self._query_widget("#result-list", ListView).focus()
+            elif (
+                isinstance(focus, VerticalScroll)
+                or isinstance(focus, DataTable)
+                or isinstance(focus, ListView)
+                and focus.id in {"related-list", "subclass-list"}
+            ):
+                current = self.navigation_history.current
+                if self.navigation_history.can_go_back:
+                    self.action_back()
+                if self.navigation_history.current is current:
+                    self._query_widget("#result-list", ListView).focus()
             return
 
         if isinstance(focus, ListView):
@@ -928,8 +989,36 @@ class BrowserApp(App[None]):
 
     def action_command_palette(self) -> None:
         self._clear_image()
+        context_only = {"favorite-entry", "entry-collection", "edit-tags", "edit-note"}
+        commands = tuple(
+            command
+            for command in self.commands.commands
+            if command.command_id not in context_only or self._current_detail is not None
+        )
+        default_commands = (
+            "universal-search",
+            "favorites",
+            "collections",
+            "recent",
+            "sources",
+            "images",
+            "change-category",
+            "filters",
+            "image-diagnostics",
+        )
+        if self._current_detail is not None:
+            default_commands += (
+                "favorite-entry",
+                "entry-collection",
+                "edit-tags",
+                "edit-note",
+            )
         self.push_screen(
-            CommandPaletteScreen(self.search_service, self.commands.commands),
+            CommandPaletteScreen(
+                self.search_service,
+                commands,
+                default_command_ids=default_commands,
+            ),
             self._command_palette_result,
         )
 
@@ -942,6 +1031,47 @@ class BrowserApp(App[None]):
             self.commands.execute(str(value))
         elif kind == "entry":
             self._navigate_to_identity(str(value))
+
+    def action_choose_category(self) -> None:
+        labels = tuple(self.CATEGORY_LABELS[category] for category in self.CATEGORIES)
+        self.push_screen(
+            ChoiceScreen("Change category", labels),
+            self._category_selected,
+        )
+
+    def _category_selected(self, index: int | None) -> None:
+        if index is None:
+            self._restore_current_image()
+            return
+        self._switch_category(self.CATEGORIES[index])
+
+    def action_filters(self) -> None:
+        actions: list[tuple[str, Any]] = [
+            ("Edition", self.action_editions),
+            ("Source", self.action_sources),
+            ("Filter presets", self.action_presets),
+        ]
+        if self.category is SearchCategory.SUBCLASSES:
+            actions.append(("Parent class", self.action_parent_class))
+        elif self.category is SearchCategory.MONSTERS:
+            actions.extend(
+                (
+                    ("Challenge rating", lambda: self.action_monster_filter("cr")),
+                    ("Creature type", lambda: self.action_monster_filter("type")),
+                    ("Size", lambda: self.action_monster_filter("size")),
+                )
+            )
+        self._filter_actions = tuple(actions)
+        self.push_screen(
+            ChoiceScreen("Filters", tuple(label for label, _handler in self._filter_actions)),
+            self._filter_action_selected,
+        )
+
+    def _filter_action_selected(self, index: int | None) -> None:
+        if index is None:
+            self._restore_current_image()
+            return
+        self._filter_actions[index][1]()
 
     def action_editions(self) -> None:
         if self.layout_mode == "compact":
@@ -1055,7 +1185,11 @@ class BrowserApp(App[None]):
                 or f"group:{previous.category.value}:{normalize_name(previous.name)}"
             )
         self.state.list_index = 0
-        self._update_group_status()
+        self.notify(
+            "Source versions are "
+            + ("grouped." if self.group_alternate_sources else "shown separately."),
+            timeout=2,
+        )
         self._invalidate_search()
         self._queue_search()
 
@@ -1248,10 +1382,12 @@ class BrowserApp(App[None]):
             return
         heading = "Results"
         if self.category is SearchCategory.SUBCLASSES:
-            heading = "Subclasses · f Class: " + (self.state.parent_class or "All")
+            heading = "Subclasses · Parent class: " + (self.state.parent_class or "All")
         elif self.category is SearchCategory.MONSTERS:
             active = [
-                f"CR {self.state.challenge_rating}" if self.state.challenge_rating else "",
+                f"Challenge rating {self.state.challenge_rating}"
+                if self.state.challenge_rating
+                else "",
                 self.state.creature_type or "",
                 self.state.size or "",
             ]
@@ -1291,11 +1427,56 @@ class BrowserApp(App[None]):
             self._search_timer.stop()
         self._start_search(request_id)
 
-    def _update_group_status(self) -> None:
-        self._query_widget("#footer", Static).update(
-            "/ Search   F2 Mode   1–6 Category   "
-            f"g Groups: {'On' if self.group_alternate_sources else 'Off'}   ? Help   q Quit"
-        )
+    def _update_footer(self) -> None:
+        if not self.is_mounted or not self.screen_stack or self.screen is not self.screen_stack[0]:
+            return
+        footer = self._query_widget("#footer", Static)
+        focus = self.screen.focused
+        width = max(0, self.size.width - 4)
+
+        if self.layout_mode == "compact":
+            lines = ["? Help   q Quit"]
+        elif isinstance(focus, Input) and focus.id == "search-input":
+            lines = ["Type to search   ↑↓ Results   Enter Open   Esc Close"]
+        elif isinstance(focus, Button) and (focus.id or "").startswith("tab-"):
+            lines = ["Tab Categories   Enter Select   Ctrl+P Commands   ? Help"]
+        elif (
+            isinstance(focus, VerticalScroll)
+            or isinstance(focus, DataTable)
+            or isinstance(focus, ListView)
+            and focus.id in {"related-list", "subclass-list"}
+        ):
+            lines = ["Esc Back   ↑↓ Scroll   Enter Open Link   Ctrl+P Commands   ? Help"]
+            if len(lines[0]) > width:
+                lines = [
+                    "Esc Back   ↑↓ Scroll   Enter Open Link",
+                    "Ctrl+P Commands   ? Help",
+                ]
+        else:
+            full_line = "   ".join(
+                footer_control(action)
+                for action in (
+                    "move",
+                    "open",
+                    "search",
+                    "Search All",
+                    "commands",
+                    "help",
+                    "quit",
+                )
+            )
+            if len(full_line) <= width:
+                lines = [full_line]
+            else:
+                lines = [
+                    "   ".join(footer_control(action) for action in ("move", "open", "search")),
+                    "   ".join(
+                        footer_control(action)
+                        for action in ("Search All", "commands", "help", "quit")
+                    ),
+                ]
+        footer.styles.height = len(lines)
+        footer.update("\n".join(lines))
 
     def action_show_help(self) -> None:
         self._clear_image()
@@ -1315,6 +1496,7 @@ class BrowserApp(App[None]):
 
     def on_screen_resume(self) -> None:
         self._restore_current_image()
+        self._update_footer()
 
     def _mode_label(self) -> str:
         return "All text" if self.mode is SearchMode.ALL_TEXT else "Names"
@@ -1475,7 +1657,15 @@ class BrowserApp(App[None]):
             self.state.selected_id = self._selected_variant_id
         self.state.total_count = page.total_count
         self._page_loading = False
+        result_list = self._query_widget("#result-list", ListView)
+        restore_initial_focus = (
+            not self._initial_results_loaded and self.screen.focused is result_list
+        )
         await self._populate_results()
+        if not self._initial_results_loaded:
+            self._initial_results_loaded = True
+            if restore_initial_focus and self.layout_mode != "compact":
+                result_list.focus()
         self._restore_selection()
         if self._restoring_history:
             self._restoring_history = False
@@ -1818,7 +2008,7 @@ class BrowserApp(App[None]):
         if isinstance(selected, GroupedEntrySummary) and selected.alternates:
             hint.update(
                 f"Source: {detail.source_label} · "
-                f"{len(selected.alternates)} alternates · v Variants"
+                f"{len(selected.alternates)} other versions · Choose Version in Commands"
             )
             hint.display = True
         else:
@@ -2327,7 +2517,7 @@ class BrowserApp(App[None]):
             self._show_personal_view()
         elif action == "create":
             self.push_screen(
-                TextEntryScreen("New collection name · Ctrl+S to save"),
+                TextEntryScreen("New collection name"),
                 self._collection_name_result,
             )
         elif action == "rename":
@@ -2341,12 +2531,15 @@ class BrowserApp(App[None]):
             )
             if collection:
                 self.push_screen(
-                    TextEntryScreen("Rename collection · Ctrl+S to save", collection.name),
+                    TextEntryScreen("Rename collection", collection.name),
                     lambda value: self._collection_renamed(collection_id, value),
                 )
         elif action == "delete":
             self.push_screen(
-                TextEntryScreen("Type DELETE to confirm collection deletion", multiline=False),
+                TextEntryScreen(
+                    "Type DELETE and press Enter to confirm collection deletion",
+                    multiline=False,
+                ),
                 lambda value: self._collection_deleted(collection_id, value),
             )
 

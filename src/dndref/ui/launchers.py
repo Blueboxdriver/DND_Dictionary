@@ -82,7 +82,7 @@ class UniversalSearchScreen(ModalScreen[tuple[object, ...] | None]):
 
     def compose(self) -> ComposeResult:
         with Vertical(id="universal-card"):
-            yield Label("Universal Search  ·  / or Ctrl+K")
+            yield Label("Search All  ·  Ctrl+K")
             yield Input(
                 self.initial_query,
                 placeholder="Search references · spell:fireball · source:XMM dragon",
@@ -91,7 +91,8 @@ class UniversalSearchScreen(ModalScreen[tuple[object, ...] | None]):
             yield Static("", id="universal-status")
             yield ListView(id="universal-list")
             yield Static(
-                "Enter Open/Search   Ctrl+L Clear recent searches   Esc Close", id="universal-help"
+                "↑↓ Results   Enter Open   Esc Close\nCtrl+L Clear recent searches",
+                id="universal-help",
             )
 
     def on_mount(self) -> None:
@@ -290,9 +291,16 @@ class CommandPaletteScreen(ModalScreen[tuple[str, object] | None]):
 
     BINDINGS = [("escape", "cancel", "Close")]
 
-    def __init__(self, service: SearchService, commands: tuple[Command, ...]) -> None:
+    def __init__(
+        self,
+        service: SearchService,
+        commands: tuple[Command, ...],
+        *,
+        default_command_ids: tuple[str, ...] | None = None,
+    ) -> None:
         self.service = service
         self.commands = commands
+        self.default_command_ids = default_command_ids
         self._options: list[LaunchOption] = []
         self._timer: Timer | None = None
         self._request = 0
@@ -300,11 +308,11 @@ class CommandPaletteScreen(ModalScreen[tuple[str, object] | None]):
 
     def compose(self) -> ComposeResult:
         with Vertical(id="palette-card"):
-            yield Label("Command Palette  ·  Ctrl+P")
-            yield Input(placeholder="Type a command or reference name", id="palette-input")
+            yield Label("Commands  ·  Ctrl+P")
+            yield Input(placeholder="Search commands or reference names", id="palette-input")
             yield Static("", id="palette-status")
             yield ListView(id="palette-list")
-            yield Static("Enter Run/Open   Esc Close", id="palette-help")
+            yield Static("Enter Select   Esc Close", id="palette-help")
 
     def on_mount(self) -> None:
         self._filter("")
@@ -331,10 +339,15 @@ class CommandPaletteScreen(ModalScreen[tuple[str, object] | None]):
     def _filter(self, query: str) -> None:
         needle = query.casefold().strip()
         options: list[LaunchOption] = []
-        for command in self.commands:
+        default_order = {
+            command_id: index for index, command_id in enumerate(self.default_command_ids or ())
+        }
+        for index, command in enumerate(self.commands):
             words = (command.name, *command.aliases)
             if not needle:
-                rank = 2
+                if self.default_command_ids is not None and command.command_id not in default_order:
+                    continue
+                rank = default_order.get(command.command_id, index)
             elif any(word.casefold() == needle for word in words):
                 rank = 0
             elif any(
@@ -344,11 +357,17 @@ class CommandPaletteScreen(ModalScreen[tuple[str, object] | None]):
                 rank = 2
             else:
                 continue
-            options.append(
-                LaunchOption("command", command.command_id, f"Command  ·  {command.name}", rank)
-            )
-        self._options = sorted(options, key=lambda option: (option.rank, option.label.casefold()))
-        self.query_one("#palette-status", Static).update("Commands and matching references")
+            options.append(LaunchOption("command", command.command_id, command.name, rank))
+        self._options = sorted(
+            options,
+            key=lambda option: (
+                option.rank,
+                option.label.casefold() if needle else "",
+            ),
+        )
+        self.query_one("#palette-status", Static).update(
+            "Common actions" if not needle else "Commands and matching references"
+        )
         self.run_worker(self._replace_rows(), exclusive=True)
 
     def _start_entries(self, request: int, query: str) -> None:

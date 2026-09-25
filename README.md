@@ -50,47 +50,56 @@ matrix and remaining limits.
 
 ## Browse
 
-The browser opens on Spells. Result rows include the sourcebook. These are the
-main keyboard controls:
+The browser opens on Spells. Result rows include the sourcebook. Start with
+these eight controls:
 
 | Key | Action |
 | --- | --- |
-| `/`, `Ctrl+F` | Focus current category search |
-| `Ctrl+K` | Universal Search across reference categories |
-| `Ctrl+P` | Command Palette for commands and direct record lookup |
-| `F2` | Toggle Names / All text search |
-| `1`–`8` | Items / Spells / Feats / Classes / Subclasses / Monsters / Conditions / Rules |
-| `e`, `s` | Edition / source filter |
-| `f` | Parent class filter while browsing Subclasses |
-| `c`, `t`, `z` | CR / creature type / size filter while browsing Monsters |
-| `p` | Filter presets |
-| `g`, `v` | Toggle alternate-source grouping / choose a variant |
-| `b` | Sourcebook browser |
-| `i` | Toggle artwork when available |
-| `Alt+Left`, `Alt+Right` | Back / Forward |
-| `r` | Recently Viewed |
-| `F`, `C` | Favorites, Collections |
-| `*`, `m`, `T`, `n` | Toggle favorite, choose collections, edit tags, edit private note |
-| Arrows, `j`/`k`, `Enter`, `Escape` | Navigate, open, and return |
-| `c` | Open the matching edition parent class from a subclass detail |
-| `?`, `F1`; `F3` | Help; About/Data and installed dataset status |
-| `q`, `Ctrl+Q` | Quit; global quit |
+| `↑` / `↓` or `j` / `k` | Move through lists |
+| `Enter` | Open or select |
+| `Esc` | Go back or close |
+| `/` | Search this list |
+| `Ctrl+K` | Search the entire dictionary |
+| `Ctrl+P` | Open Commands |
+| `?` | Open Help |
+| `q` | Quit |
+
+Category tabs are shown across the top. Commands includes **Change Category**,
+**Filters**, Search All, Favorites, Collections, Recently Viewed, Browse Sources,
+Toggle Images, and entry actions. Press Enter to select a command. On an entry,
+Commands also offers Favorite, Add to Collection, Edit Tags, and Edit Note.
+Escape closes a dialog, leaves a search field, or goes back from detail to
+results or the previous view; at the top-level browser it does nothing.
+
+### Advanced shortcuts
+
+These aliases remain for experienced users; text fields treat their letters as
+text. `Ctrl+F` focuses current-list search. `Alt+Left` / `Alt+Right` move Back / Forward.
+`1`–`8` switch categories; `F2` changes search mode; `F3` opens Image and Data Info.
+`e` / `s` open edition and source filters; `f` filters subclasses by parent class;
+`c` / `t` / `z` filter monsters, while `c` on a subclass detail opens its parent
+class; `p` opens filter presets. `g` groups source
+versions, `v` chooses a version, `b` opens Browse Sources, `r` opens Recently
+Viewed, and `i` toggles images. `F` / `C` open Favorites / Collections. On an
+entry, `*` toggles Favorite, `m` edits collection membership, `T` edits tags,
+and `n` edits a note. `F1` is a Help alias. `Ctrl+Q` quits outside text fields
+and overlays.
 
 The default edition is 2024 / 5.5e; each category starts at All Sources. The
-`e` and `s` dialogs allow multiple selections: Space toggles a choice, Enter
-applies, and Escape cancels. Filters are kept separately for each category in
-the current session. Built-in presets include Everything 2024, Everything
+edition and source dialogs allow multiple selections: Space toggles a choice,
+Enter applies, and Escape cancels. Filters are kept separately for each category
+in the current session. Built-in presets include Everything 2024, Everything
 2014, and All Content.
 
 A *dataset* is an imported provider pack; an *edition* is a rules version; a
 *sourcebook* identifies the cited book within a pack. Entries with the same
 name from different sources may be legitimate alternatives with different
-mechanics. Grouping only combines their result rows. Use `v` to inspect each
-variant, or `g` to list them separately. Preferred sources choose the initially
-shown variant. The sourcebook browser (`b`) shows installed books and their
-category counts.
+mechanics. Grouping only combines their result rows. Use Commands → Choose
+Version to inspect an alternative, or Group Source Versions to list them
+separately. Preferred sources choose the initially shown version. Browse Sources
+shows installed books and their category counts.
 
-Universal Search (`Ctrl+K`) keeps category browsing intact and searches Items,
+Search All (`Ctrl+K`) keeps category browsing intact and searches Items,
 Spells, Feats, Classes, Subclasses, Monsters, Conditions, and Rules together. It supports `item:`,
 `spell:`, `feat:`, `class:`, `subclass:`, `monster:`, `condition:`, `rule:`, `edition:`, and `source:`
 prefixes. For example:
@@ -107,13 +116,12 @@ rule:cover
 Results include category, edition, and source and retain separate records for
 different editions and variants. Recent Searches are stored locally in the
 user-owned SQLite database, capped at 25, and cleared with `Ctrl+L` from
-Universal Search. Opening a result puts Universal Search into ordinary
+Search All. Opening a result puts Search All into ordinary
 Back/Forward history with its query and selected result.
 
-The Command Palette (`Ctrl+P`) exposes the existing category browsers, including
-Open Conditions and Open Rules, Favorites, Collections, Recently Viewed, Sources, Universal Search, Back,
-Forward, Toggle Images, Help, image instructions, and Quit. It also searches
-reference record names and opens the selected stable entry ID through normal
+Commands (`Ctrl+P`) shows common actions first. Type a command or reference name
+to find less-used actions, categories such as Conditions and Rules, image and
+data diagnostics, and matching entries. It opens entries through normal
 navigation.
 
 Subclasses can be browsed and searched directly by subclass or parent class name.
@@ -138,8 +146,8 @@ provides 15 formal Conditions and 30 selected Rules, statuses, actions, and
 weapon mastery terms.
 
 `Alt+Left` and `Alt+Right` move
-through in-memory Back/Forward history; `r` opens the last 30 distinct records
-viewed in this session. Search text, filters, selected variants, list selection,
+through in-memory Back/Forward history; Recently Viewed lists the last 30 distinct records
+viewed in this session. Search text, filters, selected versions, list selection,
 and practical detail scroll position are included in history states. History and
 Recently Viewed reset when the application exits. Ambiguous references are
 offered as choices, missing targets remain ordinary text, and arbitrary rules
@@ -187,12 +195,13 @@ Favorites, collections, tags, and notes stay on this machine and are not include
 in dataset packs or changed by reference imports. Back up this SQLite file to
 preserve personal metadata.
 
-Use `F` to browse and search Favorites and `C` to create, rename, delete, and
-open Collections. From an entry, `*` toggles its favorite state, `m` opens the
-collection chooser, `T` edits its personal tags, and `n` opens its private note
-editor (`Ctrl+S` saves, Escape cancels). Personal records use exact dataset and
-entry keys, including variant identity. Missing imported entries remain listed
-as missing and are never relinked by name; they resolve again if that exact
+Use Commands to browse Favorites and create, rename, delete, and open Collections.
+From an entry, Commands can toggle Favorite, change collection membership, edit
+personal tags, or edit a private note. Enter saves a collection name; Ctrl+S
+saves tags or notes, and Escape cancels. The older `F`, `C`, `*`, `m`, `T`, and
+`n` shortcuts remain available. Personal records use exact dataset and entry
+keys, including version identity. Missing imported entries remain listed as
+missing and are never relinked by name; they resolve again if that exact
 identity returns.
 Within Favorites or a collection, `/` searches names, category, tags, and notes;
 Tab to the entries list and use `t`, `e`, and `g` to cycle category, edition,

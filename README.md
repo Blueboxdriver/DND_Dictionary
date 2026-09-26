@@ -191,9 +191,9 @@ array means All Sources. Application data, cache, and state use the correspondin
 XDG directories; startup never writes to the checkout or current directory.
 The local SQLite database is `${XDG_DATA_HOME:-~/.local/share}/dndref/dndref.sqlite3`.
 It contains imported reference tables and separate `user_*` personal-data tables.
-Favorites, collections, tags, and notes stay on this machine and are not included
-in dataset packs or changed by reference imports. Back up this SQLite file to
-preserve personal metadata.
+Favorites, collections, tags, entry notes, recent searches, and characters stay
+on this machine and are not included in dataset packs or changed by reference
+imports. Back up this SQLite file to preserve that data.
 
 Use Commands to browse Favorites and create, rename, delete, and open Collections.
 From an entry, Commands can toggle Favorite, change collection membership, edit
@@ -203,6 +203,21 @@ saves tags or notes, and Escape cancels. The older `F`, `C`, `*`, `m`, `T`, and
 keys, including version identity. Missing imported entries remain listed as
 missing and are never relinked by name; they resolve again if that exact
 identity returns.
+
+Saved 2024 characters keep ordered class-level history, player choices, and exact
+published identities in local storage. They remain separate from Universal Search
+and entry-based Recently Viewed. See [character persistence](docs/character-persistence.md)
+for the service and storage contract.
+
+Use Commands → Open Characters to resume, rename, duplicate, or delete a character.
+Commands → New Character starts a saved Draft in the guided level-1 builder. Review
+validates required choices before marking it complete. See
+[character creation](docs/character-creation.md) for the supported steps and limits.
+Opening a saved character shows its Overview, Skills, Combat, Features, Spells,
+Equipment, and Notes. Section navigation keeps local selection; published
+references use normal dictionary details and Back/Forward history. Drafts retain a
+Resume Character Creation action. See [character sheet](docs/character-sheet.md)
+for multiclass spell profiles, unresolved values, and tracked state limits.
 Within Favorites or a collection, `/` searches names, category, tags, and notes;
 Tab to the entries list and use `t`, `e`, and `g` to cycle category, edition,
 and tag filters. In the Collections list, `a` creates, `r` renames, and `x`

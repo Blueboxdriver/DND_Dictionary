@@ -148,14 +148,14 @@ async def test_commands_show_common_actions_first_and_select_category_and_filter
         commands = [row.option.payload for row in rows if isinstance(row, LaunchRow)]
         assert commands[:9] == [
             "universal-search",
+            "open-characters",
+            "new-character",
             "favorites",
             "collections",
             "recent",
             "sources",
             "images",
             "change-category",
-            "filters",
-            "image-diagnostics",
         ]
         assert "favorite-entry" in commands
 

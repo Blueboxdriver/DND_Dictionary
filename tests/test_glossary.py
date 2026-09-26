@@ -205,6 +205,7 @@ def test_milestone_18_database_gets_glossary_from_startup_upgrade(tmp_path: Path
         shutil.copy(migration, legacy_dir)
     dataset_dir = tmp_path / "old-bundle"
     shutil.copytree(PACK, dataset_dir)
+    (dataset_dir / "character-builder.json").unlink()
     (dataset_dir / "conditions.json").unlink()
     (dataset_dir / "rules.json").unlink()
     for filename in ("items.json", "spells.json", "feats.json", "classes.json", "monsters.json"):
@@ -242,7 +243,7 @@ def test_milestone_18_database_gets_glossary_from_startup_upgrade(tmp_path: Path
     assert counts.search(SearchQuery("rules")).total_count == 30
     with Database(database_path).connection() as connection:
         assert connection.execute("PRAGMA foreign_key_check").fetchall() == []
-        assert connection.execute("SELECT MAX(version) FROM schema_migrations").fetchone()[0] == 9
+        assert connection.execute("SELECT MAX(version) FROM schema_migrations").fetchone()[0] == 12
 
 
 async def test_category_commands_and_glossary_tabs_fit_responsive_sizes(tmp_path: Path) -> None:

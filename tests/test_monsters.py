@@ -86,7 +86,7 @@ def test_monster_import_idempotency_foreign_keys_and_migration(tmp_path: Path) -
     assert db.initialize() == (1, 2, 3, 4)
     assert import_dataset(db, load_dataset(FIXTURE)).added == 8
     db = Database(db.path)
-    assert db.initialize() == (5, 6, 7, 8, 9)
+    assert db.initialize() == (5, 6, 7, 8, 9, 10, 11, 12)
     assert import_dataset(db, load_dataset(root)).added == 6
     assert import_dataset(db, load_dataset(root)).is_noop
     with db.connection() as connection:
@@ -153,6 +153,7 @@ async def test_startup_upgrades_previous_bundled_monsters_after_migration_005(
 
     old_pack = tmp_path / "old-official"
     shutil.copytree(PRODUCTION, old_pack)
+    (old_pack / "character-builder.json").unlink()
     (old_pack / "monsters.json").unlink()
     (old_pack / "conditions.json").unlink()
     (old_pack / "rules.json").unlink()

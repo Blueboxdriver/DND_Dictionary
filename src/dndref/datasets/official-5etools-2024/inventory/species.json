@@ -1,0 +1,192 @@
+[
+  {
+    "conversion_status": "converted",
+    "name": "Changeling",
+    "normalized_sha256": "ad49e6e4eca202efafda1d1d253c705a54dbd0ca8f24bb45526ea2b07e7a5447",
+    "source": "EFA",
+    "stable_key": "species/efa/changeling-52166710f4",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "changeling|efa",
+    "upstream_page": 34
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Kalashtar",
+    "normalized_sha256": "2e5e67764b01cb98018ee35f1f6768f5c8d5b4fbe55d5b5583ae12a91db4f62f",
+    "source": "EFA",
+    "stable_key": "species/efa/kalashtar-ba7ad10558",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "kalashtar|efa",
+    "upstream_page": 35
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Khoravar",
+    "normalized_sha256": "fd7395794d56be904a542a75b630c3d18d45c3b2f428051a83de9d3f7bcb8123",
+    "source": "EFA",
+    "stable_key": "species/efa/khoravar-008c8ff0fd",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "khoravar|efa",
+    "upstream_page": 36
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shifter",
+    "normalized_sha256": "91f2cf7ab7d8fea7dc65daff82cbdbe5f2b0ee131d78844d4b0a21fe499b033c",
+    "source": "EFA",
+    "stable_key": "species/efa/shifter-8f0dbe66db",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "shifter|efa",
+    "upstream_page": 37
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Warforged",
+    "normalized_sha256": "c7abd13b7bde73528dd276519b09946004d1e195889141889c7e11a801c90433",
+    "source": "EFA",
+    "stable_key": "species/efa/warforged-a7f04e3f66",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "warforged|efa",
+    "upstream_page": 38
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dhampir",
+    "normalized_sha256": "ed2277b1f35d68c0e584f4a0027a381542b133515999cca43306030c33287640",
+    "source": "RHW",
+    "stable_key": "species/rhw/dhampir-78b8fe7444",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "dhampir|rhw",
+    "upstream_page": 28
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hexblood",
+    "normalized_sha256": "2622e9b1a21c15a1b7e59628fab01b6149d4feedaa56cdae6a3b5f0913abf501",
+    "source": "RHW",
+    "stable_key": "species/rhw/hexblood-ca3b90820a",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "hexblood|rhw",
+    "upstream_page": 29
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lupin",
+    "normalized_sha256": "af0d7ec0cd20ffa87887908049e22d498114f1cf00801433afc6cdcab91c8388",
+    "source": "RHW",
+    "stable_key": "species/rhw/lupin-0469509e31",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "lupin|rhw",
+    "upstream_page": 30
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Reborn",
+    "normalized_sha256": "531e68b36308cd4ac3534a3dec1db57f0e93ac82f10d4d616335f9e6fe728984",
+    "source": "RHW",
+    "stable_key": "species/rhw/reborn-b808e339a8",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "reborn|rhw",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Aasimar",
+    "normalized_sha256": "f1327d9d9f6aee2f6d2e68f3eb2bedb238bf00d0d9c20005d996bfcc389d0ac8",
+    "source": "XPHB",
+    "stable_key": "species/xphb/aasimar-3092adbe4c",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "aasimar|xphb",
+    "upstream_page": 186
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dragonborn",
+    "normalized_sha256": "e5e3b4c0c720f00d7f60c6704fd8cf87b203a88fa64c9e338470ef99c6a42f1a",
+    "source": "XPHB",
+    "stable_key": "species/xphb/dragonborn-375595f13c",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "dragonborn|xphb",
+    "upstream_page": 187
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dwarf",
+    "normalized_sha256": "55809ccdf1909c6b86de9a3c50e770177b63dffe4e837a28d57db8882a8a2ac1",
+    "source": "XPHB",
+    "stable_key": "species/xphb/dwarf-8d766f6cd3",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "dwarf|xphb",
+    "upstream_page": 188
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Elf",
+    "normalized_sha256": "4f376071a4bcb4ab34a5efc3e917ade257eae517045c57d13c6870c273a3c618",
+    "source": "XPHB",
+    "stable_key": "species/xphb/elf-b094d0cb60",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "elf|xphb",
+    "upstream_page": 189
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Gnome",
+    "normalized_sha256": "824d4ab8f8ff4dcb84aeadcb75f0b9bf13ab116f73723799dd5444088fd622bf",
+    "source": "XPHB",
+    "stable_key": "species/xphb/gnome-47f9259310",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "gnome|xphb",
+    "upstream_page": 191
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Goliath",
+    "normalized_sha256": "5db5596071fed0f773e0a13df070572c5d83c192024ab0b2e946b15109e5b7f3",
+    "source": "XPHB",
+    "stable_key": "species/xphb/goliath-0e7178275f",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "goliath|xphb",
+    "upstream_page": 192
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Halfling",
+    "normalized_sha256": "10291246ffce3cccdd851544c42223bd9e637dc7b31588478b737a3470c534c0",
+    "source": "XPHB",
+    "stable_key": "species/xphb/halfling-8584f26cd5",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "halfling|xphb",
+    "upstream_page": 193
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Human",
+    "normalized_sha256": "2825f5b0651f4d0098f9d0d65dad8b9a70a4c8641ec921370b4d242507eae26f",
+    "source": "XPHB",
+    "stable_key": "species/xphb/human-959e09596c",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "human|xphb",
+    "upstream_page": 194
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Orc",
+    "normalized_sha256": "51a58b1e8713ccb70471f3c69702b7f8f6d9e6cc763857420adda0638a3c6a14",
+    "source": "XPHB",
+    "stable_key": "species/xphb/orc-2202bb2721",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "orc|xphb",
+    "upstream_page": 195
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Tiefling",
+    "normalized_sha256": "542626fd7344d56cc4a808013ef618d7a1468d7a7103289e51db09d6a425c0c2",
+    "source": "XPHB",
+    "stable_key": "species/xphb/tiefling-0efb437bb1",
+    "upstream_file": "data/races.json",
+    "upstream_identity": "tiefling|xphb",
+    "upstream_page": 197
+  }
+]

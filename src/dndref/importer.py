@@ -206,7 +206,13 @@ def dataset_source_hash(
     root_path = Path(root).resolve()
     names = {
         name
-        for name in (*REQUIRED_FILES, "monsters.json", "conditions.json", "rules.json")
+        for name in (
+            *REQUIRED_FILES,
+            "monsters.json",
+            "conditions.json",
+            "rules.json",
+            "character-builder.json",
+        )
         if (root_path / name).is_file()
     }
     names.update(asset_paths)
@@ -283,12 +289,10 @@ def _content_hash(
     if not include_monsters:
         for category in ("monsters", "conditions", "rules"):
             raw.pop(category, None)
-    raw["items"]["properties"] = sorted(
-        raw["items"]["properties"], key=lambda item: item["key"]
-    )
+    raw["items"]["properties"] = sorted(raw["items"]["properties"], key=lambda item: item["key"])
     raw["items"]["items"] = sorted(raw["items"]["items"], key=lambda item: item["local_key"])
     categories = ("spells", "feats", "classes", "monsters", "conditions", "rules")
-    for category in (categories if include_monsters else categories[:-3]):
+    for category in categories if include_monsters else categories[:-3]:
         raw[category] = sorted(raw[category], key=lambda item: item["local_key"])
     digest = hashlib.sha256(_canonical(raw).encode())
     for asset in assets:
@@ -304,6 +308,7 @@ def legacy_monsterless_hash(loaded: LoadedDataset) -> str:
     raw = loaded.pack.model_dump(mode="json")
     for category in ("monsters", "conditions", "rules"):
         raw.pop(category, None)
+    raw.pop("character_builder", None)
     return _hash_pack_shape(raw, loaded.assets)
 
 
@@ -312,16 +317,33 @@ def legacy_glossaryless_hash(loaded: LoadedDataset) -> str:
     raw = loaded.pack.model_dump(mode="json")
     raw.pop("conditions", None)
     raw.pop("rules", None)
+    raw.pop("character_builder", None)
     return _hash_pack_shape(raw, loaded.assets)
+
+
+def legacy_pre_character_builder_hash(loaded: LoadedDataset) -> str:
+    """Hash the previous full pack shape before Milestone 22 builder metadata."""
+
+    raw = loaded.pack.model_dump(mode="json")
+    raw.pop("character_builder", None)
+    raw["items"]["properties"] = sorted(raw["items"]["properties"], key=lambda item: item["key"])
+    raw["items"]["items"] = sorted(raw["items"]["items"], key=lambda item: item["local_key"])
+    for category in ("spells", "feats", "classes", "monsters", "conditions", "rules"):
+        raw[category] = sorted(raw[category], key=lambda item: item["local_key"])
+    digest = hashlib.sha256(_canonical(raw).encode())
+    for asset in loaded.assets:
+        digest.update(b"\0asset\0")
+        digest.update(asset.relative_path.encode())
+        digest.update(b"\0")
+        digest.update(asset.content_hash.encode())
+    return digest.hexdigest()
 
 
 def _hash_pack_shape(raw: dict[str, Any], assets: tuple[AssetRecord, ...]) -> str:
     def remove_references(value: Any) -> Any:
         if isinstance(value, dict):
             return {
-                key: remove_references(child)
-                for key, child in value.items()
-                if key != "references"
+                key: remove_references(child) for key, child in value.items() if key != "references"
             }
         if isinstance(value, list):
             return [remove_references(child) for child in value]
@@ -353,6 +375,7 @@ def load_dataset(path: Path | str) -> LoadedDataset:
             raise DatasetLoadError(f"Missing required file: {name}")
 
     from .models import (
+        CharacterBuilderCatalog,
         CharacterClass,
         DatasetManifest,
         Feat,
@@ -367,23 +390,33 @@ def load_dataset(path: Path | str) -> LoadedDataset:
     spells = _validate_model(
         "spells.json", TypeAdapter(list[Spell]), _read_json(files["spells.json"])
     )
-    feats = _validate_model(
-        "feats.json", TypeAdapter(list[Feat]), _read_json(files["feats.json"])
-    )
+    feats = _validate_model("feats.json", TypeAdapter(list[Feat]), _read_json(files["feats.json"]))
     classes = _validate_model(
         "classes.json", TypeAdapter(list[CharacterClass]), _read_json(files["classes.json"])
     )
     monsters = _validate_model(
-        "monsters.json", TypeAdapter(list[Monster]),
+        "monsters.json",
+        TypeAdapter(list[Monster]),
         _read_json(root / "monsters.json") if (root / "monsters.json").is_file() else [],
     )
     glossary = {}
     for name in ("conditions", "rules"):
         path = root / f"{name}.json"
         glossary[name] = _validate_model(
-            f"{name}.json", TypeAdapter(list[GlossaryEntry]),
+            f"{name}.json",
+            TypeAdapter(list[GlossaryEntry]),
             _read_json(path) if path.is_file() else [],
         )
+    builder_path = root / "character-builder.json"
+    character_builder = (
+        _validate_model(
+            "character-builder.json",
+            CharacterBuilderCatalog,
+            _read_json(builder_path),
+        )
+        if builder_path.is_file()
+        else None
+    )
     pack = DatasetPack(
         manifest=manifest,
         items=items,
@@ -393,6 +426,7 @@ def load_dataset(path: Path | str) -> LoadedDataset:
         monsters=monsters,
         conditions=glossary["conditions"],
         rules=glossary["rules"],
+        character_builder=character_builder,
     )
     try:
         validate_dataset(pack)
@@ -408,8 +442,7 @@ def load_dataset(path: Path | str) -> LoadedDataset:
     if source_hash is None:
         raise DatasetLoadError("Cannot hash all dataset files safely")
     entry_hashes = {
-        str(entry.local_key): _entry_hash(kind, entry)
-        for kind, entry in _all_entries(pack)
+        str(entry.local_key): _entry_hash(kind, entry) for kind, entry in _all_entries(pack)
     }
     return LoadedDataset(
         root=root.resolve(),
@@ -519,9 +552,7 @@ def import_dataset(
             with database.connection() as connection:
                 has_source_hash = any(
                     str(column[1]) == "source_hash"
-                    for column in connection.execute(
-                        "PRAGMA table_info(datasets)"
-                    ).fetchall()
+                    for column in connection.execute("PRAGMA table_info(datasets)").fetchall()
                 )
                 if has_source_hash:
                     connection.execute(
@@ -549,10 +580,7 @@ def import_dataset(
 def format_report(report: ImportReport, *, dry_run: bool = False) -> str:
     prefix = "Import plan" if dry_run else "Imported"
     if report.is_noop:
-        return (
-            f"{prefix} dataset '{report.dataset_id}': no changes "
-            f"({report.unchanged} unchanged)."
-        )
+        return f"{prefix} dataset '{report.dataset_id}': no changes ({report.unchanged} unchanged)."
     return (
         f"{prefix} dataset '{report.dataset_id}': "
         f"{report.added} added, {report.changed} changed, {report.removed} removed, "

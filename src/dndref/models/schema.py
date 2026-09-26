@@ -8,7 +8,15 @@ from pathlib import Path
 
 from pydantic import TypeAdapter
 
-from . import CharacterClass, DatasetManifest, Feat, ItemCatalog, Monster, Spell
+from . import (
+    CharacterBuilderCatalog,
+    CharacterClass,
+    DatasetManifest,
+    Feat,
+    ItemCatalog,
+    Monster,
+    Spell,
+)
 
 
 def generate_schemas(output_dir: Path) -> tuple[Path, ...]:
@@ -22,6 +30,7 @@ def generate_schemas(output_dir: Path) -> tuple[Path, ...]:
         "feats.schema.json": list[Feat],
         "classes.schema.json": list[CharacterClass],
         "monsters.schema.json": list[Monster],
+        "character-builder.schema.json": CharacterBuilderCatalog,
     }
     written: list[Path] = []
     for filename, model in models.items():

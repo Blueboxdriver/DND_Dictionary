@@ -1,0 +1,652 @@
+[
+  {
+    "conversion_status": "converted",
+    "name": "Agent of the Ninth Quill",
+    "normalized_sha256": "6c2524d917ceea4cb17bd89a7666a648ca1b61161dfbfb8b24247f09efe01bdc",
+    "source": "AU",
+    "stable_key": "background/au/agent-of-the-ninth-quill-514c2b1829",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "agent of the ninth quill|au",
+    "upstream_page": 21
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Bejeweled Conclave Spy",
+    "normalized_sha256": "e83e9cb09be084576eb7d6e3f5e92aff1c8be17d039cacdf77bb7c9666fdcd1f",
+    "source": "AU",
+    "stable_key": "background/au/bejeweled-conclave-spy-e35de4636f",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "bejeweled conclave spy|au",
+    "upstream_page": 21
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Cosmic Dawn Experiment",
+    "normalized_sha256": "0f917535f5f2c15a25779cacfa5e8dff9d747709813e2c419bd35fb0283261a0",
+    "source": "AU",
+    "stable_key": "background/au/cosmic-dawn-experiment-9cae224491",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "cosmic dawn experiment|au",
+    "upstream_page": 22
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Covenant of the Grave Recruit",
+    "normalized_sha256": "ad506c95477e4c9d1530bf8bcae83469fc70a063074796b2e1f5f45d25795b83",
+    "source": "AU",
+    "stable_key": "background/au/covenant-of-the-grave-recruit-51b1239ce4",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "covenant of the grave recruit|au",
+    "upstream_page": 22
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Crucible Storm Chaser",
+    "normalized_sha256": "97b30945e43bea6b870b14322ef6c068aa8ac4ffb10b41344a64ce07d6bef629",
+    "source": "AU",
+    "stable_key": "background/au/crucible-storm-chaser-fa5136a1b9",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "crucible storm chaser|au",
+    "upstream_page": 23
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Familiar Trainer",
+    "normalized_sha256": "00d3417f7fb71ebdcc45854d26979ad94f24f420bcca8f0acb1d22aa8a778582",
+    "source": "AU",
+    "stable_key": "background/au/familiar-trainer-17e27ad2cf",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "familiar trainer|au",
+    "upstream_page": 23
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Horizon Weaver Initiate",
+    "normalized_sha256": "71dc3921fb834fbdc9e092b91f9b92460a3f26644cc79782202ce83145f83fb7",
+    "source": "AU",
+    "stable_key": "background/au/horizon-weaver-initiate-6ce6a27fa4",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "horizon weaver initiate|au",
+    "upstream_page": 24
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Phantasmic Circus Trouper",
+    "normalized_sha256": "c15519122e0244ef79d6ba904876651e03f40fafd109a16a2c5fe4b1848849ff",
+    "source": "AU",
+    "stable_key": "background/au/phantasmic-circus-trouper-cb1e5b09ff",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "phantasmic circus trouper|au",
+    "upstream_page": 24
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Seer Apprentice",
+    "normalized_sha256": "d1e660c580cf6019bba081d889a0f1b7a5038be7aac771701c22e2b3eeaf6b80",
+    "source": "AU",
+    "stable_key": "background/au/seer-apprentice-2aa789a152",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "seer apprentice|au",
+    "upstream_page": 25
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ward of the Sheltering Hands",
+    "normalized_sha256": "790ff092370d85841cbceacb583490cb594a7fd2966731f06bcff9fc04cdb832",
+    "source": "AU",
+    "stable_key": "background/au/ward-of-the-sheltering-hands-fa22febf09",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "ward of the sheltering hands|au",
+    "upstream_page": 25
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Aberrant Heir",
+    "normalized_sha256": "d87adb93e5ccb59f8068afdcbe5b17599dd8e7e6f616f5392021330f14794569",
+    "source": "EFA",
+    "stable_key": "background/efa/aberrant-heir-be05c01d26",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "aberrant heir|efa",
+    "upstream_page": 25
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Archaeologist",
+    "normalized_sha256": "5efa730b5d42bc4206c7784cb6d2b697ef49a72075aa8db00d4770c9a3479b7c",
+    "source": "EFA",
+    "stable_key": "background/efa/archaeologist-af1c785c98",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "archaeologist|efa",
+    "upstream_page": 26
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Agent",
+    "normalized_sha256": "ce5f87227da340d8f78f1a02283b21c0d14ba3b15547336cdb5193180c5bc806",
+    "source": "EFA",
+    "stable_key": "background/efa/house-agent-4785b3dbab",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house agent|efa",
+    "upstream_page": 26
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Cannith Heir",
+    "normalized_sha256": "df6558e05b0e3c8cb2eaf8d50b9b6d13978e04876022db480bbd68a568de347d",
+    "source": "EFA",
+    "stable_key": "background/efa/house-cannith-heir-2737ae02ad",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house cannith heir|efa",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Deneith Heir",
+    "normalized_sha256": "de17d8eff26da0edc58bcbbe8ccedc9557450b8a5498e1c2bbca458f7316f6d5",
+    "source": "EFA",
+    "stable_key": "background/efa/house-deneith-heir-ba999656a6",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house deneith heir|efa",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Ghallanda Heir",
+    "normalized_sha256": "b6d8b85396e441c18f895cec5914f8c5e5c520c000b075453966dd09f44e63be",
+    "source": "EFA",
+    "stable_key": "background/efa/house-ghallanda-heir-4bf2345f72",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house ghallanda heir|efa",
+    "upstream_page": 28
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Jorasco Heir",
+    "normalized_sha256": "d75ec1602beccc455bfedcae030e35172d6b02660d129dc5f87e65e5d698a1b7",
+    "source": "EFA",
+    "stable_key": "background/efa/house-jorasco-heir-903bb2baf5",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house jorasco heir|efa",
+    "upstream_page": 28
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Kundarak Heir",
+    "normalized_sha256": "026168e8108a3e40dfa228b01f145cd7c0c0514bf3c448872601797576b3f730",
+    "source": "EFA",
+    "stable_key": "background/efa/house-kundarak-heir-1407a35a00",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house kundarak heir|efa",
+    "upstream_page": 29
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Lyrandar Heir",
+    "normalized_sha256": "a731c8abca79f561818019525426aaf203ff5ad1fbc0ffb68a4a27c73c25c1e2",
+    "source": "EFA",
+    "stable_key": "background/efa/house-lyrandar-heir-1f68504380",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house lyrandar heir|efa",
+    "upstream_page": 29
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Medani Heir",
+    "normalized_sha256": "5c589598c5fffd1052aa7f01ab9027b1eb5dcd84730db740e6784db55849c7c9",
+    "source": "EFA",
+    "stable_key": "background/efa/house-medani-heir-71a9f4a91c",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house medani heir|efa",
+    "upstream_page": 30
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Orien Heir",
+    "normalized_sha256": "cd9194ba78fd8c26e131ede976c18696765ecc5178974a56cb4c563ae9dcf4b5",
+    "source": "EFA",
+    "stable_key": "background/efa/house-orien-heir-1671218e1d",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house orien heir|efa",
+    "upstream_page": 30
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Phiarlan Heir",
+    "normalized_sha256": "481bf0814e4e7b338767b754c6f0a64881cff9d7801b0c37db936f83087ba4cb",
+    "source": "EFA",
+    "stable_key": "background/efa/house-phiarlan-heir-faaed745b1",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house phiarlan heir|efa",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Sivis Heir",
+    "normalized_sha256": "058e52308a6469ae041e9e574c495c170d30b682964555a60d2e4e1f24c45859",
+    "source": "EFA",
+    "stable_key": "background/efa/house-sivis-heir-09556d2e73",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house sivis heir|efa",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Tharashk Heir",
+    "normalized_sha256": "778993ebe9e48aad553c907022b4c0a5effe1c67988164bf163bd7ad774b945a",
+    "source": "EFA",
+    "stable_key": "background/efa/house-tharashk-heir-a7ab3a5550",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house tharashk heir|efa",
+    "upstream_page": 32
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Thuranni Heir",
+    "normalized_sha256": "e88654363771f77f578e606a3e720c489a78c0e33432f121435babcb72c383e9",
+    "source": "EFA",
+    "stable_key": "background/efa/house-thuranni-heir-b920220eb3",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house thuranni heir|efa",
+    "upstream_page": 32
+  },
+  {
+    "conversion_status": "converted",
+    "name": "House Vadalis Heir",
+    "normalized_sha256": "b0202525071a45eb84a39f08c8d0a6e838517fad2c2e1e8bcb7a266ea73e56d5",
+    "source": "EFA",
+    "stable_key": "background/efa/house-vadalis-heir-df2177c637",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "house vadalis heir|efa",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Inquisitive",
+    "normalized_sha256": "66782d65904d43dfd174adc0290ca37a27f67277c298b507ff83c612adc55299",
+    "source": "EFA",
+    "stable_key": "background/efa/inquisitive-cc23565f6c",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "inquisitive|efa",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Chondathan Freebooter",
+    "normalized_sha256": "86b7d51c71607cf5f85e8fee8045c136095424cca00b763e0bced26d4aae69b1",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/chondathan-freebooter-334925172e",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "chondathan freebooter|frhof",
+    "upstream_page": 28
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dead Magic Dweller",
+    "normalized_sha256": "0d2c38851cbfa97145296ab898086cea8c471a23e9514d27eacfb43edaefc9bf",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/dead-magic-dweller-d3fd76c304",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "dead magic dweller|frhof",
+    "upstream_page": 28
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Dragon Cultist",
+    "normalized_sha256": "3d34af71127ba4366dcafa81a6de71fd2f6e3e81c181dd6de182c794785a9bf8",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/dragon-cultist-25d34db949",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "dragon cultist|frhof",
+    "upstream_page": 29
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Emerald Enclave Caretaker",
+    "normalized_sha256": "396944ad5529ec07ac7ed0b3675cb29776f06ab1d0583a00dc8117e961ea4511",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/emerald-enclave-caretaker-608c2c6361",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "emerald enclave caretaker|frhof",
+    "upstream_page": 29
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Flaming Fist Mercenary",
+    "normalized_sha256": "df2dbede366c0acaad748cc9e8faeee2a54e249c49943a4e9effbd1338bc3217",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/flaming-fist-mercenary-5f57ea4e45",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "flaming fist mercenary|frhof",
+    "upstream_page": 30
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Genie Touched",
+    "normalized_sha256": "7f2cc935ef4f705e58592952d33bf095e457f425ff2a3e22cb30bc2abcf7fd62",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/genie-touched-050414c829",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "genie touched|frhof",
+    "upstream_page": 30
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Harper",
+    "normalized_sha256": "752bb16c0e17c889cae41c01c1b99b60e7c424041519d4597cff96c5ef333ea2",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/harper-2325a9104a",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "harper|frhof",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Ice Fisher",
+    "normalized_sha256": "bde26ce03971a0126e86754bdd07cc09dce762642e407d4662d7538ac0982b27",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/ice-fisher-4e802edfcb",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "ice fisher|frhof",
+    "upstream_page": 31
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Knight of the Gauntlet",
+    "normalized_sha256": "79ac7881ea0c1237aeb08d199fafef8f8b28556f2df3d914f713fb7779fe3092",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/knight-of-the-gauntlet-58b2368954",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "knight of the gauntlet|frhof",
+    "upstream_page": 32
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Lords' Alliance Vassal",
+    "normalized_sha256": "09eb87ad07bef6b1225590ddfab6640a5aae63b4b4efc971cba6d646ae8e99fd",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/lords-alliance-vassal-dd4754acb8",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "lords' alliance vassal|frhof",
+    "upstream_page": 32
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Moonwell Pilgrim",
+    "normalized_sha256": "de9fe8001b2272f00de08544dcaa313e10d643ea330d15bf64646534b0a78eab",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/moonwell-pilgrim-4bc0dd9dfe",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "moonwell pilgrim|frhof",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mulhorandi Tomb Raider",
+    "normalized_sha256": "e29ed110a691ed697e32edbade8521e2565981c51e145d2679b9e731c98e3701",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/mulhorandi-tomb-raider-4e0479974e",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "mulhorandi tomb raider|frhof",
+    "upstream_page": 33
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mythalkeeper",
+    "normalized_sha256": "b3a02d060eb21c8615a08f3b816cf35cdbff62a324053490ac4758a2509dba9d",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/mythalkeeper-1d7f2a8148",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "mythalkeeper|frhof",
+    "upstream_page": 34
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Purple Dragon Squire",
+    "normalized_sha256": "73ef9ab94b3d4dd5125cb3a6e3aa22123d4d4ede8ecf0cd9a58d895d47c3c31f",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/purple-dragon-squire-043df1df8d",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "purple dragon squire|frhof",
+    "upstream_page": 34
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Rashemi Wanderer",
+    "normalized_sha256": "a5e9ed54d77765d6243c4d95139f9e9e8bdc5523befe1857c7e3a912d1edd49c",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/rashemi-wanderer-6b49b818e3",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "rashemi wanderer|frhof",
+    "upstream_page": 35
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Shadowmasters Exile",
+    "normalized_sha256": "b5d12dcb88aa86a11b16872d733cfe3b59f7d59120f73733cc66d94377397fc5",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/shadowmasters-exile-a5019c0216",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "shadowmasters exile|frhof",
+    "upstream_page": 35
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spellfire Initiate",
+    "normalized_sha256": "1b044a85131518424a55b7f8aea36243adac31b8fc94a951599cd5f736700d3c",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/spellfire-initiate-053f4fd4c8",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "spellfire initiate|frhof",
+    "upstream_page": 36
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Zhentarim Mercenary",
+    "normalized_sha256": "8081cab0cae9cb3a0e5de63b32e4455ed29ea9b7c48ee140e9083056a97e7176",
+    "source": "FRHoF",
+    "stable_key": "background/frhof/zhentarim-mercenary-bc9b9f7015",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "zhentarim mercenary|frhof",
+    "upstream_page": 36
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Haunted One",
+    "normalized_sha256": "873f925f34e4d167ba3421a1179fa979ca3aefe485f1217f13444faf020a8a33",
+    "source": "RHW",
+    "stable_key": "background/rhw/haunted-one-e9bd6daa7a",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "haunted one|rhw",
+    "upstream_page": 26
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Investigator",
+    "normalized_sha256": "c6c960726f15123d610a14b953266477056cc6c76d81fd5ee9e9bca701d986ea",
+    "source": "RHW",
+    "stable_key": "background/rhw/investigator-a5e511c814",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "investigator|rhw",
+    "upstream_page": 26
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Mist Wanderer",
+    "normalized_sha256": "0fa2b42d15bcc10463540c70b25cc5d03e7fa1645dcd4e291eb0e2f9bc8fcd13",
+    "source": "RHW",
+    "stable_key": "background/rhw/mist-wanderer-6fca54d69c",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "mist wanderer|rhw",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Spirit Medium",
+    "normalized_sha256": "1504744413299a95d486c70a230f75e08900cb837f62fd1b14c425a1dbfb68da",
+    "source": "RHW",
+    "stable_key": "background/rhw/spirit-medium-8694fc20d0",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "spirit medium|rhw",
+    "upstream_page": 27
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Acolyte",
+    "normalized_sha256": "b46dac22dc5e545f5aca302ef06d8830b7c65feb51a1010caf964cdc26921e43",
+    "source": "XPHB",
+    "stable_key": "background/xphb/acolyte-c75ae9fb63",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "acolyte|xphb",
+    "upstream_page": 178
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Artisan",
+    "normalized_sha256": "7d2bcebacc8e47c142eed541bae43a740e6a58a4efad12c047d9836ea5f1a98e",
+    "source": "XPHB",
+    "stable_key": "background/xphb/artisan-f058b9db54",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "artisan|xphb",
+    "upstream_page": 179
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Charlatan",
+    "normalized_sha256": "6e12ea19fe1a1784e9bc759995fad764c1a3161d239880d3bb536cc6ac12b2c6",
+    "source": "XPHB",
+    "stable_key": "background/xphb/charlatan-a29028b0bc",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "charlatan|xphb",
+    "upstream_page": 180
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Criminal",
+    "normalized_sha256": "9853bb888125dd3d485ce4e019bbf295e1931486f1ee524fa87ddcfbcb411b2d",
+    "source": "XPHB",
+    "stable_key": "background/xphb/criminal-0d5302a4aa",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "criminal|xphb",
+    "upstream_page": 180
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Entertainer",
+    "normalized_sha256": "19c57dc139bf06e6246a9433f291c04bd299cc925840529c15ace01376700f08",
+    "source": "XPHB",
+    "stable_key": "background/xphb/entertainer-a78aa43d94",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "entertainer|xphb",
+    "upstream_page": 180
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Farmer",
+    "normalized_sha256": "ff42e9d195ff05bedfdc4e2d69e57f3337cd33b26335b3a7cb6ae009220ba8ed",
+    "source": "XPHB",
+    "stable_key": "background/xphb/farmer-06d7b2bf8e",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "farmer|xphb",
+    "upstream_page": 180
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Guard",
+    "normalized_sha256": "4e1a5fd33bb949b816f4feac1bb62cf05cab922cee2bd3004f82e3c2dbe2d43b",
+    "source": "XPHB",
+    "stable_key": "background/xphb/guard-3bc6659006",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "guard|xphb",
+    "upstream_page": 181
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Guide",
+    "normalized_sha256": "5667d5d12bee6be33d8a69ce535b01f29aa4c8127339a3b044c04e439e81aab2",
+    "source": "XPHB",
+    "stable_key": "background/xphb/guide-9a95a8a8e5",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "guide|xphb",
+    "upstream_page": 181
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Hermit",
+    "normalized_sha256": "3de14f5cc17e6060336153c637debc5ddc6e892a72f2687bfdf6ea06133b91d8",
+    "source": "XPHB",
+    "stable_key": "background/xphb/hermit-e70bd6e5a1",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "hermit|xphb",
+    "upstream_page": 182
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Merchant",
+    "normalized_sha256": "b011e6159d9a610a59f62129aecea90c77ed4070928eca0409090f816ef08309",
+    "source": "XPHB",
+    "stable_key": "background/xphb/merchant-46a02a9365",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "merchant|xphb",
+    "upstream_page": 182
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Noble",
+    "normalized_sha256": "e629aa28fc17ebf2eacbebc3bbd416e2ce2f578efe8264ea867245092b03a5ec",
+    "source": "XPHB",
+    "stable_key": "background/xphb/noble-1cfa55d792",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "noble|xphb",
+    "upstream_page": 183
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sage",
+    "normalized_sha256": "690ab1e51ed76832c87a412bf73894f2c11a85cfb959cdf070660f808579671d",
+    "source": "XPHB",
+    "stable_key": "background/xphb/sage-41b7da5527",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "sage|xphb",
+    "upstream_page": 183
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Sailor",
+    "normalized_sha256": "a8bc609d7ead7c726b0c60dc8254d0ac05cedb9c0570f4ef56d89fd969a1f98f",
+    "source": "XPHB",
+    "stable_key": "background/xphb/sailor-c2411a7371",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "sailor|xphb",
+    "upstream_page": 184
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Scribe",
+    "normalized_sha256": "5c94deeee691b3d83219e21260e5507d01b9c8183069b153113b2efd7eef50c5",
+    "source": "XPHB",
+    "stable_key": "background/xphb/scribe-cda339153e",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "scribe|xphb",
+    "upstream_page": 184
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Soldier",
+    "normalized_sha256": "dc62e731ba05917b5016ca38e3196b29d587f0648b995850b5249f76a21c18c8",
+    "source": "XPHB",
+    "stable_key": "background/xphb/soldier-34a8d9ab4c",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "soldier|xphb",
+    "upstream_page": 185
+  },
+  {
+    "conversion_status": "converted",
+    "name": "Wayfarer",
+    "normalized_sha256": "07a470375118f3efe9f654a9166ecdfa7cf6b1e01a5a812b6afb3bfd79efd1a6",
+    "source": "XPHB",
+    "stable_key": "background/xphb/wayfarer-f199e40bcb",
+    "upstream_file": "data/backgrounds.json",
+    "upstream_identity": "wayfarer|xphb",
+    "upstream_page": 185
+  }
+]

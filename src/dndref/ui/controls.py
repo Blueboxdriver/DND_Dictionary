@@ -70,6 +70,56 @@ HELP_SECTIONS = (
         ("Favorites, collections, tags, and notes are saved on this device.",),
     ),
     HelpSection(
+        "Character Creation",
+        (
+            HelpControl(
+                "Commands → Open Characters",
+                "Resume, rename, duplicate, or delete a saved character.",
+            ),
+            HelpControl(
+                "Commands → New Character",
+                "Create a saved 2024 level-1 Draft and start the guided builder.",
+            ),
+            HelpControl("Space", "Toggle an option in multi-choice character steps."),
+            HelpControl(
+                "Reference",
+                "Open the published entry, then use Back to return to the same builder step.",
+            ),
+            HelpControl("Review", "Shows missing required choices and warnings before completion."),
+        ),
+        (
+            "Drafts save each decision as you make it. Closing the builder does not discard "
+            "progress.",
+            "The builder creates one level-1 class. It does not calculate combat statistics or "
+            "support level-up yet.",
+        ),
+    ),
+    HelpSection(
+        "Character Sheet",
+        (
+            HelpControl(
+                "← / →",
+                "Switch between Overview, Skills, Combat, Features, Spells, Equipment, and Notes.",
+            ),
+            HelpControl(
+                "↑ / ↓ and Enter", "Move through a section and open a published reference."
+            ),
+            HelpControl(
+                "Ctrl+P", "Open sheet actions, including section changes and creation editing."
+            ),
+            HelpControl(
+                "Draft", "Shows incomplete state and keeps Resume Character Creation available."
+            ),
+            HelpControl("? or issues row", "Explain unresolved values and derived warnings."),
+        ),
+        (
+            "Published entries opened from a sheet use the dictionary detail and browser history. "
+            "The character itself is not added to Recently Viewed.",
+            "The sheet shows maximum HP and static character data. It does not track current HP, "
+            "spent spell slots, rests, or other live-play resources.",
+        ),
+    ),
+    HelpSection(
         "Navigation",
         (
             HelpControl(

@@ -47,6 +47,11 @@ def test_bundled_resources_include_runtime_files_and_inventories() -> None:
             assert len(loaded.pack.classes) == classes
             assert len(loaded.pack.conditions) == conditions
             assert len(loaded.pack.rules) == rules
+            if path.name == "official-5etools-2024":
+                assert (path / "character-builder.json").is_file()
+                assert loaded.pack.character_builder is not None
+                assert len(loaded.pack.character_builder.classes) == 13
+                assert len(loaded.pack.character_builder.subclasses) == 76
 
 
 def test_first_run_installs_bundled_data_and_second_run_is_idempotent(tmp_path: Path) -> None:
@@ -63,6 +68,12 @@ def test_first_run_installs_bundled_data_and_second_run_is_idempotent(tmp_path: 
     with sqlite3.connect(paths.database_path) as connection:
         assert connection.execute("SELECT COUNT(*) FROM datasets").fetchone()[0] == 2
         assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 4081
+        assert connection.execute(
+            "SELECT COUNT(*) FROM character_builder_owners"
+        ).fetchone()[0] == 2104
+        assert connection.execute(
+            "SELECT COUNT(*) FROM character_rule_grants"
+        ).fetchone()[0] == 1610
 
     service = SearchService(Database(paths.database_path))
     results = service.search(SearchQuery("items", "Longsword"))

@@ -16,9 +16,12 @@ from textual.timer import Timer
 from textual.widgets import Button, DataTable, Input, Label, ListItem, ListView, Markdown, Static
 from textual.worker import Worker, WorkerState
 
+from ..character_creation import CharacterCreationService
+from ..characters import CharacterService
 from ..commands import Command, CommandRegistry
 from ..config import ApplicationPaths, Config, FilterPreset
 from ..crossrefs import CrossReferenceResolver, ReferenceTarget
+from ..derived_character import DerivedCharacterService
 from ..images import DecodedImage, ImageAdapter, ImageLoader
 from ..models import display_edition
 from ..navigation import NavigationHistory, NavigationState, RecentlyViewed, ViewedRecord
@@ -39,6 +42,12 @@ from ..search import (
     normalize_name,
 )
 from ..storage.database import Database
+from .character_screens import (
+    CharacterBuilderReferenceScreen,
+    CharactersScreen,
+    CharacterWizardScreen,
+)
+from .character_sheet import CharacterSheetScreen
 from .class_detail import ClassDetailView, render_class_detail, render_subclass_detail
 from .controls import footer_control
 from .launchers import CommandPaletteScreen, UniversalSearchScreen
@@ -88,6 +97,7 @@ class BrowserApp(App[None]):
     TITLE = "D&D Reference"
     SUB_TITLE = "Offline reference browser"
     PAGE_SIZE = 20
+    ENABLE_COMMAND_PALETTE = False
     BINDINGS = [("f1", "show_help", "Help")]
 
     CSS = """
@@ -397,6 +407,11 @@ class BrowserApp(App[None]):
             self.database.profiler = self.profiler
         self.search_service = SearchService(self.database)
         self.personal_data = PersonalDataService(self.database)
+        self.character_service = CharacterService(self.database)
+        self.character_creation = CharacterCreationService(self.database, self.character_service)
+        self.derived_character_service = DerivedCharacterService(
+            self.database, self.character_service
+        )
         self.commands = CommandRegistry()
         self.personal_view: str | None = None
         self.personal_collection_id: int | None = None
@@ -441,6 +456,13 @@ class BrowserApp(App[None]):
         self._edition_options = ()
         self._source_options = ()
         self._presets: tuple[FilterPreset, ...] = ()
+        self._pending_character_reference: (
+            tuple[str, str, str, int, int, int, int, int, NavigationState | None] | None
+        ) = None
+        self._pending_character_sheet: (
+            tuple[str, tuple[object, ...], NavigationState | None] | None
+        ) = None
+        self._character_sheet_builder_return: tuple[str, tuple[object, ...]] | None = None
         self._register_commands()
         super().__init__()
 
@@ -451,6 +473,18 @@ class BrowserApp(App[None]):
                 "Search All",
                 ("search", "universal search"),
                 self.action_universal_search,
+            ),
+            (
+                "open-characters",
+                "Open Characters",
+                ("characters", "character list"),
+                self.action_open_characters,
+            ),
+            (
+                "new-character",
+                "New Character",
+                ("create character",),
+                self.action_new_character,
             ),
             ("favorites", "Favorites", ("fav", "favourites"), self.action_favorites),
             ("collections", "Collections", ("collection",), self.action_collections),
@@ -997,6 +1031,8 @@ class BrowserApp(App[None]):
         )
         default_commands = (
             "universal-search",
+            "open-characters",
+            "new-character",
             "favorites",
             "collections",
             "recent",
@@ -1031,6 +1067,264 @@ class BrowserApp(App[None]):
             self.commands.execute(str(value))
         elif kind == "entry":
             self._navigate_to_identity(str(value))
+
+    def action_open_characters(self) -> None:
+        self._clear_image()
+        self.push_screen(CharactersScreen(self.character_creation), self._characters_screen_result)
+
+    def action_new_character(self) -> None:
+        try:
+            character = self.character_creation.create_draft()
+        except (ValueError, RuntimeError) as exc:
+            self.notify(str(exc), timeout=4)
+            return
+        self._open_character_wizard(character.character_id)
+
+    def _characters_screen_result(self, result: tuple[str, str] | None) -> None:
+        if result is None:
+            self._restore_current_image()
+            return
+        action, character_id = result
+        if action == "open":
+            self._open_character_sheet(character_id)
+        elif action == "create":
+            self._open_character_wizard(character_id)
+
+    def _open_character_sheet(
+        self, character_id: str, *, context: tuple[object, ...] | None = None
+    ) -> None:
+        self._clear_image()
+        sheet = CharacterSheetScreen(
+            self.character_service,
+            self.character_creation,
+            self.derived_character_service,
+            self.cross_references,
+            character_id,
+            context=context,
+        )
+        self.push_screen(
+            sheet,
+            lambda result, screen=sheet: self._character_sheet_result(screen, result),
+        )
+
+    def _character_sheet_result(
+        self, sheet: CharacterSheetScreen, result: tuple[object, ...] | None
+    ) -> None:
+        if result is None:
+            self._restore_current_image()
+            return
+        action = str(result[0])
+        if action == "close":
+            pending = self._pending_character_sheet
+            current = self.navigation_history.current
+            origin = pending[2] if pending is not None else None
+            if current is not None and origin is not None:
+                if current.logical_key == origin.logical_key:
+                    self._pending_character_sheet = None
+            self._restore_current_image()
+            return
+        character_id = sheet.character_id
+        context = result[-1] if result and isinstance(result[-1], tuple) else sheet.context()
+        if action == "reference" and len(result) >= 4:
+            kind = str(result[1]) if result[1] is not None else ""
+            identity = str(result[2])
+            if (
+                kind in {"species", "background"}
+                and self.cross_references.get_by_id(identity) is None
+            ):
+                owner = self.character_creation.get_owner(kind, identity)
+                if owner is not None:
+                    self.push_screen(
+                        CharacterBuilderReferenceScreen(
+                            owner.name,
+                            owner.source_name,
+                            owner.description,
+                            _builder_reference_details(owner.metadata),
+                        ),
+                        lambda _value: self._open_character_sheet(character_id, context=context),
+                    )
+                    return
+            if self.cross_references.get_by_id(identity) is None:
+                self.notify("That exact published reference is unavailable.", timeout=3)
+                self.call_after_refresh(
+                    lambda: self._open_character_sheet(character_id, context=context)
+                )
+                return
+            self._commit_current_location()
+            self._pending_character_sheet = (
+                character_id,
+                context,
+                self.navigation_history.current,
+            )
+            self._navigate_to_identity(identity)
+            return
+        if action == "history" and len(result) >= 2:
+            if result[1] == "alt+left":
+                self._pending_character_sheet = None
+                self.action_back()
+            else:
+                self.action_forward()
+            return
+        if action in {"resume", "edit"}:
+            self._pending_character_sheet = None
+            if action == "edit":
+                character = self.character_service.get_character(character_id)
+                if character.state == "complete":
+                    self.character_service.set_character_state(character_id, "draft")
+                self._character_sheet_builder_return = (character_id, context)
+                self._open_character_wizard(character_id, step="name")
+            else:
+                self._character_sheet_builder_return = (character_id, context)
+                self._open_character_wizard(character_id)
+
+    def _resume_character_sheet_if_home(self) -> None:
+        pending = self._pending_character_sheet
+        current = self.navigation_history.current
+        if pending is None or current is None:
+            return
+        character_id, context, origin = pending
+        if origin is None or current.logical_key != origin.logical_key:
+            return
+        self.call_after_refresh(lambda: self._open_character_sheet(character_id, context=context))
+
+    def _open_character_wizard(
+        self,
+        character_id: str,
+        *,
+        step: str | None = None,
+        query: str = "",
+        selected_index: int = 0,
+        page_offset: int = 0,
+        choice_cursor: int = 0,
+        spell_cursor: int = 0,
+        spell_choice_cursor: int = 0,
+    ) -> None:
+        wizard = CharacterWizardScreen(
+            self.character_creation,
+            character_id,
+            step=step,
+            query=query,
+            selected_index=selected_index,
+            page_offset=page_offset,
+            choice_cursor=choice_cursor,
+            spell_cursor=spell_cursor,
+            spell_choice_cursor=spell_choice_cursor,
+        )
+        self.push_screen(
+            wizard,
+            lambda result, screen=wizard: self._character_wizard_result(screen, result),
+        )
+
+    def _character_wizard_result(
+        self,
+        wizard: CharacterWizardScreen,
+        result: tuple[str, ...] | None,
+    ) -> None:
+        if result is None:
+            self._restore_current_image()
+            return
+        action = result[0]
+        character_id = wizard.character_id
+        if action in {"close", "complete"}:
+            self._restore_current_image()
+            sheet_return = self._character_sheet_builder_return
+            if sheet_return is not None and sheet_return[0] == character_id:
+                self._character_sheet_builder_return = None
+                self._open_character_sheet(character_id, context=sheet_return[1])
+                return
+            self.action_open_characters()
+            return
+        if action != "reference" or len(result) < 3:
+            return
+        kind, identity = result[1], result[2]
+        view = getattr(wizard, "_resume_view", None)
+        if view is None:
+            try:
+                view = wizard.view_state()
+            except Exception:
+                view = (wizard.current_step, "", 0, 0, 0, 0, 0)
+        (
+            step,
+            query,
+            selected_index,
+            page_offset,
+            choice_cursor,
+            spell_cursor,
+            spell_choice_cursor,
+        ) = view
+        if kind in {"species", "background"}:
+            owner = self.character_creation.get_owner(kind, identity)
+            if owner is None:
+                self.notify("That exact builder reference is no longer available.", timeout=3)
+                self._open_character_wizard(
+                    character_id,
+                    step=step,
+                    query=query,
+                    selected_index=selected_index,
+                    page_offset=page_offset,
+                    choice_cursor=choice_cursor,
+                    spell_cursor=spell_cursor,
+                    spell_choice_cursor=spell_choice_cursor,
+                )
+                return
+            details = _builder_reference_details(owner.metadata)
+            self.push_screen(
+                CharacterBuilderReferenceScreen(
+                    owner.name, owner.source_name, owner.description, details
+                ),
+                lambda _value: self._open_character_wizard(
+                    character_id,
+                    step=step,
+                    query=query,
+                    selected_index=selected_index,
+                    page_offset=page_offset,
+                    choice_cursor=choice_cursor,
+                    spell_cursor=spell_cursor,
+                    spell_choice_cursor=spell_choice_cursor,
+                ),
+            )
+            return
+
+        target = self.cross_references.get_by_id(identity)
+        if target is None:
+            self.notify("That reference is not available in the installed dictionary.", timeout=3)
+            self._open_character_wizard(
+                character_id,
+                step=step,
+                query=query,
+                selected_index=selected_index,
+                page_offset=page_offset,
+                choice_cursor=choice_cursor,
+                spell_cursor=spell_cursor,
+                spell_choice_cursor=spell_choice_cursor,
+            )
+            return
+        if self._current_detail is not None and self._current_detail.identity == identity:
+            self._open_character_wizard(
+                character_id,
+                step=step,
+                query=query,
+                selected_index=selected_index,
+                page_offset=page_offset,
+                choice_cursor=choice_cursor,
+                spell_cursor=spell_cursor,
+                spell_choice_cursor=spell_choice_cursor,
+            )
+            return
+        self._commit_current_location()
+        origin = self.navigation_history.current
+        self._pending_character_reference = (
+            character_id,
+            step,
+            query,
+            selected_index,
+            page_offset,
+            choice_cursor,
+            spell_cursor,
+            spell_choice_cursor,
+            origin,
+        )
+        self._navigate_to_identity(identity)
 
     def action_choose_category(self) -> None:
         labels = tuple(self.CATEGORY_LABELS[category] for category in self.CATEGORIES)
@@ -1674,11 +1968,7 @@ class BrowserApp(App[None]):
             self.navigation_history.restore_history_state(self._navigation_state())
             self._category_transition = False
         started = self._category_profile_started
-        if (
-            self.profiler is not None
-            and started is not None
-            and started[0] == page.request_id
-        ):
+        if self.profiler is not None and started is not None and started[0] == page.request_id:
             self.profiler.record(
                 f"category_total.{started[1].value}",
                 (time.perf_counter() - started[2]) * 1000,
@@ -1689,9 +1979,7 @@ class BrowserApp(App[None]):
         if not isinstance(page, SearchPage) or page.request_id != self._request_id:
             return
         existing = {summary.identity for summary in self.state.results}
-        new_results = tuple(
-            summary for summary in page.results if summary.identity not in existing
-        )
+        new_results = tuple(summary for summary in page.results if summary.identity not in existing)
         self.state.results.extend(new_results)
         self.state.total_count = page.total_count
         self._page_loading = False
@@ -1929,9 +2217,7 @@ class BrowserApp(App[None]):
         self, identity: str
     ) -> tuple[EntryDetail | None, tuple[ReferenceTarget, ...]]:
         profile = (
-            self.profiler.operation("detail_bundle")
-            if self.profiler is not None
-            else nullcontext()
+            self.profiler.operation("detail_bundle") if self.profiler is not None else nullcontext()
         )
         with profile:
             return self._load_detail_bundle_impl(identity)
@@ -1947,15 +2233,21 @@ class BrowserApp(App[None]):
             self.cross_references.structured_references(identity)
         )
         if detail.category is SearchCategory.FEATS:
-            references.extend(self.cross_references.explicit_feat_prerequisite_references(
-                str(detail.fields.get("prerequisite"))
-                if detail.fields.get("prerequisite")
-                else None,
-                edition,
-            ))
+            references.extend(
+                self.cross_references.explicit_feat_prerequisite_references(
+                    str(detail.fields.get("prerequisite"))
+                    if detail.fields.get("prerequisite")
+                    else None,
+                    edition,
+                )
+            )
         if detail.category in {
-            SearchCategory.ITEMS, SearchCategory.SPELLS, SearchCategory.FEATS,
-            SearchCategory.CLASSES, SearchCategory.SUBCLASSES, SearchCategory.MONSTERS,
+            SearchCategory.ITEMS,
+            SearchCategory.SPELLS,
+            SearchCategory.FEATS,
+            SearchCategory.CLASSES,
+            SearchCategory.SUBCLASSES,
+            SearchCategory.MONSTERS,
         }:
             texts = [detail.description]
             texts.extend(section.body for section in detail.sections)
@@ -1973,12 +2265,12 @@ class BrowserApp(App[None]):
                 str(ability.get("description", ""))
                 for ability in detail.fields.get("abilities_and_actions") or ()
             )
-            references.extend(self.cross_references.explicit_condition_references(
-                "\n".join(texts), edition
-            ))
-            references.extend(self.cross_references.explicit_rule_references(
-                "\n".join(texts), edition
-            ))
+            references.extend(
+                self.cross_references.explicit_condition_references("\n".join(texts), edition)
+            )
+            references.extend(
+                self.cross_references.explicit_rule_references("\n".join(texts), edition)
+            )
         if detail.category is SearchCategory.MONSTERS:
             abilities = detail.fields.get("abilities_and_actions") or ()
             descriptions = tuple(
@@ -1986,9 +2278,7 @@ class BrowserApp(App[None]):
                 for ability in abilities
                 if ability.get("section") in {"spellcasting", "innate_spellcasting"}
             )
-            references.extend(
-                self.cross_references.monster_spell_references(descriptions, edition)
-            )
+            references.extend(self.cross_references.monster_spell_references(descriptions, edition))
         unique = {reference.identity: reference for reference in references}
         return detail, tuple(
             sorted(unique.values(), key=lambda ref: (ref.category.value, ref.name.casefold()))
@@ -2041,7 +2331,7 @@ class BrowserApp(App[None]):
         self._query_widget("#detail-scroll", VerticalScroll).scroll_y = detail_scroll
         self.call_after_refresh(self._restore_detail_scroll, detail_scroll)
         self.set_timer(
-            0.05,
+            0.25,
             lambda scroll=detail_scroll: self._restore_detail_scroll(scroll),
             name="history-detail-scroll-restore",
         )
@@ -2162,9 +2452,7 @@ class BrowserApp(App[None]):
         self._history_restore_detail_id = target.identity
         self._restoring_history = True
         self.navigation_history.navigate_to(self._navigation_state(target.identity))
-        self._category_profile_started = (
-            self._request_id + 1, self.category, time.perf_counter()
-        )
+        self._category_profile_started = (self._request_id + 1, self.category, time.perf_counter())
         self._update_input_from_state()
         self._refresh_filter_options()
         self._update_filter_status()
@@ -2225,9 +2513,7 @@ class BrowserApp(App[None]):
         self.navigation_history.navigate_to(self._navigation_state())
 
     def _restore_navigation_state(self, state: NavigationState) -> None:
-        self._category_profile_started = (
-            self._request_id + 1, state.category, time.perf_counter()
-        )
+        self._category_profile_started = (self._request_id + 1, state.category, time.perf_counter())
         self.category = state.category
         self.mode = SearchMode(state.mode)
         category_state = self.state
@@ -2295,7 +2581,45 @@ class BrowserApp(App[None]):
             if state.detail_id and self.cross_references.get_by_id(state.detail_id) is None:
                 continue
             self._restore_navigation_state(state)
+            self._resume_character_sheet_if_home()
+            self._resume_character_wizard_if_home()
             return
+
+    def _resume_character_wizard_if_home(self) -> None:
+        pending = self._pending_character_reference
+        current = self.navigation_history.current
+        if pending is None or current is None:
+            return
+        origin = pending[-1]
+        if origin is None or current.logical_key != origin.logical_key:
+            return
+        self._pending_character_reference = None
+        (
+            character_id,
+            step,
+            query,
+            selected_index,
+            page_offset,
+            choice_cursor,
+            spell_cursor,
+            spell_choice_cursor,
+            _origin,
+        ) = pending
+        # Open after the current key event completes. When Escape restores a
+        # reference opened from the wizard, pushing the wizard synchronously
+        # lets that same Escape reach its Back binding a second time.
+        self.call_after_refresh(
+            lambda: self._open_character_wizard(
+                character_id,
+                step=step,
+                query=query,
+                selected_index=selected_index,
+                page_offset=page_offset,
+                choice_cursor=choice_cursor,
+                spell_cursor=spell_cursor,
+                spell_choice_cursor=spell_choice_cursor,
+            )
+        )
 
     def action_forward(self) -> None:
         while self.navigation_history.can_go_forward:
@@ -2582,9 +2906,7 @@ class BrowserApp(App[None]):
             self._updating_input = False
         self._query_widget("#mode-label", Label).update(self._mode_label())
 
-    def _switch_category(
-        self, category: SearchCategory, *, start_search: bool = True
-    ) -> None:
+    def _switch_category(self, category: SearchCategory, *, start_search: bool = True) -> None:
         if category is self.category:
             return
         self._commit_current_location()
@@ -2806,8 +3128,7 @@ def render_detail(detail: EntryDetail) -> str:
     }.get(detail.category, detail.category.value.title())
     output = [
         f"# {detail.name}",
-        f"*{detail_type} · "
-        f"{fields.get('edition') or 'Unknown edition'} · {detail.source_label}*\n",
+        f"*{detail_type} · {fields.get('edition') or 'Unknown edition'} · {detail.source_label}*\n",
     ]
     if detail.category is SearchCategory.SPELLS:
         components = [
@@ -2907,6 +3228,36 @@ def render_detail(detail: EntryDetail) -> str:
         output.append(_section_markdown(section))
     output.append(f"\n**Source:** {detail.source_label} · {detail.dataset_title}\n")
     return "\n".join(output)
+
+
+def _builder_reference_details(metadata: dict[str, object]) -> str:
+    labels = {
+        "size": "Size",
+        "speed": "Speed",
+        "ability_score_options": "Ability score options",
+        "skill_proficiencies": "Skill proficiencies",
+        "tool_proficiencies": "Tool proficiencies",
+        "languages": "Languages",
+        "origin_feat": "Origin feat",
+        "equipment": "Starting equipment",
+        "traits": "Traits",
+    }
+    lines = []
+    for key, label in labels.items():
+        value = metadata.get(key)
+        if not value:
+            continue
+        if isinstance(value, dict):
+            display = ", ".join(
+                f"{item_key.replace('_', ' ').title()}: {item_value}"
+                for item_key, item_value in value.items()
+            )
+        elif isinstance(value, list):
+            display = ", ".join(str(item) for item in value)
+        else:
+            display = str(value)
+        lines.append(f"{label}: {display}")
+    return "\n".join(lines) if lines else "Structured details are available in this reference."
 
 
 __all__ = ["BrowserApp", "CategoryState", "render_detail"]

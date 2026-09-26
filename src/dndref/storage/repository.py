@@ -184,7 +184,8 @@ def _entry_search_body(connection: sqlite3.Connection, entry: sqlite3.Row) -> st
             _search_text(row["name"], row["description"])
             for row in connection.execute(
                 "SELECT name, description FROM monster_abilities WHERE monster_id = ? "
-                "ORDER BY section, display_order", (entry_id,)
+                "ORDER BY section, display_order",
+                (entry_id,),
             ).fetchall()
         )
     return _search_text(*parts)
@@ -194,9 +195,12 @@ def rebuild_search_index(connection: sqlite3.Connection, dataset_id: str | None 
     """Rebuild affected FTS rows inside the caller's transaction."""
 
     try:
-        if connection.execute(
-            "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'entry_search'"
-        ).fetchone() is None:
+        if (
+            connection.execute(
+                "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'entry_search'"
+            ).fetchone()
+            is None
+        ):
             # This keeps the repository usable while constructing a pre-Milestone-5
             # database for an upgrade; the next normal initialization creates/backfills it.
             return
@@ -223,9 +227,12 @@ def normalize_stored_names(connection: sqlite3.Connection) -> None:
     """Bring names written by Milestone 4 up to the Milestone 5 normal form."""
 
     try:
-        if connection.execute(
-            "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'entries'"
-        ).fetchone() is None:
+        if (
+            connection.execute(
+                "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'entries'"
+            ).fetchone()
+            is None
+        ):
             return
         rows = connection.execute("SELECT id, name, normalized_name FROM entries").fetchall()
         connection.executemany(
@@ -286,9 +293,7 @@ def list_installed_datasets(connection: sqlite3.Connection) -> tuple[InstalledDa
         columns = "dataset_id, title, version, content_hash"
         if has_source_hash:
             columns += ", source_hash"
-        rows = connection.execute(
-            f"SELECT {columns} FROM datasets ORDER BY dataset_id"
-        ).fetchall()
+        rows = connection.execute(f"SELECT {columns} FROM datasets ORDER BY dataset_id").fetchall()
     except sqlite3.OperationalError as exc:
         if "no such table" in str(exc).lower():
             return ()
@@ -397,6 +402,498 @@ def _insert_sections(
     )
 
 
+def _json_value(value: object) -> str:
+    def normalize(item):
+        if hasattr(item, "model_dump"):
+            return normalize(item.model_dump(mode="json"))
+        if isinstance(item, dict):
+            return {str(key): normalize(child) for key, child in item.items()}
+        if isinstance(item, (list, tuple, set)):
+            return [normalize(child) for child in item]
+        return item
+
+    value = normalize(value)
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def _persist_character_builder(
+    connection: sqlite3.Connection, pack: object, dataset_id: str, source_ids: Mapping[str, int]
+) -> None:
+    """Persist the rules catalog as owner rows and normalized rule children."""
+    catalog = getattr(pack, "character_builder", None)
+    if catalog is None:
+        return
+
+    def add_owner(owner_type, owner_key, name, source, description="", parent=None, metadata=None):
+        connection.execute(
+            "INSERT INTO character_builder_owners "
+            "(dataset_id, owner_type, owner_key, source_id, edition, name, parent_class_key, "
+            "description, metadata_json) VALUES (?, ?, ?, ?, '2024', ?, ?, ?, ?)",
+            (
+                dataset_id,
+                owner_type,
+                str(owner_key),
+                source_ids[str(source)],
+                name,
+                str(parent) if parent is not None else None,
+                description or "",
+                _json_value(metadata or {}),
+            ),
+        )
+
+    def add_requirement(owner_type, owner_key, requirement_key, scope, requirement):
+        if requirement is None:
+            return None
+        key = str(requirement_key)
+        connection.execute(
+            "INSERT INTO character_rule_requirements "
+            "(dataset_id, owner_type, owner_key, requirement_key, scope, payload_json, "
+            "source_rule) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (
+                dataset_id,
+                owner_type,
+                str(owner_key),
+                key,
+                scope,
+                _json_value(requirement),
+                str(requirement.source_text or scope),
+            ),
+        )
+        return key
+
+    def add_grant(
+        owner_type, owner_key, grant, scope, *, event_key=None, choice_key=None, option_key=None
+    ):
+        requirement_key = add_requirement(
+            owner_type,
+            owner_key,
+            f"grant:{grant.grant_key}",
+            "grant_activation",
+            grant.condition,
+        )
+        reference = grant.reference
+        connection.execute(
+            "INSERT INTO character_rule_grants "
+            "(dataset_id, owner_type, owner_key, grant_key, scope, event_key, choice_key, "
+            "option_key, grant_type, value, reference_kind, reference_identity, proficiency_kind, "
+            "quantity, unit, activation_requirement_key, source_rule, unresolved) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                dataset_id,
+                owner_type,
+                str(owner_key),
+                str(grant.grant_key),
+                scope,
+                str(event_key) if event_key is not None else None,
+                str(choice_key) if choice_key is not None else None,
+                str(option_key) if option_key is not None else None,
+                str(grant.kind),
+                grant.value,
+                str(reference.kind) if reference is not None else None,
+                reference.identity if reference is not None else None,
+                str(grant.proficiency_kind) if grant.proficiency_kind is not None else None,
+                grant.quantity,
+                grant.unit,
+                requirement_key,
+                grant.source_rule,
+                int(grant.unresolved),
+            ),
+        )
+
+    def add_choice(owner_type, owner_key, choice, scope, *, event_key=None):
+        requirement_key = add_requirement(
+            owner_type,
+            owner_key,
+            f"choice:{choice.choice_key}",
+            "choice",
+            choice.requirement,
+        )
+        criteria = choice.criteria
+        connection.execute(
+            "INSERT INTO character_rule_choices "
+            "(dataset_id, owner_type, owner_key, choice_key, scope, event_key, choice_type, "
+            "choice_count, criteria_kind, criteria_values_json, criteria_filters_json, "
+            "requirement_key, depends_on_choice, depends_on_option, exclusions_json, source_rule) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                dataset_id,
+                owner_type,
+                str(owner_key),
+                str(choice.choice_key),
+                scope,
+                str(event_key) if event_key is not None else None,
+                str(choice.kind),
+                choice.count,
+                str(criteria.kind) if criteria is not None else None,
+                _json_value(criteria.values) if criteria is not None else None,
+                _json_value(criteria.filters) if criteria is not None else None,
+                requirement_key,
+                str(choice.depends_on_choice) if choice.depends_on_choice is not None else None,
+                str(choice.depends_on_option) if choice.depends_on_option is not None else None,
+                _json_value(choice.exclusions),
+                choice.source_rule,
+            ),
+        )
+        for option in choice.options:
+            reference = option.reference
+            connection.execute(
+                "INSERT INTO character_rule_choice_options "
+                "(dataset_id, owner_type, owner_key, choice_key, option_key, label, value, "
+                "reference_kind, reference_identity, ability_increases_json, group_name, resolved) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    dataset_id,
+                    owner_type,
+                    str(owner_key),
+                    str(choice.choice_key),
+                    str(option.option_key),
+                    option.label,
+                    option.value,
+                    str(reference.kind) if reference is not None else None,
+                    reference.identity if reference is not None else None,
+                    _json_value(option.ability_increases),
+                    option.group,
+                    int(option.resolved),
+                ),
+            )
+            for grant in option.grants:
+                add_grant(
+                    owner_type,
+                    owner_key,
+                    grant,
+                    "choice_option",
+                    choice_key=choice.choice_key,
+                    option_key=option.option_key,
+                )
+
+    def add_choices(owner_type, owner_key, choices, scope, *, event_key=None):
+        for choice in choices:
+            add_choice(owner_type, owner_key, choice, scope, event_key=event_key)
+
+    def add_events(owner_type, owner_key, events):
+        for event in events:
+            requirement_key = add_requirement(
+                owner_type,
+                owner_key,
+                f"event:{event.event_key}",
+                "progression_event",
+                event.requirement,
+            )
+            connection.execute(
+                "INSERT INTO class_progression_events "
+                "(dataset_id, owner_type, owner_key, event_key, class_level, title, source_rule, "
+                "requirement_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    dataset_id,
+                    owner_type,
+                    str(owner_key),
+                    str(event.event_key),
+                    event.level,
+                    event.title,
+                    event.source_rule,
+                    requirement_key,
+                ),
+            )
+            for grant in event.grants:
+                add_grant(
+                    owner_type, owner_key, grant, "progression_event", event_key=event.event_key
+                )
+            add_choices(
+                owner_type, owner_key, event.choices, "progression_event", event_key=event.event_key
+            )
+
+    def add_spellcasting(owner_type, owner_key, rules):
+        if rules is None:
+            return
+        reference = rules.spell_list_reference
+        connection.execute(
+            "INSERT INTO class_spellcasting "
+            "(dataset_id, owner_type, owner_key, spellcasting_ability, spellcasting_model, "
+            "multiclass_contribution, acquisition, spell_list_reference_kind, "
+            "spell_list_reference_identity, prepared_spells_change, source_rule) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                dataset_id,
+                owner_type,
+                str(owner_key),
+                str(rules.ability),
+                str(rules.model),
+                str(rules.multiclass_contribution),
+                str(rules.acquisition),
+                str(reference.kind) if reference is not None else None,
+                reference.identity if reference is not None else None,
+                rules.prepared_spells_change,
+                rules.source_rule,
+            ),
+        )
+        by_level = {}
+        for field, column in (
+            (rules.cantrips, "cantrips_known"),
+            (rules.prepared_spells, "prepared_spells"),
+            (rules.known_spells, "known_spells"),
+        ):
+            for row in field:
+                by_level.setdefault(row.class_level, {})[column] = row.count
+        connection.executemany(
+            "INSERT INTO class_spellcasting_levels "
+            "(dataset_id, owner_type, owner_key, class_level, cantrips_known, prepared_spells, "
+            "known_spells) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            [
+                (
+                    dataset_id,
+                    owner_type,
+                    str(owner_key),
+                    level,
+                    values.get("cantrips_known"),
+                    values.get("prepared_spells"),
+                    values.get("known_spells"),
+                )
+                for level, values in sorted(by_level.items())
+            ],
+        )
+        for progression_kind, rows in (
+            ("standalone", rules.standalone_slots),
+            ("pact", rules.pact_slots),
+        ):
+            for row in rows:
+                connection.executemany(
+                    "INSERT INTO class_spell_slots "
+                    "(dataset_id, owner_type, owner_key, progression_kind, class_level, "
+                    "spell_level, slot_count) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    [
+                        (
+                            dataset_id,
+                            owner_type,
+                            str(owner_key),
+                            progression_kind,
+                            row.class_level,
+                            spell_level,
+                            count,
+                        )
+                        for spell_level, count in enumerate(row.slots_by_spell_level, 1)
+                    ],
+                )
+        for index, access in enumerate(rules.additional_spells):
+            connection.execute(
+                "INSERT INTO character_builder_spell_access "
+                "(dataset_id, owner_type, owner_key, access_key, access_type, class_level, "
+                "level_scope, source_rule, payload_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    dataset_id,
+                    owner_type,
+                    str(owner_key),
+                    f"spell-access-{index:03d}",
+                    str(access.access),
+                    access.class_level,
+                    str(access.level_scope),
+                    access.source_rule,
+                    _json_value(access),
+                ),
+            )
+        add_choices(owner_type, owner_key, rules.spell_choices, "spellcasting")
+
+    def add_traits(owner_type, owner_key, traits):
+        connection.executemany(
+            "INSERT INTO character_builder_traits "
+            "(dataset_id, owner_type, owner_key, trait_key, name, description, source_rule) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+            [
+                (
+                    dataset_id,
+                    owner_type,
+                    str(owner_key),
+                    str(trait.trait_key),
+                    trait.name,
+                    trait.description,
+                    trait.source_rule,
+                )
+                for trait in traits
+            ],
+        )
+
+    for row in catalog.skills:
+        connection.execute(
+            "INSERT INTO character_builder_skills (dataset_id, skill_key, name, ability_key) "
+            "VALUES (?, ?, ?, ?)",
+            (dataset_id, str(row.key), row.name, str(row.ability)),
+        )
+    for row in catalog.classes:
+        owner_key = str(row.class_key)
+        add_owner(
+            "class",
+            owner_key,
+            row.name,
+            row.source,
+            metadata={
+                "primary_ability_options": row.primary_ability_options,
+                "subclass_selection_level": row.subclass_selection_level,
+            },
+        )
+        add_requirement(
+            "class", owner_key, "multiclass", "multiclass_entry", row.multiclass_requirement
+        )
+        for grant in row.starting_grants:
+            add_grant("class", owner_key, grant, "starting_class")
+        for grant in row.multiclass_grants:
+            add_grant("class", owner_key, grant, "multiclass_entry")
+        add_choices("class", owner_key, row.starting_choices, "starting_class")
+        add_choices("class", owner_key, row.multiclass_choices, "multiclass_entry")
+        add_choices("class", owner_key, row.starting_equipment.choices, "starting_equipment")
+        add_events("class", owner_key, row.progression_events)
+        add_spellcasting("class", owner_key, row.spellcasting)
+    for row in catalog.subclasses:
+        owner_key = str(row.subclass_key)
+        add_owner(
+            "subclass",
+            owner_key,
+            row.name,
+            row.source,
+            parent=row.class_key,
+            metadata={"selection_level": row.selection_level},
+        )
+        add_events("subclass", owner_key, row.progression_events)
+        add_spellcasting("subclass", owner_key, row.spellcasting)
+    for row in catalog.species:
+        owner_key = str(row.species_key)
+        add_owner(
+            "species",
+            owner_key,
+            row.name,
+            row.source,
+            row.description,
+            metadata={
+                "creature_types": row.creature_types,
+                "sizes": row.sizes,
+                "movement": row.movement,
+                "darkvision_feet": row.darkvision_feet,
+            },
+        )
+        for grant in row.grants:
+            add_grant("species", owner_key, grant, "species")
+        add_choices("species", owner_key, row.choices, "species")
+        add_traits("species", owner_key, row.traits)
+        for index, access in enumerate(row.spell_access):
+            connection.execute(
+                "INSERT INTO character_builder_spell_access "
+                "(dataset_id, owner_type, owner_key, access_key, access_type, class_level, "
+                "level_scope, source_rule, payload_json) "
+                "VALUES (?, 'species', ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    dataset_id,
+                    owner_key,
+                    f"spell-access-{index:03d}",
+                    str(access.access),
+                    access.class_level,
+                    str(access.level_scope),
+                    access.source_rule,
+                    _json_value(access),
+                ),
+            )
+    for row in catalog.backgrounds:
+        owner_key = str(row.background_key)
+        add_owner(
+            "background",
+            owner_key,
+            row.name,
+            row.source,
+            row.description,
+            metadata={
+                "origin_feat": row.origin_feat,
+                "origin_feat_variant": row.origin_feat_variant,
+                "includes_background_equipment": (
+                    row.starting_equipment.includes_background_equipment
+                ),
+            },
+        )
+        for grant in row.grants:
+            add_grant("background", owner_key, grant, "background")
+        add_choices("background", owner_key, row.choices, "background")
+        add_choices("background", owner_key, row.starting_equipment.choices, "starting_equipment")
+        add_traits("background", owner_key, [])
+    feat_names = {str(row.local_key): row.name for row in pack.feats}
+    for row in catalog.feats:
+        owner_key = str(row.feat_key)
+        add_owner(
+            "feat",
+            owner_key,
+            feat_names.get(owner_key, owner_key),
+            row.source,
+            metadata={"category": row.category, "repeatable": row.repeatable},
+        )
+        add_requirement("feat", owner_key, "prerequisite", "feat_prerequisite", row.prerequisite)
+        for grant in row.grants:
+            add_grant("feat", owner_key, grant, "feat")
+        add_choices("feat", owner_key, row.ability_choices, "ability_score")
+        add_choices("feat", owner_key, row.spell_choices, "spellcasting")
+        for index, access in enumerate(row.spell_access):
+            connection.execute(
+                "INSERT INTO character_builder_spell_access "
+                "(dataset_id, owner_type, owner_key, access_key, access_type, class_level, "
+                "level_scope, source_rule, payload_json) VALUES (?, 'feat', ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    dataset_id,
+                    owner_key,
+                    f"spell-access-{index:03d}",
+                    str(access.access),
+                    access.class_level,
+                    str(access.level_scope),
+                    access.source_rule,
+                    _json_value(access),
+                ),
+            )
+    for row in catalog.optional_features:
+        owner_key = str(row.option_key)
+        add_owner(
+            "optional_feature",
+            owner_key,
+            row.name,
+            row.source,
+            row.description,
+            metadata={
+                "option_type": row.option_type,
+                "feature_types": row.feature_types,
+                "repeatable": row.repeatable,
+            },
+        )
+        add_requirement(
+            "optional_feature", owner_key, "prerequisite", "optional_feature", row.prerequisite
+        )
+    item_names = {str(row.local_key): row.name for row in pack.items.items}
+    for row in catalog.equipment:
+        owner_key = str(row.item_key)
+        add_owner("item", owner_key, item_names.get(owner_key, owner_key), row.source)
+        connection.execute(
+            "INSERT INTO character_builder_equipment "
+            "(dataset_id, item_key, category, weapon_category, attack_type, damage, damage_type, "
+            "range_json, properties_json, mastery_references_json, ammunition_reference_json, "
+            "versatile_damage, armor_category, base_ac, dexterity_rule, dexterity_cap, "
+            "strength_requirement, stealth_disadvantage, unresolved_fields_json) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                dataset_id,
+                owner_key,
+                str(row.category),
+                row.weapon_category,
+                row.attack_type,
+                row.damage,
+                row.damage_type,
+                _json_value(row.range_feet),
+                _json_value(row.properties),
+                _json_value(row.mastery_references),
+                _json_value(row.ammunition_reference) if row.ammunition_reference else None,
+                row.versatile_damage,
+                row.armor_category,
+                row.base_ac,
+                row.dexterity_rule,
+                row.dexterity_cap,
+                row.strength_requirement,
+                int(row.stealth_disadvantage) if row.stealth_disadvantage is not None else None,
+                _json_value(row.unresolved_fields),
+            ),
+        )
+
+
 def apply_dataset(
     connection: sqlite3.Connection,
     loaded: LoadedDataset,
@@ -472,21 +969,15 @@ def apply_dataset(
             )
             image_ids[asset.relative_path] = int(cursor.lastrowid)
 
-        entries = [
-            ("item", item) for item in pack.items.items
-        ] + [
-            ("spell", spell) for spell in pack.spells
-        ] + [
-            ("feat", feat) for feat in pack.feats
-        ] + [
-            ("class", character_class) for character_class in pack.classes
-        ] + [
-            ("monster", monster) for monster in pack.monsters
-        ] + [
-            ("condition", item) for item in pack.conditions
-        ] + [
-            ("rule", item) for item in pack.rules
-        ]
+        entries = (
+            [("item", item) for item in pack.items.items]
+            + [("spell", spell) for spell in pack.spells]
+            + [("feat", feat) for feat in pack.feats]
+            + [("class", character_class) for character_class in pack.classes]
+            + [("monster", monster) for monster in pack.monsters]
+            + [("condition", item) for item in pack.conditions]
+            + [("rule", item) for item in pack.rules]
+        )
         has_rule_section = any(
             str(column["name"]) == "rule_section"
             for column in connection.execute("PRAGMA table_info(entries)").fetchall()
@@ -494,19 +985,18 @@ def apply_dataset(
         for kind, entry in sorted(entries, key=lambda item: item[1].local_key):
             columns = (
                 "dataset_id, local_key, kind, name, normalized_name, description, source_id, "
-                "image_id, content_hash"
-                + (", rule_section" if has_rule_section else "")
+                "image_id, content_hash" + (", rule_section" if has_rule_section else "")
             )
             values = (
-                    dataset_id,
-                    entry.local_key,
-                    kind,
-                    entry.name,
-                    normalize_name(entry.name),
-                    entry.description,
-                    source_ids[entry.source],
-                    image_ids.get(entry.image),
-                    loaded.entry_hashes[entry.local_key],
+                dataset_id,
+                entry.local_key,
+                kind,
+                entry.name,
+                normalize_name(entry.name),
+                entry.description,
+                source_ids[entry.source],
+                image_ids.get(entry.image),
+                loaded.entry_hashes[entry.local_key],
             ) + ((entry.section if kind == "rule" else None,) if has_rule_section else ())
             cursor = connection.execute(
                 f"INSERT INTO entries ({columns}) VALUES ({', '.join('?' for _ in values)})",
@@ -640,19 +1130,43 @@ def apply_dataset(
             )
 
         from ..models.monster import cr_value
+
         for monster in sorted(pack.monsters, key=lambda record: record.local_key):
             values = monster.model_dump(mode="json")
             columns = (
-                "page", "group", "variant", "size", "creature_type", "subtype", "alignment",
-                "armor_class", "hit_points", "hit_points_text", "hit_dice", "speed",
-                "speed_text", "abilities", "saving_throws", "skills", "proficiency_bonus",
-                "damage_vulnerabilities", "damage_resistances", "damage_immunities",
-                "condition_immunities", "senses", "passive_perception", "languages",
-                "telepathy", "challenge_rating", "xp", "legendary_intro",
+                "page",
+                "group",
+                "variant",
+                "size",
+                "creature_type",
+                "subtype",
+                "alignment",
+                "armor_class",
+                "hit_points",
+                "hit_points_text",
+                "hit_dice",
+                "speed",
+                "speed_text",
+                "abilities",
+                "saving_throws",
+                "skills",
+                "proficiency_bonus",
+                "damage_vulnerabilities",
+                "damage_resistances",
+                "damage_immunities",
+                "condition_immunities",
+                "senses",
+                "passive_perception",
+                "languages",
+                "telepathy",
+                "challenge_rating",
+                "xp",
+                "legendary_intro",
             )
             row_values = [
-                json.dumps(values[key], ensure_ascii=False) if key in
-                {"speed", "abilities", "saving_throws", "skills"} else values[key]
+                json.dumps(values[key], ensure_ascii=False)
+                if key in {"speed", "abilities", "saving_throws", "skills"}
+                else values[key]
                 for key in columns
             ]
             cr_eighths = int(cr_value(monster.challenge_rating) * 8)
@@ -664,16 +1178,27 @@ def apply_dataset(
                 "damage_immunities, condition_immunities, senses, passive_perception, "
                 "languages, telepathy, challenge_rating, cr_eighths, xp, legendary_intro) "
                 "VALUES (" + ",".join("?" for _ in range(31)) + ")",
-                (entry_ids[monster.local_key], dataset_id, *row_values[:-2], cr_eighths,
-                 *row_values[-2:]),
+                (
+                    entry_ids[monster.local_key],
+                    dataset_id,
+                    *row_values[:-2],
+                    cr_eighths,
+                    *row_values[-2:],
+                ),
             )
             connection.executemany(
                 "INSERT INTO monster_abilities "
                 "(monster_id, section, name, description, display_order, cost) "
                 "VALUES (?, ?, ?, ?, ?, ?)",
                 [
-                    (entry_ids[monster.local_key], ability.section, ability.name,
-                     ability.description, ability.display_order, ability.cost)
+                    (
+                        entry_ids[monster.local_key],
+                        ability.section,
+                        ability.name,
+                        ability.description,
+                        ability.display_order,
+                        ability.cost,
+                    )
                     for ability in monster.abilities_and_actions
                 ],
             )
@@ -798,10 +1323,11 @@ def apply_dataset(
             connection.executemany(
                 "INSERT INTO spell_classes (dataset_id, spell_id, class_id) VALUES (?, ?, ?)",
                 [
-                    (dataset_id, spell_id, class_ids[str(reference.split(':', 1)[-1])])
+                    (dataset_id, spell_id, class_ids[str(reference.split(":", 1)[-1])])
                     for reference in spell.class_references
                 ],
             )
+        _persist_character_builder(connection, pack, dataset_id, source_ids)
         rebuild_search_index(connection, dataset_id)
     except (KeyError, sqlite3.Error) as exc:
         raise RepositoryError(f"cannot persist dataset '{dataset_id}': {exc}") from exc
@@ -889,6 +1415,7 @@ def _search_clauses(query: "SearchQuery") -> tuple[str, list[object], str, list[
             where_params.extend((source.dataset_id, source.source_key))
     if query.challenge_ratings:
         from ..models.monster import cr_value
+
         where.append(f"m.cr_eighths IN ({', '.join('?' for _ in query.challenge_ratings)})")
         where_params.extend(int(cr_value(value) * 8) for value in query.challenge_ratings)
     if query.creature_types:
@@ -949,9 +1476,7 @@ def _summary_from_row(row: sqlite3.Row) -> "EntrySummary":
         source_identity=SourceIdentity(
             dataset_id=str(row["source_dataset_id"]), source_key=str(row["source_key"])
         ),
-        source_edition=(
-            str(row["source_edition"]) if row["source_edition"] is not None else None
-        ),
+        source_edition=(str(row["source_edition"]) if row["source_edition"] is not None else None),
     )
 
 
@@ -999,10 +1524,7 @@ def _subclass_summary(row: sqlite3.Row) -> "EntrySummary":
     from ..search import EntrySummary, SearchCategory, SourceIdentity
 
     return EntrySummary(
-        stable_id=(
-            f"{row['dataset_id']}:subclass:{row['parent_local_key']}:"
-            f"{row['subclass_key']}"
-        ),
+        stable_id=(f"{row['dataset_id']}:subclass:{row['parent_local_key']}:{row['subclass_key']}"),
         category=SearchCategory.SUBCLASSES,
         name=str(row["name"]),
         subtitle=f"{row['parent_name']} Subclass",
@@ -1033,9 +1555,9 @@ def _matching_subclass_rows(
         parameters.extend(query.editions)
     if query.sources:
         clauses.append(
-            "(" + " OR ".join(
-                "(src.dataset_id = ? AND src.source_key = ?)" for _ in query.sources
-            ) + ")"
+            "("
+            + " OR ".join("(src.dataset_id = ? AND src.source_key = ?)" for _ in query.sources)
+            + ")"
         )
         for source in query.sources:
             parameters.extend((source.dataset_id, source.source_key))
@@ -1052,15 +1574,15 @@ def _matching_subclass_rows(
     tokens = query.tokens
     if tokens:
         rows = [
-            row for row in rows
+            row
+            for row in rows
             if all(
                 token in normalize_name(str(row["name"]))
                 or token in str(row["parent_key"])
                 or (
                     query.mode is SearchMode.ALL_TEXT
-                    and token in normalize_name(
-                        f"{row['introduction']} {row['feature_text'] or ''}"
-                    )
+                    and token
+                    in normalize_name(f"{row['introduction']} {row['feature_text'] or ''}")
                 )
                 for token in tokens
             )
@@ -1108,9 +1630,7 @@ def search_grouped_subclasses(
         groups: dict[tuple[str, str, str], list["EntrySummary"]] = {}
         for row in rows:
             summary = _subclass_summary(row)
-            key = (
-                str(row["parent_key"]), str(row["source_edition"]), normalize_name(summary.name)
-            )
+            key = (str(row["parent_key"]), str(row["source_edition"]), normalize_name(summary.name))
             groups.setdefault(key, []).append(summary)
         preference = {source: index for index, source in enumerate(preferred_sources)}
         results: list["EntrySummary | GroupedEntrySummary"] = []
@@ -1121,20 +1641,31 @@ def search_grouped_subclasses(
             if any(count > 1 for count in counts.values()):
                 results.extend(members)
                 continue
-            members.sort(key=lambda member: (
-                preference.get(member.source_identity, len(preference)),
-                member.source_label.casefold(), member.dataset_id, member.local_key,
-            ))
+            members.sort(
+                key=lambda member: (
+                    preference.get(member.source_identity, len(preference)),
+                    member.source_label.casefold(),
+                    member.dataset_id,
+                    member.local_key,
+                )
+            )
             results.append(
                 GroupedEntrySummary(
-                    query.category, normalize_name(members[0].name),
-                    members[0], tuple(members[1:]),
+                    query.category,
+                    normalize_name(members[0].name),
+                    members[0],
+                    tuple(members[1:]),
                     group_key=members[0].group_key,
-                ) if len(members) > 1 else members[0]
+                )
+                if len(members) > 1
+                else members[0]
             )
     return SearchPage(
         tuple(results[query.offset : query.offset + query.limit]),
-        len(results), query.offset, query.limit, query.request_id,
+        len(results),
+        query.offset,
+        query.limit,
+        query.request_id,
     )
 
 
@@ -1174,7 +1705,8 @@ def list_subclass_parents(
         "JOIN sources AS src ON src.id = s.source_id "
         "JOIN sources AS parent_src ON parent_src.id = parent.source_id "
         "WHERE src.edition IS NOT NULL AND src.edition = parent_src.edition"
-        + clauses + " ORDER BY parent.normalized_name, parent.name",
+        + clauses
+        + " ORDER BY parent.normalized_name, parent.name",
         parameters,
     ).fetchall()
     return tuple(dict.fromkeys(str(row["name"]) for row in rows))
@@ -1237,8 +1769,7 @@ def search_grouped_entries(
     edition_scoped = query.category in {SearchCategory.CONDITIONS, SearchCategory.RULES}
     matched_edition = ", src.edition AS edition" if edition_scoped else ""
     collision_group = (
-        "normalized_name, edition, source_id"
-        if edition_scoped else "normalized_name, source_id"
+        "normalized_name, edition, source_id" if edition_scoped else "normalized_name, source_id"
     )
     collides = (
         "EXISTS (SELECT 1 FROM colliding c WHERE c.normalized_name=m.normalized_name "
@@ -1248,7 +1779,8 @@ def search_grouped_entries(
     )
     group_name = (
         "'name:' || m.normalized_name || ':' || COALESCE(m.edition, '')"
-        if edition_scoped else "'name:' || m.normalized_name"
+        if edition_scoped
+        else "'name:' || m.normalized_name"
     )
     cte = (
         "WITH matched AS ("
@@ -1285,7 +1817,9 @@ def search_grouped_entries(
                 return SearchPage((), total_count, query.offset, query.limit, query.request_id)
             key_sql = ", ".join("?" for _ in keys)
             rows = connection.execute(
-                cte + _SUMMARY_SELECT.rstrip() + ", candidates.group_key AS group_key "
+                cte
+                + _SUMMARY_SELECT.rstrip()
+                + ", candidates.group_key AS group_key "
                 + _SUMMARY_FROM
                 + " JOIN candidates ON candidates.id = e.id "
                 + f"WHERE candidates.group_key IN ({key_sql}) "
@@ -1318,16 +1852,17 @@ def search_grouped_entries(
                     member.local_key,
                 )
             )
-            edition_key = (
-                f":{members[0].source_edition or ''}" if edition_scoped else ""
-            )
+            edition_key = f":{members[0].source_edition or ''}" if edition_scoped else ""
             group_identity = (
                 f"group:{query.category.value}:{normalize_name(members[0].name)}{edition_key}"
             )
             groups.append(
                 GroupedEntrySummary(
-                    query.category, normalize_name(members[0].name), members[0],
-                    tuple(members[1:]), group_identity,
+                    query.category,
+                    normalize_name(members[0].name),
+                    members[0],
+                    tuple(members[1:]),
+                    group_identity,
                 )
                 if len(members) > 1
                 else members[0]
@@ -1348,12 +1883,18 @@ def list_monster_facets(connection: sqlite3.Connection) -> dict[str, tuple[str, 
     ).fetchall()
     return {
         "cr": tuple(str(row["challenge_rating"]) for row in cr_rows),
-        "type": tuple(str(row[0]) for row in connection.execute(
-            "SELECT DISTINCT creature_type FROM monsters ORDER BY creature_type COLLATE NOCASE"
-        )),
-        "size": tuple(str(row[0]) for row in connection.execute(
-            "SELECT DISTINCT size FROM monsters ORDER BY size COLLATE NOCASE"
-        )),
+        "type": tuple(
+            str(row[0])
+            for row in connection.execute(
+                "SELECT DISTINCT creature_type FROM monsters ORDER BY creature_type COLLATE NOCASE"
+            )
+        ),
+        "size": tuple(
+            str(row[0])
+            for row in connection.execute(
+                "SELECT DISTINCT size FROM monsters ORDER BY size COLLATE NOCASE"
+            )
+        ),
     }
 
 
@@ -1410,7 +1951,8 @@ def list_available_sources(
             "FROM subclasses AS s JOIN sources AS src ON src.id = s.source_id "
             "JOIN entries AS parent ON parent.id = s.class_id "
             "JOIN sources AS parent_src ON parent_src.id = parent.source_id "
-            "WHERE " + " AND ".join(where), values,
+            "WHERE " + " AND ".join(where),
+            values,
         ).fetchall()
         return _source_options(rows)
     category_sql, parameters = _entry_scope(category)
@@ -1468,9 +2010,7 @@ def list_source_contents(connection: sqlite3.Connection) -> tuple["SourceBrowseI
     counts: dict[tuple[str, str], dict] = {}
     for row in rows:
         key = (str(row["dataset_id"]), str(row["source_key"]))
-        counts.setdefault(key, {})[_category_for_kind(str(row["kind"]))] = int(
-            row["entry_count"]
-        )
+        counts.setdefault(key, {})[_category_for_kind(str(row["kind"]))] = int(row["entry_count"])
     subclass_rows = connection.execute(
         "SELECT src.dataset_id, src.source_key, COUNT(*) AS entry_count "
         "FROM subclasses AS s JOIN sources AS src ON src.id = s.source_id "
@@ -1506,9 +2046,7 @@ def get_entry_detail(
             return None
         return _get_subclass_detail(connection, dataset_id, parent_key, subclass_key)
     row = connection.execute(
-        _SUMMARY_SELECT.replace(
-            "SELECT\n", "SELECT\n    e.description,\n", 1
-        )
+        _SUMMARY_SELECT.replace("SELECT\n", "SELECT\n    e.description,\n", 1)
         + f" {_SUMMARY_FROM} WHERE e.dataset_id = ? AND e.local_key = ?",
         (dataset_id, local_key),
     ).fetchone()
@@ -1522,13 +2060,18 @@ def get_entry_detail(
     kind = str(row["kind"])
     fields: dict[str, object] = {"edition": row["source_edition"]}
     table = {
-        "item": "items", "spell": "spells", "feat": "feats",
-        "class": "classes", "monster": "monsters",
-        "condition": None, "rule": None,
+        "item": "items",
+        "spell": "spells",
+        "feat": "feats",
+        "class": "classes",
+        "monster": "monsters",
+        "condition": None,
+        "rule": None,
     }[kind]
     category_row = (
         connection.execute(f"SELECT * FROM {table} WHERE entry_id = ?", (entry_id,)).fetchone()
-        if table is not None else None
+        if table is not None
+        else None
     )
     if category_row is not None:
         fields.update({key: category_row[key] for key in category_row.keys() if key != "entry_id"})
@@ -1542,9 +2085,11 @@ def get_entry_detail(
         fields["edition"] = row["source_edition"]
         fields["source_key"] = row["source_key"]
         fields["abilities_and_actions"] = tuple(
-            dict(ability) for ability in connection.execute(
+            dict(ability)
+            for ability in connection.execute(
                 "SELECT section, name, description, display_order, cost FROM monster_abilities "
-                "WHERE monster_id = ? ORDER BY section, display_order", (entry_id,)
+                "WHERE monster_id = ? ORDER BY section, display_order",
+                (entry_id,),
             ).fetchall()
         )
     sections = tuple(
@@ -1690,8 +2235,10 @@ def get_entry_detail(
 
 
 def _get_subclass_detail(
-    connection: sqlite3.Connection, dataset_id: str,
-    parent_local_key: str, subclass_key: str,
+    connection: sqlite3.Connection,
+    dataset_id: str,
+    parent_local_key: str,
+    subclass_key: str,
 ) -> "EntryDetail | None":
     from ..search import EntryDetail, SearchCategory
 

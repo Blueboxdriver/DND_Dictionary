@@ -1,5 +1,853 @@
 [
   {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Acolyte",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "acolyte|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Anthropologist",
+    "reason": "source-not-allowlisted",
+    "source": "ToA",
+    "upstream_identity": "anthropologist|toa"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Archaeologist",
+    "reason": "source-not-allowlisted",
+    "source": "ToA",
+    "upstream_identity": "archaeologist|toa"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Astral Drifter",
+    "reason": "source-not-allowlisted",
+    "source": "AAG",
+    "upstream_identity": "astral drifter|aag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Athlete",
+    "reason": "source-not-allowlisted",
+    "source": "MOT",
+    "upstream_identity": "athlete|mot"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Augen Trust (Spy)",
+    "reason": "source-not-allowlisted",
+    "source": "EGW",
+    "upstream_identity": "augen trust (spy)|egw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Azorius Functionary",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "azorius functionary|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Acolyte",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate acolyte|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Charlatan",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate charlatan|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Criminal",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate criminal|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Entertainer",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate entertainer|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Folk Hero",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate folk hero|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Guild Artisan",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate guild artisan|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Hermit",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate hermit|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Noble",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate noble|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Outlander",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate outlander|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Sage",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate sage|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Sailor",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate sailor|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Soldier",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate soldier|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Baldur's Gate Urchin",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "baldur's gate urchin|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Boros Legionnaire",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "boros legionnaire|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Carouser",
+    "reason": "source-not-allowlisted",
+    "source": "ABH",
+    "upstream_identity": "carouser|abh"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Celebrity Adventurer's Scion",
+    "reason": "source-not-allowlisted",
+    "source": "AI",
+    "upstream_identity": "celebrity adventurer's scion|ai"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Charlatan",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "charlatan|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "City Watch",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "city watch|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Clan Crafter",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "clan crafter|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Cloistered Scholar",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "cloistered scholar|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Cobalt Scholar (Sage)",
+    "reason": "source-not-allowlisted",
+    "source": "EGW",
+    "upstream_identity": "cobalt scholar (sage)|egw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Courtier",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "courtier|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Criminal",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "criminal|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Custom Background",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "custom background|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Dimir Operative",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "dimir operative|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Entertainer",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "entertainer|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Faceless",
+    "reason": "source-not-allowlisted",
+    "source": "BGDIA",
+    "upstream_identity": "faceless|bgdia"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Faction Agent",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "faction agent|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Failed Merchant",
+    "reason": "source-not-allowlisted",
+    "source": "AI",
+    "upstream_identity": "failed merchant|ai"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Far Traveler",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "far traveler|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Feylost",
+    "reason": "source-not-allowlisted",
+    "source": "WBtW",
+    "upstream_identity": "feylost|wbtw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Fisher",
+    "reason": "source-not-allowlisted",
+    "source": "GoS",
+    "upstream_identity": "fisher|gos"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Folk Hero",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "folk hero|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Gambler",
+    "reason": "source-not-allowlisted",
+    "source": "AI",
+    "upstream_identity": "gambler|ai"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Gate Warden",
+    "reason": "source-not-allowlisted",
+    "source": "SatO",
+    "upstream_identity": "gate warden|sato"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Giant Foundling",
+    "reason": "source-not-allowlisted",
+    "source": "BGG",
+    "upstream_identity": "giant foundling|bgg"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Golgari Agent",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "golgari agent|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Grinner",
+    "reason": "source-not-allowlisted",
+    "source": "EGW",
+    "upstream_identity": "grinner|egw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Gruul Anarch",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "gruul anarch|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Guild Artisan",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "guild artisan|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Haunted One",
+    "reason": "source-not-allowlisted",
+    "source": "VRGR",
+    "upstream_identity": "haunted one|vrgr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Hermit",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "hermit|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "House Agent",
+    "reason": "source-not-allowlisted",
+    "source": "ERLW",
+    "upstream_identity": "house agent|erlw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Inheritor",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "inheritor|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Initiate (Dissenter)",
+    "reason": "source-not-allowlisted",
+    "source": "PSA",
+    "upstream_identity": "initiate (dissenter)|psa"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Initiate",
+    "reason": "source-not-allowlisted",
+    "source": "PSA",
+    "upstream_identity": "initiate|psa"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Inquisitor",
+    "reason": "source-not-allowlisted",
+    "source": "PSI",
+    "upstream_identity": "inquisitor|psi"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Investigator",
+    "reason": "source-not-allowlisted",
+    "source": "VRGR",
+    "upstream_identity": "investigator|vrgr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Izzet Engineer",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "izzet engineer|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Knight of Solamnia",
+    "reason": "source-not-allowlisted",
+    "source": "DSotDQ",
+    "upstream_identity": "knight of solamnia|dsotdq"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Knight of the Order",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "knight of the order|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Lorehold Student",
+    "reason": "source-not-allowlisted",
+    "source": "SCC",
+    "upstream_identity": "lorehold student|scc"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Lorwyn Expert",
+    "reason": "source-not-allowlisted",
+    "source": "LFL",
+    "upstream_identity": "lorwyn expert|lfl"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Luxonborn (Acolyte)",
+    "reason": "source-not-allowlisted",
+    "source": "EGW",
+    "upstream_identity": "luxonborn (acolyte)|egw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Mage of High Sorcery",
+    "reason": "source-not-allowlisted",
+    "source": "DSotDQ",
+    "upstream_identity": "mage of high sorcery|dsotdq"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Marine",
+    "reason": "source-not-allowlisted",
+    "source": "GoS",
+    "upstream_identity": "marine|gos"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Mercenary Veteran",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "mercenary veteran|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Myriad Operative (Criminal)",
+    "reason": "source-not-allowlisted",
+    "source": "EGW",
+    "upstream_identity": "myriad operative (criminal)|egw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Noble",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "noble|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Orzhov Representative",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "orzhov representative|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Outlander",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "outlander|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Plaintiff",
+    "reason": "source-not-allowlisted",
+    "source": "AI",
+    "upstream_identity": "plaintiff|ai"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Planar Philosopher",
+    "reason": "source-not-allowlisted",
+    "source": "SatO",
+    "upstream_identity": "planar philosopher|sato"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Prismari Student",
+    "reason": "source-not-allowlisted",
+    "source": "SCC",
+    "upstream_identity": "prismari student|scc"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Quandrix Student",
+    "reason": "source-not-allowlisted",
+    "source": "SCC",
+    "upstream_identity": "quandrix student|scc"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Rakdos Cultist",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "rakdos cultist|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Revelry Pirate (Sailor)",
+    "reason": "source-not-allowlisted",
+    "source": "EGW",
+    "upstream_identity": "revelry pirate (sailor)|egw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Rewarded",
+    "reason": "source-not-allowlisted",
+    "source": "BMT",
+    "upstream_identity": "rewarded|bmt"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Rival Intern",
+    "reason": "source-not-allowlisted",
+    "source": "AI",
+    "upstream_identity": "rival intern|ai"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Ruined",
+    "reason": "source-not-allowlisted",
+    "source": "BMT",
+    "upstream_identity": "ruined|bmt"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Rune Carver",
+    "reason": "source-not-allowlisted",
+    "source": "BGG",
+    "upstream_identity": "rune carver|bgg"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Sage",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "sage|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Sailor",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "sailor|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Selesnya Initiate",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "selesnya initiate|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Shadowmoor Expert",
+    "reason": "source-not-allowlisted",
+    "source": "LFL",
+    "upstream_identity": "shadowmoor expert|lfl"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Shipwright",
+    "reason": "source-not-allowlisted",
+    "source": "GoS",
+    "upstream_identity": "shipwright|gos"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Silverquill Student",
+    "reason": "source-not-allowlisted",
+    "source": "SCC",
+    "upstream_identity": "silverquill student|scc"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Simic Scientist",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "simic scientist|ggr"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Smuggler",
+    "reason": "source-not-allowlisted",
+    "source": "GoS",
+    "upstream_identity": "smuggler|gos"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Soldier",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "soldier|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Urban Bounty Hunter",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "urban bounty hunter|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Urchin",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "urchin|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Uthgardt Tribe Member",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "uthgardt tribe member|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Vampire Devotee",
+    "reason": "source-not-allowlisted",
+    "source": "ABH",
+    "upstream_identity": "vampire devotee|abh"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Vampire Survivor",
+    "reason": "source-not-allowlisted",
+    "source": "ABH",
+    "upstream_identity": "vampire survivor|abh"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Variant City Watch (Investigator)",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "variant city watch (investigator)|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Variant Criminal (Spy)",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "variant criminal (spy)|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Variant Entertainer (Gladiator)",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "variant entertainer (gladiator)|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Variant Guild Artisan (Guild Merchant)",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "variant guild artisan (guild merchant)|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Variant Noble (Knight)",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "variant noble (knight)|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Variant Noble (Retainers)",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "variant noble (retainers)|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Variant Sailor (Pirate)",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "variant sailor (pirate)|phb"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Vizier (Dissenter)",
+    "reason": "source-not-allowlisted",
+    "source": "PSA",
+    "upstream_identity": "vizier (dissenter)|psa"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Vizier",
+    "reason": "source-not-allowlisted",
+    "source": "PSA",
+    "upstream_identity": "vizier|psa"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Volstrucker Agent",
+    "reason": "source-not-allowlisted",
+    "source": "EGW",
+    "upstream_identity": "volstrucker agent|egw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Waterdhavian Noble",
+    "reason": "source-not-allowlisted",
+    "source": "SCAG",
+    "upstream_identity": "waterdhavian noble|scag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Wildspacer",
+    "reason": "source-not-allowlisted",
+    "source": "AAG",
+    "upstream_identity": "wildspacer|aag"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Witchlight Hand",
+    "reason": "source-not-allowlisted",
+    "source": "WBtW",
+    "upstream_identity": "witchlight hand|wbtw"
+  },
+  {
+    "category": "background",
+    "conversion_status": "excluded",
+    "name": "Witherbloom Student",
+    "reason": "source-not-allowlisted",
+    "source": "SCC",
+    "upstream_identity": "witherbloom student|scc"
+  },
+  {
     "category": "baseitem",
     "conversion_status": "excluded",
     "name": "Alchemist's Supplies",
@@ -20854,6 +21702,2342 @@
     "reason": "source-not-allowlisted",
     "source": "BGG",
     "upstream_identity": "zephyr armor|bgg"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Agonizing Blast",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "agonizing blast|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Ambush",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "ambush|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Arcane Propulsion Armor",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "arcane propulsion armor|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Archery",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "archery|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Armor of Magical Strength",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "armor of magical strength|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Armor of Shadows",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "armor of shadows|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Ascendant Step",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "ascendant step|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Aspect of the Moon",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "aspect of the moon|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Bait and Switch",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "bait and switch|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Banishing Arrow",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "banishing arrow|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Beast Speech",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "beast speech|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Beguiling Arrow",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "beguiling arrow|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Beguiling Influence",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "beguiling influence|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Bewitching Whispers",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "bewitching whispers|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Blessed Warrior",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "blessed warrior|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Blind Fighting",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "blind fighting|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Bond of the Talisman",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "bond of the talisman|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Book of Ancient Secrets",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "book of ancient secrets|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Boots of the Winding Path",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "boots of the winding path|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Brace",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "brace|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Breath of Winter",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "breath of winter|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Bursting Arrow",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "bursting arrow|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Careful Spell",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "careful spell|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Chains of Carceri",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "chains of carceri|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Clench of the North Wind",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "clench of the north wind|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Cloak of Flies",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "cloak of flies|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Cloud Rune",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "cloud rune|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Commander's Strike",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "commander's strike|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Commanding Presence",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "commanding presence|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Defense",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "defense|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Devil's Sight",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "devil's sight|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Disarming Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "disarming attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Distant Spell",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "distant spell|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Distracting Strike",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "distracting strike|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Dreadful Word",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "dreadful word|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Druidic Warrior",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "druidic warrior|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Dueling",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "dueling|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Eldritch Mind",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "eldritch mind|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Eldritch Sight",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "eldritch sight|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Eldritch Smite",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "eldritch smite|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Eldritch Spear",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "eldritch spear|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Elemental Attunement",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "elemental attunement|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Empowered Spell",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "empowered spell|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Enfeebling Arrow",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "enfeebling arrow|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Enhanced Arcane Focus",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "enhanced arcane focus|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Enhanced Defense",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "enhanced defense|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Enhanced Weapon",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "enhanced weapon|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Eternal Mountain Defense",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "eternal mountain defense|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Evasive Footwork",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "evasive footwork|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Extended Spell",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "extended spell|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Eyes of the Rune Keeper",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "eyes of the rune keeper|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Fangs of the Fire Snake",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "fangs of the fire snake|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Far Scribe",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "far scribe|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Feinting Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "feinting attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Fiendish Vigor",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "fiendish vigor|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Fire Rune",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "fire rune|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Fist of Four Thunders",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "fist of four thunders|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Flames of the Phoenix",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "flames of the phoenix|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Frost Rune",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "frost rune|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Gaze of Two Minds",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "gaze of two minds|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Ghostly Gaze",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "ghostly gaze|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Gift of the Depths",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "gift of the depths|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Gift of the Ever-Living Ones",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "gift of the ever-living ones|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Gift of the Protectors",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "gift of the protectors|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Goading Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "goading attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Gong of the Summit",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "gong of the summit|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Grappling Strike",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "grappling strike|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Grasp of Hadar",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "grasp of hadar|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Grasping Arrow",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "grasping arrow|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Great Weapon Fighting",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "great weapon fighting|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Heightened Spell",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "heightened spell|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Helm of Awareness",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "helm of awareness|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Hill Rune",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "hill rune|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Homunculus Servant",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "homunculus servant|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Improved Pact Weapon",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "improved pact weapon|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Interception",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "interception|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Investment of the Chain Master",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "investment of the chain master|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Lance of Lethargy",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "lance of lethargy|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Lifedrinker",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "lifedrinker|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Lunging Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "lunging attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Maddening Hex",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "maddening hex|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Maneuvering Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "maneuvering attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Mask of Many Faces",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "mask of many faces|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Master of Myriad Forms",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "master of myriad forms|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Menacing Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "menacing attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Mind Sharpener",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "mind sharpener|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Minions of Chaos",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "minions of chaos|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Mire the Mind",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "mire the mind|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Mist Stance",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "mist stance|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Misty Visions",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "misty visions|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "One with Shadows",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "one with shadows|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Otherworldly Leap",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "otherworldly leap|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Pact of the Blade",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "pact of the blade|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Pact of the Chain",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "pact of the chain|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Pact of the Talisman",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "pact of the talisman|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Pact of the Tome",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "pact of the tome|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Parry",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "parry|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Piercing Arrow",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "piercing arrow|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Precision Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "precision attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Protection of the Talisman",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "protection of the talisman|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Protection",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "protection|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Pushing Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "pushing attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Quick Toss",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "quick toss|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Quickened Spell",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "quickened spell|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Radiant Weapon",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "radiant weapon|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Rally",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "rally|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Rebuke of the Talisman",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "rebuke of the talisman|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Relentless Hex",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "relentless hex|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Repeating Shot",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "repeating shot|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Repelling Blast",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "repelling blast|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Replicate Magic Item",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "replicate magic item|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Repulsion Shield",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "repulsion shield|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Resistant Armor",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "resistant armor|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Returning Weapon",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "returning weapon|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Ride the Wind",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "ride the wind|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Riposte",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "riposte|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "River of Hungry Flame",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "river of hungry flame|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Rush of the Gale Spirits",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "rush of the gale spirits|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Sculptor of Flesh",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "sculptor of flesh|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Seeking Arrow",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "seeking arrow|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Seeking Spell",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "seeking spell|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Shadow Arrow",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "shadow arrow|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Shape the Flowing River",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "shape the flowing river|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Shroud of Shadow",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "shroud of shadow|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Sign of Ill Omen",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "sign of ill omen|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Spell-Refueling Ring",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "spell-refueling ring|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Stone Rune",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "stone rune|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Storm Rune",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "storm rune|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Subtle Spell",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "subtle spell|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Superior Technique",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "superior technique|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Sweeping Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "sweeping attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Sweeping Cinder Strike",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "sweeping cinder strike|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Tactical Assessment",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "tactical assessment|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Thief of Five Fates",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "thief of five fates|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Thirsting Blade",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "thirsting blade|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Thrown Weapon Fighting",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "thrown weapon fighting|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Tomb of Levistus",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "tomb of levistus|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Transmuted Spell",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "transmuted spell|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Trickster's Escape",
+    "reason": "source-not-allowlisted",
+    "source": "XGE",
+    "upstream_identity": "trickster's escape|xge"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Trip Attack",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "trip attack|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Twinned Spell",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "twinned spell|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Two-Weapon Fighting",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "two-weapon fighting|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Unarmed Fighting",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "unarmed fighting|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Unbroken Air",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "unbroken air|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Undying Servitude",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "undying servitude|tce"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Visions of Distant Realms",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "visions of distant realms|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Voice of the Chain Master",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "voice of the chain master|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Water Whip",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "water whip|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Wave of Rolling Earth",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "wave of rolling earth|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Whispers of the Grave",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "whispers of the grave|phb"
+  },
+  {
+    "category": "optionalfeature",
+    "conversion_status": "excluded",
+    "name": "Witch Sight",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "witch sight|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Aarakocra",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "aarakocra|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Aarakocra",
+    "reason": "source-not-allowlisted",
+    "source": "EEPC",
+    "upstream_identity": "aarakocra|eepc"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Aarakocra",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "aarakocra|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Aasimar",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "aasimar|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Aasimar",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "aasimar|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Aasimar",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "aasimar|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Aetherborn",
+    "reason": "source-not-allowlisted",
+    "source": "PSK",
+    "upstream_identity": "aetherborn|psk"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Astral Elf",
+    "reason": "source-not-allowlisted",
+    "source": "AAG",
+    "upstream_identity": "astral elf|aag"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Autognome",
+    "reason": "source-not-allowlisted",
+    "source": "AAG",
+    "upstream_identity": "autognome|aag"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Aven",
+    "reason": "source-not-allowlisted",
+    "source": "PSA",
+    "upstream_identity": "aven|psa"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Aven",
+    "reason": "source-not-allowlisted",
+    "source": "PSD",
+    "upstream_identity": "aven|psd"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Boggart",
+    "reason": "source-not-allowlisted",
+    "source": "LFL",
+    "upstream_identity": "boggart|lfl"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Bugbear",
+    "reason": "source-not-allowlisted",
+    "source": "ERLW",
+    "upstream_identity": "bugbear|erlw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Bugbear",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "bugbear|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Bugbear",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "bugbear|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Bullywug",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "bullywug|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Centaur",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "centaur|ggr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Centaur",
+    "reason": "source-not-allowlisted",
+    "source": "MOT",
+    "upstream_identity": "centaur|mot"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Centaur",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "centaur|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Changeling",
+    "reason": "source-not-allowlisted",
+    "source": "ERLW",
+    "upstream_identity": "changeling|erlw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Changeling",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "changeling|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Custom Lineage",
+    "reason": "source-not-allowlisted",
+    "source": "TCE",
+    "upstream_identity": "custom lineage|tce"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Deep Gnome",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "deep gnome|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Dhampir",
+    "reason": "source-not-allowlisted",
+    "source": "VRGR",
+    "upstream_identity": "dhampir|vrgr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Dragonborn (Chromatic)",
+    "reason": "source-not-allowlisted",
+    "source": "FTD",
+    "upstream_identity": "dragonborn (chromatic)|ftd"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Dragonborn (Gem)",
+    "reason": "source-not-allowlisted",
+    "source": "FTD",
+    "upstream_identity": "dragonborn (gem)|ftd"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Dragonborn (Metallic)",
+    "reason": "source-not-allowlisted",
+    "source": "FTD",
+    "upstream_identity": "dragonborn (metallic)|ftd"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Dragonborn",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "dragonborn|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Duergar",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "duergar|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Dwarf (Kaladesh)",
+    "reason": "source-not-allowlisted",
+    "source": "PSK",
+    "upstream_identity": "dwarf (kaladesh)|psk"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Dwarf",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "dwarf|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Eladrin",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "eladrin|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Elf (Kaladesh)",
+    "reason": "source-not-allowlisted",
+    "source": "PSK",
+    "upstream_identity": "elf (kaladesh)|psk"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Elf (Zendikar)",
+    "reason": "source-not-allowlisted",
+    "source": "PSZ",
+    "upstream_identity": "elf (zendikar)|psz"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Elf",
+    "reason": "source-not-allowlisted",
+    "source": "LFL",
+    "upstream_identity": "elf|lfl"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Elf",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "elf|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Faerie",
+    "reason": "source-not-allowlisted",
+    "source": "LFL",
+    "upstream_identity": "faerie|lfl"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Fairy",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "fairy|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Fairy",
+    "reason": "source-not-allowlisted",
+    "source": "WBtW",
+    "upstream_identity": "fairy|wbtw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Firbolg",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "firbolg|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Firbolg",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "firbolg|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Flamekin",
+    "reason": "source-not-allowlisted",
+    "source": "LFL",
+    "upstream_identity": "flamekin|lfl"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Genasi",
+    "reason": "source-not-allowlisted",
+    "source": "EEPC",
+    "upstream_identity": "genasi|eepc"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Genasi",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "genasi|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Giff",
+    "reason": "source-not-allowlisted",
+    "source": "AAG",
+    "upstream_identity": "giff|aag"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Gith",
+    "reason": "source-not-allowlisted",
+    "source": "MTF",
+    "upstream_identity": "gith|mtf"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Githyanki",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "githyanki|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Githzerai",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "githzerai|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Gnoll",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "gnoll|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Gnome (Deep)",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "gnome (deep)|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Gnome",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "gnome|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Goblin (Dankwood)",
+    "reason": "source-not-allowlisted",
+    "source": "AWM",
+    "upstream_identity": "goblin (dankwood)|awm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Goblin",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "goblin|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Goblin",
+    "reason": "source-not-allowlisted",
+    "source": "ERLW",
+    "upstream_identity": "goblin|erlw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Goblin",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "goblin|ggr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Goblin",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "goblin|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Goblin",
+    "reason": "source-not-allowlisted",
+    "source": "PSZ",
+    "upstream_identity": "goblin|psz"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Goblin",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "goblin|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Goliath",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "goliath|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Goliath",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "goliath|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Grimlock",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "grimlock|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Grung",
+    "reason": "source-not-allowlisted",
+    "source": "OGA",
+    "upstream_identity": "grung|oga"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Hadozee",
+    "reason": "source-not-allowlisted",
+    "source": "AAG",
+    "upstream_identity": "hadozee|aag"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Half-Elf",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "half-elf|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Half-Orc",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "half-orc|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Halfling",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "halfling|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Harengon",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "harengon|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Harengon",
+    "reason": "source-not-allowlisted",
+    "source": "WBtW",
+    "upstream_identity": "harengon|wbtw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Hexblood",
+    "reason": "source-not-allowlisted",
+    "source": "VRGR",
+    "upstream_identity": "hexblood|vrgr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Hobgoblin",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "hobgoblin|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Hobgoblin",
+    "reason": "source-not-allowlisted",
+    "source": "ERLW",
+    "upstream_identity": "hobgoblin|erlw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Hobgoblin",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "hobgoblin|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Hobgoblin",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "hobgoblin|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Human (Innistrad)",
+    "reason": "source-not-allowlisted",
+    "source": "PSI",
+    "upstream_identity": "human (innistrad)|psi"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Human (Ixalan)",
+    "reason": "source-not-allowlisted",
+    "source": "PSX",
+    "upstream_identity": "human (ixalan)|psx"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Human (Kaladesh)",
+    "reason": "source-not-allowlisted",
+    "source": "PSK",
+    "upstream_identity": "human (kaladesh)|psk"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Human (Zendikar)",
+    "reason": "source-not-allowlisted",
+    "source": "PSZ",
+    "upstream_identity": "human (zendikar)|psz"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Human",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "human|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kalashtar",
+    "reason": "source-not-allowlisted",
+    "source": "ERLW",
+    "upstream_identity": "kalashtar|erlw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kender",
+    "reason": "source-not-allowlisted",
+    "source": "DSotDQ",
+    "upstream_identity": "kender|dsotdq"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kenku",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "kenku|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kenku",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "kenku|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kenku",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "kenku|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Khenra",
+    "reason": "source-not-allowlisted",
+    "source": "PSA",
+    "upstream_identity": "khenra|psa"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kithkin",
+    "reason": "source-not-allowlisted",
+    "source": "LFL",
+    "upstream_identity": "kithkin|lfl"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kobold",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "kobold|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kobold",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "kobold|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kobold",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "kobold|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kor",
+    "reason": "source-not-allowlisted",
+    "source": "PSZ",
+    "upstream_identity": "kor|psz"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Kuo-Toa",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "kuo-toa|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Leonin",
+    "reason": "source-not-allowlisted",
+    "source": "MOT",
+    "upstream_identity": "leonin|mot"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Lizardfolk",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "lizardfolk|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Lizardfolk",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "lizardfolk|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Lizardfolk",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "lizardfolk|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Locathah",
+    "reason": "source-not-allowlisted",
+    "source": "LR",
+    "upstream_identity": "locathah|lr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Lorwyn Changeling",
+    "reason": "source-not-allowlisted",
+    "source": "LFL",
+    "upstream_identity": "lorwyn changeling|lfl"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Loxodon",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "loxodon|ggr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Merfolk",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "merfolk|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Merfolk",
+    "reason": "source-not-allowlisted",
+    "source": "PSZ",
+    "upstream_identity": "merfolk|psz"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Minotaur (Amonkhet)",
+    "reason": "source-not-allowlisted",
+    "source": "PSA",
+    "upstream_identity": "minotaur (amonkhet)|psa"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Minotaur",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "minotaur|ggr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Minotaur",
+    "reason": "source-not-allowlisted",
+    "source": "MOT",
+    "upstream_identity": "minotaur|mot"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Minotaur",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "minotaur|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Naga",
+    "reason": "source-not-allowlisted",
+    "source": "PSA",
+    "upstream_identity": "naga|psa"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Orc (Ixalan)",
+    "reason": "source-not-allowlisted",
+    "source": "PSX",
+    "upstream_identity": "orc (ixalan)|psx"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Orc",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "orc|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Orc",
+    "reason": "source-not-allowlisted",
+    "source": "EGW",
+    "upstream_identity": "orc|egw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Orc",
+    "reason": "source-not-allowlisted",
+    "source": "ERLW",
+    "upstream_identity": "orc|erlw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Orc",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "orc|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Orc",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "orc|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Owlin",
+    "reason": "source-not-allowlisted",
+    "source": "SCC",
+    "upstream_identity": "owlin|scc"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Plasmoid",
+    "reason": "source-not-allowlisted",
+    "source": "AAG",
+    "upstream_identity": "plasmoid|aag"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Reborn",
+    "reason": "source-not-allowlisted",
+    "source": "VRGR",
+    "upstream_identity": "reborn|vrgr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Rimekin",
+    "reason": "source-not-allowlisted",
+    "source": "LFL",
+    "upstream_identity": "rimekin|lfl"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Satyr",
+    "reason": "source-not-allowlisted",
+    "source": "MOT",
+    "upstream_identity": "satyr|mot"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Satyr",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "satyr|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Sea Elf",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "sea elf|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Shadar-Kai",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "shadar-kai|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Shifter",
+    "reason": "source-not-allowlisted",
+    "source": "ERLW",
+    "upstream_identity": "shifter|erlw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Shifter",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "shifter|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Simic Hybrid",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "simic hybrid|ggr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Siren",
+    "reason": "source-not-allowlisted",
+    "source": "PSX",
+    "upstream_identity": "siren|psx"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Skeleton",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "skeleton|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Tabaxi",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "tabaxi|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Tabaxi",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "tabaxi|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Thri-kreen",
+    "reason": "source-not-allowlisted",
+    "source": "AAG",
+    "upstream_identity": "thri-kreen|aag"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Tiefling",
+    "reason": "source-not-allowlisted",
+    "source": "PHB",
+    "upstream_identity": "tiefling|phb"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Tortle",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "tortle|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Tortle",
+    "reason": "source-not-allowlisted",
+    "source": "TTP",
+    "upstream_identity": "tortle|ttp"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Triton",
+    "reason": "source-not-allowlisted",
+    "source": "MOT",
+    "upstream_identity": "triton|mot"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Triton",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "triton|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Triton",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "triton|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Troglodyte",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "troglodyte|dmg"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Vampire",
+    "reason": "source-not-allowlisted",
+    "source": "PSZ",
+    "upstream_identity": "vampire|psz"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Vedalken",
+    "reason": "source-not-allowlisted",
+    "source": "GGR",
+    "upstream_identity": "vedalken|ggr"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Vedalken",
+    "reason": "source-not-allowlisted",
+    "source": "PSK",
+    "upstream_identity": "vedalken|psk"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Verdan",
+    "reason": "source-not-allowlisted",
+    "source": "AI",
+    "upstream_identity": "verdan|ai"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Warforged",
+    "reason": "source-not-allowlisted",
+    "source": "ERLW",
+    "upstream_identity": "warforged|erlw"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Yuan-Ti",
+    "reason": "source-not-allowlisted",
+    "source": "MPMM",
+    "upstream_identity": "yuan-ti|mpmm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Yuan-ti Pureblood",
+    "reason": "source-not-allowlisted",
+    "source": "VGM",
+    "upstream_identity": "yuan-ti pureblood|vgm"
+  },
+  {
+    "category": "race",
+    "conversion_status": "excluded",
+    "name": "Zombie",
+    "reason": "source-not-allowlisted",
+    "source": "DMG",
+    "upstream_identity": "zombie|dmg"
   },
   {
     "category": "spell",

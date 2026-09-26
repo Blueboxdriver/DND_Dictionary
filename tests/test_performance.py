@@ -15,6 +15,7 @@ from dndref.storage.database import Database
 from dndref.ui.app import BrowserApp
 
 FIXTURE = Path(__file__).parent / "fixtures" / "dataset"
+PRODUCTION = Path("src/dndref/datasets/official-5etools-2024")
 
 
 def _monster(index: int, source: str) -> dict[str, object]:
@@ -166,12 +167,62 @@ class _TrackingBrowserApp(BrowserApp):
         self.completed_searches += 1
 
 
+class _SqlTraceDatabase(Database):
+    def __init__(self, path: Path) -> None:
+        super().__init__(path)
+        self.statements: list[str] = []
+
+    def connect(self):
+        connection = super().connect()
+        connection.set_trace_callback(self.statements.append)
+        return connection
+
+
 async def _wait_for_search(pilot, app: _TrackingBrowserApp, previous: int) -> None:
     deadline = time.monotonic() + 15
     while app.completed_searches <= previous:
         if time.monotonic() >= deadline:
             raise AssertionError("timed out waiting for category results")
         await pilot.pause(0.005)
+
+
+def test_production_category_browsing_does_not_read_or_load_builder_catalog(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from dndref.importer import import_dataset, load_dataset
+
+    loaded = load_dataset(PRODUCTION)
+    base_database = Database(tmp_path / "production.sqlite3")
+    base_database.initialize()
+    import_dataset(base_database, loaded)
+    with base_database.connection() as connection:
+        assert connection.execute(
+            "SELECT COUNT(*) FROM character_builder_owners "
+            "WHERE dataset_id='official-5etools-2024'"
+        ).fetchone()[0] == 2104
+
+    def fail_if_dataset_loads(*_args, **_kwargs):
+        raise AssertionError("category browsing attempted to load dataset JSON")
+
+    monkeypatch.setattr("dndref.importer.load_dataset", fail_if_dataset_loads)
+    database = _SqlTraceDatabase(base_database.path)
+    service = SearchService(database)
+    for category in SearchCategory:
+        page = service.search_grouped(SearchQuery(category, limit=20))
+        assert page.total_count > 0
+
+    builder_tables = (
+        "character_builder_",
+        "character_rule_",
+        "class_progression_events",
+        "class_spellcasting",
+        "class_spell_slots",
+    )
+    assert not any(
+        table in statement.casefold()
+        for statement in database.statements
+        for table in builder_tables
+    )
 
 
 @pytest.mark.asyncio

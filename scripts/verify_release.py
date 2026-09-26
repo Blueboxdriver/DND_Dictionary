@@ -25,6 +25,7 @@ WHEEL_NAME = f"dnd_reference-{VERSION}-py3-none-any.whl"
 SDIST_NAME = f"dnd_reference-{VERSION}.tar.gz"
 BASE_DATA_FILES = ("manifest.json", "items.json", "spells.json", "feats.json", "classes.json")
 GLOSSARY_DATA_FILES = ("conditions.json", "rules.json")
+BUILDER_DATA_FILES = ("character-builder.json",)
 DATASETS = ("srd-5.2.1", "official-5etools-2024")
 MIGRATIONS = (
     "001_initial.sql",
@@ -36,6 +37,9 @@ MIGRATIONS = (
     "007_recent_searches.sql",
     "008_conditions_rules.sql",
     "009_dataset_source_hash.sql",
+    "010_character_builder.sql",
+    "011_character_persistence.sql",
+    "012_character_creation.sql",
 )
 
 
@@ -53,7 +57,20 @@ def audit_artifacts(wheel: Path, sdist: Path) -> None:
     expected.update(
         f"dndref/datasets/official-5etools-2024/{name}" for name in GLOSSARY_DATA_FILES
     )
+    expected.update(
+        f"dndref/datasets/official-5etools-2024/{name}" for name in BUILDER_DATA_FILES
+    )
     expected.update(f"dndref/storage/migrations/{name}" for name in MIGRATIONS)
+    expected.update(
+        (
+            "dndref/characters.py",
+            "dndref/character_creation.py",
+            "dndref/derived_character.py",
+            "dndref/models/character.py",
+            "dndref/models/derived_character.py",
+            "dndref/ui/character_screens.py",
+        )
+    )
     expected.update(("dndref/__init__.py", "dndref/__main__.py", "dndref/cli.py"))
     with zipfile.ZipFile(wheel) as archive:
         wheel_names = set(archive.namelist())

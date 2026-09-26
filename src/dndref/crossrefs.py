@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from contextlib import nullcontext
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
@@ -50,10 +51,14 @@ class CrossReferenceResolver:
         stable_id: str | None = None,
     ) -> ReferenceResolution:
         aliases = {
-            "item": SearchCategory.ITEMS, "spell": SearchCategory.SPELLS,
-            "feat": SearchCategory.FEATS, "class": SearchCategory.CLASSES,
-            "subclass": SearchCategory.SUBCLASSES, "monster": SearchCategory.MONSTERS,
-            "condition": SearchCategory.CONDITIONS, "rule": SearchCategory.RULES,
+            "item": SearchCategory.ITEMS,
+            "spell": SearchCategory.SPELLS,
+            "feat": SearchCategory.FEATS,
+            "class": SearchCategory.CLASSES,
+            "subclass": SearchCategory.SUBCLASSES,
+            "monster": SearchCategory.MONSTERS,
+            "condition": SearchCategory.CONDITIONS,
+            "rule": SearchCategory.RULES,
         }
         category = aliases.get(str(content_type), None)
         if category is None:
@@ -99,14 +104,19 @@ class CrossReferenceResolver:
                     "ORDER BY e.dataset_id, e.local_key",
                     (kind, normalized, edition),
                 ).fetchall()
-        return ReferenceResolution(tuple(
-            ReferenceTarget(
-                identity=str(row["identity"]), category=category, name=str(row["name"]),
-                edition=str(row["edition"]) if row["edition"] is not None else None,
-                source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+        return ReferenceResolution(
+            tuple(
+                ReferenceTarget(
+                    identity=str(row["identity"]),
+                    category=category,
+                    name=str(row["name"]),
+                    edition=str(row["edition"]) if row["edition"] is not None else None,
+                    source_label=str(row["source_label"]),
+                    dataset_id=str(row["dataset_id"]),
+                )
+                for row in rows
             )
-            for row in rows
-        ))
+        )
 
     def get_by_id(self, stable_id: str) -> ReferenceTarget | None:
         with self.database.connection() as connection:
@@ -136,8 +146,10 @@ class CrossReferenceResolver:
                 if row is None:
                     return None
                 category = {
-                    "item": SearchCategory.ITEMS, "spell": SearchCategory.SPELLS,
-                    "feat": SearchCategory.FEATS, "class": SearchCategory.CLASSES,
+                    "item": SearchCategory.ITEMS,
+                    "spell": SearchCategory.SPELLS,
+                    "feat": SearchCategory.FEATS,
+                    "class": SearchCategory.CLASSES,
                     "monster": SearchCategory.MONSTERS,
                     "condition": SearchCategory.CONDITIONS,
                     "rule": SearchCategory.RULES,
@@ -147,10 +159,84 @@ class CrossReferenceResolver:
         if row is None:
             return None
         return ReferenceTarget(
-            identity=str(row["identity"]), category=category, name=str(row["name"]),
+            identity=str(row["identity"]),
+            category=category,
+            name=str(row["name"]),
             edition=str(row["edition"]) if row["edition"] is not None else None,
-            source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+            source_label=str(row["source_label"]),
+            dataset_id=str(row["dataset_id"]),
         )
+
+    def get_many_by_id(self, stable_ids: tuple[str, ...] | list[str]) -> dict[str, ReferenceTarget]:
+        """Resolve exact identities in bounded batches for section rendering."""
+
+        profile = (
+            self.database.profiler.operation("reference.batch")
+            if self.database.profiler is not None
+            else nullcontext()
+        )
+        with profile:
+            return self._get_many_by_id(stable_ids)
+
+    def _get_many_by_id(
+        self, stable_ids: tuple[str, ...] | list[str]
+    ) -> dict[str, ReferenceTarget]:
+
+        identities = tuple(dict.fromkeys(identity for identity in stable_ids if identity))
+        resolved: dict[str, ReferenceTarget] = {}
+        for offset in range(0, len(identities), 250):
+            batch = identities[offset : offset + 250]
+            placeholders = ",".join("?" for _ in batch)
+            with self.database.connection() as connection:
+                rows = connection.execute(
+                    "SELECT e.dataset_id || ':' || e.local_key AS identity, e.kind, e.name, "
+                    "src.edition, src.title AS source_label, e.dataset_id "
+                    "FROM entries AS e JOIN sources AS src ON src.id=e.source_id "
+                    f"WHERE e.dataset_id || ':' || e.local_key IN ({placeholders})",
+                    batch,
+                ).fetchall()
+                subclass_rows = connection.execute(
+                    "SELECT s.dataset_id || ':subclass:' || parent.local_key || ':' || "
+                    "s.subclass_key AS identity, s.name, src.edition, "
+                    "src.title AS source_label, s.dataset_id "
+                    "FROM subclasses AS s JOIN entries AS parent ON parent.id=s.class_id "
+                    "JOIN sources AS src ON src.id=s.source_id "
+                    f"WHERE s.dataset_id || ':subclass:' || parent.local_key || ':' "
+                    f"|| s.subclass_key IN ({placeholders})",
+                    batch,
+                ).fetchall()
+            category_map = {
+                "item": SearchCategory.ITEMS,
+                "spell": SearchCategory.SPELLS,
+                "feat": SearchCategory.FEATS,
+                "class": SearchCategory.CLASSES,
+                "monster": SearchCategory.MONSTERS,
+                "condition": SearchCategory.CONDITIONS,
+                "rule": SearchCategory.RULES,
+            }
+            for row in rows:
+                category = category_map.get(str(row["kind"]))
+                if category is not None:
+                    target = ReferenceTarget(
+                        str(row["identity"]),
+                        category,
+                        str(row["name"]),
+                        str(row["edition"]) if row["edition"] is not None else None,
+                        str(row["source_label"]),
+                        str(row["dataset_id"]),
+                    )
+                    resolved[target.identity] = target
+            for row in subclass_rows:
+                target = ReferenceTarget(
+                    str(row["identity"]),
+                    SearchCategory.SUBCLASSES,
+                    str(row["name"]),
+                    str(row["edition"]) if row["edition"] is not None else None,
+                    str(row["source_label"]),
+                    str(row["dataset_id"]),
+                )
+                resolved[target.identity] = target
+        return resolved
 
     def structured_references(self, stable_id: str) -> tuple[ReferenceTarget, ...]:
         """Read same-edition glossary relationships recorded during conversion."""
@@ -175,9 +261,12 @@ class CrossReferenceResolver:
         category_map = {"condition": SearchCategory.CONDITIONS, "rule": SearchCategory.RULES}
         return tuple(
             ReferenceTarget(
-                identity=str(row["identity"]), category=category_map[str(row["kind"])],
-                name=str(row["name"]), edition=str(row["edition"]),
-                source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+                identity=str(row["identity"]),
+                category=category_map[str(row["kind"])],
+                name=str(row["name"]),
+                edition=str(row["edition"]),
+                source_label=str(row["source_label"]),
+                dataset_id=str(row["dataset_id"]),
             )
             for row in rows
         )
@@ -212,8 +301,7 @@ class CrossReferenceResolver:
             for index, header in enumerate(headers):
                 start = header.end()
                 next_header = (
-                    headers[index + 1].start()
-                    if index + 1 < len(headers) else len(description)
+                    headers[index + 1].start() if index + 1 < len(headers) else len(description)
                 )
                 body = description[start:next_header]
                 boundary = min(
@@ -230,13 +318,16 @@ class CrossReferenceResolver:
             pattern = rf"(?<![\w]){re.escape(name)}(?![\w])"
             if re.search(pattern, combined, flags=re.IGNORECASE):
                 found[str(row["identity"])] = ReferenceTarget(
-                    identity=str(row["identity"]), category=SearchCategory.SPELLS,
-                    name=name, edition=str(row["edition"]),
-                    source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+                    identity=str(row["identity"]),
+                    category=SearchCategory.SPELLS,
+                    name=name,
+                    edition=str(row["edition"]),
+                    source_label=str(row["source_label"]),
+                    dataset_id=str(row["dataset_id"]),
                 )
-        return tuple(sorted(
-            found.values(), key=lambda target: (target.name.casefold(), target.identity)
-        ))
+        return tuple(
+            sorted(found.values(), key=lambda target: (target.name.casefold(), target.identity))
+        )
 
     def explicit_condition_references(
         self, text: str, edition: str | None
@@ -259,9 +350,12 @@ class CrossReferenceResolver:
             pattern = rf"(?<![\w]){re.escape(name)}\s+condition(?![\w])"
             if re.search(pattern, text, re.IGNORECASE):
                 target = ReferenceTarget(
-                    identity=str(row["identity"]), category=SearchCategory.CONDITIONS,
-                    name=name, edition=str(row["edition"]),
-                    source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+                    identity=str(row["identity"]),
+                    category=SearchCategory.CONDITIONS,
+                    name=name,
+                    edition=str(row["edition"]),
+                    source_label=str(row["source_label"]),
+                    dataset_id=str(row["dataset_id"]),
                 )
                 found[target.identity] = target
         return tuple(sorted(found.values(), key=lambda item: (item.name.casefold(), item.identity)))
@@ -273,9 +367,16 @@ class CrossReferenceResolver:
         if not text or not edition:
             return ()
         safe_terms = {
-            "Concentration", "Opportunity Attack", "Difficult Terrain",
-            "Death Saving Throw", "Saving Throw", "Attack Roll", "Grappling",
-            "Advantage", "Disadvantage", "Cover",
+            "Concentration",
+            "Opportunity Attack",
+            "Difficult Terrain",
+            "Death Saving Throw",
+            "Saving Throw",
+            "Attack Roll",
+            "Grappling",
+            "Advantage",
+            "Disadvantage",
+            "Cover",
         }
         with self.database.connection() as connection:
             rows = connection.execute(
@@ -295,9 +396,12 @@ class CrossReferenceResolver:
             if not re.search(rf"(?<![\w]){re.escape(name)}(?![\w])", text):
                 continue
             target = ReferenceTarget(
-                identity=str(row["identity"]), category=SearchCategory.RULES,
-                name=name, edition=str(row["edition"]),
-                source_label=str(row["source_label"]), dataset_id=str(row["dataset_id"]),
+                identity=str(row["identity"]),
+                category=SearchCategory.RULES,
+                name=name,
+                edition=str(row["edition"]),
+                source_label=str(row["source_label"]),
+                dataset_id=str(row["dataset_id"]),
             )
             found[target.identity] = target
         return tuple(sorted(found.values(), key=lambda item: (item.name.casefold(), item.identity)))
@@ -308,15 +412,13 @@ class CrossReferenceResolver:
         """Resolve only prerequisite clauses explicitly labeled ``Feat:``."""
         if not prerequisite or not edition:
             return ()
-        names = re.findall(
-            r"(?:^|[;,])\s*feat\s*:\s*([^;,]+)", prerequisite, flags=re.IGNORECASE
-        )
+        names = re.findall(r"(?:^|[;,])\s*feat\s*:\s*([^;,]+)", prerequisite, flags=re.IGNORECASE)
         targets: dict[str, ReferenceTarget] = {}
         for name in names:
             resolution = self.resolve_reference(
                 content_type="feat", name=name.strip(), edition=edition
             )
             targets.update((target.identity, target) for target in resolution.candidates)
-        return tuple(sorted(
-            targets.values(), key=lambda target: (target.name.casefold(), target.identity)
-        ))
+        return tuple(
+            sorted(targets.values(), key=lambda target: (target.name.casefold(), target.identity))
+        )

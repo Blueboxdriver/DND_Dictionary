@@ -15,6 +15,7 @@ from .importer import (
     import_dataset,
     legacy_glossaryless_hash,
     legacy_monsterless_hash,
+    legacy_pre_character_builder_hash,
     load_dataset,
 )
 from .storage.database import Database
@@ -90,7 +91,10 @@ def install_bundled_datasets(database: Database) -> tuple[ImportReport, ...]:
                 loaded.dataset_id, (None, None)
             )
             if previous_hash is not None:
-                known_previous_hashes = {legacy_glossaryless_hash(loaded)}
+                known_previous_hashes = {
+                    legacy_glossaryless_hash(loaded),
+                    legacy_pre_character_builder_hash(loaded),
+                }
                 if loaded.pack.monsters:
                     known_previous_hashes.add(legacy_monsterless_hash(loaded))
                 known_previous_hashes.add(loaded.content_hash)

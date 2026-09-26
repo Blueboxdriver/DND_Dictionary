@@ -6,6 +6,7 @@ from typing import Literal
 
 from pydantic import AnyHttpUrl, Field, model_validator
 
+from .character_builder import CharacterBuilderCatalog, ReferenceKind
 from .common import ContractModel, DatasetId, SourceMetadata, split_reference
 from .glossary import GlossaryEntry
 
@@ -58,6 +59,7 @@ class DatasetPack(ContractModel):
     monsters: list["Monster"] = Field(default_factory=list)
     conditions: list[GlossaryEntry] = Field(default_factory=list)
     rules: list[GlossaryEntry] = Field(default_factory=list)
+    character_builder: CharacterBuilderCatalog | None = None
 
 
 class DatasetValidationError(ValueError):
@@ -201,9 +203,8 @@ def validate_dataset(pack: DatasetPack) -> DatasetPack:
                     f"classes.json[{index}].subclasses[{subclass_index}].source: "
                     f"unknown source '{subclass.source}'"
                 )
-            elif (
-                source_editions.get(character_class.source)
-                != source_editions.get(subclass.source)
+            elif source_editions.get(character_class.source) != source_editions.get(
+                subclass.source
             ):
                 errors.append(
                     f"classes.json[{index}].subclasses[{subclass_index}].source: "
@@ -216,6 +217,147 @@ def validate_dataset(pack: DatasetPack) -> DatasetPack:
                         f"{feature_index}].source: "
                         f"unknown source '{feature.source}'"
                     )
+
+    catalog = pack.character_builder
+    if catalog is not None:
+        builder_classes = {str(row.class_key): row for row in catalog.classes}
+        builder_subclasses = {str(row.subclass_key): row for row in catalog.subclasses}
+        classes_by_key = {str(row.local_key): row for row in pack.classes}
+        feats_by_key = {str(row.local_key): row for row in pack.feats}
+        items_by_key = {str(row.local_key): row for row in pack.items.items}
+        spells_by_key = {str(row.local_key): row for row in pack.spells}
+        rules_by_key = {str(row.local_key): row for row in pack.rules}
+        expected_builder_classes = {
+            key for key, row in classes_by_key.items() if source_editions.get(row.source) == "2024"
+        }
+        if set(builder_classes) != expected_builder_classes:
+            errors.append(
+                "character-builder.json: class builder coverage does not match the 2024 classes"
+            )
+        for class_key, builder_class in builder_classes.items():
+            source_class = classes_by_key.get(class_key)
+            if source_class is None:
+                errors.append(f"character-builder.json: unknown class '{class_key}'")
+                continue
+            if source_class.source != builder_class.source:
+                errors.append(f"character-builder.json: class source mismatch for '{class_key}'")
+            if source_editions.get(builder_class.source) != "2024":
+                errors.append(
+                    f"character-builder.json: class '{class_key}' is not from the 2024 edition"
+                )
+            source_subclasses = {
+                str(subclass.subclass_key): subclass for subclass in source_class.subclasses
+            }
+            for subclass_key, builder_subclass in builder_subclasses.items():
+                if str(builder_subclass.class_key) != class_key:
+                    continue
+                source_subclass = source_subclasses.get(subclass_key)
+                if source_subclass is None:
+                    errors.append(
+                        f"character-builder.json: subclass '{subclass_key}' has the wrong parent"
+                    )
+                elif source_subclass.source != builder_subclass.source:
+                    errors.append(
+                        f"character-builder.json: subclass source mismatch for '{subclass_key}'"
+                    )
+
+        expected_subclasses = {
+            str(subclass.subclass_key)
+            for character_class in pack.classes
+            if source_editions.get(character_class.source) == "2024"
+            for subclass in character_class.subclasses
+        }
+        if set(builder_subclasses) != expected_subclasses:
+            errors.append(
+                "character-builder.json: subclass builder coverage does not match 2024 subclasses"
+            )
+
+        owner_sources = (
+            [("species", str(row.species_key), row.source) for row in catalog.species]
+            + [("background", str(row.background_key), row.source) for row in catalog.backgrounds]
+            + [("feat", str(row.feat_key), row.source) for row in catalog.feats]
+            + [
+                ("optional feature", str(row.option_key), row.source)
+                for row in catalog.optional_features
+            ]
+            + [("item", str(row.item_key), row.source) for row in catalog.equipment]
+        )
+        for kind, key, source in owner_sources:
+            if source not in source_keys:
+                errors.append(
+                    f"character-builder.json: {kind} '{key}' has unknown source '{source}'"
+                )
+            elif source_editions.get(source) != "2024":
+                errors.append(f"character-builder.json: {kind} '{key}' is not 2024 edition")
+        if {str(row.feat_key) for row in catalog.feats} != {
+            str(row.local_key) for row in pack.feats if source_editions.get(row.source) == "2024"
+        }:
+            errors.append("character-builder.json: feat builder coverage does not match 2024 feats")
+        if {str(row.item_key) for row in catalog.equipment} - set(items_by_key):
+            errors.append("character-builder.json: equipment metadata references an unknown item")
+
+        reference_keys = {
+            ReferenceKind.ITEM: set(items_by_key),
+            ReferenceKind.SPELL: set(spells_by_key),
+            ReferenceKind.FEAT: set(feats_by_key),
+            ReferenceKind.CLASS: set(classes_by_key),
+            ReferenceKind.RULE: set(rules_by_key),
+            ReferenceKind.SUBCLASS: expected_subclasses,
+            ReferenceKind.CLASS_FEATURE: {
+                f"{class_key}#{feature.feature_key}"
+                for class_key, character_class in classes_by_key.items()
+                for feature in character_class.features
+            },
+            ReferenceKind.SUBCLASS_FEATURE: {
+                f"{subclass.subclass_key}#{feature.feature_key}"
+                for character_class in pack.classes
+                for subclass in character_class.subclasses
+                for feature in subclass.features
+            },
+            ReferenceKind.OPTIONAL_FEATURE: {
+                str(row.option_key) for row in catalog.optional_features
+            },
+        }
+        reference_fields = []
+        for builder_class in catalog.classes:
+            reference_fields.append(builder_class.model_dump(mode="python"))
+        reference_fields.extend(row.model_dump(mode="python") for row in catalog.subclasses)
+        reference_fields.extend(row.model_dump(mode="python") for row in catalog.species)
+        reference_fields.extend(row.model_dump(mode="python") for row in catalog.backgrounds)
+        reference_fields.extend(row.model_dump(mode="python") for row in catalog.feats)
+        reference_fields.extend(row.model_dump(mode="python") for row in catalog.optional_features)
+        reference_fields.extend(row.model_dump(mode="python") for row in catalog.equipment)
+
+        def visit_builder_value(value: object, path: str) -> None:
+            if isinstance(value, dict):
+                if {"kind", "identity", "resolved"} <= set(value):
+                    try:
+                        kind = ReferenceKind(value["kind"])
+                    except ValueError:
+                        errors.append(f"character-builder.json:{path}: invalid reference kind")
+                        return
+                    if value["resolved"]:
+                        identity = str(value["identity"])
+                        dataset_id, separator, local_key = identity.partition(":")
+                        if dataset_id != str(pack.manifest.dataset_id) or not separator:
+                            errors.append(
+                                f"character-builder.json:{path}: "
+                                "cross-dataset or malformed reference"
+                            )
+                        elif local_key not in reference_keys[kind]:
+                            errors.append(
+                                f"character-builder.json:{path}: unresolved required "
+                                f"{kind.value} reference '{identity}'"
+                            )
+                    return
+                for child_key, child in value.items():
+                    visit_builder_value(child, f"{path}.{child_key}")
+            elif isinstance(value, list):
+                for child_index, child in enumerate(value):
+                    visit_builder_value(child, f"{path}[{child_index}]")
+
+        for record_index, record in enumerate(reference_fields):
+            visit_builder_value(record, f"record[{record_index}]")
 
     if errors:
         raise DatasetValidationError("dataset validation failed:\n" + "\n".join(errors))

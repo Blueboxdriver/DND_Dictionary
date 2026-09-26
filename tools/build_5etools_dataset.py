@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import copy
 import hashlib
+import itertools
 import json
 import re
 import subprocess
@@ -15,6 +16,9 @@ from pathlib import Path
 
 from dndref.importer import load_dataset
 from dndref.models import DatasetPack, validate_dataset
+from dndref.models.character_builder import (
+    CharacterBuilderCatalog,
+)
 
 DATASET_ID = "official-5etools-2024"
 UPSTREAM = "https://github.com/5etools-mirror-3/5etools-src"
@@ -96,14 +100,38 @@ OUT_OF_SCOPE_ITEM_TYPES = {"AIR", "SHP", "VEH", "MNT"}
 # Explicit, reviewed repairs; never globally reinterpret legacy property sources.
 PROPERTY_OVERRIDES = {("staff|xphb", "V"): "V|XPHB", ("wooden staff|xphb", "V"): "V|XPHB"}
 RULE_GLOSSARY_NAMES = {
-    "Ability Check", "Advantage", "Attack Roll", "Cover", "D20 Test",
-    "Death Saving Throw", "Difficult Terrain", "Disadvantage", "Grappling",
-    "Long Rest", "Saving Throw", "Short Rest", "Spell", "Spellcasting Focus",
-    "Dash", "Dodge", "Help", "Hide", "Opportunity Attack", "Ready", "Shove",
+    "Ability Check",
+    "Advantage",
+    "Attack Roll",
+    "Cover",
+    "D20 Test",
+    "Death Saving Throw",
+    "Difficult Terrain",
+    "Disadvantage",
+    "Grappling",
+    "Long Rest",
+    "Saving Throw",
+    "Short Rest",
+    "Spell",
+    "Spellcasting Focus",
+    "Dash",
+    "Dodge",
+    "Help",
+    "Hide",
+    "Opportunity Attack",
+    "Ready",
+    "Shove",
 }
 STATUS_GLOSSARY_NAMES = {"Bloodied", "Concentration"}
 MASTERY_GLOSSARY_NAMES = {
-    "Cleave", "Graze", "Nick", "Push", "Sap", "Slow", "Topple", "Vex",
+    "Cleave",
+    "Graze",
+    "Nick",
+    "Push",
+    "Sap",
+    "Slow",
+    "Topple",
+    "Vex",
 }
 RULE_TYPE_LABELS = {
     "C": "Core Rules",
@@ -214,6 +242,7 @@ class Snapshot:
         self.inventory = defaultdict(list)
         self.used = set()
         self.embedded = set()
+        self.stable_keys = {}
         self.version = self.read("package.json")["version"]
         self.books = {b["id"]: b for b in self.read("data/books.json")["book"]}
         for code, title in BOOKS.items():
@@ -227,6 +256,10 @@ class Snapshot:
             "data/magicvariants.json",
             "data/feats.json",
             "data/optionalfeatures.json",
+            "data/races.json",
+            "data/backgrounds.json",
+            "data/fluff-races.json",
+            "data/fluff-backgrounds.json",
             "data/conditionsdiseases.json",
             "data/variantrules.json",
             "data/actions.json",
@@ -239,12 +272,26 @@ class Snapshot:
             for p in sorted((self.root / "data/class").glob("fluff-class-*.json"))
         ]
         for path in sorted(set(paths)):
-            if path in {
-                "data/conditionsdiseases.json", "data/variantrules.json", "data/actions.json"
-            } and not (self.root / path).is_file():
+            if (
+                path
+                in {
+                    "data/conditionsdiseases.json",
+                    "data/variantrules.json",
+                    "data/actions.json",
+                    "data/races.json",
+                    "data/backgrounds.json",
+                    "data/fluff-races.json",
+                    "data/fluff-backgrounds.json",
+                }
+                and not (self.root / path).is_file()
+            ):
                 continue
             for category, records in self.read(path).items():
                 if not isinstance(records, list):
+                    continue
+                if path == "data/races.json" and category != "race":
+                    continue
+                if path == "data/backgrounds.json" and category != "background":
                     continue
                 for original in records:
                     if not isinstance(original, dict):
@@ -387,6 +434,7 @@ class Snapshot:
         )
 
     def track(self, category, r, key, owner=None, status="converted"):
+        self.stable_keys[(category, uid(r, category))] = key
         token = (category, uid(r, category), owner)
         if token in self.used:
             return
@@ -491,9 +539,7 @@ class Text:
 
         collect(record)
         found = {}
-        pattern = re.compile(
-            r"\{@(condition|variantrule|action|status|itemMastery) ([^{}]+)}"
-        )
+        pattern = re.compile(r"\{@(condition|variantrule|action|status|itemMastery) ([^{}]+)}")
         for value in values:
             for tag, payload in pattern.findall(value):
                 parts = payload.split("|")
@@ -1233,13 +1279,1753 @@ def variant_items(variants, bases, snapshot):
     return results
 
 
+BUILDER_SKILLS = (
+    ("acrobatics", "Acrobatics", "dex"),
+    ("animal-handling", "Animal Handling", "wis"),
+    ("arcana", "Arcana", "int"),
+    ("athletics", "Athletics", "str"),
+    ("deception", "Deception", "cha"),
+    ("history", "History", "int"),
+    ("insight", "Insight", "wis"),
+    ("intimidation", "Intimidation", "cha"),
+    ("investigation", "Investigation", "int"),
+    ("medicine", "Medicine", "wis"),
+    ("nature", "Nature", "int"),
+    ("perception", "Perception", "wis"),
+    ("performance", "Performance", "cha"),
+    ("persuasion", "Persuasion", "cha"),
+    ("religion", "Religion", "int"),
+    ("sleight-of-hand", "Sleight of Hand", "dex"),
+    ("stealth", "Stealth", "dex"),
+    ("survival", "Survival", "wis"),
+)
+SKILL_KEYS = {name.casefold(): key for key, name, _ in BUILDER_SKILLS}
+ABILITY_KEYS = {key: key for key in ABILITIES}
+
+
+def builder_key(prefix, *parts):
+    identity = "|".join(str(part) for part in parts)
+    return f"{prefix}/{slug(identity)[:72]}-{hashlib.sha256(identity.encode()).hexdigest()[:10]}"
+
+
+def source_ref(snapshot, kind, category, identity, *, strip_suffix=False):
+    value = str(identity).strip()
+    if strip_suffix:
+        value = value.split("#", 1)[0]
+    normalized = normalized_ref(value, category) if "|" not in value else value.lower()
+    local_key = snapshot.stable_keys.get((category, normalized))
+    if local_key is None and category in {"item", "spell", "feat", "subclass"}:
+        # Source keys are lower-cased by uid(); resolve casing without name matching.
+        local_key = snapshot.stable_keys.get((category, value.lower()))
+    return {
+        "kind": kind,
+        "identity": f"{DATASET_ID}:{local_key}" if local_key else value,
+        "resolved": local_key is not None,
+    }
+
+
+def _rule_leaf(operator, **values):
+    return {"operator": operator, **values}
+
+
+def _rule_group(operator, children):
+    children = [child for child in children if child]
+    if not children:
+        return None
+    if len(children) == 1:
+        return children[0]
+    return {"operator": operator, "children": children}
+
+
+def _source_ability_options(record):
+    options = []
+    for alternative in record.get("primaryAbility", []):
+        values = alternative.keys() if isinstance(alternative, dict) else alternative
+        abilities = [str(value).lower() for value in values if str(value).lower() in ABILITY_KEYS]
+        if abilities:
+            options.append(abilities)
+    return options or [["str", "dex", "con", "int", "wis", "cha"]]
+
+
+def _minimum_ability_requirement(options, minimum):
+    alternatives = [
+        _rule_group(
+            "all",
+            [_rule_leaf("ability_score", ability=ability, minimum=minimum) for ability in option],
+        )
+        for option in options
+    ]
+    return _rule_group("any", alternatives)
+
+
+def _proficiency_key(kind, value):
+    raw = inline(str(value)).strip().casefold()
+    if kind == "skill":
+        return SKILL_KEYS.get(raw, slug(raw))
+    return slug(raw)
+
+
+def _grant(
+    owner,
+    scope,
+    kind,
+    value=None,
+    *,
+    proficiency_kind=None,
+    reference=None,
+    quantity=None,
+    unit=None,
+    unresolved=False,
+):
+    return {
+        "grant_key": builder_key(
+            "grant", owner, scope, kind, value, reference.get("identity") if reference else ""
+        ),
+        "kind": kind,
+        "value": value,
+        "reference": reference,
+        "proficiency_kind": proficiency_kind,
+        "quantity": quantity,
+        "unit": unit,
+        "source_rule": scope,
+        "unresolved": unresolved,
+    }
+
+
+def _explicit_options(values, kind):
+    return [
+        {
+            "option_key": builder_key("option", kind, value),
+            "label": str(value).replace("-", " ").title(),
+            "value": value,
+        }
+        for value in sorted({str(value) for value in values})
+    ]
+
+
+def _proficiency_choice(
+    owner, scope, count, values=None, *, criteria_kind=None, criteria_values=None, filters=None
+):
+    options = _explicit_options(values, criteria_kind or "proficiency") if values else []
+    criteria = None
+    if not options:
+        criteria = {
+            "kind": criteria_kind or "source_filter",
+            "values": criteria_values or ["all"],
+            "filters": filters or {},
+        }
+    return {
+        "choice_key": builder_key("choice", owner, scope),
+        "kind": "proficiency",
+        "count": max(1, int(count)),
+        "options": options,
+        "criteria": criteria,
+        "source_rule": scope,
+    }
+
+
+def _normalize_proficiency_value(owner, scope, kind, value, grants, choices):
+    if value is None:
+        return
+    if isinstance(value, list):
+        for index, item in enumerate(value):
+            _normalize_proficiency_value(owner, f"{scope}.{index}", kind, item, grants, choices)
+        return
+    if isinstance(value, str):
+        grants.append(
+            _grant(
+                owner, scope, "proficiency", _proficiency_key(kind, value), proficiency_kind=kind
+            )
+        )
+        return
+    if not isinstance(value, dict):
+        return
+    if "choose" in value:
+        spec = value["choose"]
+        if isinstance(spec, dict) and isinstance(spec.get("from"), list):
+            options = [_proficiency_key(kind, option) for option in spec["from"]]
+            choices.append(
+                _proficiency_choice(owner, scope, spec.get("count", 1), options, criteria_kind=kind)
+            )
+            return
+        if isinstance(spec, dict) and spec.get("fromFilter"):
+            filter_value = spec["fromFilter"]
+            group = (
+                filter_value.get("equipmentType", "tool")
+                if isinstance(filter_value, dict)
+                else str(filter_value)
+            )
+            criteria_kind = "tool_group" if kind == "tool" else "source_filter"
+            choices.append(
+                _proficiency_choice(
+                    owner,
+                    scope,
+                    spec.get("count", 1),
+                    criteria_kind=criteria_kind,
+                    criteria_values=[str(group)],
+                    filters=filter_value if isinstance(filter_value, dict) else {},
+                )
+            )
+            return
+    if "any" in value:
+        criteria_kind = {
+            "skill": "skill",
+            "tool": "tool_group",
+            "language": "language",
+            "weapon": "weapon_category",
+            "armor": "item_type",
+        }.get(kind, "source_filter")
+        choices.append(
+            _proficiency_choice(
+                owner, scope, value["any"], criteria_kind=criteria_kind, criteria_values=["all"]
+            )
+        )
+        return
+    if "anyArtisansTool" in value:
+        choices.append(
+            _proficiency_choice(
+                owner,
+                scope,
+                value["anyArtisansTool"],
+                criteria_kind="tool_group",
+                criteria_values=["artisan"],
+            )
+        )
+        return
+    if "anyMusicalInstrument" in value:
+        choices.append(
+            _proficiency_choice(
+                owner,
+                scope,
+                value["anyMusicalInstrument"],
+                criteria_kind="tool_group",
+                criteria_values=["musical instrument"],
+            )
+        )
+        return
+    recognized = False
+    for label, enabled in sorted(value.items()):
+        if enabled is True or isinstance(enabled, (int, str)):
+            grants.append(
+                _grant(
+                    owner,
+                    scope,
+                    "proficiency",
+                    _proficiency_key(kind, label),
+                    proficiency_kind=kind,
+                )
+            )
+            recognized = True
+    if not recognized and value:
+        choices.append(
+            _proficiency_choice(
+                owner, scope, 1, criteria_kind="source_filter", criteria_values=[canonical(value)]
+            )
+        )
+
+
+def _proficiency_fields(owner, fields):
+    grants, choices = [], []
+    for scope, value, kind in fields:
+        _normalize_proficiency_value(owner, scope, kind, value, grants, choices)
+    return grants, choices
+
+
+def _source_reference_list(value):
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, list):
+        return [item for item in value if isinstance(item, str)]
+    return []
+
+
+def _source_requirement(value, snapshot, classes_by_name):
+    if not value:
+        return None
+    if isinstance(value, list):
+        return _rule_group(
+            "any", [_source_requirement(item, snapshot, classes_by_name) for item in value]
+        )
+    if not isinstance(value, dict):
+        return _rule_leaf("unresolved", source_text=readable(value))
+    children = []
+    for key, raw in sorted(value.items()):
+        if key == "level":
+            level = raw
+            class_value = None
+            if isinstance(raw, dict):
+                level = raw.get("level")
+                class_value = raw.get("class")
+            if isinstance(class_value, dict):
+                class_source = str(class_value.get("source", "XPHB")).casefold()
+                class_name = str(class_value.get("name", "")).casefold()
+                class_key = classes_by_name.get((class_source, class_name))
+                if class_key and isinstance(level, int):
+                    children.append(_rule_leaf("class_level", class_key=class_key, minimum=level))
+                else:
+                    children.append(_rule_leaf("unresolved", source_text=canonical({key: raw})))
+            elif isinstance(level, int):
+                children.append(_rule_leaf("total_level", minimum=level))
+            else:
+                children.append(_rule_leaf("unresolved", source_text=canonical({key: raw})))
+        elif key == "ability":
+            alternatives = []
+            for spec in raw if isinstance(raw, list) else [raw]:
+                if not isinstance(spec, dict):
+                    continue
+                alternatives.append(
+                    _rule_group(
+                        "all",
+                        [
+                            _rule_leaf(
+                                "ability_score", ability=str(ability).lower(), minimum=int(score)
+                            )
+                            for ability, score in spec.items()
+                            if str(ability).lower() in ABILITY_KEYS and isinstance(score, int)
+                        ],
+                    )
+                )
+            if alternatives:
+                children.append(_rule_group("any", alternatives))
+            else:
+                children.append(_rule_leaf("unresolved", source_text=canonical({key: raw})))
+        elif key in {"spell", "spellcasting", "pactMagic"}:
+            spellcasting_kind = "pact_magic" if key == "pactMagic" else "spellcasting"
+            if key == "spell" and isinstance(raw, list):
+                rendered = canonical(raw).casefold()
+                if "class=warlock" in rendered or "pact" in rendered:
+                    spellcasting_kind = "pact_magic"
+            children.append(_rule_leaf("spellcasting", spellcasting_kind=spellcasting_kind))
+        elif key == "feat":
+            values = raw if isinstance(raw, list) else [raw]
+            feat_children = []
+            for spec in values:
+                if isinstance(spec, str):
+                    reference = source_ref(snapshot, "feat", "feat", spec)
+                    feat_children.append(_rule_leaf("feat", feat_reference=reference))
+                elif isinstance(spec, dict):
+                    feat_children.append(_rule_leaf("unresolved", source_text=canonical(spec)))
+            children.append(_rule_group("any", feat_children))
+        elif key in {"class", "classes"}:
+            values = raw if isinstance(raw, list) else [raw]
+            class_children = []
+            for spec in values:
+                if isinstance(spec, str):
+                    name, source = spec.split("|", 1) if "|" in spec else (spec, "XPHB")
+                elif isinstance(spec, dict):
+                    name, source = spec.get("name", ""), spec.get("source", "XPHB")
+                else:
+                    continue
+                class_key = classes_by_name.get((str(source).casefold(), str(name).casefold()))
+                if class_key:
+                    class_children.append(_rule_leaf("class_membership", class_key=class_key))
+                else:
+                    class_children.append(_rule_leaf("unresolved", source_text=canonical(spec)))
+            children.append(_rule_group("any", class_children))
+        else:
+            children.append(_rule_leaf("unresolved", source_text=canonical({key: raw})))
+    return _rule_group("all", children) or _rule_leaf("unresolved", source_text=canonical(value))
+
+
+def _ability_choices(owner, raw_ability, source_rule, *, background=False):
+    grants, choices = [], []
+    if not isinstance(raw_ability, list):
+        raw_ability = [raw_ability] if raw_ability else []
+    if background:
+        # Enumerate only the ability allocations permitted by each weighted source rule.
+        options = []
+        seen = set()
+        for raw in raw_ability:
+            weighted = raw.get("choose", {}).get("weighted") if isinstance(raw, dict) else None
+            if not isinstance(weighted, dict):
+                continue
+            abilities = [str(item).lower() for item in weighted.get("from", [])]
+            weights = weighted.get("weights", [])
+            if not weights or len(abilities) < len(weights):
+                continue
+            for allocation in itertools.permutations(abilities, len(weights)):
+                increases = sorted(
+                    (
+                        (ability, amount)
+                        for ability, amount in zip(allocation, weights)
+                        if ability in ABILITY_KEYS and isinstance(amount, int)
+                    ),
+                )
+                signature = tuple(increases)
+                if len(increases) != len(weights) or signature in seen:
+                    continue
+                seen.add(signature)
+                increases_json = [
+                    {"ability": ability, "amount": amount} for ability, amount in increases
+                ]
+                options.append(
+                    {
+                        "option_key": builder_key(
+                            "option", owner, "background-ability", increases_json
+                        ),
+                        "label": ", ".join(
+                            f"+{item['amount']} {item['ability'].upper()}"
+                            for item in increases_json
+                        ),
+                        "ability_increases": increases_json,
+                    }
+                )
+        if options:
+            choices = [
+                {
+                    "choice_key": builder_key("choice", owner, "background-ability-scores"),
+                    "kind": "ability_score",
+                    "count": 1,
+                    "options": options,
+                    "source_rule": source_rule,
+                }
+            ]
+        return grants, choices
+
+    option_rows = []
+    for index, raw in enumerate(raw_ability):
+        if not isinstance(raw, dict):
+            continue
+        choice = raw.get("choose")
+        if isinstance(choice, dict):
+            values = [str(value).lower() for value in choice.get("from", [])]
+            count = int(choice.get("count", 1))
+            amount = int(choice.get("amount", 1))
+            if values and 0 < count <= len(values):
+                for allocation in itertools.combinations(sorted(set(values)), count):
+                    increases = [
+                        {"ability": ability, "amount": amount}
+                        for ability in allocation
+                        if ability in ABILITY_KEYS
+                    ]
+                    if len(increases) == count:
+                        option_rows.append(
+                            {
+                                "option_key": builder_key(
+                                    "option", owner, "ability", index, increases
+                                ),
+                                "label": ", ".join(
+                                    f"+{amount} {ability.upper()}" for ability in allocation
+                                ),
+                                "ability_increases": increases,
+                            }
+                        )
+        else:
+            for ability, amount in raw.items():
+                if str(ability).lower() in ABILITY_KEYS and isinstance(amount, int) and amount > 0:
+                    grants.append(
+                        _grant(
+                            owner,
+                            source_rule,
+                            "ability_score",
+                            str(ability).lower(),
+                            quantity=amount,
+                            unit="ability_points",
+                        )
+                    )
+    if option_rows:
+        choices.append(
+            {
+                "choice_key": builder_key("choice", owner, "feat-ability-increase"),
+                "kind": "ability_score",
+                "count": 1,
+                "options": option_rows,
+                "source_rule": source_rule,
+            }
+        )
+    return grants, choices
+
+
+def _equipment_choice(snapshot, owner, scope, groups, *, includes_background=False):
+    choices = []
+    for group_index, group in enumerate(groups or []):
+        if not isinstance(group, dict):
+            continue
+        package_choice_key = builder_key("choice", owner, scope, group_index)
+        options = []
+        dependent_choices = []
+        for option_label, items in sorted(group.items()):
+            if not isinstance(items, list):
+                continue
+            option_grants = []
+            option_resolved = True
+            for index, item in enumerate(items):
+                if not isinstance(item, dict):
+                    continue
+                if isinstance(item.get("item"), str):
+                    reference = source_ref(snapshot, "item", "item", item["item"])
+                    option_grants.append(
+                        _grant(
+                            owner,
+                            f"{scope}.{option_label}.{index}",
+                            "equipment",
+                            reference=reference,
+                            quantity=item.get("quantity")
+                            if isinstance(item.get("quantity"), int)
+                            else None,
+                            unit="item",
+                            unresolved=not reference["resolved"],
+                        )
+                    )
+                    option_resolved = option_resolved and reference["resolved"]
+                elif isinstance(item.get("value"), int):
+                    option_grants.append(
+                        _grant(
+                            owner,
+                            f"{scope}.{option_label}.{index}",
+                            "currency",
+                            str(item["value"]),
+                            quantity=item["value"],
+                            unit="cp",
+                        )
+                    )
+                elif item.get("equipmentType"):
+                    equipment_type = str(item["equipmentType"])
+                    is_tool = "tool" in equipment_type.casefold()
+                    dependent_choices.append(
+                        {
+                            "choice_key": builder_key(
+                                "choice",
+                                owner,
+                                scope,
+                                group_index,
+                                option_label,
+                                index,
+                                equipment_type,
+                            ),
+                            "kind": "equipment",
+                            "count": item.get("quantity", 1)
+                            if isinstance(item.get("quantity", 1), int)
+                            else 1,
+                            "criteria": {
+                                "kind": "tool_group" if is_tool else "item_type",
+                                "values": [
+                                    "artisan"
+                                    if equipment_type.casefold() == "toolartisan"
+                                    else equipment_type
+                                ],
+                            },
+                            "depends_on_choice": package_choice_key,
+                            "depends_on_option": builder_key(
+                                "option",
+                                owner,
+                                scope,
+                                group_index,
+                                option_label,
+                            ),
+                            "source_rule": f"{scope}.{option_label}.{index}",
+                        }
+                    )
+                else:
+                    option_grants.append(
+                        _grant(
+                            owner,
+                            f"{scope}.{option_label}.{index}",
+                            "other",
+                            canonical(item),
+                            unresolved=True,
+                        )
+                    )
+                    option_resolved = False
+            if not option_grants:
+                continue
+            options.append(
+                {
+                    "option_key": builder_key("option", owner, scope, group_index, option_label),
+                    "label": str(option_label).replace("_", " ").title(),
+                    "value": option_label,
+                    "grants": option_grants,
+                    "resolved": option_resolved,
+                }
+            )
+        if options:
+            choices.append(
+                {
+                    "choice_key": package_choice_key,
+                    "kind": "equipment_package",
+                    "count": 1,
+                    "options": options,
+                    "source_rule": scope,
+                }
+            )
+            choices.extend(dependent_choices)
+    return {"choices": choices, "includes_background_equipment": includes_background}
+
+
+def _progression_count(values, level):
+    if isinstance(values, dict):
+        value = values.get(str(level), 0)
+        return int(value) if isinstance(value, (str, int)) and str(value).isdigit() else 0
+    if isinstance(values, list) and level <= len(values):
+        value = values[level - 1]
+        return int(value) if isinstance(value, (str, int)) and str(value).isdigit() else 0
+    return 0
+
+
+def _spellcasting_rules(
+    record, owner_type, owner_key, snapshot, *, table_groups=None, classes_by_name=None
+):
+    progression = record.get("casterProgression")
+    ability = str(record.get("spellcastingAbility", "")).lower()
+    if progression not in {"full", "half", "artificer", "pact", "1/3", "third"}:
+        return None
+    if ability not in ABILITY_KEYS:
+        return None
+    contribution = {
+        "full": "full",
+        "half": "half_round_down",
+        "artificer": "half_round_up",
+        "pact": "pact_magic_separate",
+        "1/3": "third_round_down",
+        "third": "third_round_down",
+    }[progression]
+    access = (
+        "spellbook"
+        if record.get("spellsKnownProgressionFixed")
+        else ("prepared" if record.get("preparedSpellsProgression") else "known")
+    )
+    if progression == "pact":
+        model = "pact_magic"
+    else:
+        model = "spellcasting"
+    if owner_type == "class":
+        list_reference = {
+            "kind": "class",
+            "identity": f"{DATASET_ID}:{owner_key}",
+            "resolved": True,
+        }
+    else:
+        list_reference = {
+            "kind": "subclass",
+            "identity": f"{DATASET_ID}:{owner_key}",
+            "resolved": True,
+        }
+    groups = table_groups if table_groups is not None else record.get("classTableGroups", [])
+    standalone, pact_slots = [], []
+    for group in groups:
+        labels = [text_label for text_label in group.get("colLabels", [])]
+        lowered = [
+            re.sub(r"\{@filter ([^|]+)\|.*?}", r"\1", str(label)).casefold() for label in labels
+        ]
+        rows = group.get("rowsSpellProgression")
+        if rows and "spell slots per spell level" in str(group.get("title", "")).casefold():
+            for level, row in enumerate(rows[:20], 1):
+                slots = [int(value) if str(value).isdigit() else 0 for value in row]
+                standalone.append({"class_level": level, "slots_by_spell_level": slots})
+        elif "spell slots" in lowered and "slot level" in lowered:
+            slot_index = lowered.index("spell slots")
+            spell_level_index = lowered.index("slot level")
+            rows = group.get("rows", [])
+            for level, row in enumerate(rows[:20], 1):
+                if len(row) <= max(slot_index, spell_level_index):
+                    continue
+                slot_count, spell_level = row[slot_index], row[spell_level_index]
+                if str(slot_count).isdigit() and str(spell_level).isdigit():
+                    counts = [0] * max(1, int(spell_level))
+                    counts[int(spell_level) - 1] = int(slot_count)
+                    pact_slots.append({"class_level": level, "slots_by_spell_level": counts})
+    cantrips = record.get("cantripProgression", [])
+    prepared = record.get("preparedSpellsProgression", [])
+    known = record.get("spellsKnownProgressionFixed", [])
+    additional_spells, spell_choices = _spell_access_rules(
+        record,
+        owner_key,
+        snapshot,
+        classes_by_name or {},
+        f"{owner_type}:{owner_key}.additional-spells",
+        default_level=1 if owner_type == "class" else 3,
+        level_scope="class",
+    )
+    return {
+        "ability": ability,
+        "model": model,
+        "multiclass_contribution": contribution,
+        "acquisition": access,
+        "spell_list_reference": list_reference,
+        "prepared_spells_change": record.get("preparedSpellsChange"),
+        "cantrips": [
+            {"class_level": level, "count": int(count)}
+            for level, count in enumerate(cantrips, 1)
+            if isinstance(count, int)
+        ],
+        "prepared_spells": [
+            {"class_level": level, "count": int(count)}
+            for level, count in enumerate(prepared, 1)
+            if isinstance(count, int)
+        ],
+        "known_spells": [
+            {"class_level": level, "count": int(count)}
+            for level, count in enumerate(known, 1)
+            if isinstance(count, int)
+        ],
+        "standalone_slots": standalone,
+        "pact_slots": pact_slots,
+        "additional_spells": additional_spells,
+        "spell_choices": spell_choices,
+        "source_rule": f"{owner_type}:{owner_key}.spellcasting",
+    }
+
+
+def _spell_access_rules(
+    record,
+    owner_key,
+    snapshot,
+    classes_by_name,
+    source_rule,
+    *,
+    default_level=1,
+    level_scope="total",
+):
+    """Normalize exact spells and source-defined spell-list filters without scraping prose."""
+    rows = []
+    choices = []
+    groups = record.get("additionalSpells", [])
+    if not isinstance(groups, list):
+        groups = [groups]
+    named_groups = [group for group in groups if isinstance(group, dict) and group.get("name")]
+    shared_choice_key = None
+    option_keys = {}
+    if len(named_groups) > 1 and len(named_groups) == len(groups):
+        shared_choice_key = builder_key("choice", owner_key, "additional-spells")
+        options = []
+        for group in named_groups:
+            option_key = builder_key("option", owner_key, "additional-spells", group["name"])
+            option_keys[group["name"]] = option_key
+            options.append(
+                {
+                    "option_key": option_key,
+                    "label": str(group["name"]),
+                    "value": str(group["name"]),
+                }
+            )
+        choices.append(
+            {
+                "choice_key": shared_choice_key,
+                "kind": "spell",
+                "count": 1,
+                "options": options,
+                "source_rule": source_rule,
+            }
+        )
+    access_names = {
+        "known": "known",
+        "prepared": "prepared",
+        "innate": "innate",
+        "expanded": "expanded",
+        "spellbook": "spellbook",
+    }
+
+    def spell_filter_criteria(expression):
+        level_match = re.search(r"(?:^|\|)level=([^|]+)", expression, re.I)
+        class_match = re.search(r"(?:^|\|)class=([^|]+)", expression, re.I)
+        if class_match is None:
+            return None
+        class_keys = []
+        for class_name in class_match.group(1).split(";"):
+            matching = [
+                key
+                for (_, name), key in classes_by_name.items()
+                if name == class_name.casefold()
+            ]
+            if len(matching) != 1:
+                return None
+            class_keys.extend(matching)
+        filters = {}
+        if level_match:
+            level_values = [
+                item for item in level_match.group(1).split(";") if item.isdigit()
+            ]
+            if level_values:
+                filters["spell_level"] = level_values
+        school_match = re.search(r"(?:^|\|)school=([^|]+)", expression, re.I)
+        if school_match:
+            filters["school"] = school_match.group(1).split(";")
+        return {"kind": "spell_list", "values": sorted(set(class_keys)), "filters": filters}
+
+    def add_from_node(node, access_name, group, path):
+        if isinstance(node, list):
+            for index, child in enumerate(node):
+                add_from_node(child, access_name, group, (*path, str(index)))
+            return
+        if isinstance(node, dict):
+            if isinstance(node.get("choose"), str):
+                expression = node["choose"]
+                criteria = spell_filter_criteria(expression)
+                count = node.get("count", 1)
+                uses = None
+                if "daily" in path:
+                    daily_index = path.index("daily")
+                    uses_per_day = path[daily_index + 1] if daily_index + 1 < len(path) else 1
+                    uses = f"{uses_per_day}/day"
+                elif "rest" in path:
+                    uses = "per rest"
+                ability = group.get("ability")
+                ability_options = []
+                if isinstance(ability, dict) and isinstance(ability.get("choose"), list):
+                    ability_options = [
+                        str(item).lower()
+                        for item in ability["choose"]
+                        if str(item).lower() in ABILITY_KEYS
+                    ]
+                elif isinstance(ability, str) and ability.lower() in ABILITY_KEYS:
+                    ability_options = [ability.lower()]
+                ability_fixed = (
+                    ability.lower()
+                    if isinstance(ability, str) and ability.lower() in ABILITY_KEYS
+                    else None
+                )
+                if isinstance(ability, dict) and isinstance(ability.get("choose"), list):
+                    ability_selection = "choice"
+                elif ability == "inherit":
+                    ability_selection = "inherited"
+                elif isinstance(ability, str) and ability.lower() in ABILITY_KEYS:
+                    ability_selection = "fixed"
+                else:
+                    ability_selection = None
+                path_before_daily = path[: path.index("daily")] if "daily" in path else path
+                level_tokens = [
+                    int(token)
+                    for token in path_before_daily
+                    if str(token).isdigit() and 1 <= int(token) <= 20
+                ]
+                class_level = level_tokens[0] if level_tokens else default_level
+                rows.append(
+                    {
+                        "access": access_name,
+                        "class_level": class_level,
+                        "level_scope": level_scope,
+                        "criteria": criteria,
+                        "count": int(count) if isinstance(count, int) and count > 0 else None,
+                        "uses": uses,
+                        "ability": ability_fixed,
+                        "ability_options": ability_options,
+                        "ability_selection": ability_selection,
+                        "choice_group": shared_choice_key,
+                        "choice_option": option_keys.get(group.get("name")),
+                        "source_rule": source_rule,
+                        "unresolved_details": None if criteria else canonical(node),
+                    }
+                )
+                return
+            for key, child in sorted(node.items()):
+                if key in access_names:
+                    add_from_node(child, access_names[key], group, (*path, key))
+                elif key in {"choose", "count", "ability", "name", "hidden"}:
+                    continue
+                else:
+                    add_from_node(child, access_name, group, (*path, str(key)))
+            return
+        if isinstance(node, str) and "|" in node:
+            criteria = spell_filter_criteria(node)
+            if criteria is not None:
+                path_before_daily = path[: path.index("daily")] if "daily" in path else path
+                level_tokens = [
+                    int(token)
+                    for token in path_before_daily
+                    if str(token).isdigit() and 1 <= int(token) <= 20
+                ]
+                ability = group.get("ability")
+                ability_fixed = (
+                    ability.lower()
+                    if isinstance(ability, str) and ability.lower() in ABILITY_KEYS
+                    else None
+                )
+                ability_options = (
+                    [
+                        str(item).lower()
+                        for item in ability["choose"]
+                        if str(item).lower() in ABILITY_KEYS
+                    ]
+                    if isinstance(ability, dict) and isinstance(ability.get("choose"), list)
+                    else [ability_fixed]
+                    if ability_fixed
+                    else []
+                )
+                rows.append(
+                    {
+                        "access": access_name,
+                        "class_level": level_tokens[0] if level_tokens else default_level,
+                        "level_scope": level_scope,
+                        "criteria": criteria,
+                        "count": None,
+                        "uses": None,
+                        "ability": ability_fixed,
+                        "ability_options": ability_options,
+                        "ability_selection": (
+                            "choice"
+                            if isinstance(ability, dict) and isinstance(ability.get("choose"), list)
+                            else "inherited"
+                            if ability == "inherit"
+                            else "fixed"
+                            if ability_fixed
+                            else None
+                        ),
+                        "source_rule": source_rule,
+                        "choice_group": shared_choice_key,
+                        "choice_option": option_keys.get(group.get("name")),
+                        "unresolved_details": None,
+                    }
+                )
+                return
+            reference = source_ref(snapshot, "spell", "spell", node, strip_suffix=True)
+            path_before_daily = path[: path.index("daily")] if "daily" in path else path
+            level_tokens = [
+                int(token)
+                for token in path_before_daily
+                if str(token).isdigit() and 1 <= int(token) <= 20
+            ]
+            class_level = level_tokens[0] if level_tokens else default_level
+            if any(re.fullmatch(r"s\d+", str(token)) for token in path):
+                access_name = "expanded"
+            ability = group.get("ability")
+            ability_fixed = (
+                ability.lower()
+                if isinstance(ability, str) and ability.lower() in ABILITY_KEYS
+                else None
+            )
+            ability_options = (
+                [
+                    str(item).lower()
+                    for item in ability["choose"]
+                    if str(item).lower() in ABILITY_KEYS
+                ]
+                if isinstance(ability, dict) and isinstance(ability.get("choose"), list)
+                else [ability_fixed]
+                if ability_fixed
+                else []
+            )
+            rows.append(
+                {
+                    "access": access_name,
+                    "class_level": class_level,
+                    "level_scope": level_scope,
+                    "spells": [reference],
+                    "ability": ability_fixed,
+                    "ability_options": ability_options,
+                    "ability_selection": (
+                        "choice"
+                        if isinstance(ability, dict) and isinstance(ability.get("choose"), list)
+                        else "inherited"
+                        if ability == "inherit"
+                        else "fixed"
+                        if ability_fixed
+                        else None
+                    ),
+                    "source_rule": source_rule,
+                    "choice_group": shared_choice_key,
+                    "choice_option": option_keys.get(group.get("name")),
+                    "unresolved_details": None if reference["resolved"] else node,
+                }
+            )
+
+    for index, group in enumerate(groups):
+        if not isinstance(group, dict):
+            continue
+        for access_name, source_name in access_names.items():
+            if source_name in group:
+                add_from_node(group[source_name], access_name, group, (source_name,))
+    return rows, choices
+
+
+def _build_character_builder(snapshot, text, output, class_sources, subclass_sources):
+    class_models = {row["local_key"]: row for row in output["classes"]}
+    class_names = {
+        (raw["source"].casefold(), raw["name"].casefold()): local_key
+        for local_key, raw in class_sources.items()
+    }
+    classes, subclasses, feats, species, backgrounds, optional_features = [], [], [], [], [], []
+
+    for class_key, raw in sorted(class_sources.items()):
+        converted = class_models[class_key]
+        primary_options = _source_ability_options(raw)
+        multiclass_requirement = _rule_group(
+            "all",
+            [
+                _rule_leaf("edition", edition="2024"),
+                _rule_leaf("class_entry", entry_mode="multiclass"),
+                _minimum_ability_requirement(primary_options, 13),
+                _rule_leaf("current_class_primary_abilities", minimum=13),
+            ],
+        )
+        start_profile = raw.get("startingProficiencies", {})
+        multi_profile = raw.get("multiclassing", {}).get("proficienciesGained", {})
+        starting_grants, starting_choices = _proficiency_fields(
+            class_key,
+            [
+                (f"starting.{field}", value, kind)
+                for field, value, kind in (
+                    ("skills", start_profile.get("skills"), "skill"),
+                    ("weapons", start_profile.get("weapons"), "weapon"),
+                    ("armor", start_profile.get("armor"), "armor"),
+                    ("tools", start_profile.get("tools"), "tool"),
+                    ("languages", start_profile.get("languages"), "language"),
+                )
+                if value is not None
+            ],
+        )
+        multiclass_grants, multiclass_choices = _proficiency_fields(
+            class_key,
+            [
+                (f"multiclass.{field}", value, kind)
+                for field, value, kind in (
+                    ("skills", multi_profile.get("skills"), "skill"),
+                    ("weapons", multi_profile.get("weapons"), "weapon"),
+                    ("armor", multi_profile.get("armor"), "armor"),
+                    ("tools", multi_profile.get("tools"), "tool"),
+                    ("languages", multi_profile.get("languages"), "language"),
+                )
+                if value is not None
+            ],
+        )
+        # Saving throw proficiency is a distinct grant and comes from the class source field.
+        starting_grants.extend(
+            _grant(
+                class_key,
+                "starting.saving-throw",
+                "proficiency",
+                ability,
+                proficiency_kind="saving_throw",
+            )
+            for ability in raw.get("proficiency", [])
+            if str(ability).lower() in ABILITY_KEYS
+        )
+        starting_equipment = raw.get("startingEquipment", {})
+        equipment = _equipment_choice(
+            snapshot,
+            class_key,
+            "class-starting-equipment",
+            starting_equipment.get("defaultData", []),
+            includes_background=bool(starting_equipment.get("additionalFromBackground")),
+        )
+        event_data = defaultdict(
+            lambda: {"grants": [], "choices": [], "title": "Class progression"}
+        )
+        for feature in converted.get("features", []):
+            feature_key = feature["feature_key"]
+            level = int(feature["level"])
+            reference = {
+                "kind": "class_feature",
+                "identity": f"{DATASET_ID}:{class_key}#{feature_key}",
+                "resolved": True,
+            }
+            event = event_data[level]
+            event["title"] = feature["title"]
+            event["grants"].append(
+                _grant(class_key, f"class-feature.{feature_key}", "feature", reference=reference)
+            )
+            if "ability score improvement" in feature["title"].casefold():
+                event["choices"].append(
+                    {
+                        "choice_key": builder_key("choice", class_key, "general-feat", level),
+                        "kind": "feat",
+                        "count": 1,
+                        "criteria": {"kind": "feat_category", "values": ["G"]},
+                        "source_rule": f"{class_key}.level.{level}.feat-choice",
+                    }
+                )
+        selection_levels = [
+            int(ref.get("classFeature", ref).split("|")[3])
+            for ref in raw.get("classFeatures", [])
+            if isinstance(ref, dict)
+            and ref.get("gainSubclassFeature")
+            and isinstance(ref.get("classFeature"), str)
+            and len(ref["classFeature"].split("|")) > 3
+            and ref["classFeature"].split("|")[3].isdigit()
+        ]
+        if not selection_levels:
+            child_levels = [
+                feature["level"]
+                for sub in converted.get("subclasses", [])
+                for feature in sub.get("features", [])
+            ]
+            if child_levels:
+                selection_levels = [min(child_levels)]
+        selection_level = min(selection_levels) if selection_levels else None
+        owner_subclasses = [
+            row
+            for row in subclass_sources.values()
+            if row.get("className", "").casefold() == raw["name"].casefold()
+            and row.get("classSource", "PHB").casefold() == raw["source"].casefold()
+        ]
+        if selection_level and owner_subclasses:
+            event_data[selection_level]["title"] = raw.get("subclassTitle", "Subclass")
+            options = []
+            for sub in sorted(owner_subclasses, key=uid):
+                sub_key = snapshot.stable_keys[("subclass", uid(sub, "subclass"))]
+                options.append(
+                    {
+                        "option_key": builder_key("option", class_key, "subclass", sub_key),
+                        "label": sub["name"],
+                        "reference": {
+                            "kind": "subclass",
+                            "identity": f"{DATASET_ID}:{sub_key}",
+                            "resolved": True,
+                        },
+                    }
+                )
+            event_data[selection_level]["choices"].append(
+                {
+                    "choice_key": builder_key("choice", class_key, "subclass"),
+                    "kind": "subclass",
+                    "count": 1,
+                    "options": options,
+                    "source_rule": f"{class_key}.subclass-selection",
+                }
+            )
+        for progression in raw.get("featProgression", []):
+            categories = progression.get("category", [])
+            if not categories:
+                continue
+            counts = progression.get("progression", {})
+            for level_text, count in sorted(counts.items(), key=lambda row: int(row[0])):
+                level = int(level_text)
+                if not 1 <= level <= 20 or not isinstance(count, int) or count < 1:
+                    continue
+                event_data[level]["title"] = progression.get("name", "Feat choice")
+                event_data[level]["choices"].append(
+                    {
+                        "choice_key": builder_key(
+                            "choice", class_key, "feat-progression", level, categories
+                        ),
+                        "kind": "feat",
+                        "count": count,
+                        "criteria": {"kind": "feat_category", "values": sorted(categories)},
+                        "source_rule": f"{class_key}.feat-progression.{level}",
+                    }
+                )
+        for progression in raw.get("optionalfeatureProgression", []):
+            values = progression.get("progression", [])
+            previous = 0
+            for level in range(1, 21):
+                total = _progression_count(values, level)
+                count = max(0, total - previous)
+                previous = total
+                if count:
+                    event_data[level]["title"] = progression.get("name", "Optional feature choice")
+                    event_data[level]["choices"].append(
+                        {
+                            "choice_key": builder_key(
+                                "choice",
+                                class_key,
+                                "optional-feature",
+                                level,
+                                progression.get("featureType", []),
+                            ),
+                            "kind": "optional_feature",
+                            "count": count,
+                            "criteria": {
+                                "kind": "optional_feature_type",
+                                "values": sorted(progression.get("featureType", [])),
+                            },
+                            "source_rule": f"{class_key}.optional-feature-progression.{level}",
+                        }
+                    )
+        for group in raw.get("classTableGroups", []):
+            labels = [
+                re.sub(r"\{@filter ([^|]+)\|.*?}", r"\1", str(label)).casefold()
+                for label in group.get("colLabels", [])
+            ]
+            mastery_column = next(
+                (i for i, label in enumerate(labels) if "weapon mastery" in label), None
+            )
+            if mastery_column is None:
+                continue
+            previous = 0
+            mastery_rules = [
+                row["local_key"]
+                for row in output["rules"]
+                if row.get("section") == "Weapon Masteries"
+            ]
+            for level, values in enumerate(group.get("rows", [])[:20], 1):
+                total = (
+                    int(values[mastery_column])
+                    if len(values) > mastery_column and str(values[mastery_column]).isdigit()
+                    else previous
+                )
+                count = max(0, total - previous)
+                previous = total
+                if count:
+                    event_data[level]["title"] = "Weapon Mastery"
+                    event_data[level]["choices"].append(
+                        {
+                            "choice_key": builder_key("choice", class_key, "weapon-mastery", level),
+                            "kind": "weapon_mastery",
+                            "count": count,
+                            "criteria": {
+                                "kind": "weapon_mastery",
+                                "values": mastery_rules or ["published"],
+                                "filters": {"requires_weapon_proficiency": True},
+                            },
+                            "source_rule": f"{class_key}.weapon-mastery.{level}",
+                        }
+                    )
+        events = [
+            {
+                "event_key": builder_key("event", class_key, level),
+                "level": level,
+                "title": values["title"],
+                "source_rule": f"{class_key}.level.{level}",
+                "grants": values["grants"],
+                "choices": values["choices"],
+            }
+            for level, values in sorted(event_data.items())
+            if values["grants"] or values["choices"]
+        ]
+        classes.append(
+            {
+                "class_key": class_key,
+                "name": raw["name"],
+                "source": raw["source"],
+                "progression": converted["progression"],
+                "primary_ability_options": primary_options,
+                "starting_grants": starting_grants,
+                "starting_choices": starting_choices,
+                "multiclass_grants": multiclass_grants,
+                "multiclass_choices": multiclass_choices,
+                "multiclass_requirement": multiclass_requirement,
+                "subclass_selection_level": selection_level,
+                "starting_equipment": equipment,
+                "progression_events": events,
+                "spellcasting": _spellcasting_rules(
+                    raw, "class", class_key, snapshot, classes_by_name=class_names
+                ),
+            }
+        )
+
+    class_rules = {item["class_key"]: item for item in classes}
+    for class_key, raw in sorted(class_sources.items()):
+        converted_class = class_models[class_key]
+        selection_level = class_rules[class_key]["subclass_selection_level"] or 3
+        for raw_subclass in sorted(
+            (
+                row
+                for row in subclass_sources.values()
+                if row.get("className", "").casefold() == raw["name"].casefold()
+                and row.get("classSource", "PHB").casefold() == raw["source"].casefold()
+            ),
+            key=uid,
+        ):
+            subclass_key = snapshot.stable_keys[("subclass", uid(raw_subclass, "subclass"))]
+            converted = next(
+                row for row in converted_class["subclasses"] if row["subclass_key"] == subclass_key
+            )
+            events = []
+            for feature in converted.get("features", []):
+                feature_key = feature["feature_key"]
+                reference = {
+                    "kind": "subclass_feature",
+                    "identity": f"{DATASET_ID}:{subclass_key}#{feature_key}",
+                    "resolved": True,
+                }
+                events.append(
+                    {
+                        "event_key": builder_key(
+                            "event", subclass_key, feature["level"], feature_key
+                        ),
+                        "level": feature["level"],
+                        "title": feature["title"],
+                        "source_rule": f"{subclass_key}.level.{feature['level']}",
+                        "grants": [
+                            _grant(
+                                subclass_key,
+                                f"feature.{feature_key}",
+                                "feature",
+                                reference=reference,
+                            )
+                        ],
+                        "choices": [],
+                    }
+                )
+            subclass_spell_record = dict(raw_subclass)
+            subclass_spell_record.setdefault(
+                "casterProgression", raw_subclass.get("casterProgression")
+            )
+            subclasses.append(
+                {
+                    "subclass_key": subclass_key,
+                    "class_key": class_key,
+                    "name": converted["name"],
+                    "source": converted["source"],
+                    "selection_level": selection_level,
+                    "progression_events": events,
+                    "spellcasting": _spellcasting_rules(
+                        subclass_spell_record,
+                        "subclass",
+                        subclass_key,
+                        snapshot,
+                        table_groups=raw_subclass.get("subclassTableGroups", []),
+                        classes_by_name=class_names,
+                    ),
+                }
+            )
+
+    classes_by_name = class_names
+    for raw in snapshot.records["feat"]:
+        feat_key = snapshot.stable_keys.get(("feat", uid(raw, "feat")))
+        if feat_key is None:
+            continue
+        grants, choices = _ability_choices(
+            feat_key, raw.get("ability", []), f"{feat_key}.ability-score"
+        )
+        for field, kind in (
+            ("skillProficiencies", "skill"),
+            ("toolProficiencies", "tool"),
+            ("weaponProficiencies", "weapon"),
+            ("armorProficiencies", "armor"),
+            ("languageProficiencies", "language"),
+        ):
+            if field in raw:
+                extra_grants, extra_choices = _proficiency_fields(
+                    feat_key, [(field, raw[field], kind)]
+                )
+                grants.extend(extra_grants)
+                choices.extend(extra_choices)
+        spell_access, spell_choices = _spell_access_rules(
+            raw, feat_key, snapshot, classes_by_name, f"{feat_key}.additional-spells"
+        )
+        feats.append(
+            {
+                "feat_key": feat_key,
+                "source": raw["source"],
+                "category": FEAT_CATEGORIES.get(
+                    raw.get("category"), str(raw.get("category", "unknown"))
+                ),
+                "prerequisite": _source_requirement(
+                    raw.get("prerequisite"), snapshot, classes_by_name
+                ),
+                "repeatable": bool(raw.get("repeatable", False)),
+                "ability_choices": choices,
+                "spell_choices": spell_choices,
+                "grants": grants,
+                "spell_access": spell_access,
+            }
+        )
+
+    for raw in snapshot.select("optionalfeature"):
+        option_key = local_key("optional-feature", raw)
+        snapshot.track("optionalfeature", raw, option_key)
+        optional_features.append(
+            {
+                "option_key": option_key,
+                "name": raw["name"],
+                "source": raw["source"],
+                "option_type": (raw.get("featureType") or ["unknown"])[0],
+                "feature_types": sorted(raw.get("featureType", [])),
+                "prerequisite": _source_requirement(
+                    raw.get("prerequisite"), snapshot, classes_by_name
+                ),
+                "repeatable": bool(raw.get("repeatable", False)),
+                "description": text.render(raw.get("entries", []), raw),
+            }
+        )
+
+    for raw in snapshot.select("race"):
+        species_key = local_key("species", raw)
+        snapshot.track("species", raw, species_key)
+        fluff = snapshot.index.get(("raceFluff", f"{raw['name']}|{raw['source']}".lower()))
+        grants, choices = [], []
+        raw_size = raw.get("size", ["M"])
+        raw_size = raw_size if isinstance(raw_size, list) else [raw_size]
+        sizes = [
+            {"S": "small", "M": "medium", "L": "large", "T": "tiny", "H": "huge"}.get(
+                str(value), "medium"
+            )
+            for value in raw_size
+        ]
+        if len(sizes) == 1:
+            grants.append(_grant(species_key, f"{species_key}.size", "size", sizes[0]))
+        else:
+            choices.append(
+                {
+                    "choice_key": builder_key("choice", species_key, "size"),
+                    "kind": "size",
+                    "count": 1,
+                    "options": [
+                        {
+                            "option_key": builder_key("option", species_key, size),
+                            "label": size.title(),
+                            "value": size,
+                        }
+                        for size in sorted(set(sizes))
+                    ],
+                    "source_rule": f"{species_key}.size",
+                }
+            )
+        creature_types = [str(value).casefold() for value in raw.get("creatureTypes", ["humanoid"])]
+        for creature_type in creature_types:
+            grants.append(
+                _grant(species_key, f"{species_key}.creature-type", "creature_type", creature_type)
+            )
+        raw_speed = raw.get("speed", 30)
+        movement = []
+        if isinstance(raw_speed, int):
+            movement = [{"kind": "walk", "feet": raw_speed}]
+        elif isinstance(raw_speed, dict):
+            movement = [
+                {"kind": key.casefold(), "feet": int(value)}
+                for key, value in sorted(raw_speed.items())
+                if key.casefold() in {"walk", "burrow", "climb", "fly", "swim"}
+                and isinstance(value, (int, float))
+            ]
+        for speed in movement:
+            grants.append(
+                _grant(
+                    species_key,
+                    f"{species_key}.speed.{speed['kind']}",
+                    "speed",
+                    str(speed["feet"]),
+                    quantity=speed["feet"],
+                    unit=speed["kind"],
+                )
+            )
+        darkvision = raw.get("darkvision")
+        if isinstance(darkvision, int):
+            grants.append(
+                _grant(
+                    species_key,
+                    f"{species_key}.darkvision",
+                    "darkvision",
+                    str(darkvision),
+                    quantity=darkvision,
+                    unit="feet",
+                )
+            )
+        for field, kind in (
+            ("skillProficiencies", "skill"),
+            ("toolProficiencies", "tool"),
+            ("weaponProficiencies", "weapon"),
+            ("armorProficiencies", "armor"),
+            ("languageProficiencies", "language"),
+        ):
+            if field in raw:
+                extra_grants, extra_choices = _proficiency_fields(
+                    species_key, [(field, raw[field], kind)]
+                )
+                grants.extend(extra_grants)
+                choices.extend(extra_choices)
+        for feat_index, spec in enumerate(raw.get("feats", [])):
+            if not isinstance(spec, dict):
+                continue
+            if "anyFromCategory" in spec:
+                details = spec["anyFromCategory"]
+                choices.append(
+                    {
+                        "choice_key": builder_key("choice", species_key, "feat", feat_index),
+                        "kind": "feat",
+                        "count": int(details.get("count", 1)),
+                        "criteria": {
+                            "kind": "feat_category",
+                            "values": details.get("category", []),
+                        },
+                        "source_rule": f"{species_key}.feat-choice",
+                    }
+                )
+            else:
+                for identity in sorted(spec):
+                    reference = source_ref(snapshot, "feat", "feat", identity)
+                    if reference["resolved"]:
+                        grants.append(
+                            _grant(
+                                species_key,
+                                f"{species_key}.feat.{feat_index}",
+                                "feat",
+                                reference=reference,
+                            )
+                        )
+        traits = []
+        raw_entries = raw.get("entries") or (fluff.get("entries", []) if fluff else [])
+        description = text.render(raw_entries, raw)
+        for index, entry in enumerate(raw_entries if isinstance(raw_entries, list) else []):
+            if isinstance(entry, dict) and entry.get("name"):
+                body = text.render(entry.get("entries", entry.get("entry", [])), raw)
+                if body.strip():
+                    traits.append(
+                        {
+                            "trait_key": builder_key("trait", species_key, entry["name"]),
+                            "name": inline(entry["name"]),
+                            "description": body,
+                            "source_rule": f"{species_key}.trait.{index}",
+                        }
+                    )
+        if not traits and description.strip():
+            traits.append(
+                {
+                    "trait_key": builder_key("trait", species_key, "species-traits"),
+                    "name": "Species Traits",
+                    "description": description,
+                    "source_rule": f"{species_key}.traits",
+                }
+            )
+        spell_access, spell_choices = _spell_access_rules(
+            raw,
+            species_key,
+            snapshot,
+            classes_by_name,
+            f"{species_key}.additional-spells",
+            default_level=1,
+            level_scope="total",
+        )
+        choices.extend(spell_choices)
+        species.append(
+            {
+                "species_key": species_key,
+                "name": raw["name"],
+                "source": raw["source"],
+                "creature_types": creature_types,
+                "sizes": sorted(set(sizes)),
+                "movement": movement or [{"kind": "walk", "feet": 30}],
+                "darkvision_feet": darkvision if isinstance(darkvision, int) else None,
+                "grants": grants,
+                "choices": choices,
+                "traits": traits,
+                "spell_access": spell_access,
+                "description": description,
+            }
+        )
+
+    for raw in snapshot.select("background"):
+        background_key = local_key("background", raw)
+        snapshot.track("background", raw, background_key)
+        fluff = snapshot.index.get(
+            ("backgroundFluff", f"{raw['name']}|{raw['source']}".lower())
+        )
+        grants, choices = _ability_choices(
+            background_key,
+            raw.get("ability", []),
+            f"{background_key}.ability-score",
+            background=True,
+        )
+        for field, kind in (
+            ("skillProficiencies", "skill"),
+            ("toolProficiencies", "tool"),
+            ("weaponProficiencies", "weapon"),
+            ("armorProficiencies", "armor"),
+            ("languageProficiencies", "language"),
+        ):
+            if field in raw:
+                extra_grants, extra_choices = _proficiency_fields(
+                    background_key, [(field, raw[field], kind)]
+                )
+                grants.extend(extra_grants)
+                choices.extend(extra_choices)
+        feat_reference = None
+        origin_feat_variant = None
+        for feat_group in raw.get("feats", []):
+            if isinstance(feat_group, dict):
+                if "anyFromCategory" in feat_group:
+                    details = feat_group["anyFromCategory"]
+                    choices.append(
+                        {
+                            "choice_key": builder_key("choice", background_key, "origin-feat"),
+                            "kind": "feat",
+                            "count": int(details.get("count", 1)),
+                            "criteria": {
+                                "kind": "feat_category",
+                                "values": details.get("category", []),
+                            },
+                            "source_rule": f"{background_key}.origin-feat",
+                        }
+                    )
+                    continue
+                for identity in sorted(feat_group):
+                    candidate = source_ref(snapshot, "feat", "feat", identity)
+                    if not candidate["resolved"] and ";" in identity:
+                        feat_identity, variant_and_source = identity.split(";", 1)
+                        origin_feat_variant, separator, source_code = variant_and_source.partition(
+                            "|"
+                        )
+                        source_identity = (
+                            f"{feat_identity.strip()}|{source_code.strip()}"
+                            if separator
+                            else feat_identity.strip()
+                        )
+                        candidate = source_ref(snapshot, "feat", "feat", source_identity)
+                    if candidate["resolved"]:
+                        feat_reference = candidate
+                    else:
+                        feat_reference = candidate
+        if feat_reference and feat_reference["resolved"]:
+            grants.append(
+                _grant(
+                    background_key,
+                    f"{background_key}.origin-feat",
+                    "feat",
+                    value=origin_feat_variant.strip() if origin_feat_variant else None,
+                    reference=feat_reference,
+                )
+            )
+        equipment = _equipment_choice(
+            snapshot,
+            background_key,
+            "background-starting-equipment",
+            raw.get("startingEquipment", []),
+        )
+        backgrounds.append(
+            {
+                "background_key": background_key,
+                "name": raw["name"],
+                "source": raw["source"],
+                "grants": grants,
+                "choices": choices,
+                "origin_feat": feat_reference,
+                "origin_feat_variant": origin_feat_variant.strip() if origin_feat_variant else None,
+                "starting_equipment": equipment,
+                "description": text.render(
+                    raw.get("entries") or (fluff.get("entries", []) if fluff else []), raw
+                ),
+            }
+        )
+
+    equipment_rows = []
+    source_items = {}
+    for category in ("baseitem", "item"):
+        for raw in snapshot.records[category]:
+            stable_key = snapshot.stable_keys.get(("item", uid(raw)))
+            if stable_key:
+                source_items[stable_key] = raw
+    for row in snapshot.inventory["item"]:
+        if row.get("variant") and row.get("base"):
+            base = snapshot.index.get(("baseitem", row["base"]))
+            if base is not None:
+                source_items[row["stable_key"]] = base
+    for item in output["items"]["items"]:
+        if snapshot.source_editions.get(item["source"]) != "2024":
+            continue
+        raw = source_items.get(item["local_key"])
+        if raw is None and item.get("kind") not in {"weapon", "armor"}:
+            continue
+        raw = raw or {}
+        type_code = str(raw.get("type", "")).split("|")[0].upper()
+        is_weapon = bool(item.get("weapon")) or type_code in {"M", "R"}
+        is_armor = bool(item.get("armor")) or type_code in {"LA", "MA", "HA", "S"}
+        category = "weapon" if is_weapon else "armor" if is_armor else "other"
+        if category == "other":
+            continue
+        row = {"item_key": item["local_key"], "source": item["source"], "category": category}
+        if is_weapon:
+            weapon = item.get("weapon") or {}
+            weapon_category = str(raw.get("weaponCategory", item.get("subtype", ""))).lower()
+            unresolved_fields = []
+            if weapon_category not in {"simple", "martial"}:
+                weapon_category = None
+                unresolved_fields.append("weapon_category")
+            attack_type = "ranged" if type_code == "R" else "melee" if type_code == "M" else None
+            if attack_type is None:
+                unresolved_fields.append("attack_type")
+            range_value = raw.get("range")
+            range_feet = []
+            if isinstance(range_value, int) and not isinstance(range_value, bool):
+                range_feet.append(range_value)
+                long_range = raw.get("longRange")
+                if isinstance(long_range, int) and not isinstance(long_range, bool):
+                    range_feet.append(long_range)
+            elif isinstance(range_value, str):
+                range_match = re.fullmatch(r"\s*(\d+)\s*(?:/\s*(\d+)\s*)?", range_value)
+                if range_match is not None:
+                    range_feet = [int(value) for value in range_match.groups() if value is not None]
+            if range_value is not None and not range_feet:
+                unresolved_fields.append("range")
+            row.update(
+                weapon_category=weapon_category,
+                attack_type=attack_type,
+                damage=weapon.get("damage_expression"),
+                damage_type=weapon.get("damage_type"),
+                range_feet=range_feet,
+                properties=[value["property_key"] for value in item.get("properties", [])],
+                versatile_damage=weapon.get("versatile_damage"),
+                unresolved_fields=unresolved_fields,
+            )
+            mastery_refs = []
+            for mastery in raw.get("mastery", []):
+                mastery_uid = mastery.get("uid") if isinstance(mastery, dict) else mastery
+                master_identity = normalized_ref(mastery_uid, "itemMastery")
+                master = snapshot.index.get(
+                    ("itemMastery", master_identity)
+                )
+                if master:
+                    target = text.reference_targets.get(
+                        ("itemMastery", master["source"].casefold(), master["name"].casefold())
+                    )
+                    if target:
+                        mastery_refs.append(
+                            {
+                                "kind": "rule",
+                                "identity": f"{DATASET_ID}:{target[1]}",
+                                "resolved": True,
+                            }
+                        )
+                    else:
+                        mastery_refs.append(
+                            {"kind": "rule", "identity": master_identity, "resolved": False}
+                        )
+                else:
+                    mastery_refs.append(
+                        {"kind": "rule", "identity": str(mastery_uid), "resolved": False}
+                    )
+            row["mastery_references"] = mastery_refs
+            if raw.get("ammoType"):
+                row["ammunition_reference"] = source_ref(snapshot, "item", "item", raw["ammoType"])
+        else:
+            armor = item.get("armor") or {}
+            armor_category = {"LA": "light", "MA": "medium", "HA": "heavy", "S": "shield"}.get(
+                type_code
+            )
+            if armor_category is None:
+                armor_category = str(armor.get("armor_category", "")).casefold()
+                armor_category = next(
+                    (
+                        key
+                        for key in ("light", "medium", "heavy", "shield")
+                        if key in armor_category
+                    ),
+                    None,
+                )
+            if armor_category is None:
+                continue
+            raw_ac = raw.get("ac")
+            if not isinstance(raw_ac, int):
+                ac_match = re.search(r"\d+", str(raw_ac or armor.get("ac_expression", "")))
+                if ac_match is None:
+                    continue
+                raw_ac = int(ac_match.group())
+            row.update(
+                armor_category=armor_category,
+                base_ac=raw_ac,
+                dexterity_rule={"LA": "full", "MA": "cap", "HA": "none", "S": "shield_bonus"}.get(
+                    type_code, "none"
+                ),
+                dexterity_cap=2 if type_code == "MA" else None,
+                strength_requirement=int(raw["strength"])
+                if str(raw.get("strength", "")).isdigit()
+                else None,
+                stealth_disadvantage=bool(raw.get("stealth")),
+            )
+        equipment_rows.append(row)
+
+    catalog = {
+        "edition": "2024",
+        "skills": [
+            {"key": key, "name": name, "ability": ability} for key, name, ability in BUILDER_SKILLS
+        ],
+        "classes": classes,
+        "subclasses": subclasses,
+        "feats": feats,
+        "species": species,
+        "backgrounds": backgrounds,
+        "optional_features": optional_features,
+        "equipment": equipment_rows,
+    }
+    return CharacterBuilderCatalog.model_validate(catalog).model_dump(mode="json")
+
+
 def build(root, revision):
     snapshot = Snapshot(root)
     text = Text(snapshot)
     for r in snapshot.records["condition"]:
         if r["source"] in BOOKS and not exclusion(r):
             text.reference_targets[("condition", r["source"].casefold(), r["name"].casefold())] = (
-                "condition", local_key("condition", r)
+                "condition",
+                local_key("condition", r),
             )
     for category in ("variantrule", "action"):
         for r in snapshot.records[category]:
@@ -1249,7 +3035,8 @@ def build(root, revision):
                 and not exclusion(r)
             ):
                 text.reference_targets[(category, r["source"].casefold(), r["name"].casefold())] = (
-                    "rule", local_key("rule", r)
+                    "rule",
+                    local_key("rule", r),
                 )
     for category, allowed_names in (
         ("status", STATUS_GLOSSARY_NAMES),
@@ -1258,7 +3045,8 @@ def build(root, revision):
         for r in snapshot.records[category]:
             if r["name"] in allowed_names and r["source"] in snapshot.source_editions:
                 text.reference_targets[(category, r["source"].casefold(), r["name"].casefold())] = (
-                    "rule", local_key("rule", r)
+                    "rule",
+                    local_key("rule", r),
                 )
     classes = snapshot.select("class")
     class_keys = {(r["source"].lower(), r["name"].lower()): local_key("class", r) for r in classes}
@@ -1302,8 +3090,7 @@ def build(root, revision):
                 continue
             converted = base_entry("rule", r, text)
             converted["section"] = (
-                RULE_TYPE_LABELS.get(r.get("ruleType"))
-                if category == "variantrule" else "Actions"
+                RULE_TYPE_LABELS.get(r.get("ruleType")) if category == "variantrule" else "Actions"
             )
             output["rules"].append(converted)
             snapshot.track("rule", r, converted["local_key"])
@@ -1398,6 +3185,13 @@ def build(root, revision):
     }
     for category in ("classes", "spells", "feats", "conditions", "rules"):
         output[category].sort(key=lambda v: v["local_key"])
+    class_source_map = {local_key("class", record): record for record in classes}
+    subclass_source_map = {
+        uid(record, "subclass"): record for rows in subclasses.values() for record in rows
+    }
+    output["character_builder"] = _build_character_builder(
+        snapshot, text, output, class_source_map, subclass_source_map
+    )
     output["manifest"] = {
         "schema_version": "1.0",
         "dataset_id": DATASET_ID,
@@ -1490,7 +3284,13 @@ def json_bytes(value):
 
 def artifacts(pack, snapshot, revision):
     raw = pack.model_dump(mode="json")
-    files = {f"{k}.json": json_bytes(v) for k, v in raw.items()}
+    files = {
+        ("character-builder.json" if key == "character_builder" else f"{key}.json"): json_bytes(
+            value
+        )
+        for key, value in raw.items()
+        if value is not None
+    }
     # Monster Manual records are built by build_monsters_dataset.py from the
     # separately pinned bestiary inputs. Keep that artifact outside this write set.
     files.pop("monsters.json", None)

@@ -22,7 +22,9 @@ from pathlib import Path
 from textual.widgets import ListView
 
 from dndref import __version__
+from dndref.character_creation import CharacterCreationService
 from dndref.config import ApplicationPaths
+from dndref.derived_character import DerivedCharacterService
 from dndref.importer import import_dataset, load_dataset
 from dndref.search import SearchMode, SearchQuery, SearchService
 from dndref.storage.database import MIGRATIONS_DIR, Database
@@ -200,10 +202,54 @@ def main() -> None:
             7,
             8,
             9,
+            10,
+            11,
+            12,
         ]
         assert connection.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 4081
         assert connection.execute("SELECT COUNT(*) FROM entry_search").fetchone()[0] == 4081
+        assert connection.execute(
+            "SELECT COUNT(*) FROM character_builder_owners "
+            "WHERE dataset_id='official-5etools-2024'"
+        ).fetchone()[0] == 2104
+        assert connection.execute(
+            "SELECT COUNT(*) FROM character_rule_choices "
+            "WHERE dataset_id='official-5etools-2024'"
+        ).fetchone()[0] == 433
+        assert connection.execute(
+            "SELECT COUNT(*) FROM character_builder_equipment "
+            "WHERE dataset_id='official-5etools-2024'"
+        ).fetchone()[0] == 1682
+        assert connection.execute("SELECT COUNT(*) FROM user_characters").fetchone()[0] == 0
+        assert connection.execute("SELECT COUNT(*) FROM user_character_currency").fetchone()[0] == 0
         assert not connection.execute("PRAGMA foreign_key_check").fetchall()
+    creation = CharacterCreationService(database)
+    draft = creation.create_draft()
+    assert draft.state == "draft" and draft.total_level == 0
+    assert creation.resume_step(draft.character_id) == "name"
+    assert creation.characters.list_characters()[0].state == "draft"
+    assert creation.characters.delete_character(draft.character_id)
+    assert creation.characters.list_characters() == ()
+    wizard = next(
+        row for row in creation.list_options("class", query="Wizard") if row.name == "Wizard"
+    )
+    created = creation.create_draft()
+    creation.choose_starting_class(created.character_id, wizard.identity)
+    creation.characters.set_ability_state(
+        created.character_id,
+        {"str": 14, "dex": 14, "con": 14, "int": 14, "wis": 14, "cha": 14},
+    )
+    saved = creation.characters.get_character(created.character_id).to_dict()
+    derived = DerivedCharacterService(database, creation.characters).derive_character(
+        created.character_id
+    )
+    assert (derived.total_level, derived.proficiency_bonus.value) == (1, 2)
+    assert len(derived.skills) == 18
+    assert derived.armor_class.value == 12 and derived.hit_points.maximum == 8
+    assert [(slot.spell_level, slot.count) for slot in derived.spell_slots] == [(1, 2)]
+    assert any(profile.owner.name == "Wizard" for profile in derived.spellcasting_profiles)
+    assert creation.characters.get_character(created.character_id).to_dict() == saved
+    assert creation.characters.delete_character(created.character_id)
     service = SearchService(database)
     assert service.search(SearchQuery("items", "Longsword")).total_count
     assert service.search(SearchQuery("spells", "Fireball")).total_count
@@ -238,7 +284,7 @@ def main() -> None:
         assert older.initialize() == (1, 2, 3)
         import_dataset(older, load_dataset(fixture_path))
         upgraded = Database(older.path)
-        assert upgraded.initialize() == (4, 5, 6, 7, 8, 9)
+        assert upgraded.initialize() == (4, 5, 6, 7, 8, 9, 10, 11, 12)
         assert upgraded.initialize() == ()
         assert SearchService(upgraded).search(SearchQuery("items", "Rapier")).total_count
         with upgraded.connection() as connection:

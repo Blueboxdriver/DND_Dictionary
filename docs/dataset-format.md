@@ -12,6 +12,7 @@ dataset/
 ├── monsters.json (optional for older packs)
 ├── conditions.json (optional)
 ├── rules.json (optional)
+├── character-builder.json (optional)
 └── images/
 ```
 
@@ -47,10 +48,18 @@ is `D&D 5.5e / 2024 rules`; a source can carry edition `2024` and title
 
 The category models cover structured spell components, item weapon/armor
 details, feat benefits, class features, subclasses, monsters, conditions, and
-concise Rules glossary records. Rules are curated named concepts, not a complete
-reproduction of a rulebook. Monsters, Conditions, and Rules require canonical
-editions. Prerequisites and rules text remain display content; the models do not
-implement a rules engine.
+concise Rules glossary records. The optional `character-builder.json` file uses
+the `CharacterBuilderCatalog` model for class progression, grants, choices,
+requirements, spellcasting, species, backgrounds, feats, optional features,
+skills, and weapon/armor metadata. It is edition-scoped and references local
+content with stable `dataset_id:local_key` identities. Choice identity is scoped
+by owner type and owner key as well as the choice key. Omitting this file leaves
+the reference pack format unchanged.
+
+Rules are curated named concepts, not a complete reproduction of a rulebook.
+Monsters, Conditions, and Rules require canonical editions. Prerequisites and
+rules text remain display content; the models do not implement a complete rules
+engine or saved-character state.
 
 ## Import and storage
 
@@ -78,5 +87,5 @@ PYTHONPATH=src .venv/bin/python -m dndref.models.schema --output schemas
 ```
 
 This writes deterministic `manifest.schema.json`, `items.schema.json`,
-`spells.schema.json`, `feats.schema.json`, `classes.schema.json`, and
-`monsters.schema.json` files.
+`spells.schema.json`, `feats.schema.json`, `classes.schema.json`,
+`monsters.schema.json`, and `character-builder.schema.json` files.

@@ -122,6 +122,16 @@ from .item import (
     WeaponDetails,
 )
 from .monster import Monster, MonsterAbility, cr_value
+from .progression import (
+    AdvancementOption,
+    LevelUpPreview,
+    ProgressionChoice,
+    ProgressionChoiceOption,
+    ProgressionEventSummary,
+    ProgressionIssue,
+    ProgressionSpellChoice,
+    SpellProgressionChange,
+)
 from .spell import MagicSchool, Spell, SpellComponents
 
 __all__ = [
@@ -130,6 +140,7 @@ __all__ = [
     "AbilityIncrease",
     "AbilityModification",
     "AbilityScoreResult",
+    "AdvancementOption",
     "AdditionalSection",
     "ArmorClassResult",
     "ArmorDetails",
@@ -189,6 +200,7 @@ __all__ = [
     "ItemPropertyReference",
     "ItemRarity",
     "LocalKey",
+    "LevelUpPreview",
     "MagicSchool",
     "Monster",
     "MonsterAbility",
@@ -199,6 +211,11 @@ __all__ = [
     "OptionCriteria",
     "OptionCriteriaKind",
     "ProgressionEvent",
+    "ProgressionChoice",
+    "ProgressionChoiceOption",
+    "ProgressionEventSummary",
+    "ProgressionIssue",
+    "ProgressionSpellChoice",
     "ProficiencyKind",
     "ProficiencySource",
     "PublishedReference",
@@ -214,6 +231,7 @@ __all__ = [
     "SpellcastingModel",
     "SpellcastingRules",
     "SpellSlotProgression",
+    "SpellProgressionChange",
     "SpellSlot",
     "SpellSelectionResult",
     "SpellcastingProfile",

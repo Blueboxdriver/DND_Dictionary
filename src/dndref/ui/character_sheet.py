@@ -29,6 +29,7 @@ from ..models.derived_character import (
     SpellcastingProfile,
     SpellSelectionResult,
 )
+from .character_screens import ConfirmationScreen
 from .launchers import CommandPaletteScreen
 from .screens import TextEntryScreen
 
@@ -380,6 +381,13 @@ class CharacterSheetScreen(ModalScreen[tuple[object, ...] | None]):
                 action="resume" if self.character.state == "draft" else "edit",
             ),
         )
+        if self.character.state == "complete":
+            if self.character.total_level < 20:
+                rows.insert(2, SheetRow("Level Up", action="level_up"))
+            else:
+                rows.insert(2, SheetRow("Level 20 · Maximum character level"))
+            if self.character.total_level > 1:
+                rows.insert(3, SheetRow("Undo Last Level", action="undo_level"))
         for level in self.character.levels:
             rows.append(
                 _reference_row(
@@ -709,6 +717,10 @@ class CharacterSheetScreen(ModalScreen[tuple[object, ...] | None]):
             self.dismiss(("resume", self.character_id, self.context()))
         elif row.action == "edit":
             self.dismiss(("edit", self.character_id, self.context()))
+        elif row.action == "level_up":
+            self.dismiss(("level_up", self.character_id, self.context()))
+        elif row.action == "undo_level":
+            self._confirm_undo_level()
         elif row.action == "edit_note":
             self.app.push_screen(
                 TextEntryScreen("Character Notes", self.character.notes, multiline=True),
@@ -720,6 +732,19 @@ class CharacterSheetScreen(ModalScreen[tuple[object, ...] | None]):
             return
         self.characters.update_note(self.character_id, result[1])
         self.refresh_character(derive=False)
+
+    def _confirm_undo_level(self) -> None:
+        self.app.push_screen(
+            ConfirmationScreen(
+                f"Remove the latest level from {self.character.name}? Its level-owned "
+                "choices, HP decision, subclass, feats, and spells will be removed."
+            ),
+            self._undo_level_confirmed,
+        )
+
+    def _undo_level_confirmed(self, confirmed: bool) -> None:
+        if confirmed:
+            self.dismiss(("undo_level", self.character_id, self.context()))
 
     def _open_commands(self) -> None:
         commands = [
@@ -737,6 +762,10 @@ class CharacterSheetScreen(ModalScreen[tuple[object, ...] | None]):
                 ("builder", "creation"),
             )
         )
+        if self.character.state == "complete" and self.character.total_level < 20:
+            commands.append(Command("sheet-level-up", "Level Up", ("advance",)))
+        if self.character.state == "complete" and self.character.total_level > 1:
+            commands.append(Command("sheet-undo-level", "Undo Last Level", ("undo",)))
         if self.derived.issues:
             commands.append(
                 Command("sheet-issues", "Review Derived Issues", ("issues", "unresolved"))
@@ -775,6 +804,10 @@ class CharacterSheetScreen(ModalScreen[tuple[object, ...] | None]):
         elif command in {"sheet-resume", "sheet-edit"}:
             action = "resume" if command == "sheet-resume" else "edit"
             self.dismiss((action, self.character_id, self.context()))
+        elif command == "sheet-level-up":
+            self.dismiss(("level_up", self.character_id, self.context()))
+        elif command == "sheet-undo-level":
+            self._confirm_undo_level()
         elif command == "sheet-issues":
             self.app.push_screen(DerivedIssuesScreen(self.derived.issues))
         elif command == "sheet-note":

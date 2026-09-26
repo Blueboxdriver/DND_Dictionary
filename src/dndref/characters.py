@@ -566,6 +566,25 @@ class CharacterService:
         class_identity: str,
         remaining_class_level: int,
     ) -> None:
+        db.execute(
+            "DELETE FROM user_character_currency WHERE character_id=? AND EXISTS ("
+            "SELECT 1 FROM user_character_choices c WHERE c.character_id=? "
+            "AND c.owner_dataset_id=user_character_currency.source_owner_dataset_id "
+            "AND c.owner_type=user_character_currency.source_owner_type "
+            "AND c.owner_key=user_character_currency.source_owner_key "
+            "AND c.choice_key=user_character_currency.source_choice_key "
+            "AND (c.selected_option_key=user_character_currency.source_option_key "
+            "OR (c.selected_option_key IS NULL AND "
+            "user_character_currency.source_option_key IS NULL)) "
+            "AND (c.character_level>=? OR (c.class_identity=? AND c.class_level>?)))",
+            (
+                character_id,
+                character_id,
+                removed_total_level,
+                class_identity,
+                remaining_class_level,
+            ),
+        )
         for table in (
             "user_character_choices",
             "user_character_feats",
@@ -893,6 +912,10 @@ class CharacterService:
                     expected_identity = _canonical_reference(
                         rules_dataset_id, str(option.reference.identity)
                     )
+                    if str(option.reference.kind) == "subclass":
+                        expected_identity = _canonical_subclass_reference(
+                            db, rules_dataset_id, expected_identity
+                        )
                     _validate_published_identity(str(option.reference.kind), expected_identity)
                     if selected_reference is not None and (
                         selected_reference.kind != str(option.reference.kind)
@@ -2014,7 +2037,9 @@ class CharacterService:
                 )
 
         for selection in character.subclasses:
-            dataset_id, subclass_key = _subclass_parts(selection.subclass_reference.identity)
+            dataset_id, _parent_key, subclass_key = _subclass_parts(
+                selection.subclass_reference.identity
+            )
             track_level = character.class_levels.get(selection.class_reference.identity, 0)
             for class_level in range(selection.selected_class_level, track_level + 1):
                 event_rows = db.execute(
@@ -3162,6 +3187,31 @@ def _selection_fingerprint(
 
 def _canonical_reference(owner_dataset_id: str, identity: str) -> str:
     return identity if ":" in identity else f"{owner_dataset_id}:{identity}"
+
+
+def _canonical_subclass_reference(
+    db: sqlite3.Connection, owner_dataset_id: str, identity: str
+) -> str:
+    """Resolve a builder subclass key to its stable parent-scoped character identity."""
+    if ":subclass:" in identity:
+        return identity
+    dataset_id, separator, local_key = identity.partition(":")
+    if not separator:
+        dataset_id, local_key = owner_dataset_id, identity
+    if dataset_id != owner_dataset_id and identity.startswith("subclass/"):
+        dataset_id = owner_dataset_id
+    if not local_key.startswith("subclass/"):
+        return identity
+    row = db.execute(
+        "SELECT parent.local_key,s.subclass_key FROM subclasses s "
+        "JOIN entries parent ON parent.id=s.class_id "
+        "JOIN sources source ON source.id=s.source_id "
+        "WHERE s.dataset_id=? AND s.subclass_key=? AND source.edition='2024'",
+        (dataset_id, local_key),
+    ).fetchone()
+    if row is None:
+        return identity
+    return f"{dataset_id}:subclass:{row[0]}:{row[1]}"
 
 
 def _direct_parts(identity: str) -> tuple[str, str]:

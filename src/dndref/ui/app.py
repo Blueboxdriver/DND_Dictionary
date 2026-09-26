@@ -17,6 +17,7 @@ from textual.widgets import Button, DataTable, Input, Label, ListItem, ListView,
 from textual.worker import Worker, WorkerState
 
 from ..character_creation import CharacterCreationService
+from ..character_progression import CharacterProgressionService
 from ..characters import CharacterService
 from ..commands import Command, CommandRegistry
 from ..config import ApplicationPaths, Config, FilterPreset
@@ -42,6 +43,7 @@ from ..search import (
     normalize_name,
 )
 from ..storage.database import Database
+from .character_progression import CharacterProgressionScreen
 from .character_screens import (
     CharacterBuilderReferenceScreen,
     CharactersScreen,
@@ -412,6 +414,12 @@ class BrowserApp(App[None]):
         self.derived_character_service = DerivedCharacterService(
             self.database, self.character_service
         )
+        self.character_progression = CharacterProgressionService(
+            self.database,
+            self.character_service,
+            self.character_creation,
+            self.derived_character_service,
+        )
         self.commands = CommandRegistry()
         self.personal_view: str | None = None
         self.personal_collection_id: int | None = None
@@ -460,6 +468,9 @@ class BrowserApp(App[None]):
             tuple[str, str, str, int, int, int, int, int, NavigationState | None] | None
         ) = None
         self._pending_character_sheet: (
+            tuple[str, tuple[object, ...], NavigationState | None] | None
+        ) = None
+        self._pending_character_progression: (
             tuple[str, tuple[object, ...], NavigationState | None] | None
         ) = None
         self._character_sheet_builder_return: tuple[str, tuple[object, ...]] | None = None
@@ -1125,6 +1136,18 @@ class BrowserApp(App[None]):
             return
         character_id = sheet.character_id
         context = result[-1] if result and isinstance(result[-1], tuple) else sheet.context()
+        if action == "level_up":
+            self._open_character_progression(character_id, sheet_context=context)
+            return
+        if action == "undo_level":
+            try:
+                self.character_progression.undo_last_level(character_id)
+            except (ValueError, RuntimeError) as exc:
+                self.notify(str(exc), timeout=4)
+            self.call_after_refresh(
+                lambda: self._open_character_sheet(character_id, context=context)
+            )
+            return
         if action == "reference" and len(result) >= 4:
             kind = str(result[1]) if result[1] is not None else ""
             identity = str(result[2])
@@ -1176,6 +1199,97 @@ class BrowserApp(App[None]):
             else:
                 self._character_sheet_builder_return = (character_id, context)
                 self._open_character_wizard(character_id)
+
+    def _open_character_progression(
+        self,
+        character_id: str,
+        *,
+        context: tuple[object, ...] | None = None,
+        sheet_context: tuple[object, ...] | None = None,
+    ) -> None:
+        screen = CharacterProgressionScreen(
+            self.character_progression, character_id, context=context
+        )
+        self.push_screen(
+            screen,
+            lambda result, wizard=screen, sheet_state=sheet_context: (
+                self._character_progression_result(wizard, result, sheet_state)
+            ),
+        )
+
+    def _character_progression_result(
+        self,
+        screen: CharacterProgressionScreen,
+        result: tuple[object, ...] | None,
+        sheet_context: tuple[object, ...] | None,
+    ) -> None:
+        if result is None:
+            self._restore_current_image()
+            return
+        action = str(result[0])
+        character_id = screen.character_id
+        level_context = result[-1] if result and isinstance(result[-1], tuple) else screen.context()
+        if action == "reference" and len(result) >= 4:
+            kind, identity = str(result[1]), str(result[2])
+            if self.cross_references.get_by_id(identity) is None:
+                owner = self.character_creation.get_owner(kind, identity)
+                if owner is not None:
+                    self.push_screen(
+                        CharacterBuilderReferenceScreen(
+                            owner.name,
+                            owner.source_name,
+                            owner.description,
+                            _builder_reference_details(owner.metadata),
+                        ),
+                        lambda _value: self._open_character_progression(
+                            character_id,
+                            context=level_context,
+                            sheet_context=sheet_context,
+                        ),
+                    )
+                    return
+                self.notify("That exact published reference is unavailable.", timeout=3)
+                self.call_after_refresh(
+                    lambda: self._open_character_progression(
+                        character_id,
+                        context=level_context,
+                        sheet_context=sheet_context,
+                    )
+                )
+                return
+            self._commit_current_location()
+            self._pending_character_progression = (
+                character_id,
+                level_context,
+                self.navigation_history.current,
+            )
+            self._navigate_to_identity(identity)
+            return
+        if action == "history" and len(result) >= 2:
+            if result[1] == "alt+left":
+                self._pending_character_progression = None
+                self.action_back()
+            else:
+                self.action_forward()
+            return
+        if action in {"complete", "cancel"}:
+            self._pending_character_progression = None
+            self.call_after_refresh(
+                lambda: self._open_character_sheet(character_id, context=sheet_context)
+            )
+
+    def _resume_character_progression_if_home(self) -> None:
+        pending = self._pending_character_progression
+        current = self.navigation_history.current
+        if pending is None or current is None:
+            return
+        character_id, context, origin = pending
+        if origin is None or current.logical_key != origin.logical_key:
+            return
+        self._pending_character_progression = None
+        self.call_after_refresh(
+            lambda: self._open_character_progression(character_id, context=context)
+        )
 
     def _resume_character_sheet_if_home(self) -> None:
         pending = self._pending_character_sheet
@@ -2582,6 +2696,7 @@ class BrowserApp(App[None]):
                 continue
             self._restore_navigation_state(state)
             self._resume_character_sheet_if_home()
+            self._resume_character_progression_if_home()
             self._resume_character_wizard_if_home()
             return
 

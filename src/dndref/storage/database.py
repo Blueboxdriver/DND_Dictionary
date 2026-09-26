@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 import sqlite3
 from contextlib import contextmanager
+from contextvars import ContextVar
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterator
@@ -22,6 +23,25 @@ class MigrationError(DatabaseError):
 
 class FTS5UnavailableError(DatabaseError):
     """Raised when this Python SQLite build cannot create an FTS5 table."""
+
+
+class _NestedConnection:
+    """Connection facade whose context manager cannot commit an outer transaction."""
+
+    def __init__(self, connection: sqlite3.Connection) -> None:
+        self._connection = connection
+
+    def __getattr__(self, name: str):
+        return getattr(self._connection, name)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, _exc_type, _exc, _traceback) -> None:
+        return None
+
+    def close(self) -> None:
+        return None
 
 
 @dataclass(frozen=True)
@@ -50,9 +70,7 @@ def discover_migrations(directory: Path = MIGRATIONS_DIR) -> tuple[Migration, ..
     for path in sorted(directory.glob("*.sql")):
         match = _MIGRATION_NAME.fullmatch(path.name)
         if match is None:
-            raise MigrationError(
-                f"invalid migration filename {path.name}; expected NNN_name.sql"
-            )
+            raise MigrationError(f"invalid migration filename {path.name}; expected NNN_name.sql")
         version = int(match.group("version"))
         if version in versions:
             raise MigrationError(f"duplicate migration version {version:03d}")
@@ -160,6 +178,9 @@ class Database:
         self.path = Path(path)
         self.migrations_dir = Path(migrations_dir)
         self.profiler = profiler
+        self._active_transaction: ContextVar[sqlite3.Connection | None] = ContextVar(
+            f"dndref_transaction_{id(self)}", default=None
+        )
 
     def connect(self) -> sqlite3.Connection:
         """Open one caller-owned connection with foreign keys enabled."""
@@ -177,10 +198,42 @@ class Database:
     @contextmanager
     def connection(self) -> Iterator[sqlite3.Connection]:
         """Yield a connection and always close it when the operation finishes."""
+        active = self._active_transaction.get()
+        if active is not None:
+            yield _NestedConnection(active)  # type: ignore[misc]
+            return
         connection = self.connect()
         try:
             yield connection
         finally:
+            connection.close()
+
+    @contextmanager
+    def transaction(self) -> Iterator[sqlite3.Connection]:
+        """Run coordinated service writes on one connection with all-or-nothing commit."""
+        active = self._active_transaction.get()
+        if active is not None:
+            savepoint = f"dndref_nested_{id(active)}"
+            active.execute(f"SAVEPOINT {savepoint}")
+            try:
+                yield active
+                active.execute(f"RELEASE SAVEPOINT {savepoint}")
+            except Exception:
+                active.execute(f"ROLLBACK TO SAVEPOINT {savepoint}")
+                active.execute(f"RELEASE SAVEPOINT {savepoint}")
+                raise
+            return
+        connection = self.connect()
+        token = self._active_transaction.set(connection)
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            yield connection
+            connection.commit()
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            self._active_transaction.reset(token)
             connection.close()
 
     def initialize(self) -> tuple[int, ...]:

@@ -216,8 +216,11 @@ validates required choices before marking it complete. See
 Opening a saved character shows its Overview, Skills, Combat, Features, Spells,
 Equipment, and Notes. Section navigation keeps local selection; published
 references use normal dictionary details and Back/Forward history. Drafts retain a
-Resume Character Creation action. See [character sheet](docs/character-sheet.md)
-for multiclass spell profiles, unresolved values, and tracked state limits.
+Resume Character Creation action. Complete 2024 characters can use Level Up to
+advance a class or add a qualifying multiclass through a preview and atomic commit;
+Undo Last Level removes only the latest level. See
+[character sheet](docs/character-sheet.md) for derived statistics and
+[character level-up](docs/character-level-up.md) for progression and undo rules.
 Within Favorites or a collection, `/` searches names, category, tags, and notes;
 Tab to the entries list and use `t`, `e`, and `g` to cycle category, edition,
 and tag filters. In the Collections list, `a` creates, `r` renames, and `x`

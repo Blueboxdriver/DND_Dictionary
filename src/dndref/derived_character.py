@@ -399,7 +399,7 @@ class DerivedCharacterService:
         owner_rows = self._fetch_owner_rows(db, owner_keys)
         requirements = self._fetch_requirements(db, owner_keys)
         grants = self._fetch_grants(db, owner_keys)
-        choices = self._fetch_selections(db, character.character_id)
+        choices = self._fetch_selections(db, character.character_id, character.choices)
         skill_rows = self._fetch_skills(db, character)
         equipment = self._fetch_equipment(db, character.equipment)
         equipment_labels = self._fetch_equipment_labels(db, equipment)
@@ -583,8 +583,10 @@ class DerivedCharacterService:
         )
 
     @staticmethod
-    def _fetch_selections(db: sqlite3.Connection, character_id: str) -> tuple[sqlite3.Row, ...]:
-        return tuple(
+    def _fetch_selections(
+        db: sqlite3.Connection, character_id: str, supplied=()
+    ) -> tuple[object, ...]:
+        persisted = tuple(
             db.execute(
                 "SELECT c.resolution_id,c.owner_dataset_id,c.owner_type,c.owner_key,c.choice_key,"
                 "c.selected_option_key,c.selected_reference_kind,c.selected_reference_identity,"
@@ -601,6 +603,51 @@ class DerivedCharacterService:
                 (character_id,),
             ).fetchall()
         )
+        persisted_ids = {int(row[0]) for row in persisted}
+        preview_rows = []
+        for choice in supplied:
+            if choice.resolution_id >= 0 or choice.resolution_id in persisted_ids:
+                continue
+            definition = db.execute(
+                "SELECT choice_type,criteria_kind FROM character_rule_choices WHERE dataset_id=? "
+                "AND owner_type=? AND owner_key=? AND choice_key=?",
+                (choice.owner_dataset_id, choice.owner_type, choice.owner_key, choice.choice_key),
+            ).fetchone()
+            option = None
+            if choice.selected_option_key is not None:
+                option = db.execute(
+                    "SELECT value,reference_kind,reference_identity FROM "
+                    "character_rule_choice_options WHERE dataset_id=? AND owner_type=? "
+                    "AND owner_key=? AND choice_key=? AND option_key=?",
+                    (
+                        choice.owner_dataset_id,
+                        choice.owner_type,
+                        choice.owner_key,
+                        choice.choice_key,
+                        choice.selected_option_key,
+                    ),
+                ).fetchone()
+            preview_rows.append(
+                (
+                    choice.resolution_id,
+                    choice.owner_dataset_id,
+                    choice.owner_type,
+                    choice.owner_key,
+                    choice.choice_key,
+                    choice.selected_option_key,
+                    choice.selected_reference.kind if choice.selected_reference else None,
+                    choice.selected_reference.identity if choice.selected_reference else None,
+                    choice.selected_value,
+                    choice.resolution_state,
+                    choice.source_rule,
+                    definition[0] if definition else None,
+                    definition[1] if definition else None,
+                    option[0] if option else None,
+                    option[1] if option else None,
+                    option[2] if option else None,
+                )
+            )
+        return (*persisted, *preview_rows)
 
     @staticmethod
     def _fetch_skills(db: sqlite3.Connection, character: Character) -> dict[str, tuple[str, str]]:

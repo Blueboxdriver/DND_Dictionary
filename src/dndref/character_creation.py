@@ -183,13 +183,21 @@ class CharacterCreationService:
         )
 
     def get_owner(self, owner_type: str, identity: str) -> BuilderOwner | None:
-        dataset_id, owner_key = _split_direct_identity(identity)
+        parent_key = None
+        if owner_type == "subclass" and ":subclass:" in identity:
+            dataset_id, tail = identity.split(":subclass:", 1)
+            parent_key, separator, owner_key = tail.partition(":")
+            if not separator or not parent_key or not owner_key:
+                return None
+        else:
+            dataset_id, owner_key = _split_direct_identity(identity)
         with self.database.connection() as db:
             row = db.execute(
                 "SELECT b.name,src.source_key,src.title,src.edition,b.description,b.metadata_json "
                 "FROM character_builder_owners b JOIN sources src ON src.id=b.source_id "
-                "WHERE b.dataset_id=? AND b.owner_type=? AND b.owner_key=? AND b.edition='2024'",
-                (dataset_id, owner_type, owner_key),
+                "WHERE b.dataset_id=? AND b.owner_type=? AND b.owner_key=? AND b.edition='2024' "
+                "AND (? IS NULL OR b.parent_class_key=?)",
+                (dataset_id, owner_type, owner_key, parent_key, parent_key),
             ).fetchone()
         if row is None:
             return None
@@ -1097,8 +1105,12 @@ class CharacterCreationService:
                         continue
                 group = access.get("choice_group")
                 option = access.get("choice_option")
-                if group and option and not self._access_option_selected(
-                    character, owner, str(group), str(option), feat
+                if (
+                    group
+                    and option
+                    and not self._access_option_selected(
+                        character, owner, str(group), str(option), feat
+                    )
                 ):
                     continue
                 messages.add(
@@ -1108,20 +1120,25 @@ class CharacterCreationService:
         return tuple(sorted(messages))
 
     def _owner_choices(
-        self, owner: BuilderOwner, scopes: set[str], character: Character
+        self,
+        owner: BuilderOwner,
+        scopes: set[str],
+        character: Character,
+        *,
+        progression_level: int = 1,
     ) -> tuple[BuilderChoice, ...]:
         if not scopes:
             return ()
         marks = ",".join("?" for _ in scopes)
         event_keys: set[str] = set()
-        if owner.owner_type == "class" and "progression_event" in scopes:
+        if owner.owner_type in {"class", "subclass"} and "progression_event" in scopes:
             with self.database.connection() as db:
                 event_keys = {
                     str(row[0])
                     for row in db.execute(
                         "SELECT event_key FROM class_progression_events WHERE dataset_id=? "
-                        "AND owner_type='class' AND owner_key=? AND class_level=1",
-                        (owner.dataset_id, owner.owner_key),
+                        "AND owner_type=? AND owner_key=? AND class_level=?",
+                        (owner.dataset_id, owner.owner_type, owner.owner_key, progression_level),
                     ).fetchall()
                 }
         with self.database.connection() as db:
@@ -1454,7 +1471,8 @@ class CharacterCreationService:
                     "AND lower(substr(json_extract(mastery.value,'$.identity'), "
                     "instr(json_extract(mastery.value,'$.identity'), ':')+1)) IN ("
                     + ",".join("?" for _ in values)
-                    + ")" + proficiency_clause
+                    + ")"
+                    + proficiency_clause
                     + " AND src.edition='2024' AND (?='' OR e.name LIKE ?) "
                     "ORDER BY e.name COLLATE NOCASE LIMIT ? OFFSET ?",
                     (

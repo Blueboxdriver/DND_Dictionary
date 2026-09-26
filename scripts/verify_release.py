@@ -65,10 +65,13 @@ def audit_artifacts(wheel: Path, sdist: Path) -> None:
         (
             "dndref/characters.py",
             "dndref/character_creation.py",
+            "dndref/character_progression.py",
             "dndref/derived_character.py",
             "dndref/models/character.py",
             "dndref/models/derived_character.py",
+            "dndref/models/progression.py",
             "dndref/ui/character_screens.py",
+            "dndref/ui/character_progression.py",
         )
     )
     expected.update(("dndref/__init__.py", "dndref/__main__.py", "dndref/cli.py"))
@@ -106,14 +109,27 @@ def audit_artifacts(wheel: Path, sdist: Path) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--skip-build", action="store_true", help="verify existing dist artifacts")
+    parser.add_argument(
+        "--outdir",
+        type=Path,
+        default=DIST,
+        help="artifact directory (defaults to the repository dist directory)",
+    )
     args = parser.parse_args()
-    DIST.mkdir(exist_ok=True)
+    output_dir = args.outdir.resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+    wheel_name = f"dnd_reference-{VERSION}-py3-none-any.whl"
+    sdist_name = f"dnd_reference-{VERSION}.tar.gz"
     clean_environment = dict(os.environ)
     clean_environment.pop("PYTHONPATH", None)
     if not args.skip_build:
-        for artifact in DIST.iterdir():
+        for artifact in output_dir.iterdir():
             if artifact.is_file():
+                if artifact.name not in {wheel_name, sdist_name}:
+                    raise RuntimeError(f"refusing to remove unrelated artifact: {artifact}")
                 artifact.unlink()
+            else:
+                raise RuntimeError(f"refusing to replace non-file artifact: {artifact}")
         run(
             sys.executable,
             "-m",
@@ -121,13 +137,14 @@ def main() -> int:
             "--wheel",
             "--sdist",
             "--outdir",
-            str(DIST),
+            str(output_dir),
             env=clean_environment,
         )
-    wheel = DIST / WHEEL_NAME
-    sdist = DIST / SDIST_NAME
-    if {p.name for p in DIST.iterdir()} != {WHEEL_NAME, SDIST_NAME}:
-        raise RuntimeError(f"unexpected dist contents: {sorted(p.name for p in DIST.iterdir())}")
+    wheel = output_dir / WHEEL_NAME
+    sdist = output_dir / SDIST_NAME
+    if {p.name for p in output_dir.iterdir()} != {WHEEL_NAME, SDIST_NAME}:
+        names = sorted(path.name for path in output_dir.iterdir())
+        raise RuntimeError(f"unexpected release contents: {names}")
     audit_artifacts(wheel, sdist)
 
     with tempfile.TemporaryDirectory(prefix="dndref-release-") as temporary:

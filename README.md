@@ -1,3 +1,5 @@
+if it wasn't clear by the jank, this was vibecoded. openai gave me credits for being in college and I wanted to use them
+
 # D&D Reference
 
 D&D Reference (`dndref`) is a Linux-first, offline terminal browser for D&D

@@ -238,6 +238,11 @@ class Snapshot:
         self.hashes = {}
         self.records = defaultdict(list)
         self.index = {}
+        # Copy/inheritance references are requested repeatedly by selection,
+        # expansion, and builder conversion. Cache fully resolved templates;
+        # callers still receive a deep copy so later merge operations cannot
+        # mutate the cache or another record.
+        self._resolved = {}
         self.excluded = []
         self.inventory = defaultdict(list)
         self.used = set()
@@ -336,6 +341,8 @@ class Snapshot:
         token = (category, identity)
         if token in stack:
             raise ValueError(f"Cyclic upstream copy/reference: {token}")
+        if token in self._resolved:
+            return copy.deepcopy(self._resolved[token])
         r = copy.deepcopy(self.index[token])
         if "_copy" not in r:
             return r
@@ -397,6 +404,7 @@ class Snapshot:
                     target[field] = replace(target[field])
                 else:
                     raise ValueError(f"Unsupported copy modification {mode}: {token}")
+        self._resolved[token] = copy.deepcopy(base)
         return base
 
     def select(self, category):
@@ -3216,9 +3224,10 @@ def build(root, revision):
         ],
     }
     pack = validate_dataset(DatasetPack.model_validate(output))
+    used_identities = {(category, identity) for category, identity, _ in snapshot.used}
     for category in ("classFeature", "subclassFeature"):
         for r in snapshot.records[category]:
-            if not any(t[0] == category and t[1] == uid(r, category) for t in snapshot.used):
+            if (category, uid(r, category)) not in used_identities:
                 reason = exclusion(r) or (
                     "embedded-in-feature-text"
                     if (category, uid(r, category)) in snapshot.embedded
@@ -3263,8 +3272,11 @@ def reconcile(pack, snapshot):
             raise ValueError(f"Inventory does not reconcile: {category}")
     items = {i.local_key: i for i in pack.items.items}
     groups_used = set()
+    item_section_keys = {
+        item_key: {section.key for section in item.sections} for item_key, item in items.items()
+    }
     for row in snapshot.inventory["itemGroup"]:
-        if row["stable_key"] not in {s.key for s in items[row["owner"]].sections}:
+        if row["stable_key"] not in item_section_keys[row["owner"]]:
             raise ValueError(f"Embedded item-group ownership does not resolve: {row}")
         groups_used.add(row["upstream_identity"])
     for group in snapshot.records["itemGroup"]:

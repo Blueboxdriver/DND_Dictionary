@@ -325,6 +325,8 @@ def test_unknown_rules_fail_closed_and_templates_preserve_values(upstream):
 
 def test_copy_semantics_and_wrong_feature_owner(upstream):
     snapshot = converter.Snapshot(upstream)
+    snapshot.resolve("item", "Test Charm|XDMG")
+    assert ("item", "test charm|xdmg") not in snapshot._resolved
     snapshot.index[("item", "original|xdmg")] = {
         "name": "Original",
         "source": "XDMG",
@@ -346,6 +348,24 @@ def test_copy_semantics_and_wrong_feature_owner(upstream):
     revised = snapshot.resolve("item", "Revised|AU")
     assert revised["source"] == "AU" and "page" not in revised
     assert revised["inherits"] == {"entries": ["First", "Second"], "rarity": "rare"}
+    revised["inherits"]["entries"].append("caller mutation")
+    assert snapshot.resolve("item", "Revised|AU")["inherits"]["entries"] == [
+        "First",
+        "Second",
+    ]
+    assert ("item", "revised|au") in snapshot._resolved
+    snapshot.index["item", "cycle a|xphb"] = {
+        "name": "Cycle A",
+        "source": "XPHB",
+        "_copy": {"name": "Cycle B", "source": "XPHB"},
+    }
+    snapshot.index["item", "cycle b|xphb"] = {
+        "name": "Cycle B",
+        "source": "XPHB",
+        "_copy": {"name": "Cycle A", "source": "XPHB"},
+    }
+    with pytest.raises(ValueError, match="Cyclic upstream copy/reference"):
+        snapshot.resolve("item", "Cycle A|XPHB")
     with pytest.raises(ValueError, match="wrong class owner"):
         converter.convert_features(
             ["Test Feature|Wizard|XPHB|1"],

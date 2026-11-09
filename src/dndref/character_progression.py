@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import uuid
+from collections import OrderedDict
 from dataclasses import dataclass, field, replace
 
 from .character_builder import evaluate_requirement
@@ -40,6 +41,8 @@ from .models.progression import (
     SpellProgressionChange,
 )
 from .storage.database import Database
+
+_ADVANCEMENT_OPTIONS_CACHE_LIMIT = 16
 
 
 @dataclass
@@ -88,16 +91,22 @@ class CharacterProgressionService:
         self.creation = creation or CharacterCreationService(database, self.characters)
         self.derived = derived or DerivedCharacterService(database, self.characters)
         self._drafts: dict[str, _LevelDraft] = {}
-        self._advancement_options_cache: dict[
-            str, tuple[str, tuple[AdvancementOption, ...]]
-        ] = {}
+        self._advancement_options_cache: OrderedDict[
+            str, tuple[str, tuple[object, ...], tuple[AdvancementOption, ...]]
+        ] = OrderedDict()
 
     def get_advancement_options(self, character_id: str) -> tuple[AdvancementOption, ...]:
         """List current class tracks and all exact 2024 multiclass owners with reasons."""
         character = self.characters.get_character(character_id)
+        dataset_generation = self._dataset_generation()
         cached = self._advancement_options_cache.get(character_id)
-        if cached is not None and cached[0] == character.updated_at:
-            return cached[1]
+        if (
+            cached is not None
+            and cached[0] == character.updated_at
+            and cached[1] == dataset_generation
+        ):
+            self._advancement_options_cache.move_to_end(character_id)
+            return cached[2]
         current = {row.class_reference.identity: row.class_reference for row in character.levels}
         classes = self.creation.list_options("class", limit=50)
         references: dict[str, PublishedReference] = {
@@ -112,6 +121,18 @@ class CharacterProgressionService:
         )
         result: list[AdvancementOption] = []
         derived = self.derived.derive(character) if character.total_level < 20 else None
+        has_new_class = character.total_level < 20 and any(
+            identity not in current for identity in references
+        )
+        requirement_context = (
+            self.creation._requirement_context(character) if has_new_class else None
+        )
+        primary_by_dataset: dict[str, dict[str, list[list[Ability]]]] = {}
+        if has_new_class:
+            for identity in current:
+                dataset_id = identity.split(":", 1)[0] if ":" in identity else ""
+                if dataset_id and dataset_id not in primary_by_dataset:
+                    primary_by_dataset[dataset_id] = self._primary_abilities(character, dataset_id)
         for identity, reference in sorted(
             references.items(), key=lambda item: item[1].name.casefold()
         ):
@@ -120,14 +141,44 @@ class CharacterProgressionService:
             if character.total_level >= 20:
                 status, reason = "unsatisfied", "Character level 20 is the maximum."
             elif is_new:
-                evaluation = self._multiclass_requirement(character, reference, derived)
+                evaluation = self._multiclass_requirement(
+                    character,
+                    reference,
+                    derived,
+                    requirement_context,
+                    primary_by_dataset.get(reference.identity.split(":", 1)[0]),
+                )
                 status, reason = evaluation[0], evaluation[1]
             else:
                 status, reason = "satisfied", "Advance this existing class track."
             result.append(AdvancementOption(reference, level, level + 1, is_new, status, reason))
         options = tuple(result)
-        self._advancement_options_cache[character_id] = (character.updated_at, options)
+        self._advancement_options_cache[character_id] = (
+            character.updated_at,
+            dataset_generation,
+            options,
+        )
+        self._advancement_options_cache.move_to_end(character_id)
+        while len(self._advancement_options_cache) > _ADVANCEMENT_OPTIONS_CACHE_LIMIT:
+            self._advancement_options_cache.popitem(last=False)
         return options
+
+    def _dataset_generation(self) -> tuple[object, ...]:
+        """Return the reference token used to invalidate advancement-option results."""
+
+        with self.database.connection() as db:
+            schema_version = int(db.execute("PRAGMA schema_version").fetchone()[0])
+            rows = db.execute(
+                "SELECT dataset_id,version,content_hash,source_hash "
+                "FROM datasets ORDER BY dataset_id"
+            ).fetchall()
+        return (
+            schema_version,
+            tuple(
+                tuple(str(value) if value is not None else None for value in row)
+                for row in rows
+            ),
+        )
 
     def get_multiclass_options(self, character_id: str) -> tuple[AdvancementOption, ...]:
         return tuple(
@@ -618,6 +669,8 @@ class CharacterProgressionService:
         character: Character,
         reference: PublishedReference,
         derived: DerivedCharacter | None = None,
+        requirement_context=None,
+        class_primary_abilities: dict[str, list[list[Ability]]] | None = None,
     ) -> tuple[str, str]:
         owner = self.creation.get_owner("class", reference.identity)
         if owner is None:
@@ -632,7 +685,7 @@ class CharacterProgressionService:
             if row is None:
                 return "unresolved", "Multiclass prerequisite metadata is missing."
             requirement = Requirement.model_validate(json.loads(str(row[0])))
-            context = self.creation._requirement_context(character)
+            context = requirement_context or self.creation._requirement_context(character)
             final_scores = {
                 Ability(row.ability): row.final
                 for row in (derived or self.derived.derive(character)).ability_scores
@@ -642,7 +695,11 @@ class CharacterProgressionService:
                 identity.split(":", 1)[1]: level
                 for identity, level in character.class_levels.items()
             }
-            primary = self._primary_abilities(character, owner.dataset_id)
+            primary = (
+                dict(class_primary_abilities)
+                if class_primary_abilities is not None
+                else self._primary_abilities(character, owner.dataset_id)
+            )
             primary[owner.owner_key] = self._primary_options(owner.metadata)
             context = context.model_copy(
                 update={

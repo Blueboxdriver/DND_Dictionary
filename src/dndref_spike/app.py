@@ -249,6 +249,10 @@ class SpikeApp(App[None]):
 
     def _update_layout(self, width: int, height: int) -> None:
         image_panel = self.query_one("#image-panel", Container)
+        if width < 80:
+            self.screen.add_class("-narrow")
+        else:
+            self.screen.remove_class("-narrow")
         if width < 50 or height < 16:
             self.layout_mode = "compact"
             self.query_one("#main").display = False

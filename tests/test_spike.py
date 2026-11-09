@@ -33,6 +33,12 @@ async def test_layout_reacts_to_planned_terminal_sizes(
     async with SpikeApp(image_mode="off").run_test(size=size) as pilot:
         assert pilot.app.layout_mode == expected_mode
         assert pilot.app.query_one("#title").renderable == "Emberglass Compass"
+        list_region = pilot.app.query_one("#list-pane").region
+        detail_region = pilot.app.query_one("#detail-pane").region
+        if expected_mode == "stacked":
+            assert detail_region.y > list_region.y
+        else:
+            assert detail_region.x > list_region.x
 
 
 @pytest.mark.asyncio

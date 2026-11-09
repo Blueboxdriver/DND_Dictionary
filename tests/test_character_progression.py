@@ -513,7 +513,7 @@ def test_draft_and_level_cap_block_progression(progression_services) -> None:
 def test_advancement_options_cache_derived_prerequisite_state_until_character_changes(
     progression_services, monkeypatch
 ) -> None:
-    _database, creation, progression = progression_services
+    database, creation, progression = progression_services
     character_id = _complete_character(creation)
     original_derive = progression.derived.derive
     calls = 0
@@ -530,6 +530,33 @@ def test_advancement_options_cache_derived_prerequisite_state_until_character_ch
     progression.characters.rename_character(character_id, "Updated Character")
     progression.get_advancement_options(character_id)
     assert calls == 2
+    with database.connection() as db, db:
+        db.execute(
+            "UPDATE datasets SET content_hash='replaced-rules-generation' "
+            "WHERE dataset_id='official-5etools-2024'"
+        )
+    progression.get_advancement_options(character_id)
+    assert calls == 3
+    with database.connection() as db, db:
+        db.execute(
+            "UPDATE datasets SET source_hash='f' || source_hash "
+            "WHERE dataset_id='official-5etools-2024'"
+        )
+    progression.get_advancement_options(character_id)
+    assert calls == 4
+
+
+def test_advancement_options_cache_is_bounded(progression_services) -> None:
+    _database, creation, progression = progression_services
+    character_ids = []
+    for index in range(17):
+        character = creation.create_draft()
+        character_ids.append(character.character_id)
+        progression.get_advancement_options(character.character_id)
+
+    assert len(progression._advancement_options_cache) == 16
+    assert character_ids[0] not in progression._advancement_options_cache
+    assert character_ids[-1] in progression._advancement_options_cache
 
 
 def test_level_nineteen_can_commit_as_level_twenty(progression_services) -> None:
